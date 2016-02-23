@@ -1,0 +1,6 @@
+framework module Pods_Fomo {
+  umbrella header "Pods-Fomo-umbrella.h"
+
+  export *
+  module * { export * }
+}
