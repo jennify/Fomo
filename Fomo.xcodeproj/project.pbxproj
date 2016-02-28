@@ -8,8 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		7A1390E81C7C47C3001488FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1390E71C7C47C3001488FF /* Images.xcassets */; };
+		7A4629801C82ECE100A27D3B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A46297F1C82ECE100A27D3B /* FBSDKCoreKit.framework */; };
+		7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4629841C82F20200A27D3B /* ItineraryViewController.swift */; };
+		7A4629871C82F2C000A27D3B /* DecisionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4629861C82F2C000A27D3B /* DecisionViewController.swift */; };
+		7A4629891C82F4C600A27D3B /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4629881C82F4C600A27D3B /* FBSDKLoginKit.framework */; };
+		7A46298B1C82FA2000A27D3B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A46298A1C82FA2000A27D3B /* User.swift */; };
 		7AE6D2D31C7C3E0E009ADC3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D21C7C3E0E009ADC3B /* AppDelegate.swift */; };
-		7AE6D2D51C7C3E0E009ADC3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D41C7C3E0E009ADC3B /* ViewController.swift */; };
+		7AE6D2D51C7C3E0E009ADC3B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */; };
 		7AE6D2D81C7C3E0E009ADC3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D61C7C3E0E009ADC3B /* Main.storyboard */; };
 		7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D91C7C3E0E009ADC3B /* Fomo.xcdatamodeld */; };
 		7AE6D2E01C7C3E0E009ADC3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6D2DE1C7C3E0E009ADC3B /* LaunchScreen.storyboard */; };
@@ -18,10 +23,16 @@
 
 /* Begin PBXFileReference section */
 		210733FAC28A8926561A77A2 /* Pods_Fomo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fomo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1390E71C7C47C3001488FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7A1390E71C7C47C3001488FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
+		7A46297F1C82ECE100A27D3B /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-20160210/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		7A4629811C82F0E300A27D3B /* Fomo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fomo-Bridging-Header.h"; sourceTree = "<group>"; };
+		7A4629841C82F20200A27D3B /* ItineraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItineraryViewController.swift; sourceTree = "<group>"; };
+		7A4629861C82F2C000A27D3B /* DecisionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecisionViewController.swift; sourceTree = "<group>"; };
+		7A4629881C82F4C600A27D3B /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		7A46298A1C82FA2000A27D3B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7AE6D2CF1C7C3E0E009ADC3B /* Fomo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fomo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE6D2D21C7C3E0E009ADC3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7AE6D2D41C7C3E0E009ADC3B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7AE6D2D71C7C3E0E009ADC3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7AE6D2DA1C7C3E0E009ADC3B /* Fomo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Fomo.xcdatamodel; sourceTree = "<group>"; };
 		7AE6D2DF1C7C3E0E009ADC3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +47,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D4BD2C03A494A806588BD5F /* Pods_Fomo.framework in Frameworks */,
+				7A4629801C82ECE100A27D3B /* FBSDKCoreKit.framework in Frameworks */,
+				7A4629891C82F4C600A27D3B /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +67,8 @@
 		75CBCE5EC8B6DB9AFE43D07E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A46297F1C82ECE100A27D3B /* FBSDKCoreKit.framework */,
+				7A4629881C82F4C600A27D3B /* FBSDKLoginKit.framework */,
 				210733FAC28A8926561A77A2 /* Pods_Fomo.framework */,
 			);
 			name = Frameworks;
@@ -62,7 +77,9 @@
 		7A1390E41C7C4434001488FF /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7AE6D2D41C7C3E0E009ADC3B /* ViewController.swift */,
+				7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */,
+				7A4629841C82F20200A27D3B /* ItineraryViewController.swift */,
+				7A4629861C82F2C000A27D3B /* DecisionViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -70,6 +87,7 @@
 		7A1390E51C7C443C001488FF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7A46298A1C82FA2000A27D3B /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -81,14 +99,21 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		7A46297E1C82EB0800A27D3B /* API Clients */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "API Clients";
+			sourceTree = "<group>";
+		};
 		7AE6D2C61C7C3E0E009ADC3B = {
 			isa = PBXGroup;
 			children = (
-				7A1390E71C7C47C3001488FF /* Images.xcassets */,
 				7AE6D2D11C7C3E0E009ADC3B /* Fomo */,
 				7AE6D2D01C7C3E0E009ADC3B /* Products */,
 				54D5E109082374681E1662E4 /* Pods */,
 				75CBCE5EC8B6DB9AFE43D07E /* Frameworks */,
+				7A4629811C82F0E300A27D3B /* Fomo-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +128,8 @@
 		7AE6D2D11C7C3E0E009ADC3B /* Fomo */ = {
 			isa = PBXGroup;
 			children = (
+				7A1390E71C7C47C3001488FF /* Images.xcassets */,
+				7A46297E1C82EB0800A27D3B /* API Clients */,
 				7A1390E61C7C4441001488FF /* Views */,
 				7A1390E51C7C443C001488FF /* Models */,
 				7A1390E41C7C4434001488FF /* View Controllers */,
@@ -237,9 +264,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AE6D2D51C7C3E0E009ADC3B /* ViewController.swift in Sources */,
+				7AE6D2D51C7C3E0E009ADC3B /* LoginViewController.swift in Sources */,
 				7AE6D2D31C7C3E0E009ADC3B /* AppDelegate.swift in Sources */,
 				7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */,
+				7A4629871C82F2C000A27D3B /* DecisionViewController.swift in Sources */,
+				7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */,
+				7A46298B1C82FA2000A27D3B /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,10 +383,17 @@
 			baseConfigurationReference = E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					./FacebookSDK,
+					"$(PROJECT_DIR)/FacebookSDK",
+				);
 				INFOPLIST_FILE = Fomo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CodePath.Fomo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Fomo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -365,10 +402,16 @@
 			baseConfigurationReference = DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					./FacebookSDK,
+					"$(PROJECT_DIR)/FacebookSDK",
+				);
 				INFOPLIST_FILE = Fomo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CodePath.Fomo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Fomo-Bridging-Header.h";
 			};
 			name = Release;
 		};

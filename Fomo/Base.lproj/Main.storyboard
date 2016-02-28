@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Fomo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="Fomo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -17,25 +17,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takeflight" translatesAutoresizingMaskIntoConstraints="NO" id="lTI-ag-sLh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fomo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAy-yQ-see">
-                                <rect key="frame" x="103" y="135" width="114.5" height="57"/>
+                                <rect key="frame" x="103" y="60" width="114.5" height="57"/>
                                 <fontDescription key="fontDescription" name="Georgia-Italic" family="Georgia" pointSize="50"/>
-                                <color key="textColor" red="0.92941176470588238" green="0.93725490196078431" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.16862745100000001" green="0.4039215686" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjO-6E-0o8">
-                                <rect key="frame" x="85" y="369" width="150" height="30"/>
-                                <state key="normal" title="Sign in with Facebook">
-                                    <color key="titleColor" red="0.92941176469999998" green="0.93725490199999995" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.16862745098039217" green="0.40392156862745099" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="pjO-6E-0o8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="253-Aw-nRW"/>
+                            <constraint firstAttribute="trailing" secondItem="lTI-ag-sLh" secondAttribute="trailing" id="2uW-pd-AFx"/>
+                            <constraint firstItem="lTI-ag-sLh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="HYb-jp-kvm"/>
+                            <constraint firstItem="lTI-ag-sLh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="I6X-pc-o9K"/>
                             <constraint firstItem="WAy-yQ-see" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Imi-Pl-NBx"/>
-                            <constraint firstItem="WAy-yQ-see" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-120" id="OG4-dz-ljD"/>
-                            <constraint firstItem="pjO-6E-0o8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="100" id="vMM-eO-2ne"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="lTI-ag-sLh" secondAttribute="bottom" id="Ztb-Nr-Q7m"/>
+                            <constraint firstItem="WAy-yQ-see" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="60" id="n9p-oJ-7A0"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -43,6 +42,63 @@
             </objects>
             <point key="canvasLocation" x="162" y="336"/>
         </scene>
+        <!--Itinerary View Controller-->
+        <scene sceneID="vfz-Me-WOi">
+            <objects>
+                <viewController storyboardIdentifier="ItineraryViewController" id="08d-Q6-L1C" customClass="ItineraryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TLW-cd-fHl"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yq0-L7-XgY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pbm-DZ-C8D">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Itinerary View Controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Je2-GG-PkH">
+                                <rect key="frame" x="70" y="79" width="184" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="IDu-a0-8fA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XrD-fo-eHo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1005" y="336"/>
+        </scene>
+        <!--Decision View Controller-->
+        <scene sceneID="3oA-h1-qXL">
+            <objects>
+                <viewController storyboardIdentifier="DecisionViewController" id="aVt-mQ-moh" customClass="DecisionViewController" customModule="Fomo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SmB-ue-Xz9"/>
+                        <viewControllerLayoutGuide type="bottom" id="naU-F6-ftc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DEC-4L-jV9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Decision View Controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DOg-Vn-MTH">
+                                <rect key="frame" x="67" y="68" width="187" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Oz1-SI-0x5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="he3-QT-flh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="614" y="336"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="takeflight" width="2556" height="1202"/>
+    </resources>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
