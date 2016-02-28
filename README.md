@@ -1,6 +1,6 @@
 # Fomo
 
-Authors: Christian Deonier, Connie Yu, Jennifer Lee
+Authors: Christian Deonier!, Connie Yu, Jennifer Lee
 
 Fomo is an app to help plan group trips. Simply enter dates and a location, and you'll start seeing suggested events for your group. You can invite more friends to your trip, and everyone can enter their preferences and vote on events to create the perfect customized travel itinerary for your group.
 
