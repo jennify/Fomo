@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class Attraction: NSObject {
     
@@ -16,8 +17,7 @@ class Attraction: NSObject {
     var reviews: [Review]?
     var types: [AttractionType]?
     var imageUrls: [String]?
-    var lat: Float?
-    var lng: Float?
+    var location: CLLocation?
     var rating: Float?
     var tripEvent: TripEvent?
     

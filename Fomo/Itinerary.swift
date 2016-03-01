@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Trip: NSObject {
+class Itinerary: NSObject {
     
     var id: Int?
     var creator: User?
