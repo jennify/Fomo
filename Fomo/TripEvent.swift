@@ -13,11 +13,20 @@ class TripEvent: NSObject {
     enum Vote: Int {
         case Dislike = 1, Neutral, Like
     }
+    
+    enum EventType: String {
+        case
+        Breakfast = "breakfast",
+        Lunch = "lunch",
+        Dinner = "dinner",
+        MorningOne = "morning",
+        AfternoonOne = "afternoon",
+        EveningOne = "evening"
+    }
 
     var id: Int?
     var attraction: Attraction?
-    var startTime: NSDate?
-    var endTime: NSDate?
+    var eventType: EventType?
     var vote: Vote? // Current user's vote
     var dislikers: [User]?
     var likers: [User]?

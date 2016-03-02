@@ -18,6 +18,6 @@ class Itinerary: NSObject {
     var endDate: [NSDate]?
     var city: City?
     var coverPhotoUrl: String?
-    var tripEvents: [TripEvent]?
+    var days: [Day]?
     
 }
