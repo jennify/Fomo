@@ -19,6 +19,14 @@
 		7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D91C7C3E0E009ADC3B /* Fomo.xcdatamodeld */; };
 		7AE6D2E01C7C3E0E009ADC3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6D2DE1C7C3E0E009ADC3B /* LaunchScreen.storyboard */; };
 		7D4BD2C03A494A806588BD5F /* Pods_Fomo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210733FAC28A8926561A77A2 /* Pods_Fomo.framework */; };
+		AA1DCE881C843DD00088DD27 /* Itinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE871C843DD00088DD27 /* Itinerary.swift */; };
+		AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE891C843E3C0088DD27 /* Attraction.swift */; };
+		AA1DCE8E1C843F8C0088DD27 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE8D1C843F8C0088DD27 /* City.swift */; };
+		AA1DCE901C8440E70088DD27 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE8F1C8440E70088DD27 /* Review.swift */; };
+		AA1DCE921C8441E60088DD27 /* AttractionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE911C8441E50088DD27 /* AttractionType.swift */; };
+		AA1DCE941C8444900088DD27 /* TripEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE931C8444900088DD27 /* TripEvent.swift */; };
+		AA1DCE961C85532F0088DD27 /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE951C85532F0088DD27 /* Recommendation.swift */; };
+		AA1DCE981C8554A70088DD27 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE971C8554A70088DD27 /* Day.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +45,14 @@
 		7AE6D2DA1C7C3E0E009ADC3B /* Fomo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Fomo.xcdatamodel; sourceTree = "<group>"; };
 		7AE6D2DF1C7C3E0E009ADC3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AE6D2E11C7C3E0E009ADC3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA1DCE871C843DD00088DD27 /* Itinerary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
+		AA1DCE891C843E3C0088DD27 /* Attraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attraction.swift; sourceTree = "<group>"; };
+		AA1DCE8D1C843F8C0088DD27 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
+		AA1DCE8F1C8440E70088DD27 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		AA1DCE911C8441E50088DD27 /* AttractionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionType.swift; sourceTree = "<group>"; };
+		AA1DCE931C8444900088DD27 /* TripEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripEvent.swift; sourceTree = "<group>"; };
+		AA1DCE951C85532F0088DD27 /* Recommendation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
+		AA1DCE971C8554A70088DD27 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.release.xcconfig"; sourceTree = "<group>"; };
 		E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,6 +104,14 @@
 			isa = PBXGroup;
 			children = (
 				7A46298A1C82FA2000A27D3B /* User.swift */,
+				AA1DCE871C843DD00088DD27 /* Itinerary.swift */,
+				AA1DCE971C8554A70088DD27 /* Day.swift */,
+				AA1DCE931C8444900088DD27 /* TripEvent.swift */,
+				AA1DCE891C843E3C0088DD27 /* Attraction.swift */,
+				AA1DCE911C8441E50088DD27 /* AttractionType.swift */,
+				AA1DCE8D1C843F8C0088DD27 /* City.swift */,
+				AA1DCE8F1C8440E70088DD27 /* Review.swift */,
+				AA1DCE951C85532F0088DD27 /* Recommendation.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -264,11 +288,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA1DCE981C8554A70088DD27 /* Day.swift in Sources */,
 				7AE6D2D51C7C3E0E009ADC3B /* LoginViewController.swift in Sources */,
+				AA1DCE961C85532F0088DD27 /* Recommendation.swift in Sources */,
 				7AE6D2D31C7C3E0E009ADC3B /* AppDelegate.swift in Sources */,
 				7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */,
+				AA1DCE941C8444900088DD27 /* TripEvent.swift in Sources */,
 				7A4629871C82F2C000A27D3B /* DecisionViewController.swift in Sources */,
+				AA1DCE921C8441E60088DD27 /* AttractionType.swift in Sources */,
+				AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */,
 				7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */,
+				AA1DCE901C8440E70088DD27 /* Review.swift in Sources */,
+				AA1DCE8E1C843F8C0088DD27 /* City.swift in Sources */,
+				AA1DCE881C843DD00088DD27 /* Itinerary.swift in Sources */,
 				7A46298B1C82FA2000A27D3B /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

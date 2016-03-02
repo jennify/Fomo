@@ -10,6 +10,18 @@ import UIKit
 var _currentUser: User?
 
 class User: NSObject {
+    
+    enum Response: Int {
+        case Accepted = 0, Declined, Maybe, Invited
+    }
+    
+    var id: Int?
+    var name: String?
+    var email: String?
+    var avatarImageUrl: String?
+    var preferences: [AttractionType]?
+    var response: Response?
+    
     class var currentUser: User? {
         get {
             // TODO(jlee): Build persistence in user object.
