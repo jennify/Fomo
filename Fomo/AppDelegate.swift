@@ -30,15 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Debugging Entry Point for Itinerary View Controller
-        if (true) {
+        if (false) {
             let itineraryViewController = ItineraryViewController()
             let navController = UINavigationController()
+            navController.navigationBar.translucent = false
             navController.viewControllers = [itineraryViewController]
             window?.rootViewController = navController
         }
         
         return true
-        
     }
     
     func userDidLogout() {
