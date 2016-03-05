@@ -18,6 +18,8 @@ DerivedData/
 !default.perspectivev3
 xcuserdata/
 Fomo.xcworkspace/xcuserdata/
+Podfile~
+.gitignore~
 
 ## Other
 *.moved-aside

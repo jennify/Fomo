@@ -14,6 +14,6 @@ class Review: NSObject {
     var attraction: Attraction?
     var message: String?
     var createdAt: NSDate?
-    var rating: Int?
+    var rating: Int?
 
 }
