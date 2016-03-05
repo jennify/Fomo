@@ -10,12 +10,16 @@ import UIKit
 import PureLayout
 
 @objc(ItineraryViewController)
-class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
     
     let travellersView: UIView = UIView.newAutoLayoutView()
     let tripDetailsView: UIView = UIView.newAutoLayoutView()
-    let calendarView: UIView = UIView.newAutoLayoutView()
     let itineraryTableView: UITableView = UITableView.newAutoLayoutView()
+    let calendarView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .Horizontal
+        return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
+    }()
     
     let itinerary: Itinerary = Itinerary.generateTestInstance()
     
@@ -24,7 +28,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpTableView()
+        setUpItineraryTableView()
+        setUpCalendarView()
     }
     
     override func loadView() {
@@ -70,14 +75,17 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         super.updateViewConstraints()
     }
     
-    func setUpTableView() {
+    //# MARK: Itinerary Methods
+    
+    func setUpItineraryTableView() {
         itineraryTableView.delegate = self
         itineraryTableView.dataSource = self
         itineraryTableView.registerClass(TripEventCell.self, forCellReuseIdentifier: "CodePath.Fomo.TripEventCell")
+        itineraryTableView.registerClass(DayHeaderCell.self, forHeaderFooterViewReuseIdentifier: "CodePath.Fomo.DayHeaderCell")
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return itinerary.days!.count
+        return itinerary.numberDays()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -92,5 +100,66 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func configureCell(cell: TripEventCell, indexPath: NSIndexPath) {
         cell.attractionName.text = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction?.name
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CodePath.Fomo.DayHeaderCell") as! DayHeaderCell
+        configureHeaderCell(cell, section: section)
+        return cell
+    }
+    
+    func configureHeaderCell(cell: DayHeaderCell, section: Int) {
+        cell.dayName.text = "Day \(section + 1)"
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30.0
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        itineraryTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        displayTodo("Connie connects to her view controller")
+    }
+    
+    //# MARK: Calendar Methods
+    
+    func setUpCalendarView() {
+        calendarView.delegate = self
+        calendarView.dataSource = self
+        calendarView.registerClass(DayCell.self, forCellWithReuseIdentifier: "CodePath.Fomo.DayCell")
+        calendarView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return itinerary.numberDays() + 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CodePath.Fomo.DayCell", forIndexPath: indexPath) as! DayCell
+        configureDayCell(cell, indexPath: indexPath)
+        return cell
+    }
+    
+    func configureDayCell(cell: DayCell, indexPath: NSIndexPath) {
+        let numberDays = itinerary.numberDays()
+        if indexPath.row < numberDays {
+            cell.dayName.text = "Day \(indexPath.row + 1)"
+        } else {
+            cell.dayName.text = "+"
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row < itinerary.numberDays() {
+            itineraryTableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+        } else {
+            displayTodo("Add a day")
+        }
+    }
+    
+    func displayTodo(todo: String) {
+        let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
     }
 }

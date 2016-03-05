@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Debugging Entry Point for Itinerary View Controller
-        if (false) {
+        if (true) {
             let itineraryViewController = ItineraryViewController()
             let navController = UINavigationController()
             navController.navigationBar.translucent = false

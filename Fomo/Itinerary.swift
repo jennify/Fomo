@@ -20,6 +20,10 @@ class Itinerary: NSObject {
     var coverPhotoUrl: String?
     var days: [Day]?
     
+    func numberDays() -> Int {
+        return (days?.count)!
+    }
+    
     class func generateTestInstance() -> Itinerary {
         let itinerary = Itinerary()
         itinerary.creator = User.generateTestInstance()

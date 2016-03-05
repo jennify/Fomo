@@ -8,14 +8,14 @@
 
 import UIKit
 
-class DayCell: UICollectionViewCell {
+class DayHeaderCell: UITableViewHeaderFooterView {
     
     var dayName: UILabel = UILabel.newAutoLayoutView()
     
     var didSetupConstraints = false
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         initViews()
         updateConstraints()
     }
@@ -29,9 +29,6 @@ class DayCell: UICollectionViewCell {
     override func updateConstraints() {
         if !didSetupConstraints {
             dayName.autoCenterInSuperview()
-            dayName.autoSetDimension(.Height, toSize: 50.0)
-            dayName.autoSetDimension(.Width, toSize: 50.0)
-            dayName.textAlignment = .Center
             
             didSetupConstraints = true
         }
@@ -42,10 +39,7 @@ class DayCell: UICollectionViewCell {
     func initViews() {
         dayName = UILabel()
         dayName.text = "Testing"
-        dayName.backgroundColor = UIColor.whiteColor()
-        dayName.layer.cornerRadius = 5
-        dayName.clipsToBounds = true
-        
         addSubview(dayName)
     }
+
 }

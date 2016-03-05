@@ -28,6 +28,8 @@
 		AA1DCE961C85532F0088DD27 /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE951C85532F0088DD27 /* Recommendation.swift */; };
 		AA1DCE981C8554A70088DD27 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE971C8554A70088DD27 /* Day.swift */; };
 		AA1DCEC61C8A89E20088DD27 /* TripEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCEC51C8A89E20088DD27 /* TripEventCell.swift */; };
+		AA1DCEC81C8B90DE0088DD27 /* DayHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCEC71C8B90DE0088DD27 /* DayHeaderCell.swift */; };
+		AA1DCECA1C8B987A0088DD27 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCEC91C8B987A0088DD27 /* DayCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,8 @@
 		AA1DCE951C85532F0088DD27 /* Recommendation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
 		AA1DCE971C8554A70088DD27 /* Day.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		AA1DCEC51C8A89E20088DD27 /* TripEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripEventCell.swift; sourceTree = "<group>"; };
+		AA1DCEC71C8B90DE0088DD27 /* DayHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayHeaderCell.swift; sourceTree = "<group>"; };
+		AA1DCEC91C8B987A0088DD27 /* DayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
 		DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.release.xcconfig"; sourceTree = "<group>"; };
 		E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				AA1DCEC51C8A89E20088DD27 /* TripEventCell.swift */,
+				AA1DCEC71C8B90DE0088DD27 /* DayHeaderCell.swift */,
+				AA1DCEC91C8B987A0088DD27 /* DayCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -297,7 +303,9 @@
 				7AE6D2D31C7C3E0E009ADC3B /* AppDelegate.swift in Sources */,
 				7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */,
 				AA1DCEC61C8A89E20088DD27 /* TripEventCell.swift in Sources */,
+				AA1DCEC81C8B90DE0088DD27 /* DayHeaderCell.swift in Sources */,
 				AA1DCE941C8444900088DD27 /* TripEvent.swift in Sources */,
+				AA1DCECA1C8B987A0088DD27 /* DayCell.swift in Sources */,
 				7A4629871C82F2C000A27D3B /* DecisionViewController.swift in Sources */,
 				AA1DCE921C8441E60088DD27 /* AttractionType.swift in Sources */,
 				AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */,

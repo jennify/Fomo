@@ -11,7 +11,9 @@ import PureLayout
 
 class TripEventCell: UITableViewCell {
     
-    var attractionName: UILabel!
+    var attractionName: UILabel = UILabel.newAutoLayoutView()
+    
+    var didSetupConstraints = false
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,7 +28,11 @@ class TripEventCell: UITableViewCell {
     }
     
     override func updateConstraints() {
-        attractionName.autoCenterInSuperview()
+        if !didSetupConstraints {
+            attractionName.autoCenterInSuperview()
+            
+            didSetupConstraints = true
+        }
         
         super.updateConstraints()
     }
