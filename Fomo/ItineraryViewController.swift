@@ -17,6 +17,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     let calendarView: UIView = UIView.newAutoLayoutView()
     let itineraryTableView: UITableView = UITableView.newAutoLayoutView()
     
+    let itinerary: Itinerary = Itinerary.generateTestInstance()
+    
     var didSetupConstraints = false
     
     override func viewDidLoad() {
@@ -75,20 +77,20 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return itinerary.days!.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return itinerary.days![section].tripEvents!.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.TripEventCell", forIndexPath: indexPath) as! TripEventCell
-        configureCell(cell, forRowAtIndexPath: indexPath)
+        configureCell(cell, indexPath: indexPath)
         return cell
     }
     
-    func configureCell(cell: UITableViewCell, forRowAtIndexPath: NSIndexPath) {
-        
+    func configureCell(cell: TripEventCell, indexPath: NSIndexPath) {
+        cell.attractionName.text = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction?.name
     }
 }

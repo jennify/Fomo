@@ -19,9 +19,9 @@ class TripEvent: NSObject {
         Breakfast = "breakfast",
         Lunch = "lunch",
         Dinner = "dinner",
-        MorningOne = "morning",
-        AfternoonOne = "afternoon",
-        EveningOne = "evening"
+        Morning = "morning",
+        Afternoon = "afternoon",
+        Evening = "evening"
     }
 
     var id: Int?
@@ -31,5 +31,16 @@ class TripEvent: NSObject {
     var dislikers: [User]?
     var likers: [User]?
     var neutrals: [User]?
+    
+    class func generateTestInstance(city: City) -> TripEvent {
+        let tripEvent = TripEvent()
+        tripEvent.id = 1
+        tripEvent.attraction = Attraction.generateTestInstance(city)
+        tripEvent.eventType = .Morning
+        tripEvent.dislikers = []
+        tripEvent.likers = []
+        tripEvent.dislikers = []
+        return tripEvent
+    }
     
 }

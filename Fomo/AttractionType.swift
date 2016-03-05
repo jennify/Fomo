@@ -14,4 +14,11 @@ class AttractionType: NSObject {
     var id: Int?
     var name: String?
     
+    class func generateTestInstance() -> AttractionType {
+        let attractionType = AttractionType()
+        attractionType.id = 1
+        attractionType.name = "Bars"
+        return attractionType
+    }
+    
 }

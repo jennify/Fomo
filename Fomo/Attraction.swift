@@ -21,4 +21,15 @@ class Attraction: NSObject {
     var rating: Float?
     var tripEvent: TripEvent?
     
+    class func generateTestInstance(city: City) -> Attraction {
+        let attraction = Attraction()
+        attraction.name = "De Young Museum"
+        attraction.city = city
+        attraction.types = [AttractionType.generateTestInstance()]
+        attraction.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]
+        attraction.location = CLLocation(latitude: CLLocationDegrees(37.7717392), longitude: CLLocationDegrees(-122.4692552))
+        attraction.rating = 4.4
+        attraction.reviews = [Review.generateTestInstance(attraction)]
+        return attraction
+    }
 }

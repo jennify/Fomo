@@ -14,4 +14,12 @@ class City: NSObject {
     var name: String?
     var attractions: [Attraction]?
     
+    class func generateTestInstance() -> City {
+        let city = City()
+        city.id = 1
+        city.name = "San Francisco"
+        city.attractions = [Attraction.generateTestInstance(city)]
+        return city
+    }
+    
 }
