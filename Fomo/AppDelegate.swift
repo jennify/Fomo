@@ -28,6 +28,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
             window?.rootViewController = vc
         }
+        
+        // Debugging Entry Point for Itinerary View Controller
+        if (true) {
+            let itineraryViewController = ItineraryViewController()
+            let navController = UINavigationController()
+            navController.viewControllers = [itineraryViewController]
+            window?.rootViewController = navController
+        }
+        
         return true
         
     }
