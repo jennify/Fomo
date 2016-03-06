@@ -29,9 +29,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: userDidLogoutNotification, object: nil))
         } else {
             // Login is successful, proceed
-//            print(result.grantedPermissions)
-//            print(result.declinedPermissions)
-//            print(result.token)
+            print(result.grantedPermissions)
+            print(result.declinedPermissions)
+            print(result.token)
+            
+
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
             self.presentViewController(vc, animated: true, completion: nil)

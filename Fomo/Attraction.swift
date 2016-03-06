@@ -11,7 +11,7 @@ import CoreLocation
 
 class Attraction: NSObject {
     
-    var id: Int?
+    var id: String?
     var name: String?
     var city: City?
     var reviews: [Review]?
@@ -20,10 +20,17 @@ class Attraction: NSObject {
     var location: CLLocation?
     var rating: Float?
     var tripEvent: TripEvent?
+    var rawData: NSDictionary!
+    
+    init(dictionary: NSDictionary) {
+        print(dictionary)
+        self.rawData = dictionary
+    }
     
     class func generateTestInstance(city: City) -> Attraction {
-        let attraction = Attraction()
+        let attraction = Attraction(dictionary: NSDictionary())
         attraction.name = "De Young Museum"
+        attraction.id = "trololol"
         attraction.city = city
         attraction.types = [AttractionType.generateTestInstance()]
         attraction.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]

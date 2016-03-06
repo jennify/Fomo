@@ -13,6 +13,10 @@
 		7A4629871C82F2C000A27D3B /* DecisionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4629861C82F2C000A27D3B /* DecisionViewController.swift */; };
 		7A4629891C82F4C600A27D3B /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4629881C82F4C600A27D3B /* FBSDKLoginKit.framework */; };
 		7A46298B1C82FA2000A27D3B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A46298A1C82FA2000A27D3B /* User.swift */; };
+		7A8158891C8D886C0024B7C2 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158851C8D886C0024B7C2 /* AlertUtil.swift */; };
+		7A81588A1C8D886C0024B7C2 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158861C8D886C0024B7C2 /* Cache.swift */; };
+		7A81588B1C8D886C0024B7C2 /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158871C8D886C0024B7C2 /* FacebookClient.swift */; };
+		7A81588C1C8D886C0024B7C2 /* RecommenderClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158881C8D886C0024B7C2 /* RecommenderClient.swift */; };
 		7AE6D2D31C7C3E0E009ADC3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D21C7C3E0E009ADC3B /* AppDelegate.swift */; };
 		7AE6D2D51C7C3E0E009ADC3B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */; };
 		7AE6D2D81C7C3E0E009ADC3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D61C7C3E0E009ADC3B /* Main.storyboard */; };
@@ -45,6 +49,10 @@
 		7A4629861C82F2C000A27D3B /* DecisionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecisionViewController.swift; sourceTree = "<group>"; };
 		7A4629881C82F4C600A27D3B /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		7A46298A1C82FA2000A27D3B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7A8158851C8D886C0024B7C2 /* AlertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
+		7A8158861C8D886C0024B7C2 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		7A8158871C8D886C0024B7C2 /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
+		7A8158881C8D886C0024B7C2 /* RecommenderClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommenderClient.swift; sourceTree = "<group>"; };
 		7AE6D2CF1C7C3E0E009ADC3B /* Fomo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fomo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE6D2D21C7C3E0E009ADC3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +155,10 @@
 		7A46297E1C82EB0800A27D3B /* API Clients */ = {
 			isa = PBXGroup;
 			children = (
+				7A8158851C8D886C0024B7C2 /* AlertUtil.swift */,
+				7A8158861C8D886C0024B7C2 /* Cache.swift */,
+				7A8158871C8D886C0024B7C2 /* FacebookClient.swift */,
+				7A8158881C8D886C0024B7C2 /* RecommenderClient.swift */,
 			);
 			name = "API Clients";
 			sourceTree = "<group>";
@@ -309,6 +321,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A81588A1C8D886C0024B7C2 /* Cache.swift in Sources */,
+				7A81588C1C8D886C0024B7C2 /* RecommenderClient.swift in Sources */,
+				7A8158891C8D886C0024B7C2 /* AlertUtil.swift in Sources */,
 				AA1DCE981C8554A70088DD27 /* Day.swift in Sources */,
 				AA1DCECE1C8BAC0C0088DD27 /* PreferenceCell.swift in Sources */,
 				7AE6D2D51C7C3E0E009ADC3B /* LoginViewController.swift in Sources */,
@@ -323,6 +338,7 @@
 				AA1DCE921C8441E60088DD27 /* AttractionType.swift in Sources */,
 				AA1DCECC1C8BA7F30088DD27 /* PreferencesViewController.swift in Sources */,
 				AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */,
+				7A81588B1C8D886C0024B7C2 /* FacebookClient.swift in Sources */,
 				AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */,
 				7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */,
 				AA1DCE901C8440E70088DD27 /* Review.swift in Sources */,

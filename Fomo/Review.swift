@@ -9,13 +9,13 @@
 import UIKit
 
 class Review: NSObject {
-    
+
     var id: Int?
     var attraction: Attraction?
     var message: String?
     var createdAt: NSDate?
     var rating: Int?
-    
+
     class func generateTestInstance(attraction: Attraction) -> Review {
         let review = Review()
         review.id = 1
