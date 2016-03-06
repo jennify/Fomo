@@ -11,15 +11,14 @@ import PureLayout
 
 class PreferencesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    let preferences: [AttractionType] = [AttractionType.generateTestInstance()]
-    
-    var didSetupConstraints = false
-    
     let preferencesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .Vertical
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
+    var didSetupConstraints = false
+    
+    let preferences: [AttractionType] = [AttractionType.generateTestInstance()]
 
     override func viewDidLoad() {
         super.viewDidLoad()

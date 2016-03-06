@@ -18,7 +18,7 @@ class User: NSObject {
     var id: Int?
     var name: String?
     var email: String?
-    var avatarImageUrl: String?
+    var profileImageUrl: String?
     var preferences: [AttractionType]?
     var response: Response?
     
@@ -40,7 +40,7 @@ class User: NSObject {
         user.id = 1
         user.name = "Mr Bean"
         user.email = "mr.bean@gmail.com"
-        user.avatarImageUrl = "http://vignette2.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg/revision/latest?cb=20100424114324"
+        user.profileImageUrl = "http://vignette2.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg/revision/latest?cb=20100424114324"
         user.preferences = [AttractionType.generateTestInstance()]
         user.response = .Accepted
         return user

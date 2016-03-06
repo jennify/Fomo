@@ -20,10 +20,11 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         layout.scrollDirection = .Horizontal
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
+    var didSetupConstraints = false
     
     let itinerary: Itinerary = Itinerary.generateTestInstance()
     
-    var didSetupConstraints = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

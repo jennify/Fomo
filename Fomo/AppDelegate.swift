@@ -39,11 +39,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Debugging Entry Point for Preferences View Controller
-        if (true) {
+        if (false) {
             let preferencesViewController = PreferencesViewController()
             let navController = UINavigationController()
             navController.navigationBar.translucent = false
             navController.viewControllers = [preferencesViewController]
+            window?.rootViewController = navController
+        }
+        
+        // Debugging Entry Point for Friends View Controller
+        if (true) {
+            let friendsViewController = FriendsViewController()
+            let navController = UINavigationController()
+            navController.navigationBar.translucent = false
+            navController.viewControllers = [friendsViewController]
             window?.rootViewController = navController
         }
         
