@@ -30,6 +30,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         
         setUpItineraryTableView()
         setUpCalendarView()
+        setUpNavigationBar()
     }
     
     override func loadView() {
@@ -73,6 +74,10 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         super.updateViewConstraints()
+    }
+    
+    func setUpNavigationBar() {
+        navigationItem.title = "Itinerary"
     }
     
     //# MARK: Itinerary Methods
