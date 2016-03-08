@@ -49,7 +49,7 @@ class TripEvent: NSObject {
         tripEvent.eventType = .Morning
         tripEvent.dislikers = []
         tripEvent.likers = []
-        tripEvent.dislikers = []
+        tripEvent.neutrals = []
         return tripEvent
     }
     
