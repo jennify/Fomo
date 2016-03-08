@@ -25,6 +25,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         if User.currentUser != nil {
             // If user has already logged in
+            let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
+            window?.rootViewController = vc
+        }
+        
+        // Debugging Entry Point - skip login
+        if (true) {
+            let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
+            window?.rootViewController = vc
+        }
+        
+        // Debugging Entry Point for Decision View Controller
+        if (false) {
             let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
             window?.rootViewController = vc
         }
@@ -48,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Debugging Entry Point for Friends View Controller
-        if (true) {
+        if (false) {
             let friendsViewController = FriendsViewController()
             let navController = UINavigationController()
             navController.navigationBar.translucent = false

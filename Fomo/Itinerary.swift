@@ -26,6 +26,7 @@ class Itinerary: NSObject {
     
     class func generateTestInstance() -> Itinerary {
         let itinerary = Itinerary()
+        itinerary.id = 1
         itinerary.creator = User.generateTestInstance()
         itinerary.travellers = [User.generateTestInstance(), User.generateTestInstance()]
         itinerary.tripName = "San Francisco 2016"

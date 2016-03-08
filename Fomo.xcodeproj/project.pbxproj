@@ -34,6 +34,12 @@
 		AA1DCECE1C8BAC0C0088DD27 /* PreferenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCECD1C8BAC0C0088DD27 /* PreferenceCell.swift */; };
 		AA1DCED01C8BB0DF0088DD27 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */; };
 		AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCED11C8BB2500088DD27 /* FriendCell.swift */; };
+		F9A79F161C8D948B0014A43A /* AttractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F151C8D948B0014A43A /* AttractionViewController.swift */; };
+		F9A79F181C8D96830014A43A /* DraggableAttractionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9A79F171C8D96830014A43A /* DraggableAttractionView.xib */; };
+		F9A79F1A1C8D979C0014A43A /* DraggableAttractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */; };
+		F9A79F1C1C8D9EE80014A43A /* AttractionGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1B1C8D9EE80014A43A /* AttractionGalleryViewController.swift */; };
+		F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */; };
+		F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1F1C8E675E0014A43A /* TripViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +75,12 @@
 		AA1DCED11C8BB2500088DD27 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.release.xcconfig"; sourceTree = "<group>"; };
 		E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.debug.xcconfig"; sourceTree = "<group>"; };
+		F9A79F151C8D948B0014A43A /* AttractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionViewController.swift; sourceTree = "<group>"; };
+		F9A79F171C8D96830014A43A /* DraggableAttractionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DraggableAttractionView.xib; sourceTree = "<group>"; };
+		F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableAttractionView.swift; sourceTree = "<group>"; };
+		F9A79F1B1C8D9EE80014A43A /* AttractionGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionGalleryViewController.swift; sourceTree = "<group>"; };
+		F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		F9A79F1F1C8E675E0014A43A /* TripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,10 +120,14 @@
 			isa = PBXGroup;
 			children = (
 				7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */,
-				7A4629841C82F20200A27D3B /* ItineraryViewController.swift */,
+				F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */,
 				7A4629861C82F2C000A27D3B /* DecisionViewController.swift */,
+				F9A79F151C8D948B0014A43A /* AttractionViewController.swift */,
+				7A4629841C82F20200A27D3B /* ItineraryViewController.swift */,
 				AA1DCECB1C8BA7F30088DD27 /* PreferencesViewController.swift */,
 				AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */,
+				F9A79F1B1C8D9EE80014A43A /* AttractionGalleryViewController.swift */,
+				F9A79F1F1C8E675E0014A43A /* TripViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -140,6 +156,8 @@
 				AA1DCEC91C8B987A0088DD27 /* DayCell.swift */,
 				AA1DCECD1C8BAC0C0088DD27 /* PreferenceCell.swift */,
 				AA1DCED11C8BB2500088DD27 /* FriendCell.swift */,
+				F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */,
+				F9A79F171C8D96830014A43A /* DraggableAttractionView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -249,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A1390E81C7C47C3001488FF /* Images.xcassets in Resources */,
+				F9A79F181C8D96830014A43A /* DraggableAttractionView.xib in Resources */,
 				7AE6D2E01C7C3E0E009ADC3B /* LaunchScreen.storyboard in Resources */,
 				7AE6D2D81C7C3E0E009ADC3B /* Main.storyboard in Resources */,
 			);
@@ -309,12 +328,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9A79F1C1C8D9EE80014A43A /* AttractionGalleryViewController.swift in Sources */,
 				AA1DCE981C8554A70088DD27 /* Day.swift in Sources */,
 				AA1DCECE1C8BAC0C0088DD27 /* PreferenceCell.swift in Sources */,
 				7AE6D2D51C7C3E0E009ADC3B /* LoginViewController.swift in Sources */,
 				AA1DCE961C85532F0088DD27 /* Recommendation.swift in Sources */,
 				7AE6D2D31C7C3E0E009ADC3B /* AppDelegate.swift in Sources */,
 				7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */,
+				F9A79F1A1C8D979C0014A43A /* DraggableAttractionView.swift in Sources */,
 				AA1DCEC61C8A89E20088DD27 /* TripEventCell.swift in Sources */,
 				AA1DCEC81C8B90DE0088DD27 /* DayHeaderCell.swift in Sources */,
 				AA1DCE941C8444900088DD27 /* TripEvent.swift in Sources */,
@@ -324,10 +345,13 @@
 				AA1DCECC1C8BA7F30088DD27 /* PreferencesViewController.swift in Sources */,
 				AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */,
 				AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */,
+				F9A79F161C8D948B0014A43A /* AttractionViewController.swift in Sources */,
 				7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */,
+				F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */,
 				AA1DCE901C8440E70088DD27 /* Review.swift in Sources */,
 				AA1DCED01C8BB0DF0088DD27 /* FriendsViewController.swift in Sources */,
 				AA1DCE8E1C843F8C0088DD27 /* City.swift in Sources */,
+				F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */,
 				AA1DCE881C843DD00088DD27 /* Itinerary.swift in Sources */,
 				7A46298B1C82FA2000A27D3B /* User.swift in Sources */,
 			);
