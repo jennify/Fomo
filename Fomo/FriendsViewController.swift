@@ -10,10 +10,10 @@ import UIKit
 import AFNetworking
 
 class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
     let friendsTableView: UITableView = UITableView.newAutoLayoutView()
     var didSetupConstraints = false
-    
+
     var friends: [User] = [User.generateTestInstance(), User.generateTestInstance()]
 
     override func viewDidLoad() {
@@ -22,29 +22,30 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         setUpTableView()
         setUpNavigationBar()
     }
-    
+
     override func loadView() {
         view = UIView()
-        
+
         view.addSubview(friendsTableView)
-        
+
         view.setNeedsUpdateConstraints()
     }
-    
+
     override func updateViewConstraints() {
         if !didSetupConstraints {
             friendsTableView.autoPinEdgesToSuperviewEdges()
-            
+
             didSetupConstraints = true
         }
-        
+
         super.updateViewConstraints()
     }
-    
+
     func setUpNavigationBar() {
+        self.navigationController?.navigationBarHidden = true
         navigationItem.title = "Invite Friends"
     }
-    
+
     //# MARK: Friends TableView
 
     func setUpTableView() {
@@ -55,28 +56,28 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         friendsTableView.rowHeight = 70
         friendsTableView.registerClass(FriendCell.self, forCellReuseIdentifier: "CodePath.Fomo.FriendCell")
     }
-    
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friends.count
     }
-    
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FriendCell", forIndexPath: indexPath) as! FriendCell
         configureCell(cell, indexPath: indexPath)
         return cell
     }
-    
+
     func configureCell(cell: FriendCell, indexPath: NSIndexPath) {
         let friend = friends[indexPath.row]
-        cell.profilePhoto.setImageWithURL(NSURL(string: friend.profileImageUrl!)!)
+        cell.profilePhoto.setImageWithURL(NSURL(string: friend.profileImageURL!)!)
         cell.friendName.text = friend.name!
     }
-    
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         displayTodo("Jenn adds friend")
     }
-    
+
     func displayTodo(todo: String) {
         let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))

@@ -8,12 +8,13 @@
 
 import UIKit
 
+enum Vote: Int {
+    case Dislike = 1, Neutral, Like
+}
+
 class TripEvent: NSObject {
     
-    enum Vote: Int {
-        case Dislike = 1, Neutral, Like
-    }
-    
+
     enum EventType: String {
         case
         Breakfast = "breakfast",
@@ -31,15 +32,24 @@ class TripEvent: NSObject {
     var dislikers: [User]?
     var likers: [User]?
     var neutrals: [User]?
+    var rawData: NSDictionary!
+    
+    init(dictionary: NSDictionary) {
+        if dictionary.count == 0 {
+            return
+        }
+        print(dictionary)
+        self.rawData = dictionary
+    }
     
     class func generateTestInstance(city: City) -> TripEvent {
-        let tripEvent = TripEvent()
+        let tripEvent = TripEvent(dictionary: NSDictionary())
         tripEvent.id = 1
         tripEvent.attraction = Attraction.generateTestInstance(city)
         tripEvent.eventType = .Morning
         tripEvent.dislikers = []
         tripEvent.likers = []
-        tripEvent.dislikers = []
+        tripEvent.neutrals = []
         return tripEvent
     }
     

@@ -12,6 +12,8 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
+let DEBUG = "None"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -21,14 +23,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
+
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
-        if User.currentUser != nil {
+        if Cache.currentUser != nil {
             // If user has already logged in
-            let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
+            let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
             window?.rootViewController = vc
         }
         
+        // Debugging Entry Point - skip login
+        if (true) {
+            let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
+            window?.rootViewController = vc
+        }
+        
+        // Debugging Entry Point for Decision View Controller
+        if (false) {
+            let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
+            window?.rootViewController = vc
+        }
+
+        if DEBUG == "jlee" {
+            self.jleeDebugging()
+        } else if DEBUG == "christian" {
+            self.christianDebugging()
+        }
+
+        return true
+    }
+    func christianDebugging() {
         // Debugging Entry Point for Itinerary View Controller
         if (false) {
             let itineraryViewController = ItineraryViewController()
@@ -37,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navController.viewControllers = [itineraryViewController]
             window?.rootViewController = navController
         }
-        
+
         // Debugging Entry Point for Preferences View Controller
         if (false) {
             let preferencesViewController = PreferencesViewController()
@@ -46,24 +70,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navController.viewControllers = [preferencesViewController]
             window?.rootViewController = navController
         }
-        
+
         // Debugging Entry Point for Friends View Controller
-        if (true) {
+        if (false) {
             let friendsViewController = FriendsViewController()
             let navController = UINavigationController()
             navController.navigationBar.translucent = false
             navController.viewControllers = [friendsViewController]
             window?.rootViewController = navController
         }
-        
-        return true
     }
-    
+    func jleeDebugging() {
+        print("Begin")
+        RecommenderClient.sharedInstance.add_itinerary(Itinerary.generateTestInstance()) { (response: Itinerary?, error: NSError?) -> () in
+
+            if error != nil {
+                print(error)
+                displayAlert((self.window?.rootViewController)!, error: error!)
+            } else {
+                print("Initial recommender hooked up")
+            }
+        }
+
+        // How to use the recommender:
+        //        RecommenderClient.sharedInstance.get_recommendations_with_user(User.generateTestInstance(), groupID: Itinerary.generateTestInstance().id!) {
+        //            (response: Recommendation?, error: NSError? ) in
+        //
+        //            if error != nil {
+        //                print(error)
+        //                displayAlert((self.window?.rootViewController)!, error: error!)
+        //            } else {
+        //                print("Initial recommender hooked up")
+        //            }
+        //        }
+        //        let fakeItinerary = Itinerary.generateTestInstance()
+        //        let fakeAttraction = Attraction.generateTestInstance(City.generateTestInstance())
+        //        RecommenderClient.sharedInstance.update_itinerary_with_vote(fakeItinerary, attraction: fakeAttraction, user: User.generateTestInstance(), vote: Vote.Like) {
+        //            (response, error) -> () in
+        //
+        //            if error != nil {
+        //                print(error)
+        //                displayAlert((self.window?.rootViewController)!, error: error!)
+        //            } else {
+        //                print("Initial recommender hooked up")
+        //            }
+        //        }
+        //        RecommenderClient.sharedInstance.get_itineraries_for_user(User.generateTestInstance()) {
+        //            (response, error) -> () in
+        //
+        //            if error != nil {
+        //                print(error)
+        //                displayAlert((self.window?.rootViewController)!, error: error!)
+        //            } else {
+        //                print("Initial recommender hooked up")
+        //            }
+        //        }
+    }
+
     func userDidLogout() {
         let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController")
         window?.rootViewController = vc
     }
-    
+
     func application(application: UIApplication,
         openURL url: NSURL,
         sourceApplication: String?,
@@ -137,7 +205,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
             abort()
         }
-        
+
         return coordinator
     }()
 
@@ -164,21 +232,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    
-//    - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    [[FBSDKApplicationDelegate sharedInstance] application:application
-//    didFinishLaunchingWithOptions:launchOptions];
-//    return YES;
-//    }
-//    
-//    - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-//    return [[FBSDKApplicationDelegate sharedInstance] application:application
-//    openURL:url
-//    sourceApplication:sourceApplication
-//    annotation:annotation
-//    ];
-//    }
+
 
 }
 

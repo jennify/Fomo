@@ -11,7 +11,7 @@ import UIKit
 class Recommendation: NSObject {
     
     var city: City?
-    var itineraryId: Int?
+    var itineraryId: String?
     var attractions: [Attraction]?
     
     class func generateTestInstance() -> Recommendation {
