@@ -78,6 +78,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func setUpNavigationBar() {
+        self.navigationController?.navigationBarHidden = true
         navigationItem.title = "Itinerary"
     }
     

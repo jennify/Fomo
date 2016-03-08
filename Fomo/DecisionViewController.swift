@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: delegate protocol
 class DecisionViewController: UIViewController {
 
     
@@ -41,10 +42,8 @@ class DecisionViewController: UIViewController {
     
     // Tap to view attraction details
     @IBAction func onAttractionTapGesture(sender: UITapGestureRecognizer) {
-        let attractionVC = storyboard!.instantiateViewControllerWithIdentifier("AttractionViewController") as! AttractionViewController
-        presentViewController(attractionVC, animated: true, completion: nil)
+        self.performSegueWithIdentifier("attractionSegue", sender: self)
     }
-    
     
     
     func displayTodo(todo: String) {

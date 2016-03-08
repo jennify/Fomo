@@ -69,7 +69,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="IDu-a0-8fA"/>
                     <connections>
-                        <segue destination="qD2-J1-4e2" kind="push" identifier="attractionPushSegue" id="4nI-cv-SGo"/>
+                        <segue destination="qD2-J1-4e2" kind="push" id="RLZ-VS-gEI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XrD-fo-eHo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -179,7 +179,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NVM-5j-3V9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="936" y="1093"/>
+            <point key="canvasLocation" x="933" y="1086"/>
         </scene>
         <!--Container View Controller-->
         <scene sceneID="Qjb-5R-1p4">
@@ -366,8 +366,8 @@
                     <connections>
                         <outlet property="imageView" destination="Gbh-d5-rUF" id="02P-N5-pFT"/>
                         <outlet property="nameLabel" destination="4vM-ku-fNx" id="YSw-LG-L5P"/>
-                        <segue destination="qD2-J1-4e2" kind="modal" identifier="attractionModalSegue" id="s5m-Ff-MQT"/>
                         <segue destination="08d-Q6-L1C" kind="push" identifier="itinerarySegue" id="DKP-5G-bW1"/>
+                        <segue destination="qD2-J1-4e2" kind="push" identifier="attractionSegue" id="3f3-el-LF8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="he3-QT-flh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -407,7 +407,7 @@
         <image name="takeflight" width="2556" height="1202"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4nI-cv-SGo"/>
+        <segue reference="3f3-el-LF8"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
