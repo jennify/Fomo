@@ -29,7 +29,6 @@ class Attraction: NSObject {
     
     class func generateTestInstance(city: City) -> Attraction {
         let attraction = Attraction(dictionary: NSDictionary())
-        attraction.id = 1
         attraction.name = "De Young Museum"
         attraction.id = "trololol"
         attraction.city = city

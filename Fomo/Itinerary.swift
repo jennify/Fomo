@@ -50,7 +50,6 @@ class Itinerary: NSObject {
     class func generateTestInstance() -> Itinerary {
         let itinerary = Itinerary(dictionary: NSDictionary())
         itinerary.id = User.generateTestInstance().email ?? "" + ":FakeItineraryID"
-        itinerary.id = 1
         itinerary.creator = User.generateTestInstance()
         itinerary.travellers = [User.generateTestInstance(), User.generateTestInstance()]
         itinerary.tripName = "San Francisco 2016"
