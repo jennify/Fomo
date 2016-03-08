@@ -33,4 +33,35 @@ extension UIColor {
         return UIColor(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
     
+    class func fomoColors(index: Int) -> UIColor {
+        let colors = [
+            UIColor.initWithHex("367caf"),
+            UIColor.initWithHex("89cce9"),
+            UIColor.initWithHex("dbe3f6"),
+            UIColor.initWithHex("fcfcf4"),
+            UIColor.initWithHex("ece0d0"),
+        ]
+        return colors[index]
+    }
+    class func fomoBlue() -> UIColor {
+        return UIColor.fomoColors(0)
+    }
+    
+    class func fomoTeal() -> UIColor {
+        return UIColor.fomoColors(1)
+    }
+    
+    class func fomoPeriwinkle() -> UIColor {
+         return UIColor.fomoColors(2)
+    }
+    
+    class func fomoWhite() -> UIColor {
+         return UIColor.fomoColors(3)
+    }
+    
+    class func fomoSand() -> UIColor {
+        return UIColor.fomoColors(4)
+    }
+
+    
 }
