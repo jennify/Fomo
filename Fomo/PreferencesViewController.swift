@@ -48,6 +48,7 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func setUpNavigationBar() {
+        self.navigationController?.navigationBarHidden = true
         navigationItem.title = "Preferences"
     }
     

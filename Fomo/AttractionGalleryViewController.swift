@@ -19,6 +19,7 @@ class AttractionGalleryViewController: UIViewController {
     }
 
     func setUpNavigationBar() {
+        self.navigationController?.navigationBarHidden = true
         navigationItem.title = attraction.name
     }
 

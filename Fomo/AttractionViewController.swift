@@ -8,6 +8,7 @@
 
 import UIKit
 
+// TODO: delegate protocol
 class AttractionViewController: UIViewController {
 
     let attraction: Attraction = Attraction.generateTestInstance(City.generateTestInstance())
@@ -20,6 +21,7 @@ class AttractionViewController: UIViewController {
     }
     
     func setUpNavigationBar() {
+//        self.navigationController?.navigationBarHidden = true
         navigationItem.title = attraction.name
     }
 

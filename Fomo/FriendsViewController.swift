@@ -42,6 +42,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func setUpNavigationBar() {
+        self.navigationController?.navigationBarHidden = true
         navigationItem.title = "Invite Friends"
     }
     

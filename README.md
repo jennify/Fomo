@@ -33,9 +33,12 @@ Both trip collaborators and organizers can:
 - [ ] Shake device to go back/undo
 - [ ] Roulette to select a random location on the world to travel to
 
-
 ## Wireframe
 [Click to comment](https://redpen.io/no4347182a45a983de): 
 
 ![image]
 (https://raw.githubusercontent.com/jennify/Fomo/master/wireframe.png)
+
+
+## Sprint 1
+![Demo](sprint1.gif)
