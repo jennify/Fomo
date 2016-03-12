@@ -12,7 +12,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "None"
+let DEBUG = "none"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,7 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
             window?.rootViewController = vc
         }
-        
+
+
+        if DEBUG == "jlee" {
+            self.jleeDebugging()
+        } else if DEBUG == "christian" {
+            self.christianDebugging()
+        } else if DEBUG == "connie" {
+            self.connieDebugging()
+        }
+
+        return true
+    }
+    func connieDebugging() {
         // Debugging Entry Point - skip login
         if (true) {
             let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
@@ -43,14 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
             window?.rootViewController = vc
         }
-
-        if DEBUG == "jlee" {
-            self.jleeDebugging()
-        } else if DEBUG == "christian" {
-            self.christianDebugging()
-        }
-
-        return true
     }
     func christianDebugging() {
         // Debugging Entry Point for Itinerary View Controller
