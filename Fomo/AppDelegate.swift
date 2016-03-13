@@ -32,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = vc
         }
 
-
         if DEBUG == "jlee" {
             self.jleeDebugging()
         } else if DEBUG == "christian" {

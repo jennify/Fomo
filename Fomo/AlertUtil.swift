@@ -9,10 +9,36 @@
 import Foundation
 
 
-func displayAlert(vc: UIViewController , error: NSError) {
+func displayAlert(vc: UIViewController, error: NSError) {
     let alertView = UIAlertController(title: "Error", message: error.description, preferredStyle: UIAlertControllerStyle.Alert)
     alertView.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
     vc.presentViewController(alertView, animated:false, completion:nil)
+}
+
+func sendFriendInviteToItinerary(vc: UIViewController, shareMessage: String?, itinerary: Itinerary) {
+    var message = "You've been invited! "
+    if shareMessage != nil {
+        message = shareMessage!
+    } else {
+        message += "Let me know if you're joining us in \(itinerary.city!.name!) on the link."
+    }
+    
+    let objectsToShare = [message, "fomorecommender.herokuapp.com"]
+    let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+    activityVC.view.center = vc.view.center
+    
+    activityVC.excludedActivityTypes = [
+        UIActivityTypeAirDrop,
+        UIActivityTypeAddToReadingList,
+        UIActivityTypeAssignToContact,
+        UIActivityTypeMail,
+        UIActivityTypeOpenInIBooks,
+        UIActivityTypePostToFlickr,
+        UIActivityTypePostToVimeo,
+        UIActivityTypePrint,
+    ]
+    vc.presentViewController(activityVC, animated: true, completion: nil)
+    
 }
 
 extension UIColor {

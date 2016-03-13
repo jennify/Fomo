@@ -19,7 +19,18 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.readPermissions = ["public_profile", "email", "user_friends"];
         view.addSubview(loginButton)
         
+        
+        
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        // TODO(jlee): Remove
+        sendFriendInviteToItinerary(self, shareMessage: nil, itinerary: Itinerary.generateTestInstance())
+
+    }
+    
+
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         // Fired when open url has happened and exited on success or failure.
@@ -33,7 +44,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             print(result.declinedPermissions)
             print(result.token)
             
-
+            // TODO(jlee)
+            FacebookClient.sharedInstance.getUserInfo(result.token)
+            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
             self.presentViewController(vc, animated: true, completion: nil)

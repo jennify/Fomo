@@ -407,7 +407,7 @@
         <image name="takeflight" width="2556" height="1202"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RLZ-VS-gEI"/>
+        <segue reference="3f3-el-LF8"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
