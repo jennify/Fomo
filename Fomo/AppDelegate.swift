@@ -64,6 +64,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navController.viewControllers = [itineraryViewController]
             window?.rootViewController = navController
         }
+        
+        // Debugging Entry Point for Itinerary View Controller
+        if (true) {
+            let tripViewController = TripViewController()
+            let navController = UINavigationController()
+            navController.navigationBar.translucent = false
+            navController.viewControllers = [tripViewController]
+            window?.rootViewController = navController
+        }
 
         // Debugging Entry Point for Preferences View Controller
         if (false) {

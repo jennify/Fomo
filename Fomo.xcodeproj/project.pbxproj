@@ -40,6 +40,7 @@
 		AA1DCECE1C8BAC0C0088DD27 /* PreferenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCECD1C8BAC0C0088DD27 /* PreferenceCell.swift */; };
 		AA1DCED01C8BB0DF0088DD27 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */; };
 		AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCED11C8BB2500088DD27 /* FriendCell.swift */; };
+		AA1DCED61C948EF60088DD27 /* TravellersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCED51C948EF60088DD27 /* TravellersView.swift */; };
 		F9A79F161C8D948B0014A43A /* AttractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F151C8D948B0014A43A /* AttractionViewController.swift */; };
 		F9A79F181C8D96830014A43A /* DraggableAttractionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9A79F171C8D96830014A43A /* DraggableAttractionView.xib */; };
 		F9A79F1A1C8D979C0014A43A /* DraggableAttractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */; };
@@ -85,6 +86,7 @@
 		AA1DCECD1C8BAC0C0088DD27 /* PreferenceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceCell.swift; sourceTree = "<group>"; };
 		AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		AA1DCED11C8BB2500088DD27 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		AA1DCED51C948EF60088DD27 /* TravellersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravellersView.swift; sourceTree = "<group>"; };
 		DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.release.xcconfig"; sourceTree = "<group>"; };
 		E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.debug.xcconfig"; sourceTree = "<group>"; };
 		F9A79F151C8D948B0014A43A /* AttractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				AA1DCED11C8BB2500088DD27 /* FriendCell.swift */,
 				F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */,
 				F9A79F171C8D96830014A43A /* DraggableAttractionView.xib */,
+				AA1DCED51C948EF60088DD27 /* TravellersView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 			files = (
 				7A81588A1C8D886C0024B7C2 /* Cache.swift in Sources */,
 				7A81588C1C8D886C0024B7C2 /* RecommenderClient.swift in Sources */,
+				AA1DCED61C948EF60088DD27 /* TravellersView.swift in Sources */,
 				7A8158891C8D886C0024B7C2 /* AlertUtil.swift in Sources */,
 				F9A79F1C1C8D9EE80014A43A /* AttractionGalleryViewController.swift in Sources */,
 				AA1DCE981C8554A70088DD27 /* Day.swift in Sources */,
