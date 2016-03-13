@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import EPCalendarPicker
 
-class TripViewController: UIViewController {
+class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
     let destinationTitleLabel: UILabel = UILabel.newAutoLayoutView()
     let destinationLabel: UILabel = UILabel.newAutoLayoutView()
@@ -21,6 +22,10 @@ class TripViewController: UIViewController {
     let doneButton: UIButton = UIButton.newAutoLayoutView()
     
     var didSetupConstraints = false
+    
+    var selectingStartDate = false
+    var startDate: NSDate?
+    var endDate: NSDate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +56,7 @@ class TripViewController: UIViewController {
         endDateLabel.text = "None"
         
         endDateButton.setImage(UIImage(named: "Calendar"), forState: .Normal)
-        endDateButton.addTarget(self, action: "setStartDate", forControlEvents: .TouchUpInside)
+        endDateButton.addTarget(self, action: "setEndDate", forControlEvents: .TouchUpInside)
         
         doneButton.setTitle("Create Trip", forState: .Normal)
         doneButton.addTarget(self, action: "updateTrip", forControlEvents: .TouchUpInside)
@@ -108,14 +113,43 @@ class TripViewController: UIViewController {
     }
     
     func setStartDate() {
-        startDateLabel.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .ShortStyle, timeStyle: .NoStyle)
+        selectingStartDate = true
+        presentCalendar(startDate)
     }
     
     func setEndDate() {
-        endDateLabel.text = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .ShortStyle, timeStyle: .NoStyle)
+        selectingStartDate = false
+        presentCalendar(endDate)
+    }
+    
+    func presentCalendar(date: NSDate?) {
+        var dateArray: [NSDate] = []
+        if let date = date {
+            dateArray.append(date)
+        }
+        
+        let calendarPicker = EPCalendarPicker(startYear: 2016, endYear: 2017, multiSelection: false, selectedDates: dateArray)
+        calendarPicker.weekdayTintColor = UIColor.blackColor()
+        calendarPicker.weekendTintColor = UIColor.redColor()
+        calendarPicker.hightlightsToday = false
+        calendarPicker.calendarDelegate = self
+        let navigationController = UINavigationController(rootViewController: calendarPicker)
+        self.presentViewController(navigationController, animated: true, completion: nil)
     }
     
     func updateTrip() {
         
     }
+    
+    func epCalendarPicker(_: EPCalendarPicker, didSelectDate date : NSDate) {
+        if selectingStartDate {
+            startDate = date
+            startDateLabel.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .ShortStyle, timeStyle: .NoStyle)
+        } else {
+            endDate = date
+            endDateLabel.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: .ShortStyle, timeStyle: .NoStyle)
+        }
+    }
+    
+    func epCalendarPicker(_: EPCalendarPicker, didCancel error : NSError) {}
 }
