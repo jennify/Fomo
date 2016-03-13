@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKSharingDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,15 +19,36 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.readPermissions = ["public_profile", "email", "user_friends"];
         view.addSubview(loginButton)
         
+//        let send = FBSDKSendButton()
+//        let linkContent = FBSDKShareLinkContent()
+//        linkContent.contentTitle = "Hello"
+//        linkContent.contentDescription = "Googs"
+//        linkContent.contentURL = NSURL(string: "https://developers.facebook.com")
+//        send.shareContent = linkContent
+//        send.center = view.center
+//        view.addSubview(send)
+//        FBSDKShareDialog.showFromViewController(self, withContent: linkContent, delegate: self)
+
         
-        
+    }
+    
+    func sharer(sharer: FBSDKSharing!, didCompleteWithResults results: [NSObject : AnyObject]!) {
+        print("sharer did complete")
+    }
+    
+    func sharer(sharer: FBSDKSharing!, didFailWithError error: NSError!) {
+        print("sharer fail error")
+        print(error)
+    }
+    
+    func sharerDidCancel(sharer: FBSDKSharing!) {
+        print("canceled")
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         // TODO(jlee): Remove
-        sendFriendInviteToItinerary(self, shareMessage: nil, itinerary: Itinerary.generateTestInstance())
-
+//        sendFriendInviteToItinerary(self, shareMessage: nil, itinerary: Itinerary.generateTestInstance())
     }
     
 
@@ -40,9 +61,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
             NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: userDidLogoutNotification, object: nil))
         } else {
             // Login is successful, proceed
-            print(result.grantedPermissions)
-            print(result.declinedPermissions)
-            print(result.token)
+//            print(result.grantedPermissions)
+//            print(result.declinedPermissions)
+//            print(result.token)
             
             // TODO(jlee)
             FacebookClient.sharedInstance.getUserInfo(result.token)

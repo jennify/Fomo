@@ -18,59 +18,51 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
     }
     let page_size = 20
     func getUserInfo(accessToken: FBSDKAccessToken) {
-        let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name"], tokenString: accessToken.tokenString, version: nil, HTTPMethod: "GET")
+        let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name,picture{url}"], tokenString: accessToken.tokenString, version: nil, HTTPMethod: "GET")
         req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
             if(error == nil){
-                print("result \(result)")
-                let user_dict = [
-                    "email": result["email"] as! String,
-                    "name": result["name"] as! String,
-                    "id": result["id"] as! String,
-                ]
-                print("STORING")
-                Cache.currentUser = User(dictionary: user_dict)
-                FacebookClient.sharedInstance.getFriends(accessToken, offset: 0)
+                let responseDict = result as? NSDictionary
+                Cache.currentUser = User(dictionary: responseDict!)
+                FacebookClient.sharedInstance.getFriends(accessToken, afterCursor: nil)
             } else {
                 print("error \(error)")
             }
         })
     }
+
     
-    func getAllFriends(accessToken: FBSDKAccessToken) {
-        let total_count = self.page_size
-        var finished = false
-        var page_num = 0
-        while(!finished) {
-            let offset = page_num * self.page_size
-            getFriends(accessToken, offset: offset)
-            
-            if offset + self.page_size > total_count {
-                finished = true
-                print(total_count)
-            }
-            page_num++
-        }
-    }
-    
-    func getFriends(accessToken: FBSDKAccessToken, offset: Int) {
-        let parameters: [NSObject: AnyObject] = [
+    func getFriends(accessToken: FBSDKAccessToken, afterCursor: String?) {
+        var parameters: [NSObject: AnyObject] = [
             "limit": self.page_size,
-//            "offset": offset,
-//            "fields": "data",
+            "fields": "name,picture",
+            
         ]
-        print(Cache.currentUser)
+        if afterCursor != nil {
+            parameters["after"] = afterCursor
+        }
+        
         let graphPath = "me/taggable_friends"
         let req = FBSDKGraphRequest(graphPath: graphPath, parameters: parameters, tokenString: accessToken.tokenString, version: nil, HTTPMethod: "GET")
+        
         req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
             if(error == nil){
-                print("result \(result["data"])")
+                let data = result["data"] as? [NSDictionary]
+                let friends = User.usersWithArray(data!)
+                Cache.addFriendPage(friends)
                 let paging = result["paging"] as? NSDictionary
                 let cursors = paging!["cursors"] as? NSDictionary
-                print("paging \(cursors!["after"] as! String)")
-            } else {
+                let afterCursor = cursors!["after"] as! String
+                if paging!["next"] != nil {
+                    self.getFriends(accessToken, afterCursor: afterCursor)
+                } else {
+                    print("Finished downloading all friends.")
+                }
                 
+            } else {
+                print(error)
             }
         })
     }
     
 }
+

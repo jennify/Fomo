@@ -13,6 +13,8 @@
 		7A4629871C82F2C000A27D3B /* DecisionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4629861C82F2C000A27D3B /* DecisionViewController.swift */; };
 		7A4629891C82F4C600A27D3B /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4629881C82F4C600A27D3B /* FBSDKLoginKit.framework */; };
 		7A46298B1C82FA2000A27D3B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A46298A1C82FA2000A27D3B /* User.swift */; };
+		7A4AB3DB1C95469000718890 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4AB3DA1C95469000718890 /* FBSDKShareKit.framework */; };
+		7A4AB3DD1C9622FD00718890 /* FacebookContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4AB3DC1C9622FD00718890 /* FacebookContact.swift */; };
 		7A8158891C8D886C0024B7C2 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158851C8D886C0024B7C2 /* AlertUtil.swift */; };
 		7A81588A1C8D886C0024B7C2 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158861C8D886C0024B7C2 /* Cache.swift */; };
 		7A81588B1C8D886C0024B7C2 /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158871C8D886C0024B7C2 /* FacebookClient.swift */; };
@@ -55,6 +57,8 @@
 		7A4629861C82F2C000A27D3B /* DecisionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecisionViewController.swift; sourceTree = "<group>"; };
 		7A4629881C82F4C600A27D3B /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		7A46298A1C82FA2000A27D3B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7A4AB3DA1C95469000718890 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		7A4AB3DC1C9622FD00718890 /* FacebookContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookContact.swift; sourceTree = "<group>"; };
 		7A8158851C8D886C0024B7C2 /* AlertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
 		7A8158861C8D886C0024B7C2 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		7A8158871C8D886C0024B7C2 /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A4AB3DB1C95469000718890 /* FBSDKShareKit.framework in Frameworks */,
 				7D4BD2C03A494A806588BD5F /* Pods_Fomo.framework in Frameworks */,
 				7A4629801C82ECE100A27D3B /* FBSDKCoreKit.framework in Frameworks */,
 				7A4629891C82F4C600A27D3B /* FBSDKLoginKit.framework in Frameworks */,
@@ -118,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				7A46297F1C82ECE100A27D3B /* FBSDKCoreKit.framework */,
+				7A4AB3DA1C95469000718890 /* FBSDKShareKit.framework */,
 				7A4629881C82F4C600A27D3B /* FBSDKLoginKit.framework */,
 				210733FAC28A8926561A77A2 /* Pods_Fomo.framework */,
 			);
@@ -152,6 +158,7 @@
 				AA1DCE8D1C843F8C0088DD27 /* City.swift */,
 				AA1DCE8F1C8440E70088DD27 /* Review.swift */,
 				AA1DCE951C85532F0088DD27 /* Recommendation.swift */,
+				7A4AB3DC1C9622FD00718890 /* FacebookContact.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -359,6 +366,7 @@
 				AA1DCE921C8441E60088DD27 /* AttractionType.swift in Sources */,
 				AA1DCECC1C8BA7F30088DD27 /* PreferencesViewController.swift in Sources */,
 				AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */,
+				7A4AB3DD1C9622FD00718890 /* FacebookContact.swift in Sources */,
 				7A81588B1C8D886C0024B7C2 /* FacebookClient.swift in Sources */,
 				AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */,
 				F9A79F161C8D948B0014A43A /* AttractionViewController.swift in Sources */,
@@ -487,6 +495,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					./FacebookSDK,
 					"$(PROJECT_DIR)/FacebookSDK",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Fomo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -506,6 +515,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					./FacebookSDK,
 					"$(PROJECT_DIR)/FacebookSDK",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Fomo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

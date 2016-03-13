@@ -12,7 +12,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "none"
+let DEBUG = "None"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -84,16 +84,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func jleeDebugging() {
-        print("Begin")
-        RecommenderClient.sharedInstance.add_itinerary(Itinerary.generateTestInstance()) { (response: Itinerary?, error: NSError?) -> () in
-
-            if error != nil {
-                print(error)
-                displayAlert((self.window?.rootViewController)!, error: error!)
-            } else {
-                print("Initial recommender hooked up")
-            }
-        }
+//        RecommenderClient.sharedInstance.add_itinerary(Itinerary.generateTestInstance()) { (response: Itinerary?, error: NSError?) -> () in
+//
+//            if error != nil {
+//                print(error)
+//                displayAlert((self.window?.rootViewController)!, error: error!)
+//            } else {
+//                print("Initial recommender hooked up")
+//            }
+//        }
 
         // How to use the recommender:
         //        RecommenderClient.sharedInstance.get_recommendations_with_user(User.generateTestInstance(), groupID: Itinerary.generateTestInstance().id!) {

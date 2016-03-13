@@ -27,7 +27,9 @@ class User: NSObject {
         self.id = dictionary["id"] as? String
         self.name = dictionary["name"] as? String
         self.email = dictionary["email"] as? String
-        self.profileImageURL = dictionary["profileImageURL"] as? String
+        let pic = dictionary["picture"] as? NSDictionary
+        let picData = pic?["data"] as? NSDictionary
+        self.profileImageURL = picData?["url"] as? String
         self.rawData = dictionary
     }
 
@@ -40,7 +42,7 @@ class User: NSObject {
 
         return users
     }
-
+    
 
     class func generateTestInstance() -> User {
         let user = User(dictionary: NSDictionary())
