@@ -35,7 +35,7 @@ class TravellersView: UIView {
     func initViews() {
         self.backgroundColor = UIColor.purpleColor()
         
-        //travellers = [User.generateTestInstance(), User.generateTestInstance()]
+        travellers = [User.generateTestInstance(), User.generateTestInstance()]
         
         for traveller in travellers {
             let profilePhoto = createHalo()
