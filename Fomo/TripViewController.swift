@@ -16,7 +16,6 @@ class TripViewController: UIViewController {
         setUpNavigationBar()
     }
 
-    
     func setUpNavigationBar() {
         self.navigationController?.navigationBarHidden = true
     }

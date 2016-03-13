@@ -12,7 +12,7 @@ import PureLayout
 @objc(ItineraryViewController)
 class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    let travellersView: UIView = UIView.newAutoLayoutView()
+    let travellersView: UIView = TravellersView.newAutoLayoutView()
     let tripDetailsView: UIView = UIView.newAutoLayoutView()
     let itineraryTableView: UITableView = UITableView.newAutoLayoutView()
     let calendarView: UICollectionView = {
@@ -37,7 +37,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func loadView() {
         view = UIView()
         
-        travellersView.backgroundColor = UIColor.blueColor()
         tripDetailsView.backgroundColor = UIColor.redColor()
         calendarView.backgroundColor = UIColor.greenColor()
         

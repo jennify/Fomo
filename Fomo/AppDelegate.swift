@@ -12,7 +12,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "none"
+let DEBUG = "christian"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func christianDebugging() {
         // Debugging Entry Point for Itinerary View Controller
-        if (false) {
+        if (true) {
             let itineraryViewController = ItineraryViewController()
             let navController = UINavigationController()
             navController.navigationBar.translucent = false
