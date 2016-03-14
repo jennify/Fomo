@@ -7,6 +7,7 @@ pod 'EPCalendarPicker', '~> 1.0.8'
 pod 'AFNetworking', '~> 2.5'
 pod 'BDBOAuth1Manager'
 pod 'PureLayout'
+pod 'SAConfettiView'
 
 end
 

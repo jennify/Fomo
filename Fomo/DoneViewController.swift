@@ -7,17 +7,21 @@
 //
 
 import UIKit
+import SAConfettiView
 
 class DoneViewController: UIViewController {
     
     let coverPhoto: UIImageView = UIImageView.newAutoLayoutView()
     let travellersView: TravellersView = TravellersView.newAutoLayoutView()
     let tableView: UITableView = UITableView.newAutoLayoutView()
+    let confettiView: SAConfettiView = SAConfettiView.newAutoLayoutView()
     
     var didSetupConstraints = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        confettiView.startConfetti()
 
         setUpNavigationBar()
     }
@@ -41,6 +45,7 @@ class DoneViewController: UIViewController {
         view.addSubview(coverPhoto)
         view.addSubview(travellersView)
         view.addSubview(tableView)
+        view.addSubview(confettiView)
         
         view.setNeedsUpdateConstraints()
     }
@@ -61,6 +66,8 @@ class DoneViewController: UIViewController {
             tableView.autoPinEdgeToSuperviewEdge(.Left)
             tableView.autoPinEdgeToSuperviewEdge(.Right)
             tableView.autoPinEdgeToSuperviewEdge(.Bottom)
+            
+            confettiView.autoPinEdgesToSuperviewEdges()
             
             didSetupConstraints = true
         }
