@@ -27,7 +27,7 @@ class Itinerary: NSObject {
         }
         self.id = dictionary["groupID"] as? String
         self.travellers = User.usersWithArray(dictionary["travellers"] as! [NSDictionary])
-        print(dictionary["itinerary"])
+//        let attractions = dictionary["itinerary"] as? [NSDictionary]
         self.tripName = dictionary["tripName"] as? String
         self.rawData = dictionary
     }
@@ -45,6 +45,14 @@ class Itinerary: NSObject {
     
     func numberDays() -> Int {
         return (days?.count)!
+    }
+    
+    func publishItinerary() {
+        
+    }
+    
+    func getLatestItinerary() {
+        
     }
     
     class func generateTestInstance() -> Itinerary {

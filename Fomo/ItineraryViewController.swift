@@ -23,7 +23,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var didSetupConstraints = false
     
     let itinerary: Itinerary = Itinerary.generateTestInstance()
-    
+
     
     
     override func viewDidLoad() {
@@ -32,6 +32,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpItineraryTableView()
         setUpCalendarView()
         setUpNavigationBar()
+        
     }
     
     override func loadView() {

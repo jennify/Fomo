@@ -55,7 +55,8 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
                 if paging!["next"] != nil {
                     self.getFriends(accessToken, afterCursor: afterCursor)
                 } else {
-                    print("Finished downloading all friends.")
+                    // Finished downloading friend list.
+//                    print("Finished downloading all friends.")
                 }
                 
             } else {

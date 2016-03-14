@@ -34,8 +34,9 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let it = Itinerary(dictionary: response as! NSDictionary)
             completion(response: it, error: nil)
-            }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
-                completion(response: nil, error: error)
+            
+        }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
+            completion(response: nil, error: error)
         })
     }
     
@@ -43,8 +44,8 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let its = Itinerary.itinerariesWithArray(response as! [NSDictionary])
             completion(response: its, error: nil)
-            }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
-                completion(response: nil, error: error)
+        }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
+            completion(response: nil, error: error)
         })
     }
     

@@ -23,7 +23,6 @@ class Attraction: NSObject {
     var rawData: NSDictionary!
     
     init(dictionary: NSDictionary) {
-        print(dictionary)
         self.rawData = dictionary
     }
     
