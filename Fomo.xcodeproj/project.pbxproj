@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A0B52D51C965C9A007A54F7 /* FoldingTripEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0B52D41C965C9A007A54F7 /* FoldingTripEventCell.swift */; };
 		7A1390E81C7C47C3001488FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1390E71C7C47C3001488FF /* Images.xcassets */; };
 		7A4629801C82ECE100A27D3B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A46297F1C82ECE100A27D3B /* FBSDKCoreKit.framework */; };
 		7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4629841C82F20200A27D3B /* ItineraryViewController.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		210733FAC28A8926561A77A2 /* Pods_Fomo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fomo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A0B52D41C965C9A007A54F7 /* FoldingTripEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingTripEventCell.swift; sourceTree = "<group>"; };
 		7A1390E71C7C47C3001488FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		7A46297F1C82ECE100A27D3B /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-20160210/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		7A4629811C82F0E300A27D3B /* Fomo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fomo-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1DCEC51C8A89E20088DD27 /* TripEventCell.swift */,
+				7A0B52D41C965C9A007A54F7 /* FoldingTripEventCell.swift */,
 				AA1DCEC71C8B90DE0088DD27 /* DayHeaderCell.swift */,
 				AA1DCEC91C8B987A0088DD27 /* DayCell.swift */,
 				AA1DCECD1C8BAC0C0088DD27 /* PreferenceCell.swift */,
@@ -390,6 +393,7 @@
 				F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */,
 				AA1DCE881C843DD00088DD27 /* Itinerary.swift in Sources */,
 				7A46298B1C82FA2000A27D3B /* User.swift in Sources */,
+				7A0B52D51C965C9A007A54F7 /* FoldingTripEventCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -66,7 +66,7 @@
  @discussion May return NO if the appropriate Facebook app is not installed and is required or an access token is
  required but not available.  This method does not validate the content on the receiver, so this can be checked before
  building up the content.
- @see [FBSDKSharing validateWithError:]
+ @see [FBSDKS/Users/jlee/src/codepath/GroupProject/Fomo/CityCell.swiftharing validateWithError:]
  @result YES if the receiver can share, otherwise NO.
  */
 - (BOOL)canShow;

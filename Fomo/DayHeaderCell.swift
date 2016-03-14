@@ -37,6 +37,7 @@ class DayHeaderCell: UITableViewHeaderFooterView {
     }
     
     func initViews() {
+        self.contentView.backgroundColor = UIColor.fomoPeriwinkle()
         dayName = UILabel()
         dayName.text = "Testing"
         addSubview(dayName)

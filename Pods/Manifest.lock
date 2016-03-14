@@ -24,18 +24,21 @@ PODS:
     - AFNetworking/NSURLConnection (~> 2.6.0)
     - AFNetworking/NSURLSession (~> 2.6.0)
   - EPCalendarPicker (1.0.8)
+  - FoldingCell (0.7.3)
   - PureLayout (3.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
   - BDBOAuth1Manager
   - EPCalendarPicker (~> 1.0.8)
+  - FoldingCell (~> 0.7.3)
   - PureLayout
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
   EPCalendarPicker: 0348fe754a7650582665ecc5ac98f4c0a0db0e91
+  FoldingCell: 8d7674d9ff51ae40408b99a17798bc0ec20a3654
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
 
 COCOAPODS: 0.39.0

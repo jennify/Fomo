@@ -33,7 +33,7 @@ class TravellersView: UIView {
     }
 
     func initViews() {
-        self.backgroundColor = UIColor.purpleColor()
+        self.backgroundColor = UIColor.fomoPeriwinkle()
         
         travellers = [User.generateTestInstance(), User.generateTestInstance()]
         

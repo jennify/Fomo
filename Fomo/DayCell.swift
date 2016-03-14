@@ -42,7 +42,7 @@ class DayCell: UICollectionViewCell {
     func initViews() {
         dayName = UILabel()
         dayName.text = "Testing"
-        dayName.backgroundColor = UIColor.whiteColor()
+        dayName.backgroundColor = UIColor.fomoWhite()
         dayName.layer.cornerRadius = 5
         dayName.clipsToBounds = true
         
