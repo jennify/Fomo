@@ -1,12 +1,10 @@
 //
-//  DraggableAttractionView.swift
-//  Fomo
-//
-//  Created by Connie Yu on 3/7/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// DraggableAttractionView.swift
+// ============================
+
 
 import UIKit
+
 
 class DraggableAttractionView: UIView {
     

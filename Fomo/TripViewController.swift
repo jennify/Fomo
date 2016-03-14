@@ -1,10 +1,7 @@
 //
-//  TripViewController.swift
-//  Fomo
-//
-//  Created by Connie Yu on 3/7/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// TripViewController.swift
+// ============================
+
 
 import UIKit
 import EPCalendarPicker
@@ -27,14 +24,14 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     var selectingStartDate = false
     var startDate: NSDate?
     var endDate: NSDate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpNavigationBar()
         updateViewConstraints()
     }
-
+    
     func setUpNavigationBar() {
         navigationItem.title = "Create Trip"
     }

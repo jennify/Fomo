@@ -1,13 +1,11 @@
 //
-//  FacebookClient.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 3/7/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// FacebookClient.swift
+// ============================
+
 
 import UIKit
 import BDBOAuth1Manager
+
 
 class FacebookClient: BDBOAuth1RequestOperationManager {
     class var sharedInstance: FacebookClient {

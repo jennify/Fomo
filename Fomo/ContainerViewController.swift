@@ -1,12 +1,10 @@
 //
-//  ContainerViewController.swift
-//  Fomo
-//
-//  Created by Connie Yu on 3/7/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// ContainerViewController.swift
+// =============================
+
 
 import UIKit
+
 
 class ContainerViewController: UIViewController {
     
@@ -56,6 +54,7 @@ class ContainerViewController: UIViewController {
         
         setUpMenu()
         setUpViewControllers()
+        
     }
     
     func setUpMenu() {
@@ -63,7 +62,8 @@ class ContainerViewController: UIViewController {
         view.addGestureRecognizer(panGestureRecognizer)
         
         profileImage.image = UIImage(named: "meh64px")
-        profileNameLabel.text = currentUser!.name
+        // TODO: debug currentUser.name
+        profileNameLabel.text = "Name"
         
         browseIcon.image = UIImage(named: "globe24px")
         browseButton.setTitle("Browse", forState: UIControlState.Normal)
@@ -99,6 +99,10 @@ class ContainerViewController: UIViewController {
     override func loadView() {
         view = UIView()
         
+        menuView.backgroundColor = UIColor.whiteColor()
+        leftBorder.backgroundColor = UIColor.whiteColor()
+        rightBorder.backgroundColor = UIColor.whiteColor()
+
         view.addSubview(containerView)
         view.addSubview(menuView)
         menuView.addSubview(leftBorder)
@@ -126,11 +130,11 @@ class ContainerViewController: UIViewController {
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
             containerView.autoPinEdgesToSuperviewEdges()
-            menuView.autoPinEdgeToSuperviewEdge(.Top)
+            menuView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             menuView.autoPinEdgeToSuperviewEdge(.Bottom)
             menuView.autoPinEdge(.Right, toEdge: .Left, ofView: view)
             menuView.autoConstrainAttribute(.Width, toAttribute: .Width, ofView: view, withMultiplier: 0.75)
-
+            
             leftBorder.autoPinEdgeToSuperviewEdge(.Top)
             leftBorder.autoPinEdgeToSuperviewEdge(.Bottom)
             leftBorder.autoSetDimension(.Width, toSize: 1)
@@ -160,6 +164,7 @@ class ContainerViewController: UIViewController {
             border1.autoSetDimension(.Height, toSize: 1)
             
             browseIcon.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
+            browseIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border1, withOffset: 10)
             browseIcon.autoSetDimension(.Height, toSize: 20)
             browseIcon.autoSetDimension(.Width, toSize: 20)
             browseIcon.autoAlignAxis(.Vertical, toSameAxisOfView: browseButton)
@@ -170,35 +175,42 @@ class ContainerViewController: UIViewController {
             border2.autoPinEdgeToSuperviewEdge(.Right)
             border2.autoSetDimension(.Height, toSize: 1)
 
-            tripIcon
+            tripIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border2, withOffset: 10)
+            tripIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: browseIcon)
+//            tripIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: browseButton, withOffset: 10)
             tripIcon.autoSetDimension(.Height, toSize: 20)
             tripIcon.autoSetDimension(.Width, toSize: 20)
             tripIcon.autoAlignAxis(.Vertical, toSameAxisOfView: tripButton)
-            tripButton
+            tripButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: browseButton)
+//            tripButton.autoPinEdge(.Left, toEdge: .Right, ofView: tripIcon, withOffset: 10)
             
             border3.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripButton, withOffset: 10)
             border3.autoPinEdgeToSuperviewEdge(.Left)
             border3.autoPinEdgeToSuperviewEdge(.Right)
             border3.autoSetDimension(.Height, toSize: 1)
 
-            createIcon
+            createIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border3, withOffset: 10)
+            createIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: tripIcon)
             createIcon.autoSetDimension(.Height, toSize: 20)
             createIcon.autoSetDimension(.Width, toSize: 20)
             createIcon.autoAlignAxis(.Vertical, toSameAxisOfView: createButton)
-            createButton
-            
-            inviteIcon
+            createButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: tripButton)
+//            createButton.autoPinEdge(.Left, toEdge: .Right, ofView: createIcon, withOffset: 10)
+
+            inviteIcon.autoPinEdge(.Bottom, toEdge: .Top, ofView: settingsIcon, withOffset: 10)
+            inviteIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: createIcon)
             inviteIcon.autoSetDimension(.Height, toSize: 20)
             inviteIcon.autoSetDimension(.Width, toSize: 20)
             inviteIcon.autoAlignAxis(.Vertical, toSameAxisOfView: inviteButton)
-            inviteButton.autoPinEdge(.Bottom, toEdge: .Top, ofView: settingsButton, withOffset: 10)
+            inviteButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: createButton)
+//            inviteButton.autoPinEdge(.Left, toEdge: .Right, ofView: inviteIcon, withOffset: 10)
             
-            settingsIcon
+            settingsIcon.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 10)
+            settingsIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: inviteIcon)
             settingsIcon.autoSetDimension(.Height, toSize: 20)
             settingsIcon.autoSetDimension(.Width, toSize: 20)
             settingsIcon.autoAlignAxis(.Vertical, toSameAxisOfView: settingsButton)
-            settingsButton
-            settingsButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 10)
+            settingsButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: inviteButton)
 
             didSetupConstraints = true
         }

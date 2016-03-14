@@ -1,14 +1,12 @@
 //
-//  Cache.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 3/4/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// Cache.swift
+// ============================
+
 
 import UIKit
 var _currentUser: User?
 var _currentFriends: [User]?
+
 
 class Cache: NSObject {
     class var currentUser: User? {

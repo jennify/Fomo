@@ -1,12 +1,10 @@
 //
-//  DayCell.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/5/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// DayCell.swift
+// ============================
+
 
 import UIKit
+
 
 class DayCell: UICollectionViewCell {
     

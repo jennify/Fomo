@@ -1,10 +1,7 @@
 //
-//  AlertUtil.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 3/4/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// AlertUtil.swift
+// ============================
+
 
 import Foundation
 
@@ -78,16 +75,14 @@ extension UIColor {
     }
     
     class func fomoPeriwinkle() -> UIColor {
-         return UIColor.fomoColors(2)
+        return UIColor.fomoColors(2)
     }
     
     class func fomoWhite() -> UIColor {
-         return UIColor.fomoColors(3)
+        return UIColor.fomoColors(3)
     }
     
     class func fomoSand() -> UIColor {
         return UIColor.fomoColors(4)
     }
-
-    
 }

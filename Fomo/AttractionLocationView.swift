@@ -1,12 +1,10 @@
 //
-//  AttractionLocationView.swift
-//  Fomo
-//
-//  Created by Connie Yu on 3/13/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// AttractionLocationView.swift
+// ============================
+
 
 import UIKit
+
 
 class AttractionLocationView: UIView {
 

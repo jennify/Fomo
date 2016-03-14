@@ -1,13 +1,11 @@
 //
-//  Attraction.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 2/29/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// Attraction.swift
+// ============================
+
 
 import UIKit
 import CoreLocation
+
 
 class Attraction: NSObject {
     

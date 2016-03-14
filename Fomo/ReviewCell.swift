@@ -1,13 +1,10 @@
 //
-//  ReviewCell.swift
-//  Fomo
-//
-//  Created by Connie Yu on 3/13/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// ReviewCell.swift
+// ============================
+
 
 import UIKit
-import PureLayout
+
 
 class ReviewCell: UITableViewCell {
 

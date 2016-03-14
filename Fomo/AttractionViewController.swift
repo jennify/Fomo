@@ -1,13 +1,11 @@
 //
-//  AttractionViewController.swift
-//  Fomo
-//
-//  Created by Connie Yu on 3/7/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// AttractionViewController.swift
+// ==============================
+
 
 import UIKit
 import PureLayout
+
 
 class AttractionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 

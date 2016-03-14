@@ -1,10 +1,7 @@
 //
-//  AppDelegate.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 2/22/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// AppDelegate.swift
+// ============================
+
 
 import UIKit
 import CoreData

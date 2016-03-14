@@ -1,13 +1,11 @@
 //
-//  FriendsViewController.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/5/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// FriendsViewController.swift
+// ============================
+
 
 import UIKit
 import AFNetworking
+
 
 class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 

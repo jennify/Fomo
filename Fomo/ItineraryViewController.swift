@@ -1,13 +1,11 @@
 //
-//  TripItineraryViewController.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 2/28/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// ItineraryViewController.swift
+// =============================
+
 
 import UIKit
 import PureLayout
+
 
 @objc(ItineraryViewController)
 class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {

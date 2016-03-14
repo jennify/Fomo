@@ -1,12 +1,10 @@
 //
-//  User.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 2/28/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// User.swift
+// ============================
+
 
 import UIKit
+
 
 class User: NSObject {
 

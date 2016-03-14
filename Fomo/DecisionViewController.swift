@@ -1,12 +1,10 @@
 //
-//  DecisionViewController.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 2/28/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// DecisionViewController.swift
+// ============================
+
 
 import UIKit
+
 
 class DecisionViewController: UIViewController {
     
@@ -33,7 +31,7 @@ class DecisionViewController: UIViewController {
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            imageView.autoPinEdgeToSuperviewEdge(.Top)
+            imageView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             imageView.autoPinEdgeToSuperviewEdge(.Left)
             imageView.autoPinEdgeToSuperviewEdge(.Right)
             imageView.autoSetDimension(.Height, toSize: 240)

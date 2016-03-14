@@ -1,13 +1,10 @@
 //
-//  TripEventCell.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/4/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// TripEventCell.swift
+// ============================
+
 
 import UIKit
-import PureLayout
+
 
 class TripEventCell: UITableViewCell {
     

@@ -1,12 +1,10 @@
 //
-//  PreferenceCell.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/5/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// PreferenceCell.swift
+// ============================
+
 
 import UIKit
+
 
 class PreferenceCell: UICollectionViewCell {
     

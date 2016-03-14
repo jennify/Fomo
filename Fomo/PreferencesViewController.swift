@@ -1,13 +1,11 @@
 //
-//  PreferencesViewController.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/5/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// PreferencesViewController.swift
+// ===============================
+
 
 import UIKit
 import PureLayout
+
 
 class PreferencesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
