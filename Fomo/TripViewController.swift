@@ -23,6 +23,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
     var didSetupConstraints = false
     
+    var city: City?
     var selectingStartDate = false
     var startDate: NSDate?
     var endDate: NSDate?
@@ -35,7 +36,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     }
 
     func setUpNavigationBar() {
-        self.navigationController?.navigationBarHidden = true
+        navigationItem.title = "Create Trip"
     }
     
     override func loadView() {

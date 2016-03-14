@@ -85,6 +85,16 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let city = cities[indexPath.row]
+        let tripViewController = TripViewController()
+        tripViewController.city = city
+        
+        self.navigationController?.pushViewController(tripViewController, animated: true)
+    }
+    
     func configureCell(cell: CityCell, indexPath: NSIndexPath) {
         let city = filteredCities[indexPath.row]
         cell.cityName.text = city.name
