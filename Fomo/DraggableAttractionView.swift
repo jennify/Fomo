@@ -9,11 +9,13 @@
 import UIKit
 
 class DraggableAttractionView: UIView {
-
-    @IBOutlet weak var attractionImageView: UIImageView!
-    @IBOutlet var contentView: UIView!
     
+    var attractionImageView: UIImageView = UIImageView.newAutoLayoutView()
+    var contentView: UIView = UIView.newAutoLayoutView()
+
     var imageOriginalCenter: CGPoint!
+
+    var didSetupConstraints = false
 
     var attractionImage: UIImage? {
         get { return attractionImageView.image }
@@ -23,6 +25,17 @@ class DraggableAttractionView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initSubviews()
+        updateConstraints()
+    }
+    
+    override func updateConstraints() {
+        if !didSetupConstraints {
+            attractionImageView.autoPinEdgesToSuperviewEdges()
+            
+            didSetupConstraints = true
+        }
+        
+        super.updateConstraints()
     }
     
     override init(frame: CGRect) {
@@ -31,10 +44,9 @@ class DraggableAttractionView: UIView {
     }
     
     func initSubviews() {
-        let nib = UINib(nibName: "DraggableAttractionView", bundle: nil)
-        nib.instantiateWithOwner(self, options: nil)
         contentView.frame = bounds
         addSubview(contentView)
+        addSubview(attractionImageView)
     }
     
     func translate(view: UIView, sender: UIPanGestureRecognizer) {
@@ -90,9 +102,6 @@ class DraggableAttractionView: UIView {
                     self.attractionImageView.transform = CGAffineTransformIdentity
                 })
             }
-            
-
         }
     }
-    
 }

@@ -8,13 +8,13 @@
 
 import UIKit
 
-// TODO: delegate protocol
 class DecisionViewController: UIViewController {
+    
+    let imageView: DraggableAttractionView = DraggableAttractionView.newAutoLayoutView()
+    var nameLabel: UILabel = UILabel.newAutoLayoutView()
 
-    
-    @IBOutlet weak var imageView: DraggableAttractionView!
-    @IBOutlet weak var nameLabel: UILabel!
-    
+    var didSetupConstraints = false
+
     let tripevent: TripEvent = TripEvent.generateTestInstance(City.generateTestInstance())
     
     override func viewDidLoad() {
@@ -23,32 +23,54 @@ class DecisionViewController: UIViewController {
         setUpNavigationBar()
     }
     
+    override func loadView() {
+        view = UIView()
+        view.addSubview(imageView)
+        view.addSubview(nameLabel)
+
+        view.setNeedsUpdateConstraints()
+    }
+    
+    override func updateViewConstraints() {
+        if (!didSetupConstraints) {
+            imageView.autoPinEdgeToSuperviewEdge(.Top)
+            imageView.autoPinEdgeToSuperviewEdge(.Left)
+            imageView.autoPinEdgeToSuperviewEdge(.Right)
+            imageView.autoSetDimension(.Height, toSize: 240)
+            
+            nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: imageView, withOffset: 10)
+            nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
+            
+            didSetupConstraints = true
+        }
+        
+        super.updateViewConstraints()
+    }
+    
     func setUpAttractionView() {
         let attraction = tripevent.attraction
         let attractionImageUrl = NSURL(string: attraction!.imageUrls![0])!
         imageView.attractionImageView.setImageWithURL(attractionImageUrl)
         
         nameLabel.text = attraction!.name
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "onTap:")
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+        
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "onPan:")
+        imageView.addGestureRecognizer(panGestureRecognizer)
     }
 
-    func setUpNavigationBar() {
-        navigationItem.title = tripevent.attraction!.name
+    // Tap to view attraction details
+    func onTap(sender: UITapGestureRecognizer) {
+        self.performSegueWithIdentifier("attractionSegue", sender: self)
     }
-    
-    // Swipe to vote
-    @IBAction func onAttractionPanGesture(sender: UIPanGestureRecognizer) {
+
+    func onPan(sender: UIPanGestureRecognizer) {
         imageView.translate(view, sender: sender)
     }
     
-    // Tap to view attraction details
-    @IBAction func onAttractionTapGesture(sender: UITapGestureRecognizer) {
-        self.performSegueWithIdentifier("attractionSegue", sender: self)
-    }
-    
-    
-    func displayTodo(todo: String) {
-        let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
+    func setUpNavigationBar() {
+        navigationItem.title = tripevent.attraction!.name
     }
 }
