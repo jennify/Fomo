@@ -24,8 +24,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     let itinerary: Itinerary = Itinerary.generateTestInstance()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
