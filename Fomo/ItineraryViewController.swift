@@ -30,7 +30,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpItineraryTableView()
         setUpCalendarView()
         setUpNavigationBar()
-
     }
 
     override func loadView() {
