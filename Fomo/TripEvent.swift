@@ -24,6 +24,7 @@ class TripEvent: NSObject {
     }
 
     var id: Int?
+    var itinerary: Itinerary?
     var attraction: Attraction?
     var eventType: EventType?
     var vote: Vote? // Current user's vote

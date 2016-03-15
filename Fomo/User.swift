@@ -41,6 +41,9 @@ class User: NSObject {
         return users
     }
     
+    func addToItinerary(itinerary: Itinerary, completion: (response: Itinerary?, error: NSError?) -> ()) {
+        RecommenderClient.sharedInstance.update_itinerary_with_user(itinerary, user: self, completion: completion)
+    }
 
     class func generateTestInstance() -> User {
         let user = User(dictionary: NSDictionary())

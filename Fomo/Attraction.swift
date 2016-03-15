@@ -24,6 +24,13 @@ class Attraction: NSObject {
         self.rawData = dictionary
     }
     
+    func vote(vote: Vote, completion: (response: Itinerary?, error: NSError?) -> ()) {
+        let itinerary = tripEvent?.itinerary
+        let currentUser = Cache.currentUser
+        
+        RecommenderClient.sharedInstance.update_itinerary_with_vote(itinerary!, attraction: self, user: currentUser!, vote: vote, completion: completion)
+    }
+    
     class func generateTestInstance(city: City) -> Attraction {
         let attraction = Attraction(dictionary: NSDictionary())
         attraction.name = "De Young Museum"

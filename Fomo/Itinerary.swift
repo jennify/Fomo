@@ -45,12 +45,25 @@ class Itinerary: NSObject {
         return (days?.count)!
     }
     
-    func publishItinerary() {
-        
+    func refreshItinerary(completion: (itinerary: Itinerary) -> ()) {
+        RecommenderClient.sharedInstance.get_itinerary(self) { (response: Itinerary?, error: NSError?) -> () in
+            completion(itinerary: response!)
+        }
     }
     
-    func getLatestItinerary() {
-        
+    func createItinerary(completion: (response: Itinerary?, error: NSError?) -> ()) {
+        let currentUser = Cache.currentUser
+        self.creator = currentUser
+        RecommenderClient.sharedInstance.add_itinerary(self, completion: completion)
+    }
+    
+    func getLatestItineraryForCurrentUser(completion: (response: Itinerary) -> ()) {
+        let currentUser = Cache.currentUser
+        RecommenderClient.sharedInstance.get_itineraries_for_user(currentUser!) { (response: [Itinerary]?, error: NSError?) -> () in
+            if let response = response {
+                completion(response: response.first!)
+            }
+        }
     }
     
     class func generateTestInstance() -> Itinerary {
