@@ -221,7 +221,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row < itinerary.numberDays() {
-            itineraryTableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            let itineraryIndexPath = NSIndexPath(forRow: 0, inSection: indexPath.row)
+            itineraryTableView.scrollToRowAtIndexPath(itineraryIndexPath, atScrollPosition: .Top, animated: true)
         } else {
             displayTodo("Add a day")
         }
