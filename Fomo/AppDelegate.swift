@@ -1,10 +1,7 @@
 //
-//  AppDelegate.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 2/22/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// AppDelegate.swift
+// ============================
+
 
 import UIKit
 import CoreData
@@ -12,7 +9,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "none"
+let DEBUG = "connie"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         if Cache.currentUser != nil {
             // If user has already logged in
+            print("Current user detected: \(Cache.currentUser!.name!)")
             let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
             window?.rootViewController = vc
         }
@@ -157,7 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func userDidLogout() {
-        let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController")
+        let vc = storyboard.instantiateInitialViewController()
         window?.rootViewController = vc
     }
 

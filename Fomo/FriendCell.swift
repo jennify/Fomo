@@ -1,17 +1,15 @@
 //
-//  FriendsCell.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/5/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// FriendCell.swift
+// ============================
+
 
 import UIKit
 
+
 class FriendCell: UITableViewCell {
 
-    var profilePhoto: UIImageView = UIImageView.newAutoLayoutView()
-    var friendName: UILabel = UILabel.newAutoLayoutView()
+    let profilePhoto: UIImageView = UIImageView.newAutoLayoutView()
+    let friendName: UILabel = UILabel.newAutoLayoutView()
     
     var didSetupConstraints = false
     
@@ -31,15 +29,14 @@ class FriendCell: UITableViewCell {
         if !didSetupConstraints {
             profilePhoto.autoSetDimension(.Height, toSize: 50)
             profilePhoto.autoSetDimension(.Width, toSize: 50)
+            profilePhoto.autoPinEdgeToSuperviewEdge(.Top, withInset: 10)
             profilePhoto.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
-            profilePhoto.autoAlignAxisToSuperviewAxis(.Horizontal)
             profilePhoto.layer.cornerRadius = 25
             profilePhoto.clipsToBounds = true
             
             friendName.autoPinEdge(.Left, toEdge: .Right, ofView: profilePhoto, withOffset: 10)
-            friendName.autoPinEdgeToSuperviewEdge(.Right)
             friendName.autoAlignAxis(.Horizontal, toSameAxisOfView: profilePhoto)
-            
+
             didSetupConstraints = true
         }
         

@@ -1,13 +1,11 @@
 //
-//  FacebookClient.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 3/7/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// FacebookClient.swift
+// ============================
+
 
 import UIKit
 import BDBOAuth1Manager
+
 
 class FacebookClient: BDBOAuth1RequestOperationManager {
     class var sharedInstance: FacebookClient {
@@ -56,7 +54,7 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
                     self.getFriends(accessToken, afterCursor: afterCursor)
                 } else {
                     // Finished downloading friend list.
-//                    print("Finished downloading all friends.")
+                    // print("Finished downloading all friends.")
                 }
                 
             } else {
@@ -64,6 +62,5 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
             }
         })
     }
-    
 }
 

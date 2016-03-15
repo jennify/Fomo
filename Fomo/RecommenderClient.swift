@@ -1,15 +1,13 @@
 //
-//  RecommenderClient.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 3/4/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// RecommenderClient.swift
+// ============================
+
 
 import BDBOAuth1Manager
 import UIKit
 
 let USE_LOCAL_DEV_ENVIROMENT = false
+
 
 class RecommenderClient: BDBOAuth1RequestOperationManager {
     // No Auth attached!
@@ -128,6 +126,4 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         print(url)
         // TODO(jlee);
     }
-    
-    
 }

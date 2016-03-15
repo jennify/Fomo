@@ -1,12 +1,10 @@
 //
-//  Trip.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 2/29/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// Itinerary.swift
+// ============================
+
 
 import UIKit
+
 
 class Itinerary: NSObject {
     
@@ -77,5 +75,4 @@ class Itinerary: NSObject {
         
         return itinerary
     }
-    
 }

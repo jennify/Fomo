@@ -1,12 +1,10 @@
 //
-//  Recommendation.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 2/29/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// Recommendation.swift
+// ============================
+
 
 import UIKit
+
 
 class Recommendation: NSObject {
     
