@@ -9,7 +9,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "jlee"
+let DEBUG = "none"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
