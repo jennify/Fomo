@@ -40,8 +40,8 @@ Both trip collaborators and organizers can:
 (https://raw.githubusercontent.com/jennify/Fomo/master/wireframe.png)
 
 
-## Sprint 1
-![Demo](sprint1.gif)
+## Sprint 2
+![Demo](sprint2.gif)
 
 
 ## Work Board
