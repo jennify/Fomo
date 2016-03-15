@@ -4,6 +4,7 @@
 
 
 import UIKit
+import PureLayout
 
 
 class ContainerViewController: UIViewController {
@@ -37,19 +38,20 @@ class ContainerViewController: UIViewController {
 
     let currentUser = Cache.currentUser
     
-    private var selectedViewController: UIViewController!
-    private var loginVC: LoginViewController!
-    private var decisionVC: DecisionViewController!
-    private var attractionVC: AttractionViewController!
-    private var itineraryVC: ItineraryViewController!
-    private var cityVC: CityViewController!
-    private var tripVC: TripViewController!
-    private var friendsVC: FriendsViewController!
-    private var preferencesVC: PreferencesViewController!
-    private var doneVC: DoneViewController!
+    var selectedViewController: UIViewController!
+    var loginVC: LoginViewController!
+    var decisionVC: DecisionViewController!
+    var browseVC: BrowseViewController!
+    var attractionVC: AttractionViewController!
+    var itineraryVC: ItineraryViewController!
+    var cityVC: CityViewController!
+    var tripVC: TripViewController!
+    var friendsVC: FriendsViewController!
+    var preferencesVC: PreferencesViewController!
+    var doneVC: DoneViewController!
     
-    private var menuClosedX: CGFloat!
-    private var menuOpenX: CGFloat!
+    var menuClosedX: CGFloat!
+    var menuOpenX: CGFloat!
 
     var didSetupConstraints = false
     
@@ -72,8 +74,8 @@ class ContainerViewController: UIViewController {
         border2.backgroundColor = UIColor.fomoTeal()
         border3.backgroundColor = UIColor.fomoTeal()
         
-        // TODO: debug currentUser.name
-        profileImage.image = UIImage(named: "meh64px")
+        // TODO: currentUser.name
+        profileImage.image = UIImage(named: "neutral")
         profileNameLabel.text = "Name"
         
         profileNameLabel.textColor = UIColor.fomoWhite()
@@ -84,23 +86,23 @@ class ContainerViewController: UIViewController {
         inviteButton.titleLabel!.font = inviteButton.titleLabel!.font.fontWithSize(14)
         settingsButton.titleLabel!.font = settingsButton.titleLabel!.font.fontWithSize(14)
 
-        browseIcon.image = UIImage(named: "globe24px")
+        browseIcon.image = UIImage(named: "globe")
         browseButton.setTitle("Browse", forState: UIControlState.Normal)
         browseButton.addTarget(self, action: "onBrowsePressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        tripIcon.image = UIImage(named: "plane20px")
+        tripIcon.image = UIImage(named: "plane")
         tripButton.setTitle("Trip", forState: UIControlState.Normal)
         tripButton.addTarget(self, action: "onTripPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        createIcon.image = UIImage(named: "plus20px")
+        createIcon.image = UIImage(named: "plus")
         createButton.setTitle("New Trip", forState: UIControlState.Normal)
         createButton.addTarget(self, action: "onNewTripPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        inviteIcon.image = UIImage(named: "invite20px")
+        inviteIcon.image = UIImage(named: "invite")
         inviteButton.setTitle("Invite Friends", forState: UIControlState.Normal)
         inviteButton.addTarget(self, action: "onInviteFriendsPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        settingsIcon.image = UIImage(named: "settings20px")
+        settingsIcon.image = UIImage(named: "settings")
         settingsButton.setTitle("Profile Settings", forState: UIControlState.Normal)
         settingsButton.addTarget(self, action: "onProfileSettingsPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -120,6 +122,7 @@ class ContainerViewController: UIViewController {
     
     func setUpViewControllers() {
         loginVC = storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
+        browseVC = storyboard!.instantiateViewControllerWithIdentifier("BrowseViewController") as! BrowseViewController
         decisionVC = storyboard!.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
         attractionVC = storyboard!.instantiateViewControllerWithIdentifier("AttractionViewController") as! AttractionViewController
         itineraryVC = storyboard!.instantiateViewControllerWithIdentifier("ItineraryViewController") as! ItineraryViewController
@@ -133,7 +136,7 @@ class ContainerViewController: UIViewController {
     }
 
     func setUpNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hamburger16px"), style: .Plain, target: self, action: "toggleMenu")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hamburger"), style: .Plain, target: self, action: "toggleMenu")
     }
     
     override func loadView() {
@@ -257,14 +260,15 @@ class ContainerViewController: UIViewController {
         menuClosedX = -menuView.frame.size.width / 2
     }
     
-    private func selectViewController(viewController: UIViewController) {
-        if let oldViewController = selectedViewController {
-            if oldViewController == viewController {
+    func selectViewController(viewController: UIViewController) {
+        if let previousViewController = selectedViewController {
+            if previousViewController == viewController {
+                toggleMenu()
                 return
             }
-            oldViewController.willMoveToParentViewController(nil)
-            oldViewController.view.removeFromSuperview()
-            oldViewController.removeFromParentViewController()
+            previousViewController.willMoveToParentViewController(nil)
+            previousViewController.view.removeFromSuperview()
+            previousViewController.removeFromParentViewController()
         }
         self.addChildViewController(viewController)
         viewController.view.frame = containerView.bounds
@@ -311,7 +315,7 @@ class ContainerViewController: UIViewController {
     }
     
     func onNewTripPressed(sender: AnyObject) {
-        selectViewController(tripVC)
+        selectViewController(cityVC)
     }
     
     func onInviteFriendsPressed(sender: AnyObject) {

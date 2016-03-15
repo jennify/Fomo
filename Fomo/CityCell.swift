@@ -11,7 +11,7 @@ class CityCell: UITableViewCell {
     let cityImageView: UIImageView = UIImageView.newAutoLayoutView()
     let cityName: UILabel = UILabel.newAutoLayoutView()
     let gradient: CAGradientLayer = CAGradientLayer()
-    
+        
     var didSetupConstraints = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

@@ -31,26 +31,27 @@ class DoneViewController: UIViewController {
     override func loadView() {
         view = UIView()
         
-        coverPhoto.backgroundColor = UIColor.redColor()
-        travellersView.backgroundColor = UIColor.greenColor()
-        tableView.backgroundColor = UIColor.blueColor()
-        
+        coverPhoto.backgroundColor = UIColor.fomoWhite()
+        travellersView.backgroundColor = UIColor.fomoPeriwinkle()
+        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+
         view.addSubview(coverPhoto)
         view.addSubview(travellersView)
         view.addSubview(tableView)
         view.addSubview(confettiView)
-        
+
         view.setNeedsUpdateConstraints()
     }
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
+            coverPhoto.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             coverPhoto.autoSetDimension(.Height, toSize: 200)
-            coverPhoto.autoPinEdgeToSuperviewEdge(.Top)
             coverPhoto.autoPinEdgeToSuperviewEdge(.Left)
             coverPhoto.autoPinEdgeToSuperviewEdge(.Right)
             
-            travellersView.autoSetDimension(.Height, toSize: 70.0)
+            travellersView.autoSetDimension(.Height, toSize: 70)
             travellersView.autoPinEdgeToSuperviewEdge(.Left)
             travellersView.autoPinEdgeToSuperviewEdge(.Right)
             travellersView.autoPinEdge(.Top, toEdge: .Bottom, ofView: coverPhoto)
