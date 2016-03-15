@@ -25,9 +25,32 @@ class Itinerary: NSObject {
         }
         self.id = dictionary["groupID"] as? String
         self.travellers = User.usersWithArray(dictionary["travellers"] as! [NSDictionary])
-//        let attractions = dictionary["itinerary"] as? [NSDictionary]
+
         self.tripName = dictionary["tripName"] as? String
+        let startDateStr = dictionary["startDate"] as? String
+        self.startDate = DateFormatter.dateFromString(startDateStr)
         self.rawData = dictionary
+        
+        let numDays = dictionary["numDays"] as? Int
+        
+        let attractions = dictionary["itinerary"] as? [NSDictionary]
+    
+        self.days = []
+        
+        var attrStartIndex = 0
+        
+        for _ in 0...numDays! {
+            // TODO(jlee): Check if we have enough attractions to fill itinerary.
+
+            let tripEventsDict: [NSDictionary] = Array(attractions![attrStartIndex...attrStartIndex+3])
+            let dayDict: NSDictionary = [
+                "tripEvents": tripEventsDict,
+            ]
+            attrStartIndex = attrStartIndex + 3
+            self.days?.append(Day(dictionary: dayDict))
+        }
+        
+        
     }
     
     class func itinerariesWithArray(array: [NSDictionary]) -> [Itinerary] {

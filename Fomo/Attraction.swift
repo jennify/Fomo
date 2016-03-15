@@ -19,8 +19,34 @@ class Attraction: NSObject {
     var rating: Float?
     var tripEvent: TripEvent?
     var rawData: NSDictionary!
+    var address: String?
+    var attractionType: [String]?
+    var photoRefrences: [String] = []
     
     init(dictionary: NSDictionary) {
+        if dictionary.count == 0 {
+            return
+        }
+        self.address = dictionary["formatted_address"] as? String
+        
+        // Parsing location:
+        let geo = dictionary["geometry"] as? NSDictionary
+        let loc = geo!["location"] as? NSDictionary
+        let lat = loc!["lat"] as? Double
+        let long = loc!["lng"]  as? Double
+        self.location = CLLocation(latitude: lat!, longitude: long!)
+        
+        self.name = dictionary["name"] as? String
+        self.rating = dictionary["rating"] as? Float
+        self.attractionType = dictionary["types"] as? [String]
+        
+        let photos = dictionary["photos"] as? [NSDictionary]
+        for photo in photos! {
+            let ref = photo["photo_reference"] as? String
+            self.photoRefrences.append(ref!)
+        }
+        // Temporary holder for images before they work
+        self.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]
         self.rawData = dictionary
     }
     

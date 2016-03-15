@@ -25,11 +25,12 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var kCloseCellHeight: CGFloat = FoldingTripEventCell.topViewHeight + 8 // equal or greater foregroundView height
     let kOpenCellHeight: CGFloat = FoldingTripEventCell.detailsViewHeight + 8 // equal or greater containerView height
 
-    let itinerary: Itinerary = Itinerary.generateTestInstance()
+    var itinerary: Itinerary = Itinerary.generateTestInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.itinerary = Cache.itinerary!
         setUpItineraryTableView()
         setUpCalendarView()
         setUpNavigationBar()
@@ -129,19 +130,21 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itinerary.days![section].tripEvents!.count
+        return itinerary.days![section].tripEvents!.count - 1
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FoldingTripEventCell", forIndexPath: indexPath) as! FoldingTripEventCell
+        
         cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
+        print(itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction?.name)
         cell.parentView = self.view
 
         if !cell.didAwake {
             cell.awakeFromNib()
             cell.didAwake = true
         }
-        cell.updateConstraints()
+
         return cell
     }
 

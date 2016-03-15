@@ -16,6 +16,7 @@
 		7A46298B1C82FA2000A27D3B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A46298A1C82FA2000A27D3B /* User.swift */; };
 		7A4AB3DB1C95469000718890 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4AB3DA1C95469000718890 /* FBSDKShareKit.framework */; };
 		7A4AB3DD1C9622FD00718890 /* FacebookContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4AB3DC1C9622FD00718890 /* FacebookContact.swift */; };
+		7A588C4F1C97F73400611864 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A588C4E1C97F73400611864 /* DateFormatter.swift */; };
 		7A8158891C8D886C0024B7C2 /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158851C8D886C0024B7C2 /* AlertUtil.swift */; };
 		7A81588A1C8D886C0024B7C2 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158861C8D886C0024B7C2 /* Cache.swift */; };
 		7A81588B1C8D886C0024B7C2 /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158871C8D886C0024B7C2 /* FacebookClient.swift */; };
@@ -66,6 +67,7 @@
 		7A46298A1C82FA2000A27D3B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7A4AB3DA1C95469000718890 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		7A4AB3DC1C9622FD00718890 /* FacebookContact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookContact.swift; sourceTree = "<group>"; };
+		7A588C4E1C97F73400611864 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		7A8158851C8D886C0024B7C2 /* AlertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
 		7A8158861C8D886C0024B7C2 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		7A8158871C8D886C0024B7C2 /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				7A8158861C8D886C0024B7C2 /* Cache.swift */,
 				7A8158871C8D886C0024B7C2 /* FacebookClient.swift */,
 				7A8158881C8D886C0024B7C2 /* RecommenderClient.swift */,
+				7A588C4E1C97F73400611864 /* DateFormatter.swift */,
 			);
 			name = "API Clients";
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */,
 				F9A79F161C8D948B0014A43A /* AttractionViewController.swift in Sources */,
 				F9F20CB11C956EA5004DEC9E /* ReviewCell.swift in Sources */,
+				7A588C4F1C97F73400611864 /* DateFormatter.swift in Sources */,
 				7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */,
 				F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */,
 				AA1DCE901C8440E70088DD27 /* Review.swift in Sources */,

@@ -281,7 +281,7 @@ class TopView: RotatedView {
             attractionName.font = UIFont(name: "AppleSDGothicNeo-Light", size: 17)
             imageView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
         } else {
-            attractionName.text = "Invalid"
+            attractionName.text = "Invalid attraction"
         }
         self.addSubview(attractionName)
         self.addSubview(imageView)

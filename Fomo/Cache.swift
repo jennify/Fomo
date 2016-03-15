@@ -7,6 +7,7 @@ import UIKit
 
 var _currentUser: User?
 var _currentFriends: [User]?
+var _currentItinerary: Itinerary?
 
 let currentUserKey = "kCurrentUserKey"
 
@@ -59,6 +60,15 @@ class Cache: NSObject {
             } else {
                 Cache.currentFriends!.appendContentsOf(friends!)
             }
+        }
+    }
+    
+    class var itinerary: Itinerary? {
+        get {
+            return _currentItinerary
+        }
+        set (it) {
+            _currentItinerary = it
         }
     }
 }

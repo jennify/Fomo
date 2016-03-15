@@ -6,7 +6,7 @@
 import BDBOAuth1Manager
 import UIKit
 
-let USE_LOCAL_DEV_ENVIROMENT = false
+let USE_LOCAL_DEV_ENVIROMENT = true
 
 
 class RecommenderClient: BDBOAuth1RequestOperationManager {
@@ -31,6 +31,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     func requestGETWithItineraryResponse(url: String, parameters: NSDictionary, completion:(response: Itinerary?, error: NSError?) -> () ) {
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let it = Itinerary(dictionary: response as! NSDictionary)
+            Cache.itinerary = it
             completion(response: it, error: nil)
             
         }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
@@ -41,6 +42,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     func requestGETWithItinerariesResponse(url: String, parameters: NSDictionary, completion:(response: [Itinerary]?, error: NSError?) -> () ) {
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let its = Itinerary.itinerariesWithArray(response as! [NSDictionary])
+            Cache.itinerary = its.first
             completion(response: its, error: nil)
         }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
             completion(response: nil, error: error)
@@ -50,6 +52,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     func requestPOSTWithItineraryResponse(url: String, parameters: NSDictionary, completion:(response: Itinerary?, error: NSError?) -> () ) {
         POST(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let it = Itinerary(dictionary: response as! NSDictionary)
+            Cache.itinerary = it
             completion(response: it, error: nil)
         }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
             completion(response: nil, error: error)
@@ -60,8 +63,8 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         let url = recommender_domain + "/get_recommendations/"
         let parameters = ["groupID": groupID, "userEmail": user.email!]
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            print(response)
-            completion(response: nil, error: nil)
+            let rec = Recommendation(dictionary: response as! NSDictionary)
+            completion(response: rec, error: nil)
         }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
             completion(response: nil, error: error)
         })
@@ -83,7 +86,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     
     func update_itinerary_with_user (itinerary: Itinerary, user: User, completion: (response: Itinerary?, error: NSError?) -> ()) {
         let url = recommender_domain + "/update_itinerary_with_user/"
-        let parameters: [String: String] = ["groupID": itinerary.id!, "userEmail": user.email!, "name": user.name!]
+        let parameters: [String: String] = ["groupID": itinerary.id!, "userEmail": user.email!, "name": user.name!, "profileImageURL": user.profileImageURL!]
         requestPOSTWithItineraryResponse(url, parameters: parameters, completion: completion)
     }
     
@@ -108,6 +111,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
             "userEmail": itinerary.creator!.email!,
             "name": itinerary.creator!.name!,
             "tripName": itinerary.tripName!,
+            "startDate": DateFormatter.dateTostring(itinerary.startDate)!,
             "numDays" : "\(itinerary.days?.count ?? 0)",
             "location": location,
             "radius": "\(itinerary.city?.radius)" ]
