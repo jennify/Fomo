@@ -29,8 +29,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.itinerary = Cache.itinerary!
+        if Cache.itinerary != nil {
+            self.itinerary = Cache.itinerary!
+        }
         setUpItineraryTableView()
         setUpCalendarView()
         setUpNavigationBar()
