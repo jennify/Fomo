@@ -14,9 +14,8 @@ class FoldingTripEventCell: FoldingCell {
     var parentView: UIView?
     var didSetupConstraints = false
     
-    let topView: ForegroundView = ForegroundView.newAutoLayoutView()
+    let topView: TopView = TopView.newAutoLayoutView()
     let detailsView: UIView = UIView.newAutoLayoutView()
-    var attractionName: UILabel = UILabel.newAutoLayoutView()
     
     var didAwake = false
     var detailSegments: [UIView] = []
@@ -64,15 +63,13 @@ class FoldingTripEventCell: FoldingCell {
     }
     
     override func updateConstraints() {
-        if !didSetupConstraints {
+        if !self.didSetupConstraints {
             let width = (parentView?.frame.width ?? 310) - 8
             topView.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
             topView.autoSetDimension(.Height, toSize: FoldingTripEventCell.topViewHeight)
             topView.autoSetDimension(.Width, toSize: width)
             self.topView.autoPinEdgeToSuperviewEdge(.Top, withInset: 8).autoIdentify("ForegroundViewTop")
-            attractionName.autoCenterInSuperview()
             
-
             detailsView.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
             detailsView.autoSetDimension(.Width, toSize: width)
             detailsView.autoSetDimension(.Height, toSize: FoldingTripEventCell.detailsViewHeight)
@@ -118,14 +115,10 @@ class FoldingTripEventCell: FoldingCell {
     }
     
     func initViews() {
-        self.backgroundColor = UIColor.fomoPeriwinkle()
+
+        self.backgroundColor = UIColor.fomoSand()
         self.itemCount = detailSegments.count
-        if attraction != nil {
-            attractionName.text = attraction?.name
-        } else {
-            attractionName.text = "Invalid"
-        }
-    
+        
         
         initTopView()
         
@@ -133,8 +126,6 @@ class FoldingTripEventCell: FoldingCell {
         detailsView.backgroundColor = UIColor.fomoWhite().colorWithAlphaComponent(0.8)
         detailsView.layer.cornerRadius = 10
         detailsView.layer.masksToBounds = true
-        
-        topView.addSubview(attractionName)
         self.contentView.addSubview(topView)
         self.contentView.addSubview(detailsView)
         
@@ -165,15 +156,18 @@ class FoldingTripEventCell: FoldingCell {
         self.contentView.addGestureRecognizer(swipeLeftGesture)
         
     }
+    
     func initTopView() {
         topView.backgroundColor = UIColor.fomoWhite()
         topView.layer.cornerRadius = 10
         topView.layer.masksToBounds = true
+        topView.attraction = attraction
     }
     
     func initDetailsView() {
         let detSeg = detailSegments[1]
         detailsAttractionName.text = attraction?.name
+        detailsAttractionName.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         
         detSeg.addSubview(detailsAttractionName)
     }
@@ -238,6 +232,98 @@ class FoldingTripEventCell: FoldingCell {
 
 }
 
-class ForegroundView: RotatedView {
+class TopView: RotatedView {
+    var attractionName: UILabel = UILabel.newAutoLayoutView()
+    var imageView: UIImageView = UIImageView.newAutoLayoutView()
+    var attraction: Attraction?
+    var didSetupConstraintsTV = false
+    
+    override required init(frame: CGRect) {
+        super.init(frame: frame)
+        initViews()
+        updateConstraints()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)!
+        initViews()
+        updateConstraints()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        initViews()
+        updateConstraints()
+    }
+    
+    override func updateConstraints() {
+        if !didSetupConstraintsTV {
+            imageView.autoPinEdgeToSuperviewEdge(.Top)
+            imageView.autoPinEdgeToSuperviewEdge(.Bottom)
+            imageView.autoPinEdgeToSuperviewEdge(.Leading)
+            imageView.autoSetDimension(.Width, toSize: 30)
+            imageView.contentMode = .ScaleAspectFill
+            
+            attractionName.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
+            attractionName.autoPinEdge(.Leading, toEdge: .Trailing, ofView: imageView, withOffset: 68)
+            
+            
+            didSetupConstraintsTV = true
+        }
+        super.updateConstraints()
+    }
+    
+    func initViews() {
+        
+        
+        if attraction != nil {
+            attractionName.text = attraction?.name
+            attractionName.font = UIFont(name: "AppleSDGothicNeo-Light", size: 17)
+            imageView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
+        } else {
+            attractionName.text = "Invalid"
+        }
+        self.addSubview(attractionName)
+        self.addSubview(imageView)
+    }
+    
     
 }
+
+//class TopView: RotatedView {
+//    var attractionName: UILabel = UILabel.newAutoLayoutView()
+//    var attraction: Attraction?
+//    var didSetupConstraints = false
+//    
+//    override required init(frame: CGRect) {
+//        super.init(frame: frame)
+//        initViews()
+//        updateConstraints()
+//    }
+//    
+//    required init(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)!
+//        initViews()
+//        updateConstraints()
+//    }
+//    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        initViews()
+//        updateConstraints()
+//    }
+//    
+//    override func updateConstraints() {
+//        if {
+//            attractionName.autoCenterInSuperview()
+//            
+//        }
+//        super.updateConstraints()
+//    }
+//    
+//    func initViews() {
+//        
+//    }
+//    
+//    
+//}

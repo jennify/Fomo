@@ -18,6 +18,8 @@ class TravellersView: UIView {
     
     var didSetupConstraints = false
     
+    var faceHeight: CGFloat = 30
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initViews()
@@ -51,10 +53,10 @@ class TravellersView: UIView {
     override func updateConstraints() {
         if !didSetupConstraints {
             let views: NSArray = travellerHalos
-            views.autoSetViewsDimension(.Height, toSize: 50)
-            views.autoSetViewsDimension(.Width, toSize: 50)
+            views.autoSetViewsDimension(.Height, toSize: faceHeight)
+            views.autoSetViewsDimension(.Width, toSize: faceHeight)
 
-            views.autoDistributeViewsAlongAxis(.Horizontal, alignedTo: .Horizontal, withFixedSize: 50)
+            views.autoDistributeViewsAlongAxis(.Horizontal, alignedTo: .Horizontal, withFixedSize: faceHeight)
             views[0].autoAlignAxisToSuperviewAxis(.Horizontal)
             
             didSetupConstraints = true

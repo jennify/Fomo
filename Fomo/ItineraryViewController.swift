@@ -11,7 +11,7 @@ import FoldingCell
 @objc(ItineraryViewController)
 class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    let travellersView: UIView = TravellersView.newAutoLayoutView()
+    let travellersView: TravellersView = TravellersView.newAutoLayoutView()
     let tripDetailsView: UIView = UIView.newAutoLayoutView()
     let itineraryTableView: UITableView = UITableView.newAutoLayoutView()
     let calendarView: UICollectionView = {
@@ -34,12 +34,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpCalendarView()
         setUpNavigationBar()
 
-        for dayNum in 0...itinerary.days!.count-1 {
-            cellHeights.append([CGFloat]())
-            for _ in 0...itinerary.days![dayNum].tripEvents!.count-1 {
-                cellHeights[dayNum].append(kCloseCellHeight)
-            }
-        }
     }
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -77,8 +71,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
 
-            travellersView.autoPinEdgeToSuperviewEdge(.Top)
-            travellersView.autoSetDimension(.Height, toSize: 70.0)
+            travellersView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16 )
 
             travellersView.autoPinEdgeToSuperviewEdge(.Left)
             travellersView.autoPinEdgeToSuperviewEdge(.Right)
@@ -113,6 +107,14 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     // Itinerary Methods
 
     func setUpItineraryTableView() {
+        
+        for dayNum in 0...itinerary.days!.count-1 {
+            cellHeights.append([CGFloat]())
+            for _ in 0...itinerary.days![dayNum].tripEvents!.count-1 {
+                cellHeights[dayNum].append(kCloseCellHeight)
+            }
+        }
+        
         itineraryTableView.delegate = self
         itineraryTableView.dataSource = self
         itineraryTableView.registerClass(TripEventCell.self, forCellReuseIdentifier: "CodePath.Fomo.TripEventCell")
@@ -204,10 +206,17 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     func configureDayCell(cell: DayCell, indexPath: NSIndexPath) {
         let numberDays = itinerary.numberDays()
         if indexPath.row < numberDays {
-            cell.dayName.text = "Day \(indexPath.row + 1)"
+            cell.dayNum = indexPath.row + 1
+            cell.dayName.text = "\(indexPath.row + 1)"
+            cell.dayLabel.text = "DAY"
+            cell.additionLabel.text = ""
         } else {
-            cell.dayName.text = "+"
+            cell.dayNum = nil
+            cell.dayLabel.text = ""
+            cell.dayName.text = ""
+            cell.additionLabel.text = "+"
         }
+        
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
