@@ -11,23 +11,33 @@ import FoldingCell
 
 class FoldingTripEventCell: FoldingCell {
     var attraction: Attraction?
+    var parentView: UIView?
     var didSetupConstraints = false
     
     let topView: ForegroundView = ForegroundView.newAutoLayoutView()
     let detailsView: UIView = UIView.newAutoLayoutView()
     var attractionName: UILabel = UILabel.newAutoLayoutView()
     
+    var didAwake = false
     var detailSegments: [UIView] = []
+    
+    let locationView: UIImageView = UIImageView.newAutoLayoutView()
+    let likeButton: UIButton = UIButton.newAutoLayoutView()
+    let dislikeButton: UIButton = UIButton.newAutoLayoutView()
+    let neutralButton: UIButton = UIButton.newAutoLayoutView()
+    
+    
+    var detailsAttractionName : UILabel = UILabel.newAutoLayoutView()
     
     class var topViewHeight: CGFloat {
         get {
-            return 80
+            return 100
         }
     }
     
     class var detailsViewHeight: CGFloat {
         get {
-            return 300
+            return 380
         }
     }
     
@@ -55,28 +65,52 @@ class FoldingTripEventCell: FoldingCell {
     
     override func updateConstraints() {
         if !didSetupConstraints {
+            let width = (parentView?.frame.width ?? 310) - 8
             topView.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
-            topView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
             topView.autoSetDimension(.Height, toSize: FoldingTripEventCell.topViewHeight)
-            
+            topView.autoSetDimension(.Width, toSize: width)
             self.topView.autoPinEdgeToSuperviewEdge(.Top, withInset: 8).autoIdentify("ForegroundViewTop")
             attractionName.autoCenterInSuperview()
             
 
             detailsView.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
-            detailsView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
+            detailsView.autoSetDimension(.Width, toSize: width)
             detailsView.autoSetDimension(.Height, toSize: FoldingTripEventCell.detailsViewHeight)
             self.detailsView.autoPinEdgeToSuperviewEdge(.Top, withInset: 8).autoIdentify("ContainerViewTop")
             
             for i in 0...self.itemCount-1 {
                 let view = self.detailSegments[i]
-                view.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
-                view.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
-                let segHeight = FoldingTripEventCell.detailsViewHeight/CGFloat(self.detailSegments.count)
+                view.autoPinEdgeToSuperviewEdge(.Leading, withInset: 0)
+                view.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 0)
+                let picHeight = FoldingTripEventCell.topViewHeight*2
+                var segHeight = (FoldingTripEventCell.detailsViewHeight-picHeight)/CGFloat(self.detailSegments.count-1)
+                
+                if i == 0 {
+                    segHeight = picHeight
+                }
                 view.autoSetDimension(.Height, toSize: segHeight)
-                let topEdge = segHeight * CGFloat(i)
+                
+                var topEdge = (segHeight * CGFloat(i-1)) + picHeight
+                if i == 0{
+                    topEdge = 0
+                }
+                
                 view.autoPinEdgeToSuperviewEdge(.Top, withInset: topEdge)
             }
+            
+            // Set up locationView
+            locationView.autoPinEdgesToSuperviewEdges()
+            
+            // Set up decision seg
+            neutralButton.autoCenterInSuperview()
+            dislikeButton.autoAlignAxisToSuperviewMarginAxis(.Horizontal)
+            dislikeButton.autoAlignAxis(.Vertical, toSameAxisOfView: dislikeButton.superview!, withMultiplier: 0.5)
+            likeButton.autoAlignAxisToSuperviewMarginAxis(.Horizontal)
+            likeButton.autoAlignAxis(.Vertical, toSameAxisOfView: dislikeButton.superview!, withMultiplier: 1.5)
+            
+            // Set up details view
+            detailsAttractionName.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
+            detailsAttractionName.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
             
             didSetupConstraints = true
         }
@@ -85,18 +119,18 @@ class FoldingTripEventCell: FoldingCell {
     
     func initViews() {
         self.backgroundColor = UIColor.fomoPeriwinkle()
-        self.itemCount = 3
+        self.itemCount = detailSegments.count
         if attraction != nil {
             attractionName.text = attraction?.name
         } else {
-            attractionName.text = "Test"
+            attractionName.text = "Invalid"
         }
-        topView.backgroundColor = UIColor.fomoWhite()
-        topView.layer.cornerRadius = 10
-        topView.layer.masksToBounds = true
+    
         
+        initTopView()
         
-        detailsView.backgroundColor = UIColor.fomoTeal()
+    
+        detailsView.backgroundColor = UIColor.fomoWhite().colorWithAlphaComponent(0.8)
         detailsView.layer.cornerRadius = 10
         detailsView.layer.masksToBounds = true
         
@@ -115,9 +149,12 @@ class FoldingTripEventCell: FoldingCell {
             self.detailSegments.append(UIView.newAutoLayoutView())
         }
         for view in detailSegments {
-            view.backgroundColor = UIColor.fomoSand()
             detailsView.addSubview(view)
         }
+        
+        initPicSeg()
+        initDetailsView()
+        initDecisionSeg()
         
         let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: "didRightSwipe:")
         swipeRightGesture.direction = UISwipeGestureRecognizerDirection.Right
@@ -128,13 +165,70 @@ class FoldingTripEventCell: FoldingCell {
         self.contentView.addGestureRecognizer(swipeLeftGesture)
         
     }
+    func initTopView() {
+        topView.backgroundColor = UIColor.fomoWhite()
+        topView.layer.cornerRadius = 10
+        topView.layer.masksToBounds = true
+    }
     
-    func didLeftSwipe(gesture: UISwipeGestureRecognizer) {
+    func initDetailsView() {
+        let detSeg = detailSegments[1]
+        detailsAttractionName.text = attraction?.name
+        
+        detSeg.addSubview(detailsAttractionName)
+    }
+    
+    func initPicSeg() {
+        let picSeg = detailSegments[0]
+        if attraction != nil {
+            locationView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
+        }
+        picSeg.addSubview(locationView)
+        
+    }
+    
+    func initDecisionSeg() {
+        let decSeg = detailSegments[3]
+    
+        likeButton.setImage(UIImage(named: "check"), forState: .Normal)
+        dislikeButton.setImage(UIImage(named: "cross"), forState: .Normal)
+        neutralButton.setImage(UIImage(named: "star"), forState: .Normal)
+        
+        likeButton.addTarget(self, action: "onLike", forControlEvents: UIControlEvents.TouchUpInside)
+        dislikeButton.addTarget(self, action: "onDislike", forControlEvents: UIControlEvents.TouchUpInside)
+        neutralButton.addTarget(self, action: "onNeutral", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        decSeg.addSubview(likeButton)
+        decSeg.addSubview(dislikeButton)
+        decSeg.addSubview(neutralButton)
+    }
+    
+    func didLeftSwipe(panGestureRecognizer: UISwipeGestureRecognizer) {
+        let point = panGestureRecognizer.locationInView(parentView)
+        if panGestureRecognizer.state == UIGestureRecognizerState.Began {
+            print("Gesture began at: \(point)")
+        } else if panGestureRecognizer.state == UIGestureRecognizerState.Changed {
+            print("Gesture changed at: \(point)")
+        } else if panGestureRecognizer.state == UIGestureRecognizerState.Ended {
+            print("Gesture ended at: \(point)")
+        }
         print("Swipe Left")
     }
     
     func didRightSwipe(gesture: UISwipeGestureRecognizer) {
         print("Swipe Right")
+    }
+    
+    func onLike() {
+        print("Yay")
+    }
+    
+    func onDislike() {
+        print("Oh no")
+    }
+    
+    func onNeutral() {
+        print("Very neutral")
     }
     
     override func animationDuration(itemIndex:NSInteger, type:AnimationType)-> NSTimeInterval {

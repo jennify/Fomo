@@ -60,7 +60,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func loadView() {
         view = UIView()
 
-        tripDetailsView.backgroundColor = UIColor.fomoSand()
+        tripDetailsView.backgroundColor = UIColor.fomoPeriwinkle()
         calendarView.backgroundColor = UIColor.fomoBlue()
 
         view.addSubview(travellersView)
@@ -134,10 +134,14 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FoldingTripEventCell", forIndexPath: indexPath) as! FoldingTripEventCell
-        cell.awakeFromNib()
-        cellHeights[indexPath.section][indexPath.row] = self.kCloseCellHeight
-        print(itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction?.name)
         cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
+        cell.parentView = self.view
+        
+        if !cell.didAwake {
+            cell.awakeFromNib()
+            cell.didAwake = true
+        }
+        cell.updateConstraints()
         return cell
     }
 
@@ -168,7 +172,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         } else {// close cell
             cellHeights[indexPath.section][indexPath.row] = kCloseCellHeight
             cell.selectedAnimation(false, animated: true, completion: nil)
-            duration = 0.7
+            duration = 0.8
             
         }
 

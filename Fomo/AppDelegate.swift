@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-
-
+        
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         if Cache.currentUser != nil {
             // If user has already logged in
@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if DEBUG == "connie" {
             self.connieDebugging()
         }
+        
 
         return true
     }
