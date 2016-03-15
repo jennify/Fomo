@@ -74,7 +74,7 @@ class TravellersView: UIView {
     
     func createAddTravellerButton() -> UIImageView {
         let button = createHalo()
-        button.image = UIImage(named: "Add Item")
+        button.image = UIImage(named: "plus")
         button.image = button.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         button.tintColor = UIColor.fomoWhite()
         

@@ -10,11 +10,30 @@ class AttractionType: NSObject {
     
     var id: Int?
     var name: String?
+    var icon: UIImage?
+    
+    init(categoryName: String, categoryIcon: String) {
+        name = categoryName
+        icon = UIImage(named: categoryIcon)
+    }
     
     class func generateTestInstance() -> AttractionType {
-        let attractionType = AttractionType()
+        let attractionType = AttractionType(categoryName: "Landmarks", categoryIcon: "landmarks")
         attractionType.id = 1
-        attractionType.name = "Bars"
         return attractionType
+    }
+    
+    class func availableCategories() -> [AttractionType] {
+        var categories: [AttractionType] = []
+        categories.append(AttractionType(categoryName: "Culture", categoryIcon: "culture"))
+        categories.append(AttractionType(categoryName: "Landmarks", categoryIcon: "landmarks"))
+        categories.append(AttractionType(categoryName: "Outdoors", categoryIcon: "outdoors"))
+        categories.append(AttractionType(categoryName: "Shows", categoryIcon: "shows"))
+        categories.append(AttractionType(categoryName: "Night Life", categoryIcon: "nightlife"))
+        categories.append(AttractionType(categoryName: "Shopping", categoryIcon: "shopping"))
+        categories.append(AttractionType(categoryName: "Sports", categoryIcon: "sports"))
+        categories.append(AttractionType(categoryName: "Restaurants", categoryIcon: "restaurants"))
+        categories.append(AttractionType(categoryName: "Vices", categoryIcon: "vices"))
+        return categories
     }
 }

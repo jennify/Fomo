@@ -18,7 +18,7 @@ class Review: NSObject {
         let review = Review()
         review.id = 1
         review.attraction = attraction
-        review.message = "Jesus Christ, it looks like a Star Destroyer!"
+        review.message = "5 star review"
         review.createdAt = NSDate()
         review.rating = 5
         return review

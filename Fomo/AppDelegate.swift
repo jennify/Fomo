@@ -9,7 +9,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "none"
+let DEBUG = "connie"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,12 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         UILabel.appearance().font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
-
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         if Cache.currentUser != nil {
@@ -56,15 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     func connieDebugging() {
-        // Debugging Entry Point - skip login
-        if (true) {
+        // Debugging Entry Point - logged in
+        if (false) {
             let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
             window?.rootViewController = vc
         }
-
-        // Debugging Entry Point for Decision View Controller
-        if (false) {
-            let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
+        // Debugging Entry Point - logged out
+        if (true) {
+            let vc = storyboard.instantiateInitialViewController()
             window?.rootViewController = vc
         }
     }
@@ -87,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = navController
         }
 
-        // Debugging Entry Point for City View Controller
+        // Debugging Entry Point for Done View Controller
         if (true) {
             let doneViewController = DoneViewController()
             let navController = UINavigationController()

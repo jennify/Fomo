@@ -53,6 +53,7 @@
 		F9F20CB11C956EA5004DEC9E /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F20CB01C956EA5004DEC9E /* ReviewCell.swift */; };
 		F9F20CB31C957A74004DEC9E /* AttractionOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F20CB21C957A74004DEC9E /* AttractionOverviewView.swift */; };
 		F9F20CB51C957A83004DEC9E /* AttractionLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F20CB41C957A83004DEC9E /* AttractionLocationView.swift */; };
+		F9F20CB71C97EC3B004DEC9E /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F20CB61C97EC3B004DEC9E /* BrowseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,7 @@
 		F9F20CB01C956EA5004DEC9E /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		F9F20CB21C957A74004DEC9E /* AttractionOverviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionOverviewView.swift; sourceTree = "<group>"; };
 		F9F20CB41C957A83004DEC9E /* AttractionLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionLocationView.swift; sourceTree = "<group>"; };
+		F9F20CB61C97EC3B004DEC9E /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 				F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */,
 				7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */,
 				7A4629861C82F2C000A27D3B /* DecisionViewController.swift */,
+				F9F20CB61C97EC3B004DEC9E /* BrowseViewController.swift */,
 				F9A79F151C8D948B0014A43A /* AttractionViewController.swift */,
 				7A4629841C82F20200A27D3B /* ItineraryViewController.swift */,
 				AA7B21C41C961ED400636007 /* CityViewController.swift */,
@@ -380,6 +383,7 @@
 				7AE6D2D31C7C3E0E009ADC3B /* AppDelegate.swift in Sources */,
 				7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */,
 				AA7B21C51C961ED400636007 /* CityViewController.swift in Sources */,
+				F9F20CB71C97EC3B004DEC9E /* BrowseViewController.swift in Sources */,
 				F9A79F1A1C8D979C0014A43A /* DraggableAttractionView.swift in Sources */,
 				AA1DCEC61C8A89E20088DD27 /* TripEventCell.swift in Sources */,
 				AA7B21C71C961EE900636007 /* CityCell.swift in Sources */,

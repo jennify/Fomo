@@ -6,6 +6,7 @@
 import UIKit
 import CoreLocation
 
+
 class City: NSObject {
     
     var id: Int?

@@ -46,13 +46,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         navigationItem.title = "Invite Friends"
     }
 
-    //# MARK: Friends TableView
+    // Friends TableView
 
     func setUpTableView() {
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
-        friendsTableView.estimatedRowHeight = 70
         friendsTableView.rowHeight = UITableViewAutomaticDimension
+        friendsTableView.estimatedRowHeight = 100
         friendsTableView.registerClass(FriendCell.self, forCellReuseIdentifier: "CodePath.Fomo.FriendCell")
         friendsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
     }

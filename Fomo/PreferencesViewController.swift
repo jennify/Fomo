@@ -4,19 +4,19 @@
 
 
 import UIKit
-import PureLayout
 
 
-class PreferencesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class PreferencesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     let preferencesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .Vertical
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
-    var didSetupConstraints = false
     
-    let preferences: [AttractionType] = [AttractionType.generateTestInstance()]
+    var preferences: [AttractionType] = AttractionType.availableCategories()
+
+    var didSetupConstraints = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +27,8 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     
     override func loadView() {
         view = UIView()
-        
-        preferencesCollectionView.backgroundColor = UIColor.fomoWhite()
+        view.backgroundColor = UIColor.whiteColor()
+        preferencesCollectionView.backgroundColor = UIColor.whiteColor()
 
         view.addSubview(preferencesCollectionView)
         
@@ -49,7 +49,7 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func setUpNavigationBar() {
-        navigationItem.title = "Preferences"
+        navigationItem.title = "Travel Preferences"
     }
     
     // Preferences Collection View
@@ -61,28 +61,43 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         preferencesCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let totalwidth = collectionView.bounds.size.width - 40;
+        let numberOfCellsPerRow = 3
+        let dimensions = CGFloat(Int(totalwidth) / numberOfCellsPerRow)
+        return CGSizeMake(dimensions, dimensions)
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 1
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return preferences.count
     }
     
+    func colorForIndexPath(indexPath: NSIndexPath) -> UIColor {
+        let hueValue: CGFloat = CGFloat(indexPath.row) / CGFloat(preferences.count)
+        return UIColor(hue: hueValue, saturation: 0.5, brightness: 0.9, alpha: 1)
+    }
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CodePath.Fomo.PreferenceCell", forIndexPath: indexPath) as! PreferenceCell
-        configurePreferenceCell(cell, indexPath: indexPath)
+        cell.attractionType = preferences[indexPath.row]
+        cell.delegate = self
+        let cellColor = colorForIndexPath(indexPath)
+        cell.preferenceIcon.image = cell.preferenceIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        cell.preferenceIcon.tintColor = cellColor
+        cell.preferenceName.textColor = cellColor
+        cell.layer.borderColor = cellColor.CGColor
+
         return cell
     }
-    
-    func configurePreferenceCell(cell: PreferenceCell, indexPath: NSIndexPath) {
-        let preference = preferences[indexPath.row]
-        cell.preferenceName.text = preference.name
-    }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        displayTodo("Save user preference")
-    }
-    
-    func displayTodo(todo: String) {
-        let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
+}
+
+extension PreferencesViewController: PreferenceCellDelegate {
+    func updateUserPreference(preference: AttractionType, cell: PreferenceCell) {
+        let indexPath = preferencesCollectionView.indexPathForCell(cell)!
+        preferences[indexPath.row] = preference
     }
 }

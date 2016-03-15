@@ -1,8 +1,7 @@
 //
 // DecisionViewController.swift
 // ============================
-
-// TODO: replace with new BrowseViewController with folding cells
+// ** DEPRECATED **
 
 
 import UIKit
