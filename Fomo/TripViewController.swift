@@ -106,7 +106,6 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
             doneButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 30)
             doneButton.autoAlignAxisToSuperviewAxis(.Vertical)
             doneButton.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10)
-
             
             didSetupConstraints = true
         }

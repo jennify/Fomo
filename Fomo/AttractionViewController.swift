@@ -8,7 +8,7 @@ import UIKit
 
 
 class AttractionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     var segmentedControl: UISegmentedControl = UISegmentedControl.newAutoLayoutView()
     let overviewView: AttractionOverviewView = AttractionOverviewView.newAutoLayoutView()
     let reviewTableView: UITableView = UITableView.newAutoLayoutView()
@@ -16,11 +16,10 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var didSetupConstraints = false
     
-    let attraction: Attraction = Attraction.generateTestInstance(City.generateTestInstance())
+    let tripevent: TripEvent = TripEvent.generateTestInstance(City.generateTestInstance())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpSegmentedControl()
         setUpOverviewView()
         setUpReviewTableView()
         setUpLocationView()
@@ -28,31 +27,46 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func loadView() {
         view = UIView()
+        
+        view.backgroundColor = UIColor.whiteColor()
+
+        let menu = ["Overview", "Reviews", "Map"]
+        segmentedControl = UISegmentedControl(items: menu)
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.backgroundColor = UIColor.whiteColor()
+        segmentedControl.tintColor = UIColor.fomoBlue()
+        segmentedControl.addTarget(self, action: "indexChanged:", forControlEvents: .ValueChanged)
+        
+        view.addSubview(segmentedControl)
         view.addSubview(overviewView)
         view.addSubview(reviewTableView)
         view.addSubview(locationView)
+        
+        overviewView.hidden = false
+        reviewTableView.hidden = true
+        locationView.hidden = true
         
         view.setNeedsUpdateConstraints()
     }
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            segmentedControl.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
-            segmentedControl.autoPinEdgeToSuperviewEdge(.Left)
-            segmentedControl.autoPinEdgeToSuperviewEdge(.Right)
-            segmentedControl.autoSetDimension(.Height, toSize: 50)
+            segmentedControl.autoPinToTopLayoutGuideOfViewController(self, withInset: 10)
+            segmentedControl.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
+            segmentedControl.autoPinEdgeToSuperviewEdge(.Right, withInset: 10)
+            segmentedControl.autoSetDimension(.Height, toSize: 30)
             
-            overviewView.autoPinEdge(.Top, toEdge: .Bottom, ofView: segmentedControl)
+            overviewView.autoPinEdge(.Top, toEdge: .Bottom, ofView: segmentedControl, withOffset: 10)
             overviewView.autoPinEdgeToSuperviewEdge(.Left)
             overviewView.autoPinEdgeToSuperviewEdge(.Right)
             overviewView.autoPinEdgeToSuperviewEdge(.Bottom)
             
-            reviewTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: segmentedControl)
+            reviewTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: segmentedControl, withOffset: 10)
             reviewTableView.autoPinEdgeToSuperviewEdge(.Left)
             reviewTableView.autoPinEdgeToSuperviewEdge(.Right)
             reviewTableView.autoPinEdgeToSuperviewEdge(.Bottom)
 
-            locationView.autoPinEdge(.Top, toEdge: .Bottom, ofView: segmentedControl)
+            locationView.autoPinEdge(.Top, toEdge: .Bottom, ofView: segmentedControl, withOffset: 10)
             locationView.autoPinEdgeToSuperviewEdge(.Left)
             locationView.autoPinEdgeToSuperviewEdge(.Right)
             locationView.autoPinEdgeToSuperviewEdge(.Bottom)
@@ -63,18 +77,20 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
         super.updateViewConstraints()
     }
     
-    
-    func setUpSegmentedControl() {
-        let menu = ["Overview", "Reviews", "Map"]
-        segmentedControl = UISegmentedControl(items: menu)
-        segmentedControl.tintColor = UIColor.blackColor()
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: "indexChanged:", forControlEvents: .ValueChanged)
-    }
-    
     // Overview
     func setUpOverviewView() {
-        
+        let attraction = tripevent.attraction!
+        overviewView.backgroundColor = UIColor.fomoPeriwinkle()
+        let attractionImageUrl = NSURL(string: attraction.imageUrls![0])!
+        overviewView.imageView.setImageWithURL(attractionImageUrl)
+        overviewView.reviewCount.text = "\(attraction.reviews!.count)"
+        overviewView.attractionName.text = attraction.name
+        overviewView.downvoteCount.text = "\(tripevent.dislikers!.count)"
+        overviewView.neutralCount.text = "\(tripevent.neutrals!.count)"
+        overviewView.upvoteCount.text = "\(tripevent.likers!.count)"
+        overviewView.voteNames.text = "name, name, name"
+        overviewView.category.text = "category, category"
+        overviewView.attractionDescription.text = "description description description"
     }
     
     // Review
@@ -88,7 +104,7 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return attraction.reviews!.count ?? 0
+        return tripevent.attraction!.reviews!.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -98,13 +114,14 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func configureReviewCell(cell: ReviewCell, indexPath: NSIndexPath) {
-        cell.message.text = attraction.reviews![indexPath.row].message
-        cell.rating.text = "\(attraction.reviews![indexPath.row].rating!)"
-        cell.date.text = NSDateFormatter.localizedStringFromDate(attraction.reviews![indexPath.row].createdAt! ?? NSDate(), dateStyle: .ShortStyle, timeStyle: .NoStyle)
+        cell.message.text = tripevent.attraction!.reviews![indexPath.row].message
+        cell.rating.text = "Rating: \(tripevent.attraction!.reviews![indexPath.row].rating!) stars"
+        cell.date.text = NSDateFormatter.localizedStringFromDate(tripevent.attraction!.reviews![indexPath.row].createdAt! ?? NSDate(), dateStyle: .ShortStyle, timeStyle: .NoStyle)
     }
         
     // Map
     func setUpLocationView() {
+        locationView.backgroundColor = UIColor.fomoSand()
     }
 
     func indexChanged(sender: UISegmentedControl) {
