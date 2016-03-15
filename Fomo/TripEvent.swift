@@ -67,7 +67,10 @@ class TripEvent: NSObject {
             }
         }
         
+        // Add photos into raw data in attractions.
         self.attraction = Attraction(dictionary: dictionary["rawData"] as! NSDictionary)
+        self.attraction!.addPhotos(dictionary["photos"] as! [String])
+        
         self.vote = Vote(rawValue: dictionary["vote"] as! Int)
         self.rawData = dictionary
     }

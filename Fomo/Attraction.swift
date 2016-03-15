@@ -22,6 +22,7 @@ class Attraction: NSObject {
     var address: String?
     var attractionType: [String]?
     var photoRefrences: [String] = []
+
     
     init(dictionary: NSDictionary) {
         if dictionary.count == 0 {
@@ -40,14 +41,13 @@ class Attraction: NSObject {
         self.rating = dictionary["rating"] as? Float
         self.attractionType = dictionary["types"] as? [String]
         
-        let photos = dictionary["photos"] as? [NSDictionary]
-        for photo in photos! {
-            let ref = photo["photo_reference"] as? String
-            self.photoRefrences.append(ref!)
-        }
         // Temporary holder for images before they work
         self.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]
         self.rawData = dictionary
+    }
+    
+    func addPhotos(photos: [String]) {
+        self.imageUrls = photos
     }
     
     func vote(vote: Vote, completion: (response: Itinerary?, error: NSError?) -> ()) {

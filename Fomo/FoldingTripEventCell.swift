@@ -175,6 +175,8 @@ class FoldingTripEventCell: FoldingCell {
     func initPicSeg() {
         let picSeg = detailSegments[0]
         if attraction != nil {
+            locationView.contentMode = .ScaleAspectFill
+            locationView.clipsToBounds = true
             locationView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
         }
         picSeg.addSubview(locationView)
@@ -261,11 +263,11 @@ class TopView: RotatedView {
             imageView.autoPinEdgeToSuperviewEdge(.Top)
             imageView.autoPinEdgeToSuperviewEdge(.Bottom)
             imageView.autoPinEdgeToSuperviewEdge(.Leading)
-            imageView.autoSetDimension(.Width, toSize: 30)
+            imageView.autoSetDimension(.Width, toSize: 80)
             imageView.contentMode = .ScaleAspectFill
             
             attractionName.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
-            attractionName.autoPinEdge(.Leading, toEdge: .Trailing, ofView: imageView, withOffset: 68)
+            attractionName.autoPinEdge(.Leading, toEdge: .Trailing, ofView: imageView, withOffset: 8)
             
             
             didSetupConstraintsTV = true
@@ -280,6 +282,8 @@ class TopView: RotatedView {
             attractionName.text = attraction?.name
             attractionName.font = UIFont(name: "AppleSDGothicNeo-Light", size: 17)
             imageView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
+            imageView.clipsToBounds = true
+            imageView.contentMode = .ScaleAspectFill
         } else {
             attractionName.text = "Invalid attraction"
         }
