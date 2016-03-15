@@ -40,9 +40,5 @@ Both trip collaborators and organizers can:
 (https://raw.githubusercontent.com/jennify/Fomo/master/wireframe.png)
 
 
-## Sprint 2
-![Demo](sprint2.gif)
-
-
 ## Work Board
 https://trello.com/b/0To8XATu/codepath
