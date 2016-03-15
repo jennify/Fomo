@@ -56,9 +56,9 @@ class PreferenceCell: UICollectionViewCell {
     }
     
     func initViews() {
-        preferenceIcon.userInteractionEnabled = true
+        self.userInteractionEnabled = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "togglePreference:")
-        preferenceIcon.addGestureRecognizer(tapGestureRecognizer)
+        self.addGestureRecognizer(tapGestureRecognizer)
         preferenceName.font = UIFont.systemFontOfSize(14)
 
         addSubview(preferenceIcon)
