@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7A0B52D51C965C9A007A54F7 /* FoldingTripEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0B52D41C965C9A007A54F7 /* FoldingTripEventCell.swift */; };
 		7A1390E81C7C47C3001488FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A1390E71C7C47C3001488FF /* Images.xcassets */; };
+		7A2203941C97D69300C96843 /* FoldingTripEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2203931C97D69300C96843 /* FoldingTripEventCell.swift */; };
 		7A4629801C82ECE100A27D3B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A46297F1C82ECE100A27D3B /* FBSDKCoreKit.framework */; };
 		7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4629841C82F20200A27D3B /* ItineraryViewController.swift */; };
 		7A4629871C82F2C000A27D3B /* DecisionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4629861C82F2C000A27D3B /* DecisionViewController.swift */; };
@@ -44,18 +44,20 @@
 		AA1DCED61C948EF60088DD27 /* TravellersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCED51C948EF60088DD27 /* TravellersView.swift */; };
 		AA7B21C51C961ED400636007 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C41C961ED400636007 /* CityViewController.swift */; };
 		AA7B21C71C961EE900636007 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C61C961EE900636007 /* CityCell.swift */; };
+		AA7B21C91C968FCB00636007 /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C81C968FCB00636007 /* DoneViewController.swift */; };
 		F9A79F161C8D948B0014A43A /* AttractionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F151C8D948B0014A43A /* AttractionViewController.swift */; };
-		F9A79F181C8D96830014A43A /* DraggableAttractionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9A79F171C8D96830014A43A /* DraggableAttractionView.xib */; };
 		F9A79F1A1C8D979C0014A43A /* DraggableAttractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */; };
-		F9A79F1C1C8D9EE80014A43A /* AttractionGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1B1C8D9EE80014A43A /* AttractionGalleryViewController.swift */; };
 		F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */; };
 		F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1F1C8E675E0014A43A /* TripViewController.swift */; };
+		F9F20CB11C956EA5004DEC9E /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F20CB01C956EA5004DEC9E /* ReviewCell.swift */; };
+		F9F20CB31C957A74004DEC9E /* AttractionOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F20CB21C957A74004DEC9E /* AttractionOverviewView.swift */; };
+		F9F20CB51C957A83004DEC9E /* AttractionLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F20CB41C957A83004DEC9E /* AttractionLocationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		210733FAC28A8926561A77A2 /* Pods_Fomo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fomo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A0B52D41C965C9A007A54F7 /* FoldingTripEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingTripEventCell.swift; sourceTree = "<group>"; };
 		7A1390E71C7C47C3001488FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
+		7A2203931C97D69300C96843 /* FoldingTripEventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoldingTripEventCell.swift; sourceTree = "<group>"; };
 		7A46297F1C82ECE100A27D3B /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-20160210/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		7A4629811C82F0E300A27D3B /* Fomo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fomo-Bridging-Header.h"; sourceTree = "<group>"; };
 		7A4629841C82F20200A27D3B /* ItineraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItineraryViewController.swift; sourceTree = "<group>"; };
@@ -93,14 +95,16 @@
 		AA1DCED51C948EF60088DD27 /* TravellersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravellersView.swift; sourceTree = "<group>"; };
 		AA7B21C41C961ED400636007 /* CityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		AA7B21C61C961EE900636007 /* CityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
+		AA7B21C81C968FCB00636007 /* DoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
 		DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.release.xcconfig"; sourceTree = "<group>"; };
 		E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.debug.xcconfig"; sourceTree = "<group>"; };
 		F9A79F151C8D948B0014A43A /* AttractionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionViewController.swift; sourceTree = "<group>"; };
-		F9A79F171C8D96830014A43A /* DraggableAttractionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DraggableAttractionView.xib; sourceTree = "<group>"; };
 		F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableAttractionView.swift; sourceTree = "<group>"; };
-		F9A79F1B1C8D9EE80014A43A /* AttractionGalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionGalleryViewController.swift; sourceTree = "<group>"; };
 		F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		F9A79F1F1C8E675E0014A43A /* TripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
+		F9F20CB01C956EA5004DEC9E /* ReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		F9F20CB21C957A74004DEC9E /* AttractionOverviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionOverviewView.swift; sourceTree = "<group>"; };
+		F9F20CB41C957A83004DEC9E /* AttractionLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionLocationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,16 +145,16 @@
 		7A1390E41C7C4434001488FF /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */,
 				F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */,
+				7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */,
 				7A4629861C82F2C000A27D3B /* DecisionViewController.swift */,
 				F9A79F151C8D948B0014A43A /* AttractionViewController.swift */,
 				7A4629841C82F20200A27D3B /* ItineraryViewController.swift */,
-				AA1DCECB1C8BA7F30088DD27 /* PreferencesViewController.swift */,
-				AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */,
-				F9A79F1B1C8D9EE80014A43A /* AttractionGalleryViewController.swift */,
-				F9A79F1F1C8E675E0014A43A /* TripViewController.swift */,
 				AA7B21C41C961ED400636007 /* CityViewController.swift */,
+				F9A79F1F1C8E675E0014A43A /* TripViewController.swift */,
+				AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */,
+				AA1DCECB1C8BA7F30088DD27 /* PreferencesViewController.swift */,
+				AA7B21C81C968FCB00636007 /* DoneViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -175,16 +179,18 @@
 		7A1390E61C7C4441001488FF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7A2203931C97D69300C96843 /* FoldingTripEventCell.swift */,
 				AA1DCEC51C8A89E20088DD27 /* TripEventCell.swift */,
-				7A0B52D41C965C9A007A54F7 /* FoldingTripEventCell.swift */,
+				F9F20CB01C956EA5004DEC9E /* ReviewCell.swift */,
 				AA1DCEC71C8B90DE0088DD27 /* DayHeaderCell.swift */,
 				AA1DCEC91C8B987A0088DD27 /* DayCell.swift */,
 				AA1DCECD1C8BAC0C0088DD27 /* PreferenceCell.swift */,
 				AA1DCED11C8BB2500088DD27 /* FriendCell.swift */,
 				F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */,
-				F9A79F171C8D96830014A43A /* DraggableAttractionView.xib */,
+				F9F20CB21C957A74004DEC9E /* AttractionOverviewView.swift */,
 				AA1DCED51C948EF60088DD27 /* TravellersView.swift */,
 				AA7B21C61C961EE900636007 /* CityCell.swift */,
+				F9F20CB41C957A83004DEC9E /* AttractionLocationView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -298,7 +304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A1390E81C7C47C3001488FF /* Images.xcassets in Resources */,
-				F9A79F181C8D96830014A43A /* DraggableAttractionView.xib in Resources */,
 				7AE6D2E01C7C3E0E009ADC3B /* LaunchScreen.storyboard in Resources */,
 				7AE6D2D81C7C3E0E009ADC3B /* Main.storyboard in Resources */,
 			);
@@ -362,8 +367,9 @@
 				7A81588A1C8D886C0024B7C2 /* Cache.swift in Sources */,
 				7A81588C1C8D886C0024B7C2 /* RecommenderClient.swift in Sources */,
 				AA1DCED61C948EF60088DD27 /* TravellersView.swift in Sources */,
+				F9F20CB31C957A74004DEC9E /* AttractionOverviewView.swift in Sources */,
 				7A8158891C8D886C0024B7C2 /* AlertUtil.swift in Sources */,
-				F9A79F1C1C8D9EE80014A43A /* AttractionGalleryViewController.swift in Sources */,
+				7A2203941C97D69300C96843 /* FoldingTripEventCell.swift in Sources */,
 				AA1DCE981C8554A70088DD27 /* Day.swift in Sources */,
 				AA1DCECE1C8BAC0C0088DD27 /* PreferenceCell.swift in Sources */,
 				7AE6D2D51C7C3E0E009ADC3B /* LoginViewController.swift in Sources */,
@@ -380,11 +386,14 @@
 				7A4629871C82F2C000A27D3B /* DecisionViewController.swift in Sources */,
 				AA1DCE921C8441E60088DD27 /* AttractionType.swift in Sources */,
 				AA1DCECC1C8BA7F30088DD27 /* PreferencesViewController.swift in Sources */,
+				AA7B21C91C968FCB00636007 /* DoneViewController.swift in Sources */,
 				AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */,
 				7A4AB3DD1C9622FD00718890 /* FacebookContact.swift in Sources */,
+				F9F20CB51C957A83004DEC9E /* AttractionLocationView.swift in Sources */,
 				7A81588B1C8D886C0024B7C2 /* FacebookClient.swift in Sources */,
 				AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */,
 				F9A79F161C8D948B0014A43A /* AttractionViewController.swift in Sources */,
+				F9F20CB11C956EA5004DEC9E /* ReviewCell.swift in Sources */,
 				7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */,
 				F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */,
 				AA1DCE901C8440E70088DD27 /* Review.swift in Sources */,
@@ -393,7 +402,6 @@
 				F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */,
 				AA1DCE881C843DD00088DD27 /* Itinerary.swift in Sources */,
 				7A46298B1C82FA2000A27D3B /* User.swift in Sources */,
-				7A0B52D51C965C9A007A54F7 /* FoldingTripEventCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

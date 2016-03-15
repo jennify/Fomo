@@ -1,13 +1,11 @@
 //
-//  PreferencesViewController.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/5/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// PreferencesViewController.swift
+// ===============================
+
 
 import UIKit
 import PureLayout
+
 
 class PreferencesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -30,8 +28,8 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     override func loadView() {
         view = UIView()
         
-        preferencesCollectionView.backgroundColor = UIColor.greenColor()
-        
+        preferencesCollectionView.backgroundColor = UIColor.fomoWhite()
+
         view.addSubview(preferencesCollectionView)
         
         view.setNeedsUpdateConstraints()
@@ -39,7 +37,10 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            preferencesCollectionView.autoPinEdgesToSuperviewEdges()
+            preferencesCollectionView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Left)
+            preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Right)
+            preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Bottom)
             
             didSetupConstraints = true
         }
@@ -48,11 +49,10 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func setUpNavigationBar() {
-        self.navigationController?.navigationBarHidden = true
         navigationItem.title = "Preferences"
     }
     
-    //# MARK: Preferences Collection View
+    // Preferences Collection View
     
     func setUpPreferencesCollectionView() {
         preferencesCollectionView.delegate = self
@@ -77,7 +77,7 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        displayTodo("Set the preference")
+        displayTodo("Save user preference")
     }
     
     func displayTodo(todo: String) {
@@ -85,5 +85,4 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
     }
-    
 }

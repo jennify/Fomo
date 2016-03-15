@@ -1,13 +1,11 @@
 //
-//  Attraction.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 2/29/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// Attraction.swift
+// ============================
+
 
 import UIKit
 import CoreLocation
+
 
 class Attraction: NSObject {
     
@@ -24,6 +22,13 @@ class Attraction: NSObject {
     
     init(dictionary: NSDictionary) {
         self.rawData = dictionary
+    }
+    
+    func vote(vote: Vote, completion: (response: Itinerary?, error: NSError?) -> ()) {
+        let itinerary = tripEvent?.itinerary
+        let currentUser = Cache.currentUser
+        
+        RecommenderClient.sharedInstance.update_itinerary_with_vote(itinerary!, attraction: self, user: currentUser!, vote: vote, completion: completion)
     }
     
     class func generateTestInstance(city: City) -> Attraction {

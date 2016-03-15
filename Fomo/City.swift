@@ -1,10 +1,7 @@
 //
-//  City.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 2/29/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// City.swift
+// ============================
+
 
 import UIKit
 import CoreLocation
@@ -22,9 +19,11 @@ class City: NSObject {
         super.init()
     }
     
-    init(cityName: String, imageName: String) {
+    init(cityName: String, imageName: String, cityLocation: CLLocation) {
         name = cityName
         coverPhoto = UIImage(named: imageName)
+        radius = 5000
+        location = cityLocation
     }
     
     class func generateTestInstance() -> City {
@@ -39,9 +38,9 @@ class City: NSObject {
     
     class func availableCities() -> [City] {
         var cities: [City] = []
-        cities.append(City(cityName: "San Francisco", imageName: "SanFrancisco"))
-        cities.append(City(cityName: "Paris", imageName: "Paris"))
-        cities.append(City(cityName: "Rio De Janeiro", imageName: "RioDeJaneiro"))
+        cities.append(City(cityName: "San Francisco", imageName: "SanFrancisco", cityLocation: CLLocation(latitude: 37.7833, longitude: 122.4167)))
+        cities.append(City(cityName: "Paris", imageName: "Paris", cityLocation: CLLocation(latitude: 48.8567, longitude: 2.3508)))
+        cities.append(City(cityName: "Rio De Janeiro", imageName: "RioDeJaneiro", cityLocation: CLLocation(latitude: 22.9068, longitude: 43.1729)))
         return cities
     }
 }

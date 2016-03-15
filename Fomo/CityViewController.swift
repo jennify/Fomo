@@ -1,12 +1,10 @@
 //
 //  CityViewController.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/13/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// ============================
+
 
 import UIKit
+
 
 class CityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
@@ -83,6 +81,16 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.CityCell", forIndexPath: indexPath) as! CityCell
         configureCell(cell, indexPath: indexPath)
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let city = cities[indexPath.row]
+        let tripViewController = TripViewController()
+        tripViewController.city = city
+        
+        self.navigationController?.pushViewController(tripViewController, animated: true)
     }
     
     func configureCell(cell: CityCell, indexPath: NSIndexPath) {

@@ -1,10 +1,7 @@
 //
-//  AppDelegate.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 2/22/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// AppDelegate.swift
+// ============================
+
 
 import UIKit
 import CoreData
@@ -12,7 +9,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "jlee"
+let DEBUG = "none"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,11 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        
+
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         if Cache.currentUser != nil {
             // If user has already logged in
+            print("Current user detected: \(Cache.currentUser!.name!)")
             let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
             window?.rootViewController = vc
         }
@@ -39,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if DEBUG == "connie" {
             self.connieDebugging()
         }
-        
+
 
         return true
     }
@@ -49,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
             window?.rootViewController = vc
         }
-        
+
         // Debugging Entry Point for Decision View Controller
         if (false) {
             let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
@@ -65,16 +63,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navController.viewControllers = [itineraryViewController]
             window?.rootViewController = navController
         }
-        
-        // Debugging Entry Point for Friends View Controller
-        if (true) {
+
+        // Debugging Entry Point for City View Controller
+        if (false) {
             let cityViewController = CityViewController()
             let navController = UINavigationController()
             navController.navigationBar.translucent = false
             navController.viewControllers = [cityViewController]
             window?.rootViewController = navController
         }
-        
+
+        // Debugging Entry Point for City View Controller
+        if (true) {
+            let doneViewController = DoneViewController()
+            let navController = UINavigationController()
+            navController.navigationBar.translucent = false
+            navController.viewControllers = [doneViewController]
+            window?.rootViewController = navController
+        }
+
         // Debugging Entry Point for Itinerary View Controller
         if (false) {
             let tripViewController = TripViewController()
@@ -111,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navController.viewControllers = [itineraryViewController]
             window?.rootViewController = navController
         }
-        
+
 //        RecommenderClient.sharedInstance.add_itinerary(Itinerary.generateTestInstance()) { (response: Itinerary?, error: NSError?) -> () in
 //
 //            if error != nil {
@@ -158,7 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func userDidLogout() {
-        let vc = storyboard.instantiateViewControllerWithIdentifier("LoginViewController")
+        let vc = storyboard.instantiateInitialViewController()
         window?.rootViewController = vc
     }
 

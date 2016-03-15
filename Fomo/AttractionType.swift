@@ -1,10 +1,7 @@
 //
-//  AttractionType.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 2/29/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// AttractionType.swift
+// ============================
+
 
 import UIKit
 
@@ -20,5 +17,4 @@ class AttractionType: NSObject {
         attractionType.name = "Bars"
         return attractionType
     }
-    
 }

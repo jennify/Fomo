@@ -1,15 +1,12 @@
 //
-//  ViewController.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 2/22/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// LoginViewController.swift
+// ============================
+
 
 import UIKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKSharingDelegate {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,16 +16,16 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
         loginButton.readPermissions = ["public_profile", "email", "user_friends"];
         view.addSubview(loginButton)
         
-//        let send = FBSDKSendButton()
-//        let linkContent = FBSDKShareLinkContent()
-//        linkContent.contentTitle = "Hello"
-//        linkContent.contentDescription = "Googs"
-//        linkContent.contentURL = NSURL(string: "https://developers.facebook.com")
-//        send.shareContent = linkContent
-//        send.center = view.center
-//        view.addSubview(send)
-//        FBSDKShareDialog.showFromViewController(self, withContent: linkContent, delegate: self)
-
+        //        let send = FBSDKSendButton()
+        //        let linkContent = FBSDKShareLinkContent()
+        //        linkContent.contentTitle = "Hello"
+        //        linkContent.contentDescription = "Googs"
+        //        linkContent.contentURL = NSURL(string: "https://developers.facebook.com")
+        //        send.shareContent = linkContent
+        //        send.center = view.center
+        //        view.addSubview(send)
+        //        FBSDKShareDialog.showFromViewController(self, withContent: linkContent, delegate: self)
+        
         
     }
     
@@ -48,32 +45,28 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         // TODO(jlee): Remove
-//        sendFriendInviteToItinerary(self, shareMessage: nil, itinerary: Itinerary.generateTestInstance())
+        //        sendFriendInviteToItinerary(self, shareMessage: nil, itinerary: Itinerary.generateTestInstance())
     }
     
-
+    
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         // Fired when open url has happened and exited on success or failure.
-
+        
         if result.isCancelled {
             // Login is canceled
             NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: userDidLogoutNotification, object: nil))
         } else {
             // Login is successful, proceed
-//            print(result.grantedPermissions)
-//            print(result.declinedPermissions)
-//            print(result.token)
+            //            print(result.grantedPermissions)
+            //            print(result.declinedPermissions)
+            //            print(result.token)
             
             // TODO(jlee)
             FacebookClient.sharedInstance.getUserInfo(result.token)
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
-            self.presentViewController(vc, animated: true, completion: nil)
-            
+            self.performSegueWithIdentifier("loginSegue", sender: self)
         }
-        
     }
     
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
@@ -85,12 +78,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
         // Fired when user logs out.
         NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: userDidLogoutNotification, object: nil))
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
-

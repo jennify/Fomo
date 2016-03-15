@@ -1,16 +1,14 @@
 //
-//  PreferenceCell.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/5/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// PreferenceCell.swift
+// ============================
+
 
 import UIKit
 
+
 class PreferenceCell: UICollectionViewCell {
     
-    var preferenceName: UILabel = UILabel.newAutoLayoutView()
+    let preferenceName: UILabel = UILabel.newAutoLayoutView()
     
     var didSetupConstraints = false
     
@@ -29,8 +27,8 @@ class PreferenceCell: UICollectionViewCell {
     override func updateConstraints() {
         if !didSetupConstraints {
             preferenceName.autoCenterInSuperview()
-            preferenceName.autoSetDimension(.Height, toSize: 50.0)
-            preferenceName.autoSetDimension(.Width, toSize: 50.0)
+            preferenceName.autoSetDimension(.Height, toSize: 50)
+            preferenceName.autoSetDimension(.Width, toSize: 50)
             preferenceName.textAlignment = .Center
             
             didSetupConstraints = true
@@ -40,8 +38,6 @@ class PreferenceCell: UICollectionViewCell {
     }
     
     func initViews() {
-        preferenceName = UILabel()
-        preferenceName.text = "Testing"
         preferenceName.backgroundColor = UIColor.whiteColor()
         preferenceName.layer.cornerRadius = 5
         preferenceName.clipsToBounds = true

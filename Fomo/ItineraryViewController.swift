@@ -1,14 +1,12 @@
 //
-//  TripItineraryViewController.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 2/28/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// ItineraryViewController.swift
+// =============================
+
 
 import UIKit
 import PureLayout
 import FoldingCell
+
 
 @objc(ItineraryViewController)
 class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -22,7 +20,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
     var didSetupConstraints = false
-    
+
     var cellHeights = [[CGFloat]]()
     var kCloseCellHeight: CGFloat = FoldingTripEventCell.topViewHeight + 8 // equal or greater foregroundView height
     let kOpenCellHeight: CGFloat = FoldingTripEventCell.detailsViewHeight + 8 // equal or greater containerView height
@@ -43,12 +41,12 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-    
+
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
+
         if cell is FoldingTripEventCell {
             let foldingCell = cell as! FoldingTripEventCell
-            
+
             if cellHeights[indexPath.section][indexPath.row] == kCloseCellHeight {
                 foldingCell.selectedAnimation(false, animated: false, completion:nil)
             } else {
@@ -56,12 +54,12 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-    
+
     override func loadView() {
         view = UIView()
 
-        tripDetailsView.backgroundColor = UIColor.fomoPeriwinkle()
-        calendarView.backgroundColor = UIColor.fomoBlue()
+        tripDetailsView.backgroundColor = UIColor.fomoGrey()
+        calendarView.backgroundColor = UIColor.fomoTeal()
 
         view.addSubview(travellersView)
         view.addSubview(tripDetailsView)
@@ -70,28 +68,29 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
         view.setNeedsUpdateConstraints()
     }
-    
+
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return cellHeights[indexPath.section][indexPath.row]
     }
 
-    
+
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            
+
             travellersView.autoPinEdgeToSuperviewEdge(.Top)
             travellersView.autoSetDimension(.Height, toSize: 70.0)
+
             travellersView.autoPinEdgeToSuperviewEdge(.Left)
             travellersView.autoPinEdgeToSuperviewEdge(.Right)
 
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Left)
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Right)
-            tripDetailsView.autoSetDimension(.Height, toSize: 20.0)
+            tripDetailsView.autoSetDimension(.Height, toSize: 40)
             tripDetailsView.autoPinEdge(.Top, toEdge: .Bottom, ofView: travellersView)
 
             calendarView.autoPinEdgeToSuperviewEdge(.Left)
             calendarView.autoPinEdgeToSuperviewEdge(.Right)
-            calendarView.autoSetDimension(.Height, toSize: 70.0)
+            calendarView.autoSetDimension(.Height, toSize: 70)
             calendarView.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripDetailsView)
 
             itineraryTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: calendarView)
@@ -100,7 +99,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             itineraryTableView.autoPinEdgeToSuperviewEdge(.Bottom)
             itineraryTableView.estimatedRowHeight = 100
             itineraryTableView.rowHeight = UITableViewAutomaticDimension
-            
+
             didSetupConstraints = true
         }
 
@@ -108,11 +107,10 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func setUpNavigationBar() {
-        self.navigationController?.navigationBarHidden = true
         navigationItem.title = "Itinerary"
     }
 
-    //# MARK: Itinerary Methods
+    // Itinerary Methods
 
     func setUpItineraryTableView() {
         itineraryTableView.delegate = self
@@ -121,7 +119,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         itineraryTableView.registerClass(DayHeaderCell.self, forHeaderFooterViewReuseIdentifier: "CodePath.Fomo.DayHeaderCell")
         itineraryTableView.registerClass(FoldingTripEventCell.self, forCellReuseIdentifier: "CodePath.Fomo.FoldingTripEventCell")
         itineraryTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        
+
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -136,7 +134,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FoldingTripEventCell", forIndexPath: indexPath) as! FoldingTripEventCell
         cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
         cell.parentView = self.view
-        
+
         if !cell.didAwake {
             cell.awakeFromNib()
             cell.didAwake = true
@@ -163,7 +161,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         itineraryTableView.deselectRowAtIndexPath(indexPath, animated: true)
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingTripEventCell
-        
+
         var duration = 0.0
         if cellHeights[indexPath.section][indexPath.row] == kCloseCellHeight { // open cell
             cellHeights[indexPath.section][indexPath.row] = kOpenCellHeight
@@ -173,18 +171,18 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             cellHeights[indexPath.section][indexPath.row] = kCloseCellHeight
             cell.selectedAnimation(false, animated: true, completion: nil)
             duration = 0.8
-            
+
         }
 
         UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-            
+
             tableView.beginUpdates()
             tableView.endUpdates()
         }, completion:nil)
-        
+
     }
 
-    //# MARK: Calendar Methods
+    // Calendar Methods
 
     func setUpCalendarView() {
         calendarView.delegate = self

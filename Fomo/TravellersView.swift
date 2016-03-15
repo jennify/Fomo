@@ -1,12 +1,10 @@
 //
 //  TravellersView.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/12/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// ============================
+
 
 import UIKit
+
 
 protocol TravellersViewDelegate {
     func addNewTraveller()
@@ -35,7 +33,7 @@ class TravellersView: UIView {
     func initViews() {
         self.backgroundColor = UIColor.fomoPeriwinkle()
         
-        travellers = [User.generateTestInstance(), User.generateTestInstance()]
+        travellers = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
         
         for traveller in travellers {
             let profilePhoto = createHalo()
@@ -75,6 +73,8 @@ class TravellersView: UIView {
     func createAddTravellerButton() -> UIImageView {
         let button = createHalo()
         button.image = UIImage(named: "Add Item")
+        button.image = button.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        button.tintColor = UIColor.fomoWhite()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: "onTapAddTraveller")
         button.addGestureRecognizer(tapGesture)

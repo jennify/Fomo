@@ -1,12 +1,10 @@
 //
-//  TripEvent.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 2/29/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// TripEvent.swift
+// ============================
+
 
 import UIKit
+
 
 enum Vote: Int {
     case Dislike = 1, Neutral, Like
@@ -26,6 +24,7 @@ class TripEvent: NSObject {
     }
 
     var id: Int?
+    var itinerary: Itinerary?
     var attraction: Attraction?
     var eventType: EventType?
     var vote: Vote? // Current user's vote

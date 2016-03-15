@@ -8,6 +8,7 @@ pod 'AFNetworking', '~> 2.5'
 pod 'BDBOAuth1Manager'
 pod 'PureLayout'
 pod 'FoldingCell', '~> 0.7.3'
+pod 'SAConfettiView'
 
 end
 

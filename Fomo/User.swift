@@ -1,12 +1,10 @@
 //
-//  User.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 2/28/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// User.swift
+// ============================
+
 
 import UIKit
+
 
 class User: NSObject {
 
@@ -43,13 +41,16 @@ class User: NSObject {
         return users
     }
     
+    func addToItinerary(itinerary: Itinerary, completion: (response: Itinerary?, error: NSError?) -> ()) {
+        RecommenderClient.sharedInstance.update_itinerary_with_user(itinerary, user: self, completion: completion)
+    }
 
     class func generateTestInstance() -> User {
         let user = User(dictionary: NSDictionary())
         user.id = "1"
-        user.name = "Mr Bean"
-        user.email = "mr.bean@gmail.com"
-        user.profileImageURL = "http://vignette2.wikia.nocookie.net/mrbean/images/4/4b/Mr_beans_holiday_ver2.jpg/revision/latest?cb=20100424114324"
+        user.name = "Grumpy Cat"
+        user.email = "grumpy@gmail.com"
+        user.profileImageURL = "https://pbs.twimg.com/profile_images/616542814319415296/McCTpH_E.jpg"
         user.preferences = [AttractionType.generateTestInstance()]
         user.response = .Accepted
         return user

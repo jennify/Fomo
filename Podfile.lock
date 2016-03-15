@@ -26,6 +26,7 @@ PODS:
   - EPCalendarPicker (1.0.8)
   - FoldingCell (0.7.3)
   - PureLayout (3.0.1)
+  - SAConfettiView (0.1.8)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
@@ -33,6 +34,7 @@ DEPENDENCIES:
   - EPCalendarPicker (~> 1.0.8)
   - FoldingCell (~> 0.7.3)
   - PureLayout
+  - SAConfettiView
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -40,5 +42,6 @@ SPEC CHECKSUMS:
   EPCalendarPicker: 0348fe754a7650582665ecc5ac98f4c0a0db0e91
   FoldingCell: 8d7674d9ff51ae40408b99a17798bc0ec20a3654
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
+  SAConfettiView: c87031a2280659261b730fce3669fb10e73636ee
 
 COCOAPODS: 0.39.0
