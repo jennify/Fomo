@@ -137,7 +137,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FoldingTripEventCell", forIndexPath: indexPath) as! FoldingTripEventCell
         
         cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
-        print(itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction?.name)
         cell.parentView = self.view
 
         if !cell.didAwake {

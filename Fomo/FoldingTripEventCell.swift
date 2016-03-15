@@ -25,7 +25,6 @@ class FoldingTripEventCell: FoldingCell {
     let dislikeButton: UIButton = UIButton.newAutoLayoutView()
     let neutralButton: UIButton = UIButton.newAutoLayoutView()
     
-    
     var detailsAttractionName : UILabel = UILabel.newAutoLayoutView()
     
     class var topViewHeight: CGFloat {
@@ -131,7 +130,7 @@ class FoldingTripEventCell: FoldingCell {
         
         foregroundView = self.topView
         containerView = self.detailsView
-
+        self.topView.initViews()
         
         self.backViewColor = UIColor.fomoBlue()
         self.itemCount = 4
@@ -154,6 +153,8 @@ class FoldingTripEventCell: FoldingCell {
         let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: "didLeftSwipe:")
         swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left
         self.contentView.addGestureRecognizer(swipeLeftGesture)
+        
+
         
     }
     
@@ -293,41 +294,3 @@ class TopView: RotatedView {
     
     
 }
-
-//class TopView: RotatedView {
-//    var attractionName: UILabel = UILabel.newAutoLayoutView()
-//    var attraction: Attraction?
-//    var didSetupConstraints = false
-//    
-//    override required init(frame: CGRect) {
-//        super.init(frame: frame)
-//        initViews()
-//        updateConstraints()
-//    }
-//    
-//    required init(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)!
-//        initViews()
-//        updateConstraints()
-//    }
-//    
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        initViews()
-//        updateConstraints()
-//    }
-//    
-//    override func updateConstraints() {
-//        if {
-//            attractionName.autoCenterInSuperview()
-//            
-//        }
-//        super.updateConstraints()
-//    }
-//    
-//    func initViews() {
-//        
-//    }
-//    
-//    
-//}
