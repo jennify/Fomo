@@ -1,12 +1,10 @@
 //
 //  CityCell.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/13/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// ============================
+
 
 import UIKit
+
 
 class CityCell: UITableViewCell {
     

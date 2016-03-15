@@ -38,11 +38,15 @@ class ContainerViewController: UIViewController {
     let currentUser = Cache.currentUser
     
     private var selectedViewController: UIViewController!
+    private var loginVC: LoginViewController!
     private var decisionVC: DecisionViewController!
+    private var attractionVC: AttractionViewController!
     private var itineraryVC: ItineraryViewController!
+    private var cityVC: CityViewController!
     private var tripVC: TripViewController!
     private var friendsVC: FriendsViewController!
     private var preferencesVC: PreferencesViewController!
+    private var doneVC: DoneViewController!
     
     private var menuClosedX: CGFloat!
     private var menuOpenX: CGFloat!
@@ -54,17 +58,32 @@ class ContainerViewController: UIViewController {
         
         setUpMenu()
         setUpViewControllers()
-        
+        setUpNavigationBar()
     }
     
     func setUpMenu() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "onPan:")
         view.addGestureRecognizer(panGestureRecognizer)
         
-        profileImage.image = UIImage(named: "meh64px")
+        menuView.backgroundColor = UIColor.fomoBlue()
+        leftBorder.backgroundColor = UIColor.fomoTeal()
+        rightBorder.backgroundColor = UIColor.fomoTeal()
+        border1.backgroundColor = UIColor.fomoTeal()
+        border2.backgroundColor = UIColor.fomoTeal()
+        border3.backgroundColor = UIColor.fomoTeal()
+        
         // TODO: debug currentUser.name
+        profileImage.image = UIImage(named: "meh64px")
         profileNameLabel.text = "Name"
         
+        profileNameLabel.textColor = UIColor.fomoWhite()
+        profileNameLabel.font = profileNameLabel.font.fontWithSize(14)
+        browseButton.titleLabel!.font = browseButton.titleLabel!.font.fontWithSize(14)
+        tripButton.titleLabel!.font = tripButton.titleLabel!.font.fontWithSize(14)
+        createButton.titleLabel!.font = createButton.titleLabel!.font.fontWithSize(14)
+        inviteButton.titleLabel!.font = inviteButton.titleLabel!.font.fontWithSize(14)
+        settingsButton.titleLabel!.font = settingsButton.titleLabel!.font.fontWithSize(14)
+
         browseIcon.image = UIImage(named: "globe24px")
         browseButton.setTitle("Browse", forState: UIControlState.Normal)
         browseButton.addTarget(self, action: "onBrowsePressed:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -84,25 +103,42 @@ class ContainerViewController: UIViewController {
         settingsIcon.image = UIImage(named: "settings20px")
         settingsButton.setTitle("Profile Settings", forState: UIControlState.Normal)
         settingsButton.addTarget(self, action: "onProfileSettingsPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        profileImage.image = profileImage.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        profileImage.tintColor = UIColor.fomoWhite()
+        browseIcon.image = browseIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        browseIcon.tintColor = UIColor.fomoWhite()
+        tripIcon.image = tripIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        tripIcon.tintColor = UIColor.fomoWhite()
+        createIcon.image = createIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        createIcon.tintColor = UIColor.fomoWhite()
+        inviteIcon.image = inviteIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        inviteIcon.tintColor = UIColor.fomoWhite()
+        settingsIcon.image = settingsIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        settingsIcon.tintColor = UIColor.fomoWhite()
     }
     
     func setUpViewControllers() {
+        loginVC = storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         decisionVC = storyboard!.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
+        attractionVC = storyboard!.instantiateViewControllerWithIdentifier("AttractionViewController") as! AttractionViewController
         itineraryVC = storyboard!.instantiateViewControllerWithIdentifier("ItineraryViewController") as! ItineraryViewController
-        friendsVC = storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
+        cityVC = storyboard!.instantiateViewControllerWithIdentifier("CityViewController") as! CityViewController
         tripVC = storyboard!.instantiateViewControllerWithIdentifier("TripViewController") as! TripViewController
+        friendsVC = storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
         preferencesVC = storyboard!.instantiateViewControllerWithIdentifier("PreferencesViewController") as! PreferencesViewController
+        doneVC = storyboard!.instantiateViewControllerWithIdentifier("DoneViewController") as! DoneViewController  
         
         selectViewController(decisionVC)
     }
 
+    func setUpNavigationBar() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hamburger16px"), style: .Plain, target: self, action: "toggleMenu")
+    }
+    
     override func loadView() {
         view = UIView()
         
-        menuView.backgroundColor = UIColor.whiteColor()
-        leftBorder.backgroundColor = UIColor.whiteColor()
-        rightBorder.backgroundColor = UIColor.whiteColor()
-
         view.addSubview(containerView)
         view.addSubview(menuView)
         menuView.addSubview(leftBorder)
@@ -133,83 +169,79 @@ class ContainerViewController: UIViewController {
             menuView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             menuView.autoPinEdgeToSuperviewEdge(.Bottom)
             menuView.autoPinEdge(.Right, toEdge: .Left, ofView: view)
-            menuView.autoConstrainAttribute(.Width, toAttribute: .Width, ofView: view, withMultiplier: 0.75)
+            menuView.autoConstrainAttribute(.Width, toAttribute: .Width, ofView: view, withMultiplier: 0.6)
             
             leftBorder.autoPinEdgeToSuperviewEdge(.Top)
             leftBorder.autoPinEdgeToSuperviewEdge(.Bottom)
             leftBorder.autoSetDimension(.Width, toSize: 1)
-            leftBorder.autoPinEdge(.Left, toEdge: .Left, ofView: view)
-//            leftBorder.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: view)
+            leftBorder.autoPinEdge(.Right, toEdge: .Left, ofView: profileView, withOffset: 1)
 
             rightBorder.autoPinEdgeToSuperviewEdge(.Top)
             rightBorder.autoPinEdgeToSuperviewEdge(.Bottom)
             rightBorder.autoSetDimension(.Width, toSize: 1)
-            rightBorder.autoPinEdge(.Right, toEdge: .Right, ofView: view)
-//            rightBorder.autoConstrainAttribute(.Right, toAttribute: .Right, ofView: view)
+            rightBorder.autoPinEdge(.Left, toEdge: .Right, ofView: profileView, withOffset: -1)
 
             profileView.autoPinEdgeToSuperviewEdge(.Top)
             profileView.autoPinEdgeToSuperviewEdge(.Left)
             profileView.autoPinEdgeToSuperviewEdge(.Right)
             profileView.autoSetDimension(.Height, toSize: 100)
 
-            profileImage.autoAlignAxis(.Horizontal, toSameAxisOfView: profileView)
-            profileImage.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: profileNameLabel, withOffset: -10)
-
-            profileNameLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: profileView)
+            profileImage.autoAlignAxis(.Vertical, toSameAxisOfView: profileView)
+            profileImage.autoPinEdge(.Bottom, toEdge: .Top, ofView: profileNameLabel, withOffset: -10)
+            profileImage.autoSetDimension(.Height, toSize: 40)
+            profileImage.autoSetDimension(.Width, toSize: 40)
+            
+            profileNameLabel.autoAlignAxis(.Vertical, toSameAxisOfView: profileView)
             profileNameLabel.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: profileView, withOffset: -10)
-
+            
             border1.autoPinEdge(.Top, toEdge: .Bottom, ofView: profileView)
             border1.autoPinEdgeToSuperviewEdge(.Left)
             border1.autoPinEdgeToSuperviewEdge(.Right)
             border1.autoSetDimension(.Height, toSize: 1)
             
-            browseIcon.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
-            browseIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border1, withOffset: 10)
+            browseIcon.autoPinEdgeToSuperviewEdge(.Left, withInset: 15)
+            browseIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border1, withOffset: 15)
             browseIcon.autoSetDimension(.Height, toSize: 20)
             browseIcon.autoSetDimension(.Width, toSize: 20)
-            browseIcon.autoAlignAxis(.Vertical, toSameAxisOfView: browseButton)
+            browseIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: browseButton)
             browseButton.autoPinEdge(.Left, toEdge: .Right, ofView: browseIcon, withOffset: 10)
             
-            border2.autoPinEdge(.Top, toEdge: .Bottom, ofView: browseButton, withOffset: 10)
+            border2.autoPinEdge(.Top, toEdge: .Bottom, ofView: browseButton, withOffset: 15)
             border2.autoPinEdgeToSuperviewEdge(.Left)
             border2.autoPinEdgeToSuperviewEdge(.Right)
             border2.autoSetDimension(.Height, toSize: 1)
 
-            tripIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border2, withOffset: 10)
+            tripIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border2, withOffset: 15)
             tripIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: browseIcon)
-//            tripIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: browseButton, withOffset: 10)
             tripIcon.autoSetDimension(.Height, toSize: 20)
             tripIcon.autoSetDimension(.Width, toSize: 20)
-            tripIcon.autoAlignAxis(.Vertical, toSameAxisOfView: tripButton)
+            tripIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: tripButton)
             tripButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: browseButton)
-//            tripButton.autoPinEdge(.Left, toEdge: .Right, ofView: tripIcon, withOffset: 10)
             
-            border3.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripButton, withOffset: 10)
+            border3.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripButton, withOffset: 15)
             border3.autoPinEdgeToSuperviewEdge(.Left)
             border3.autoPinEdgeToSuperviewEdge(.Right)
             border3.autoSetDimension(.Height, toSize: 1)
 
-            createIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border3, withOffset: 10)
+            createIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border3, withOffset: 15)
             createIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: tripIcon)
             createIcon.autoSetDimension(.Height, toSize: 20)
             createIcon.autoSetDimension(.Width, toSize: 20)
-            createIcon.autoAlignAxis(.Vertical, toSameAxisOfView: createButton)
+            createIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: createButton)
             createButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: tripButton)
-//            createButton.autoPinEdge(.Left, toEdge: .Right, ofView: createIcon, withOffset: 10)
 
-            inviteIcon.autoPinEdge(.Bottom, toEdge: .Top, ofView: settingsIcon, withOffset: 10)
+            inviteIcon.autoPinEdge(.Bottom, toEdge: .Top, ofView: settingsIcon, withOffset: -15)
             inviteIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: createIcon)
             inviteIcon.autoSetDimension(.Height, toSize: 20)
             inviteIcon.autoSetDimension(.Width, toSize: 20)
-            inviteIcon.autoAlignAxis(.Vertical, toSameAxisOfView: inviteButton)
+            inviteIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: inviteButton)
             inviteButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: createButton)
-//            inviteButton.autoPinEdge(.Left, toEdge: .Right, ofView: inviteIcon, withOffset: 10)
             
-            settingsIcon.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 10)
+            settingsIcon.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 15)
             settingsIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: inviteIcon)
             settingsIcon.autoSetDimension(.Height, toSize: 20)
             settingsIcon.autoSetDimension(.Width, toSize: 20)
-            settingsIcon.autoAlignAxis(.Vertical, toSameAxisOfView: settingsButton)
+            settingsIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: settingsButton)
             settingsButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: inviteButton)
 
             didSetupConstraints = true
@@ -242,6 +274,17 @@ class ContainerViewController: UIViewController {
         selectedViewController = viewController
     }
     
+    func toggleMenu() {
+        if self.menuView.center.x < 0 {
+            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: { () -> Void in
+                self.menuView.center = CGPointMake(self.menuOpenX, self.menuView.center.y)
+            }, completion: nil)
+        } else {
+            UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: { () -> Void in
+                self.menuView.center = CGPointMake(self.menuClosedX, self.menuView.center.y)
+            }, completion: nil)
+        }
+    }
     
     func onPan(sender: UIPanGestureRecognizer) {
         let velocity = sender.velocityInView(view)
@@ -250,11 +293,11 @@ class ContainerViewController: UIViewController {
             if velocity.x > 0 {
                 UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: { () -> Void in
                     self.menuView.center = CGPointMake(self.menuOpenX, self.menuView.center.y)
-                    }, completion: nil)
+                }, completion: nil)
             } else {
                 UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: { () -> Void in
                     self.menuView.center = CGPointMake(self.menuClosedX, self.menuView.center.y)
-                    }, completion: nil)
+                }, completion: nil)
             }
         }
     }

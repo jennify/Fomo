@@ -33,8 +33,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func loadView() {
         view = UIView()
 
-        tripDetailsView.backgroundColor = UIColor.redColor()
-        calendarView.backgroundColor = UIColor.greenColor()
+        tripDetailsView.backgroundColor = UIColor.fomoGrey()
+        calendarView.backgroundColor = UIColor.fomoTeal()
 
         view.addSubview(travellersView)
         view.addSubview(tripDetailsView)
@@ -46,19 +46,19 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            travellersView.autoPinEdgeToSuperviewEdge(.Top)
-            travellersView.autoSetDimension(.Height, toSize: 70.0)
+            travellersView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            travellersView.autoSetDimension(.Height, toSize: 70)
             travellersView.autoPinEdgeToSuperviewEdge(.Left)
             travellersView.autoPinEdgeToSuperviewEdge(.Right)
 
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Left)
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Right)
-            tripDetailsView.autoSetDimension(.Height, toSize: 20.0)
+            tripDetailsView.autoSetDimension(.Height, toSize: 40)
             tripDetailsView.autoPinEdge(.Top, toEdge: .Bottom, ofView: travellersView)
 
             calendarView.autoPinEdgeToSuperviewEdge(.Left)
             calendarView.autoPinEdgeToSuperviewEdge(.Right)
-            calendarView.autoSetDimension(.Height, toSize: 70.0)
+            calendarView.autoSetDimension(.Height, toSize: 70)
             calendarView.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripDetailsView)
 
             itineraryTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: calendarView)
@@ -74,10 +74,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func setUpNavigationBar() {
         navigationItem.title = "Itinerary"
-        
     }
 
-    //# MARK: Itinerary Methods
+    // Itinerary Methods
 
     func setUpItineraryTableView() {
         itineraryTableView.delegate = self
@@ -123,7 +122,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         displayTodo("Connie connects to her view controller")
     }
 
-    //# MARK: Calendar Methods
+    // Calendar Methods
 
     func setUpCalendarView() {
         calendarView.delegate = self

@@ -5,7 +5,6 @@
 
 import UIKit
 
-
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKSharingDelegate {
     
     override func viewDidLoad() {
@@ -66,12 +65,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
             // TODO(jlee)
             FacebookClient.sharedInstance.getUserInfo(result.token)
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
-            self.presentViewController(vc, animated: true, completion: nil)
-            
+            self.performSegueWithIdentifier("loginSegue", sender: self)
         }
-        
     }
     
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {

@@ -63,6 +63,8 @@ extension UIColor {
             UIColor.initWithHex("dbe3f6"),
             UIColor.initWithHex("fcfcf4"),
             UIColor.initWithHex("ece0d0"),
+            UIColor.initWithHex("ece0d0"),
+            UIColor.initWithHex("f5f8fA"),
         ]
         return colors[index]
     }
@@ -84,5 +86,9 @@ extension UIColor {
     
     class func fomoSand() -> UIColor {
         return UIColor.fomoColors(4)
+    }
+    
+    class func fomoGrey() -> UIColor {
+        return UIColor.fomoColors(5)
     }
 }

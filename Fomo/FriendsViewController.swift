@@ -31,7 +31,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func updateViewConstraints() {
         if !didSetupConstraints {
-            friendsTableView.autoPinEdgesToSuperviewEdges()
+            friendsTableView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            friendsTableView.autoPinEdgeToSuperviewEdge(.Left)
+            friendsTableView.autoPinEdgeToSuperviewEdge(.Right)
+            friendsTableView.autoPinEdgeToSuperviewEdge(.Bottom)
 
             didSetupConstraints = true
         }
@@ -40,7 +43,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func setUpNavigationBar() {
-        self.navigationController?.navigationBarHidden = true
         navigationItem.title = "Invite Friends"
     }
 
@@ -49,10 +51,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func setUpTableView() {
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
-        friendsTableView.rowHeight = UITableViewAutomaticDimension
         friendsTableView.estimatedRowHeight = 70
-        friendsTableView.rowHeight = 70
+        friendsTableView.rowHeight = UITableViewAutomaticDimension
         friendsTableView.registerClass(FriendCell.self, forCellReuseIdentifier: "CodePath.Fomo.FriendCell")
+        friendsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

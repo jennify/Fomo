@@ -126,6 +126,4 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         print(url)
         // TODO(jlee);
     }
-    
-    
 }

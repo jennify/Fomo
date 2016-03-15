@@ -8,7 +8,7 @@ import UIKit
 
 class DayHeaderCell: UITableViewHeaderFooterView {
     
-    var dayName: UILabel = UILabel.newAutoLayoutView()
+    let dayName: UILabel = UILabel.newAutoLayoutView()
     
     var didSetupConstraints = false
     
@@ -35,9 +35,6 @@ class DayHeaderCell: UITableViewHeaderFooterView {
     }
     
     func initViews() {
-        dayName = UILabel()
-        dayName.text = "Testing"
         addSubview(dayName)
     }
-
 }

@@ -8,37 +8,37 @@ import UIKit
 
 class AttractionOverviewView: UIView {
 
-    var navigationBar: UINavigationBar = UINavigationBar.newAutoLayoutView()
-    var image: UIImageView = UIImageView.newAutoLayoutView()
-    var reviewCount: UILabel = UILabel.newAutoLayoutView()
-    var attractionName: UILabel = UILabel.newAutoLayoutView()
-    var border: UIView = UIView.newAutoLayoutView()
-    var downvoteIcon: UIImageView = UIImageView.newAutoLayoutView()
-    var neutralIcon: UIImageView = UIImageView.newAutoLayoutView()
-    var upvoteIcon: UIImageView = UIImageView.newAutoLayoutView()
-    var downvoteCount: UILabel = UILabel.newAutoLayoutView()
-    var neutralCount: UILabel = UILabel.newAutoLayoutView()
-    var upvoteCount: UILabel = UILabel.newAutoLayoutView()
-    var voteNames: UILabel = UILabel.newAutoLayoutView()
-    var category: UILabel = UILabel.newAutoLayoutView()
-    var attractionDescription: UILabel = UILabel.newAutoLayoutView()
+    let contentView: UIView = UIView.newAutoLayoutView()
+    let image: UIImageView = UIImageView.newAutoLayoutView()
+    let reviewCount: UILabel = UILabel.newAutoLayoutView()
+    let attractionName: UILabel = UILabel.newAutoLayoutView()
+    let border: UIView = UIView.newAutoLayoutView()
+    let downvoteIcon: UIImageView = UIImageView.newAutoLayoutView()
+    let neutralIcon: UIImageView = UIImageView.newAutoLayoutView()
+    let upvoteIcon: UIImageView = UIImageView.newAutoLayoutView()
+    let downvoteCount: UILabel = UILabel.newAutoLayoutView()
+    let neutralCount: UILabel = UILabel.newAutoLayoutView()
+    let upvoteCount: UILabel = UILabel.newAutoLayoutView()
+    let voteNames: UILabel = UILabel.newAutoLayoutView()
+    let category: UILabel = UILabel.newAutoLayoutView()
+    let attractionDescription: UILabel = UILabel.newAutoLayoutView()
 
     var didSetupConstraints = false
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)!
-        initViews()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initSubviews()
         updateConstraints()
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initSubviews()
+    }
+
     override func updateConstraints() {
         if !didSetupConstraints {
-            navigationBar.autoPinEdgeToSuperviewEdge(.Top)
-            navigationBar.autoPinEdgeToSuperviewEdge(.Left)
-            navigationBar.autoPinEdgeToSuperviewEdge(.Right)
-            navigationBar.autoSetDimension(.Height, toSize: 44)
-            
-            image.autoPinEdge(.Top, toEdge: .Bottom, ofView: navigationBar)
+            image.autoPinEdgeToSuperviewEdge(.Top)
             image.autoPinEdgeToSuperviewEdge(.Left)
             image.autoPinEdgeToSuperviewEdge(.Right)
             image.autoSetDimension(.Height, toSize: 200)
@@ -47,10 +47,8 @@ class AttractionOverviewView: UIView {
             reviewCount.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
 
             attractionName.autoPinEdge(.Top, toEdge: .Bottom, ofView: image, withOffset: 10)
-//            attractionName.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
             attractionName.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: reviewCount)
             
-//            border.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
             border.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: attractionName)
 
             border.autoPinEdge(.Top, toEdge: .Bottom, ofView: attractionName, withOffset: 5)
@@ -66,7 +64,6 @@ class AttractionOverviewView: UIView {
             downvoteIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: neutralIcon)
             downvoteIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: upvoteIcon)
             downvoteIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: border)
-//            downvoteIcon.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
             downvoteIcon.autoPinEdge(.Top, toEdge: .Bottom, ofView: border, withOffset: 5)
             neutralIcon.autoPinEdge(.Left, toEdge: .Right, ofView: downvoteIcon, withOffset: 20)
             upvoteIcon.autoPinEdge(.Left, toEdge: .Right, ofView: neutralIcon, withOffset: 20)
@@ -96,9 +93,11 @@ class AttractionOverviewView: UIView {
         
         super.updateConstraints()
     }
+
     
-    func initViews() {
-        addSubview(navigationBar)
+    func initSubviews() {
+        contentView.frame = bounds
+        addSubview(contentView)
         addSubview(image)
         addSubview(reviewCount)
         addSubview(attractionName)

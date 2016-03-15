@@ -143,15 +143,15 @@
 		7A1390E41C7C4434001488FF /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */,
 				7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */,
 				7A4629861C82F2C000A27D3B /* DecisionViewController.swift */,
-				F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */,
-				7A4629841C82F20200A27D3B /* ItineraryViewController.swift */,
-				AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */,
 				F9A79F151C8D948B0014A43A /* AttractionViewController.swift */,
-				AA1DCECB1C8BA7F30088DD27 /* PreferencesViewController.swift */,
-				F9A79F1F1C8E675E0014A43A /* TripViewController.swift */,
+				7A4629841C82F20200A27D3B /* ItineraryViewController.swift */,
 				AA7B21C41C961ED400636007 /* CityViewController.swift */,
+				F9A79F1F1C8E675E0014A43A /* TripViewController.swift */,
+				AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */,
+				AA1DCECB1C8BA7F30088DD27 /* PreferencesViewController.swift */,
 				AA7B21C81C968FCB00636007 /* DoneViewController.swift */,
 			);
 			name = "View Controllers";
@@ -184,9 +184,9 @@
 				AA1DCECD1C8BAC0C0088DD27 /* PreferenceCell.swift */,
 				AA1DCED11C8BB2500088DD27 /* FriendCell.swift */,
 				F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */,
+				F9F20CB21C957A74004DEC9E /* AttractionOverviewView.swift */,
 				AA1DCED51C948EF60088DD27 /* TravellersView.swift */,
 				AA7B21C61C961EE900636007 /* CityCell.swift */,
-				F9F20CB21C957A74004DEC9E /* AttractionOverviewView.swift */,
 				F9F20CB41C957A83004DEC9E /* AttractionLocationView.swift */,
 			);
 			name = Views;

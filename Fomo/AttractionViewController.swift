@@ -10,7 +10,7 @@ import PureLayout
 class AttractionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let overviewView: AttractionOverviewView = AttractionOverviewView.newAutoLayoutView()
-    let reviewView: UITableView = UITableView.newAutoLayoutView()
+    let reviewTableView: UITableView = UITableView.newAutoLayoutView()
     let locationView: AttractionLocationView = AttractionLocationView.newAutoLayoutView()
     var didSetupConstraints = false
     
@@ -27,7 +27,7 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     override func loadView() {
         view = UIView()
         view.addSubview(overviewView)
-        view.addSubview(reviewView)
+        view.addSubview(reviewTableView)
         view.addSubview(locationView)
         
         view.setNeedsUpdateConstraints()
@@ -35,9 +35,19 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            overviewView.autoPinEdgesToSuperviewEdges()
-            reviewView.autoPinEdgesToSuperviewEdges()
-            locationView.autoPinEdgesToSuperviewEdges()
+            overviewView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            overviewView.autoPinEdgeToSuperviewEdge(.Left)
+            overviewView.autoPinEdgeToSuperviewEdge(.Right)
+            overviewView.autoPinEdgeToSuperviewEdge(.Bottom)
+            
+            reviewTableView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            reviewTableView.autoPinEdgeToSuperviewEdge(.Left)
+            reviewTableView.autoPinEdgeToSuperviewEdge(.Right)
+            reviewTableView.autoPinEdgeToSuperviewEdge(.Bottom)
+
+            locationView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            locationView.autoPinEdgeToSuperviewEdge(.Left)
+            locationView.autoPinEdgeToSuperviewEdge(.Right)
             
             didSetupConstraints = true
         }
@@ -52,9 +62,12 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // Review
     func setUpReviewTableView() {
-        reviewView.delegate = self
-        reviewView.dataSource = self
-        reviewView.registerClass(ReviewCell.self, forCellReuseIdentifier: "CodePath.Fomo.ReviewCell")
+        reviewTableView.delegate = self
+        reviewTableView.dataSource = self
+        reviewTableView.estimatedRowHeight = 100
+        reviewTableView.rowHeight = UITableViewAutomaticDimension
+        reviewTableView.registerClass(ReviewCell.self, forCellReuseIdentifier: "CodePath.Fomo.ReviewCell")
+        reviewTableView.separatorStyle = UITableViewCellSeparatorStyle.None
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,11 +82,11 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func configureReviewCell(cell: ReviewCell, indexPath: NSIndexPath) {
         cell.message.text = attraction.reviews![indexPath.row].message
-        cell.rating.text = "\(attraction.reviews![indexPath.row].rating)"
+        cell.rating.text = "\(attraction.reviews![indexPath.row].rating!)"
         cell.date.text = NSDateFormatter.localizedStringFromDate(attraction.reviews![indexPath.row].createdAt! ?? NSDate(), dateStyle: .ShortStyle, timeStyle: .NoStyle)
     }
-    
-    // Location
+        
+    // Map
     func setUpLocationView() {
     }
 
@@ -93,15 +106,15 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
         {
         case 0:
             overviewView.hidden = false
-            reviewView.hidden = true
+            reviewTableView.hidden = true
             locationView.hidden = true
         case 1:
             overviewView.hidden = true
-            reviewView.hidden = false
+            reviewTableView.hidden = false
             locationView.hidden = true
         case 2:
             overviewView.hidden = true
-            reviewView.hidden = true
+            reviewTableView.hidden = true
             locationView.hidden = false
         default:
             break; 

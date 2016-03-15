@@ -8,8 +8,8 @@ import UIKit
 
 class DraggableAttractionView: UIView {
     
-    var attractionImageView: UIImageView = UIImageView.newAutoLayoutView()
-    var contentView: UIView = UIView.newAutoLayoutView()
+    let attractionImageView: UIImageView = UIImageView.newAutoLayoutView()
+    let contentView: UIView = UIView.newAutoLayoutView()
 
     var imageOriginalCenter: CGPoint!
 

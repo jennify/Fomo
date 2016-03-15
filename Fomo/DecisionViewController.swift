@@ -2,6 +2,8 @@
 // DecisionViewController.swift
 // ============================
 
+// TODO: replace with new BrowseViewController with folding cells
+
 
 import UIKit
 
@@ -23,6 +25,9 @@ class DecisionViewController: UIViewController {
     
     override func loadView() {
         view = UIView()
+        
+        view.backgroundColor = UIColor.fomoWhite()
+        
         view.addSubview(imageView)
         view.addSubview(nameLabel)
 

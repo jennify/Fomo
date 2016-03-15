@@ -8,9 +8,9 @@ import UIKit
 
 class ReviewCell: UITableViewCell {
 
-    let message: UILabel = UILabel.newAutoLayoutView()
     let rating: UILabel = UILabel.newAutoLayoutView()
     let date: UILabel = UILabel.newAutoLayoutView()
+    var message: UILabel = UILabel.newAutoLayoutView()
     
     var didSetupConstraints = false
     
@@ -28,9 +28,16 @@ class ReviewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !didSetupConstraints {
-            message.autoCenterInSuperview()
-            rating.autoCenterInSuperview()
-            date.autoCenterInSuperview()
+            rating.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
+            rating.autoPinEdgeToSuperviewEdge(.Top, withInset: 10)            
+            
+            date.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: rating)
+            date.autoPinEdge(.Top, toEdge: .Bottom, ofView: rating, withOffset: 5)
+
+            message.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: date)
+            message.autoPinEdge(.Top, toEdge: .Bottom, ofView: date, withOffset: 5)
+            message.lineBreakMode = NSLineBreakMode.ByWordWrapping
+            message.numberOfLines = 0
             
             didSetupConstraints = true
         }
@@ -39,8 +46,8 @@ class ReviewCell: UITableViewCell {
     }
     
     func initViews() {
-        addSubview(message)
         addSubview(rating)
         addSubview(date)
+        addSubview(message)
     }
 }

@@ -8,7 +8,7 @@ import UIKit
 
 class TripEventCell: UITableViewCell {
     
-    var attractionName: UILabel = UILabel.newAutoLayoutView()
+    let attractionName: UILabel = UILabel.newAutoLayoutView()
     
     var didSetupConstraints = false
 
@@ -35,9 +35,6 @@ class TripEventCell: UITableViewCell {
     }
     
     func initViews() {
-        attractionName = UILabel()
-        attractionName.text = "Testing"
         addSubview(attractionName)
     }
-
 }

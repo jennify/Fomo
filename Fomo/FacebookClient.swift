@@ -54,7 +54,7 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
                     self.getFriends(accessToken, afterCursor: afterCursor)
                 } else {
                     // Finished downloading friend list.
-//                    print("Finished downloading all friends.")
+                    // print("Finished downloading all friends.")
                 }
                 
             } else {
@@ -62,6 +62,5 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
             }
         })
     }
-    
 }
 

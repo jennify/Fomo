@@ -39,7 +39,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     override func loadView() {
         view = UIView()
         
-        view.backgroundColor = UIColor.grayColor()
+        view.backgroundColor = UIColor.fomoWhite()
         
         destinationTitleLabel.text = "Destination"
         destinationLabel.text = "Seoul"
@@ -58,7 +58,8 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         
         doneButton.setTitle("Create Trip", forState: .Normal)
         doneButton.addTarget(self, action: "updateTrip", forControlEvents: .TouchUpInside)
-        doneButton.backgroundColor = UIColor.greenColor()
+        doneButton.backgroundColor = UIColor.fomoBlue()
+        doneButton.layer.cornerRadius = 5
         
         view.addSubview(destinationTitleLabel)
         view.addSubview(destinationLabel)
@@ -75,7 +76,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            destinationTitleLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 100)
+            destinationTitleLabel.autoPinToTopLayoutGuideOfViewController(self, withInset: 20)
             destinationTitleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
             
             destinationLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 10)
@@ -101,8 +102,10 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
             endDateButton.autoAlignAxis(.Horizontal, toSameAxisOfView: endTitleLabel)
             endDateButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 10)
             
-            doneButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 10)
+            doneButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 30)
             doneButton.autoAlignAxisToSuperviewAxis(.Vertical)
+            doneButton.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10)
+
             
             didSetupConstraints = true
         }
@@ -136,7 +139,8 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     }
     
     func updateTrip() {
-        
+        // TODO
+        displayTodo("Create trip")
     }
     
     func epCalendarPicker(_: EPCalendarPicker, didSelectDate date : NSDate) {
@@ -150,4 +154,12 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     }
     
     func epCalendarPicker(_: EPCalendarPicker, didCancel error : NSError) {}
+    
+
+    func displayTodo(todo: String) {
+        let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+
 }
