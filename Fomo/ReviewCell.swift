@@ -1,6 +1,7 @@
 //
 // ReviewCell.swift
 // ============================
+// ** DEPRECATED **
 
 
 import UIKit

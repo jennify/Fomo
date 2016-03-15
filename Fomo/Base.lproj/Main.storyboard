@@ -20,20 +20,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="poolside" translatesAutoresizingMaskIntoConstraints="NO" id="lTI-ag-sLh">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="fomo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAy-yQ-see">
-                                <rect key="frame" x="94" y="130" width="133" height="57"/>
-                                <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="50"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.16862745098039217" green="0.40392156862745099" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="lTI-ag-sLh" secondAttribute="trailing" id="2uW-pd-AFx"/>
                             <constraint firstItem="lTI-ag-sLh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="HYb-jp-kvm"/>
                             <constraint firstItem="lTI-ag-sLh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="I6X-pc-o9K"/>
-                            <constraint firstItem="WAy-yQ-see" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Imi-Pl-NBx"/>
-                            <constraint firstItem="WAy-yQ-see" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="130" id="n9p-oJ-7A0"/>
                             <constraint firstAttribute="bottom" secondItem="lTI-ag-sLh" secondAttribute="bottom" id="zz5-KM-Su2"/>
                         </constraints>
                     </view>
@@ -62,7 +54,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XrD-fo-eHo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1082" y="330"/>
+            <point key="canvasLocation" x="1494" y="998"/>
         </scene>
         <!--Preferences View Controller-->
         <scene sceneID="09S-cs-t41">
@@ -82,6 +74,24 @@
             </objects>
             <point key="canvasLocation" x="-118" y="998"/>
         </scene>
+        <!--Browse View Controller-->
+        <scene sceneID="CAR-1r-VYO">
+            <objects>
+                <viewController storyboardIdentifier="BrowseViewController" id="FF2-l8-AG2" customClass="BrowseViewController" customModule="Fomo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QKi-PY-5V6"/>
+                        <viewControllerLayoutGuide type="bottom" id="DuW-pt-ZhZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="erL-bc-ftw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mir-MF-N2S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="676" y="330"/>
+        </scene>
         <!--City View Controller-->
         <scene sceneID="NRx-cs-5D2">
             <objects>
@@ -98,7 +108,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UOU-1H-0Xg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1076" y="998"/>
+            <point key="canvasLocation" x="676" y="998"/>
         </scene>
         <!--Friends View Controller-->
         <scene sceneID="71g-jd-Lw2">
@@ -134,7 +144,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52C-4s-awn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1474" y="998"/>
+            <point key="canvasLocation" x="1088" y="998"/>
         </scene>
         <!--Done View Controller-->
         <scene sceneID="bds-cc-2qc">
@@ -171,7 +181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NVM-5j-3V9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="682" y="998"/>
+            <point key="canvasLocation" x="1494" y="330"/>
         </scene>
         <!--Container View Controller-->
         <scene sceneID="Qjb-5R-1p4">
@@ -212,7 +222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="he3-QT-flh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="682" y="330"/>
+            <point key="canvasLocation" x="1088" y="330"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qmg-u4-dvy">

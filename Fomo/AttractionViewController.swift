@@ -1,27 +1,29 @@
 //
 // AttractionViewController.swift
 // ==============================
+// ** DEPRECATED **
 
 
 import UIKit
-import PureLayout
 
 
 class AttractionViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    var segmentedControl: UISegmentedControl = UISegmentedControl.newAutoLayoutView()
     let overviewView: AttractionOverviewView = AttractionOverviewView.newAutoLayoutView()
     let reviewTableView: UITableView = UITableView.newAutoLayoutView()
     let locationView: AttractionLocationView = AttractionLocationView.newAutoLayoutView()
+    
     var didSetupConstraints = false
     
     let attraction: Attraction = Attraction.generateTestInstance(City.generateTestInstance())
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpSegmentedControl()
         setUpOverviewView()
         setUpReviewTableView()
         setUpLocationView()
-        setUpNavigationBar()
     }
     
     override func loadView() {
@@ -35,24 +37,39 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            overviewView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            segmentedControl.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            segmentedControl.autoPinEdgeToSuperviewEdge(.Left)
+            segmentedControl.autoPinEdgeToSuperviewEdge(.Right)
+            segmentedControl.autoSetDimension(.Height, toSize: 50)
+            
+            overviewView.autoPinEdge(.Top, toEdge: .Bottom, ofView: segmentedControl)
             overviewView.autoPinEdgeToSuperviewEdge(.Left)
             overviewView.autoPinEdgeToSuperviewEdge(.Right)
             overviewView.autoPinEdgeToSuperviewEdge(.Bottom)
             
-            reviewTableView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            reviewTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: segmentedControl)
             reviewTableView.autoPinEdgeToSuperviewEdge(.Left)
             reviewTableView.autoPinEdgeToSuperviewEdge(.Right)
             reviewTableView.autoPinEdgeToSuperviewEdge(.Bottom)
 
-            locationView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            locationView.autoPinEdge(.Top, toEdge: .Bottom, ofView: segmentedControl)
             locationView.autoPinEdgeToSuperviewEdge(.Left)
             locationView.autoPinEdgeToSuperviewEdge(.Right)
-            
+            locationView.autoPinEdgeToSuperviewEdge(.Bottom)
+
             didSetupConstraints = true
         }
         
         super.updateViewConstraints()
+    }
+    
+    
+    func setUpSegmentedControl() {
+        let menu = ["Overview", "Reviews", "Map"]
+        segmentedControl = UISegmentedControl(items: menu)
+        segmentedControl.tintColor = UIColor.blackColor()
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: "indexChanged:", forControlEvents: .ValueChanged)
     }
     
     // Overview
@@ -64,8 +81,8 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
     func setUpReviewTableView() {
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
-        reviewTableView.estimatedRowHeight = 100
         reviewTableView.rowHeight = UITableViewAutomaticDimension
+        reviewTableView.estimatedRowHeight = 100
         reviewTableView.registerClass(ReviewCell.self, forCellReuseIdentifier: "CodePath.Fomo.ReviewCell")
         reviewTableView.separatorStyle = UITableViewCellSeparatorStyle.None
     }
@@ -88,17 +105,6 @@ class AttractionViewController: UIViewController, UITableViewDelegate, UITableVi
         
     // Map
     func setUpLocationView() {
-    }
-
-
-    func setUpNavigationBar() {
-        let menu = ["Overview", "Reviews", "Map"]
-        let segmentedControl = UISegmentedControl(items: menu)
-        segmentedControl.tintColor = UIColor.blackColor()
-        self.navigationItem.titleView = segmentedControl
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: "indexChanged:", forControlEvents: .ValueChanged)
-
     }
 
     func indexChanged(sender: UISegmentedControl) {

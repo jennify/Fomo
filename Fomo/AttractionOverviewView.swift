@@ -1,6 +1,7 @@
 //
 // AttractionOverviewView.swift
 // ============================
+// ** DEPRECATED **
 
 
 import UIKit

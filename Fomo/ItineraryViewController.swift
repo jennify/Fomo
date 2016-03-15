@@ -4,7 +4,6 @@
 
 
 import UIKit
-import PureLayout
 import FoldingCell
 
 

@@ -6,6 +6,7 @@
 import UIKit
 import EPCalendarPicker
 
+
 class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
     let destinationTitleLabel: UILabel = UILabel.newAutoLayoutView()
@@ -42,18 +43,18 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         view.backgroundColor = UIColor.fomoWhite()
         
         destinationTitleLabel.text = "Destination"
-        destinationLabel.text = "Seoul"
+        destinationLabel.text = city!.name ?? "Seoul"
         startTitleLabel.text = "Start"
         endTitleLabel.text = "End"
         
         startDateLabel.text = "None"
         
-        startDateButton.setImage(UIImage(named: "Calendar"), forState: .Normal)
+        startDateButton.setImage(UIImage(named: "calendar"), forState: .Normal)
         startDateButton.addTarget(self, action: "setStartDate", forControlEvents: .TouchUpInside)
         
         endDateLabel.text = "None"
         
-        endDateButton.setImage(UIImage(named: "Calendar"), forState: .Normal)
+        endDateButton.setImage(UIImage(named: "calendar"), forState: .Normal)
         endDateButton.addTarget(self, action: "setEndDate", forControlEvents: .TouchUpInside)
         
         doneButton.setTitle("Create Trip", forState: .Normal)
@@ -161,5 +162,4 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
     }
-
 }

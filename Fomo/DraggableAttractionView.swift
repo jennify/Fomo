@@ -1,6 +1,7 @@
 //
 // DraggableAttractionView.swift
 // ============================
+// ** DEPRECATED **
 
 
 import UIKit

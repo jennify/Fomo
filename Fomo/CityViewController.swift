@@ -20,8 +20,6 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         filteredCities = cities
         
-        
-
         setUpTableView()
         setUpSearchBar()
         setUpNavigationBar()
@@ -35,12 +33,12 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func setUpSearchBar() {
-        searchBar.placeholder = "Select a city"
+        searchBar.placeholder = "Where to?"
         searchBar.delegate = self
     }
     
     func setUpNavigationBar() {
-        navigationItem.title = "Cities"
+        navigationItem.title = "Destination"
     }
     
     override func loadView() {
@@ -54,9 +52,9 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
+            searchBar.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             searchBar.autoPinEdgeToSuperviewEdge(.Left)
             searchBar.autoPinEdgeToSuperviewEdge(.Right)
-            searchBar.autoPinEdgeToSuperviewEdge(.Top)
             
             tableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBar)
             tableView.autoPinEdgeToSuperviewEdge(.Left)
