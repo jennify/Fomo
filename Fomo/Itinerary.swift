@@ -108,9 +108,11 @@ class Itinerary: NSObject {
         
         itinerary.startDate = today
         itinerary.endDate = tomorrow
+
         itinerary.city = City.generateTestInstance()
         itinerary.coverPhoto = UIImage(named: "SanFrancisco")
         itinerary.days = [Day.generateTestInstance(itinerary.city!), Day.generateTestInstance(itinerary.city!), Day.generateTestInstance(itinerary.city!)]
+        itinerary.numDays = itinerary.days?.count
         
         return itinerary
     }
