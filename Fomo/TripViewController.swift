@@ -161,6 +161,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
                 
                 let itineraryViewController = ItineraryViewController()
                 itineraryViewController.itinerary = itinerary
+                itineraryViewController.isNewTrip = true
                 self.navigationController?.pushViewController(itineraryViewController, animated: true)
             }
         }
