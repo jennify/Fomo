@@ -9,9 +9,10 @@ import UIKit
 
 class DecisionViewController: UIViewController {
     
-    let imageView: DraggableAttractionView = DraggableAttractionView.newAutoLayoutView()
+    let profileView: DraggableAttractionView = DraggableAttractionView.newAutoLayoutView()
     var nameLabel: UILabel = UILabel.newAutoLayoutView()
-
+    var originalTranform: CGAffineTransform?
+    var originalCenter: CGPoint?
     var didSetupConstraints = false
 
     let tripevent: TripEvent = TripEvent.generateTestInstance(City.generateTestInstance())
@@ -27,7 +28,7 @@ class DecisionViewController: UIViewController {
         
         view.backgroundColor = UIColor.fomoWhite()
         
-        view.addSubview(imageView)
+        view.addSubview(profileView)
         view.addSubview(nameLabel)
 
         view.setNeedsUpdateConstraints()
@@ -35,12 +36,12 @@ class DecisionViewController: UIViewController {
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            imageView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
-            imageView.autoPinEdgeToSuperviewEdge(.Left)
-            imageView.autoPinEdgeToSuperviewEdge(.Right)
-            imageView.autoSetDimension(.Height, toSize: 240)
+            profileView.autoPinToTopLayoutGuideOfViewController(self, withInset: 16)
+            profileView.autoAlignAxisToSuperviewAxis(.Vertical)
+            profileView.autoSetDimension(.Height, toSize: 250)
+            profileView.autoSetDimension(.Width, toSize: 250)
             
-            nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: imageView, withOffset: 10)
+            nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: profileView, withOffset: 10)
             nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
             
             didSetupConstraints = true
@@ -52,15 +53,17 @@ class DecisionViewController: UIViewController {
     func setUpAttractionView() {
         let attraction = tripevent.attraction
         let attractionImageUrl = NSURL(string: attraction!.imageUrls![0])!
-        imageView.attractionImageView.setImageWithURL(attractionImageUrl)
+        profileView.attractionImageView.setImageWithURL(attractionImageUrl)
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 10
         
         nameLabel.text = attraction!.name
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "onTap:")
-        imageView.addGestureRecognizer(tapGestureRecognizer)
+        profileView.addGestureRecognizer(tapGestureRecognizer)
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "onPan:")
-        imageView.addGestureRecognizer(panGestureRecognizer)
+        profileView.addGestureRecognizer(panGestureRecognizer)
     }
 
     // Tap to view attraction details
@@ -69,7 +72,35 @@ class DecisionViewController: UIViewController {
     }
 
     func onPan(sender: UIPanGestureRecognizer) {
-        imageView.translate(view, sender: sender)
+        let translation = sender.translationInView(view)
+        let point = sender.locationInView(view)
+        
+        if sender.state == UIGestureRecognizerState.Began {
+            self.originalCenter = self.profileView.center
+            self.originalTranform = self.profileView.transform
+        } else if sender.state == UIGestureRecognizerState.Changed {
+            
+            var multiplier = 1.0
+            if point.y < profileView.frame.height/2 {
+                multiplier = -1.0
+            } else {
+                multiplier = 1.0
+            }
+            self.profileView.center = CGPoint(x: self.originalCenter!.x + sender.translationInView(view).x, y: originalCenter!.y)
+            let xOffset = translation.x
+            let angle = CGFloat(multiplier * 1 * M_PI/180) / 20 * xOffset
+            self.profileView.transform = CGAffineTransformRotate(originalTranform!, angle)
+            
+        } else if sender.state == UIGestureRecognizerState.Ended {
+            
+            if translation.x > 80 || translation.x < -80 {
+                self.profileView.hidden = true
+            } else {
+                self.profileView.transform = originalTranform!
+                self.profileView.center = originalCenter!
+            }
+        }
+        
     }
     
     func setUpNavigationBar() {
