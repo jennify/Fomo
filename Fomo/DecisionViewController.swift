@@ -38,8 +38,8 @@ class DecisionViewController: UIViewController {
         if (!didSetupConstraints) {
             profileView.autoPinToTopLayoutGuideOfViewController(self, withInset: 16)
             profileView.autoAlignAxisToSuperviewAxis(.Vertical)
-            profileView.autoSetDimension(.Height, toSize: 250)
-            profileView.autoSetDimension(.Width, toSize: 250)
+            profileView.autoSetDimension(.Height, toSize: 312)
+            profileView.autoSetDimension(.Width, toSize: 312)
             
             nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: profileView, withOffset: 10)
             nameLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
