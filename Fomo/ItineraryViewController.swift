@@ -24,6 +24,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var kCloseCellHeight: CGFloat = FoldingTripEventCell.topViewHeight + 8 // equal or greater foregroundView height
     let kOpenCellHeight: CGFloat = FoldingTripEventCell.detailsViewHeight + 8 // equal or greater containerView height
 
+    var hideSectionHeaders = false
+    
     var itinerary: Itinerary = Itinerary.generateTestInstance()
 
     override func viewDidLoad() {
@@ -53,7 +55,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func loadView() {
         view = UIView()
 
-        tripDetailsView.backgroundColor = UIColor.fomoGrey()
+        tripDetailsView.backgroundColor = UIColor.fomoSand()
         calendarView.backgroundColor = UIColor.fomoTeal()
 
         view.addSubview(travellersView)
@@ -122,6 +124,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         itineraryTableView.registerClass(DayHeaderCell.self, forHeaderFooterViewReuseIdentifier: "CodePath.Fomo.DayHeaderCell")
         itineraryTableView.registerClass(FoldingTripEventCell.self, forCellReuseIdentifier: "CodePath.Fomo.FoldingTripEventCell")
         itineraryTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        itineraryTableView.backgroundColor = UIColor.fomoSand()
 
     }
 
@@ -130,10 +133,25 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == itinerary.numberDays() - 1 {
+            return itinerary.days![section].tripEvents!.count - 1 + 1
+        }
         return itinerary.days![section].tripEvents!.count - 1
+    }
+    
+    func isLastTableViewCell(indexPath: NSIndexPath) -> Bool {
+        return indexPath.section == itinerary.numberDays() - 1  && indexPath.row == itinerary.days![indexPath.section - 1].tripEvents!.count - 1
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        // Check if this is the footer cell.
+        if isLastTableViewCell(indexPath) {
+            let footer = ItineraryFooter()
+            footer.backgroundColor = UIColor.fomoSand()
+            footer.parentVC = self
+            return footer
+        }
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FoldingTripEventCell", forIndexPath: indexPath) as! FoldingTripEventCell
         
         cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
@@ -148,10 +166,17 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if self.hideSectionHeaders {
+            let hiddenSectionHeader = UIView()
+            hiddenSectionHeader.backgroundColor = UIColor.clearColor()
+            hiddenSectionHeader.alpha = 0.0
+            return hiddenSectionHeader
+        }
         let cell = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CodePath.Fomo.DayHeaderCell") as! DayHeaderCell
         configureHeaderCell(cell, section: section)
         return cell
     }
+    
 
     func configureHeaderCell(cell: DayHeaderCell, section: Int) {
         cell.dayName.text = "DAY \(section + 1)"
@@ -164,6 +189,10 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         itineraryTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if isLastTableViewCell(indexPath) {
+            displayTodo("Move to explore page!")
+            return
+        }
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingTripEventCell
 
         var duration = 0.0
@@ -174,16 +203,26 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         } else {// close cell
             cellHeights[indexPath.section][indexPath.row] = kCloseCellHeight
             cell.selectedAnimation(false, animated: true, completion: nil)
+            self.hideSectionHeaders = true
             duration = 0.8
 
         }
-
-        UIView.animateWithDuration(duration, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-
+        
+        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
             tableView.beginUpdates()
             tableView.endUpdates()
-        }, completion:nil)
-
+        }) {
+            (b: Bool) in
+            if self.hideSectionHeaders {
+                self.hideSectionHeaders = false
+                UIView.animateWithDuration(0.3, delay: duration + 5, options: .TransitionCrossDissolve, animations: { () -> Void in
+                    self.itineraryTableView.reloadData()
+                    
+                }, completion: nil)
+            }
+        }
+        
+        
     }
 
     // Calendar Methods

@@ -26,6 +26,11 @@ class FoldingTripEventCell: FoldingCell {
     let neutralButton: UIButton = UIButton.newAutoLayoutView()
     
     var detailsAttractionName : UILabel = UILabel.newAutoLayoutView()
+    var addressLabel: UILabel = UILabel.newAutoLayoutView()
+    
+    var ratingView: UIView = UIView.newAutoLayoutView()
+    var ratingLabel: UILabel = UILabel.newAutoLayoutView()
+    var typeLabel: UILabel = UILabel.newAutoLayoutView()
     
     class var topViewHeight: CGFloat {
         get {
@@ -108,6 +113,20 @@ class FoldingTripEventCell: FoldingCell {
             detailsAttractionName.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
             detailsAttractionName.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
             
+            addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: detailsAttractionName, withOffset: 8)
+            addressLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: detailsAttractionName)
+            addressLabel.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
+            
+            typeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 8)
+            typeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: detailsAttractionName)
+            
+            // Setup ratings
+            ratingLabel.autoCenterInSuperview()
+            ratingView.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
+            ratingView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
+            ratingView.autoSetDimension(.Width, toSize: 40)
+            ratingView.autoSetDimension(.Height, toSize: 40)
+            
             didSetupConstraints = true
         }
         super.updateConstraints()
@@ -168,9 +187,39 @@ class FoldingTripEventCell: FoldingCell {
     func initDetailsView() {
         let detSeg = detailSegments[1]
         detailsAttractionName.text = attraction?.name
-        detailsAttractionName.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
+        detailsAttractionName.font = UIFont.fomoH1()
+        
+        addressLabel.text = attraction?.address
+        addressLabel.font = UIFont.fomoParagraph()
+        addressLabel.numberOfLines = 0
+        
+        var types: [String] = []
+        if attraction != nil && attraction?.types != nil {
+            for type in attraction!.types! {
+                types.append(type.name!)
+            }
+        }
+        
+        typeLabel.text = types.joinWithSeparator(", ")
+        typeLabel.font = UIFont.fomoParagraph()
+        typeLabel.textColor = UIColor.lightGrayColor()
+        typeLabel.numberOfLines = 0
+        
+        if attraction != nil {
+            ratingLabel.text = "\(attraction!.rating!)"
+        }
+        ratingLabel.font = UIFont.fomoH2()
+        
+        ratingView.backgroundColor = UIColor.fomoTeal()
+        ratingView.layer.cornerRadius = 5
+        ratingView.clipsToBounds = true
         
         detSeg.addSubview(detailsAttractionName)
+        detSeg.addSubview(addressLabel)
+        detSeg.addSubview(typeLabel)
+        
+        ratingView.addSubview(ratingLabel)
+        detSeg.addSubview(ratingView)
     }
     
     func initPicSeg() {
@@ -229,7 +278,7 @@ class FoldingTripEventCell: FoldingCell {
     }
     
     override func animationDuration(itemIndex:NSInteger, type:AnimationType)-> NSTimeInterval {
-        let durations = [0.4, 0.4, 0.4]
+        let durations = [0.3, 0.2, 0.2]
         return durations[itemIndex]
     }
 
@@ -238,8 +287,12 @@ class FoldingTripEventCell: FoldingCell {
 class TopView: RotatedView {
     var attractionName: UILabel = UILabel.newAutoLayoutView()
     var imageView: UIImageView = UIImageView.newAutoLayoutView()
+    var typeLabel: UILabel = UILabel.newAutoLayoutView()
     var attraction: Attraction?
     var didSetupConstraintsTV = false
+    var likeVotersView: TravellersView = TravellersView.newAutoLayoutView()
+    
+    var likeLabel: UILabel = UILabel.newAutoLayoutView()
     
     override required init(frame: CGRect) {
         super.init(frame: frame)
@@ -269,7 +322,18 @@ class TopView: RotatedView {
             
             attractionName.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
             attractionName.autoPinEdge(.Leading, toEdge: .Trailing, ofView: imageView, withOffset: 8)
+            attractionName.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8, relation: .Equal)
             
+            typeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: attractionName, withOffset: 0)
+            typeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: attractionName, withOffset: 4)
+            
+            likeLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 4)
+            likeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: attractionName)
+            
+            likeVotersView.autoPinEdge(.Leading, toEdge: .Trailing, ofView: likeLabel, withOffset: 8)
+            likeVotersView.autoPinEdge(.Top, toEdge: .Bottom, ofView: typeLabel, withOffset: 16)
+            likeVotersView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
+            likeVotersView.autoSetDimension(.Height, toSize: likeVotersView.faceHeight)
             
             didSetupConstraintsTV = true
         }
@@ -277,19 +341,41 @@ class TopView: RotatedView {
     }
     
     func initViews() {
-        
-        
         if attraction != nil {
             attractionName.text = attraction?.name
-            attractionName.font = UIFont(name: "AppleSDGothicNeo-Light", size: 17)
+            attractionName.font = UIFont.fomoH2()
+            attractionName.numberOfLines = 0
+            
             imageView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
             imageView.clipsToBounds = true
             imageView.contentMode = .ScaleAspectFill
+            
+            var types: [String] = []
+            for type in attraction!.types! {
+                types.append(type.name!)
+            }
+            
+            typeLabel.text = types.joinWithSeparator(", ")
+            typeLabel.font = UIFont.fomoParagraph()
+            typeLabel.numberOfLines = 0
+            typeLabel.sizeToFit()
+            typeLabel.textColor = UIColor.darkGrayColor()
+            
+            likeVotersView.backgroundColor = UIColor.clearColor()
+            
+            likeLabel.text = "LIKED BY"
+            likeLabel.sizeToFit()
+            likeLabel.font = UIFont.fomoSized(10)
+            likeLabel.textColor = UIColor.lightGrayColor()
+            
         } else {
             attractionName.text = "Invalid attraction"
         }
         self.addSubview(attractionName)
         self.addSubview(imageView)
+        self.addSubview(typeLabel)
+        self.addSubview(likeVotersView)
+        self.addSubview(likeLabel)
     }
     
     

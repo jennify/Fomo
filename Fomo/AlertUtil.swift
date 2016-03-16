@@ -38,6 +38,24 @@ func sendFriendInviteToItinerary(vc: UIViewController, shareMessage: String?, it
     
 }
 
+extension UIFont {
+    class func fomoH1() -> UIFont {
+        return UIFont(name: "AppleSDGothicNeo-Light", size: 20)!
+    }
+    class func fomoH2() -> UIFont {
+        return UIFont(name: "AppleSDGothicNeo-Light", size: 18)!
+    }
+    class func fomoH3() -> UIFont {
+        return UIFont(name: "AppleSDGothicNeo-Light", size: 16)!
+    }
+    class func fomoParagraph() -> UIFont {
+        return UIFont(name: "AppleSDGothicNeo-Light", size: 14)!
+    }
+    class func fomoSized(size: CGFloat) -> UIFont {
+        return UIFont(name: "AppleSDGothicNeo-Light", size: size)!
+    }
+}
+
 extension UIColor {
     class func initWithHex(hex: String) -> UIColor {
         var int = UInt32()

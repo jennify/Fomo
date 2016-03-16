@@ -21,6 +21,7 @@
 		7A81588A1C8D886C0024B7C2 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158861C8D886C0024B7C2 /* Cache.swift */; };
 		7A81588B1C8D886C0024B7C2 /* FacebookClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158871C8D886C0024B7C2 /* FacebookClient.swift */; };
 		7A81588C1C8D886C0024B7C2 /* RecommenderClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8158881C8D886C0024B7C2 /* RecommenderClient.swift */; };
+		7A9C27681C9930D000872AD5 /* ItineraryFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9C27671C9930D000872AD5 /* ItineraryFooter.swift */; };
 		7AE6D2D31C7C3E0E009ADC3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D21C7C3E0E009ADC3B /* AppDelegate.swift */; };
 		7AE6D2D51C7C3E0E009ADC3B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */; };
 		7AE6D2D81C7C3E0E009ADC3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D61C7C3E0E009ADC3B /* Main.storyboard */; };
@@ -73,6 +74,7 @@
 		7A8158861C8D886C0024B7C2 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		7A8158871C8D886C0024B7C2 /* FacebookClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookClient.swift; sourceTree = "<group>"; };
 		7A8158881C8D886C0024B7C2 /* RecommenderClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecommenderClient.swift; sourceTree = "<group>"; };
+		7A9C27671C9930D000872AD5 /* ItineraryFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItineraryFooter.swift; sourceTree = "<group>"; };
 		7AE6D2CF1C7C3E0E009ADC3B /* Fomo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fomo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AE6D2D21C7C3E0E009ADC3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AE6D2D41C7C3E0E009ADC3B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				AA1DCED51C948EF60088DD27 /* TravellersView.swift */,
 				AA7B21C61C961EE900636007 /* CityCell.swift */,
 				F9F20CB41C957A83004DEC9E /* AttractionLocationView.swift */,
+				7A9C27671C9930D000872AD5 /* ItineraryFooter.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */,
 				AA1DCE901C8440E70088DD27 /* Review.swift in Sources */,
 				AA1DCED01C8BB0DF0088DD27 /* FriendsViewController.swift in Sources */,
+				7A9C27681C9930D000872AD5 /* ItineraryFooter.swift in Sources */,
 				AA1DCE8E1C843F8C0088DD27 /* City.swift in Sources */,
 				F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */,
 				AA1DCE881C843DD00088DD27 /* Itinerary.swift in Sources */,

@@ -33,7 +33,7 @@ class TravellersView: UIView {
     }
 
     func initViews() {
-        self.backgroundColor = UIColor.fomoPeriwinkle()
+        self.backgroundColor = UIColor.fomoSand()
         
         travellers = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
         
@@ -67,7 +67,7 @@ class TravellersView: UIView {
     
     func createHalo() -> UIImageView {
         let halo = UIImageView.newAutoLayoutView()
-        halo.layer.cornerRadius = 25
+        halo.layer.cornerRadius = faceHeight/2
         halo.clipsToBounds = true
         return halo
     }
