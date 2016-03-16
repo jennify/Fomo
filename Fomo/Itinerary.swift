@@ -13,11 +13,14 @@ class Itinerary: NSObject {
     var travellers: [User]? 
     var tripName: String?
     var startDate: NSDate?
+    var numDays: Int?
     var endDate: NSDate?
     var city: City?
-    var coverPhotoUrl: String?
+    var coverPhoto: UIImage?
     var days: [Day]?
     var rawData: NSDictionary?
+    
+    override init() {}
     
     init(dictionary: NSDictionary) {
         if dictionary.count == 0 {
@@ -106,7 +109,7 @@ class Itinerary: NSObject {
         itinerary.startDate = today
         itinerary.endDate = tomorrow
         itinerary.city = City.generateTestInstance()
-        itinerary.coverPhotoUrl = "https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"
+        itinerary.coverPhoto = UIImage(named: "SanFrancisco")
         itinerary.days = [Day.generateTestInstance(itinerary.city!), Day.generateTestInstance(itinerary.city!), Day.generateTestInstance(itinerary.city!)]
         
         return itinerary

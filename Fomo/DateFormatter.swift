@@ -12,13 +12,13 @@ class DateFormatter: NSObject {
     class var sharedInstance: NSDateFormatter {
         struct Static {
             static let instance = NSDateFormatter()
+            
         }
+        Static.instance.dateFormat = "EEE MMM d HH:mm:ss Z y"
         return Static.instance
     }
     
     class func dateFromString(dateString: String?) -> NSDate? {
-        
-        sharedInstance.dateFormat = "EEE MMM d HH:mm:ss Z y"
         let calendar = NSCalendar.autoupdatingCurrentCalendar()
         calendar.timeZone = NSTimeZone.systemTimeZone()
         sharedInstance.timeZone = calendar.timeZone

@@ -27,12 +27,17 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var hideSectionHeaders = false
     
     var itinerary: Itinerary = Itinerary.generateTestInstance()
+    var isNewTrip: Bool?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if Cache.itinerary != nil {
+        
+        if Cache.itinerary != nil && !isNewTrip! {
             self.itinerary = Cache.itinerary!
+        } else {
+            Cache.itinerary = itinerary
         }
+        
         setUpItineraryTableView()
         setUpCalendarView()
         setUpNavigationBar()
