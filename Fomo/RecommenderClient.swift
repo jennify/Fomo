@@ -111,9 +111,9 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
             "name": itinerary.creator!.name!,
             "tripName": itinerary.tripName!,
             "startDate": DateFormatter.dateTostring(itinerary.startDate)!,
-            "numDays" : "\(itinerary.days?.count ?? 0)",
+            "numDays" : "\(itinerary.numDays!)",
             "location": location,
-            "radius": "\(itinerary.city?.radius)" ]
+            "radius": "\(itinerary.city?.radius!)" ]
         requestPOSTWithItineraryResponse(url, parameters: parameters, completion: completion)
         
     }

@@ -58,7 +58,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         endDateButton.addTarget(self, action: "setEndDate", forControlEvents: .TouchUpInside)
         
         doneButton.setTitle("Create Trip", forState: .Normal)
-        doneButton.addTarget(self, action: "updateTrip", forControlEvents: .TouchUpInside)
+        doneButton.addTarget(self, action: "createTrip", forControlEvents: .TouchUpInside)
         doneButton.backgroundColor = UIColor.fomoBlue()
         doneButton.layer.cornerRadius = 5
         
@@ -138,9 +138,32 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         self.presentViewController(navigationController, animated: true, completion: nil)
     }
     
-    func updateTrip() {
-        // TODO
-        displayTodo("Create trip")
+    func createTrip() {
+        let itinerary = Itinerary()
+        itinerary.id = String(NSDate().timeIntervalSince1970)
+        itinerary.creator = Cache.currentUser
+        itinerary.city = city!
+        itinerary.tripName = city!.name
+        itinerary.startDate = startDate
+        
+        let numDays = Int((endDate!.timeIntervalSinceDate(startDate!)) / (60 * 60 * 24))
+        itinerary.numDays = numDays
+        
+        itinerary.createItinerary { (response: Itinerary?, error) -> () in
+            if let itinerary = response {
+                // Repopulate since we lose this when hitting server
+                itinerary.startDate = self.startDate
+                itinerary.endDate = self.endDate
+                itinerary.creator = Cache.currentUser
+                itinerary.numDays = numDays
+                itinerary.city = self.city
+                itinerary.coverPhoto = self.city?.coverPhoto
+                
+                let itineraryViewController = ItineraryViewController()
+                itineraryViewController.itinerary = itinerary
+                self.navigationController?.pushViewController(itineraryViewController, animated: true)
+            }
+        }
     }
     
     func epCalendarPicker(_: EPCalendarPicker, didSelectDate date : NSDate) {
