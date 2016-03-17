@@ -150,6 +150,7 @@ class DecisionCardCell: TisprCardStackViewCell {
     var typeLabel: UILabel = UILabel.newAutoLayoutView()
     var ratingView: UIView = UIView.newAutoLayoutView()
     var ratingLabel: UILabel = UILabel.newAutoLayoutView()
+    var likeImage: UIImageView = UIImageView.newAutoLayoutView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
