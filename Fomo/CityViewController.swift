@@ -94,6 +94,7 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
     func configureCell(cell: CityCell, indexPath: NSIndexPath) {
         let city = filteredCities[indexPath.row]
         cell.cityName.text = city.name
+        cell.cityName.font = UIFont.fomoBoldest(20)
         cell.cityImageView.image = city.coverPhoto
     }
     

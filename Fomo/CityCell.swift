@@ -34,8 +34,9 @@ class CityCell: UITableViewCell {
     override func updateConstraints() {
         if !didSetupConstraints {
             cityImageView.autoPinEdgesToSuperviewEdges()
-            cityName.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
-            cityName.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 10)
+            cityName.autoCenterInSuperview()
+//            cityName.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
+//            cityName.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 10)
             
             didSetupConstraints = true
         }

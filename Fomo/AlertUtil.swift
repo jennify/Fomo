@@ -54,6 +54,14 @@ extension UIFont {
     class func fomoSized(size: CGFloat) -> UIFont {
         return UIFont(name: "AppleSDGothicNeo-Light", size: size)!
     }
+    
+    class func fomoBold(size: CGFloat) -> UIFont {
+        return UIFont(name: "AppleSDGothicNeo-Regular", size: size)!
+    }
+    
+    class func fomoBoldest(size: CGFloat) -> UIFont {
+        return UIFont(name:"AppleSDGothicNeo-Bold", size: size)!
+    }
 }
 
 extension UIColor {
