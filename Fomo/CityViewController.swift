@@ -30,6 +30,7 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self
         tableView.separatorStyle = .None
         tableView.registerClass(CityCell.self, forCellReuseIdentifier: "CodePath.Fomo.CityCell")
+        tableView.backgroundColor = UIColor.fomoSand()
     }
     
     func setUpSearchBar() {
