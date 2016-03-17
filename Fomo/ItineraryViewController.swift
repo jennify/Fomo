@@ -212,6 +212,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             duration = 0.8
 
         }
+//        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
         
         UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
             tableView.beginUpdates()
