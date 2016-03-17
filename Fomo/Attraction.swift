@@ -50,6 +50,17 @@ class Attraction: NSObject {
         self.imageUrls = photos
     }
     
+    func getTypeString() -> String {
+        var typesArr: [String] = []
+        if self.types != nil {
+            for type in self.types! {
+                typesArr.append(type.name!)
+            }
+        }
+        
+        return typesArr.joinWithSeparator(", ")
+    }
+    
     func vote(vote: Vote, completion: (response: Itinerary?, error: NSError?) -> ()) {
         let itinerary = tripEvent?.itinerary
         let currentUser = Cache.currentUser

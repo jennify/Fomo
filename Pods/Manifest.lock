@@ -27,6 +27,7 @@ PODS:
   - FoldingCell (0.7.3)
   - PureLayout (3.0.1)
   - SAConfettiView (0.1.8)
+  - TisprCardStack (0.3.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.5)
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - FoldingCell (~> 0.7.3)
   - PureLayout
   - SAConfettiView
+  - TisprCardStack (~> 0.3.0)
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
@@ -43,5 +45,6 @@ SPEC CHECKSUMS:
   FoldingCell: 8d7674d9ff51ae40408b99a17798bc0ec20a3654
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   SAConfettiView: c87031a2280659261b730fce3669fb10e73636ee
+  TisprCardStack: d79a03e1568b46d3c8351e761383be2a5e5832ad
 
 COCOAPODS: 0.39.0

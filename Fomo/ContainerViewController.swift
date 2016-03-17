@@ -40,7 +40,7 @@ class ContainerViewController: UIViewController {
     
     var selectedViewController: UIViewController!
     var loginVC: LoginViewController!
-    var decisionVC: DecisionViewController!
+    var decisionVC: DecisionCardViewController!
     var browseVC: BrowseViewController!
     var attractionVC: AttractionViewController!
     var itineraryVC: ItineraryViewController!
@@ -123,7 +123,7 @@ class ContainerViewController: UIViewController {
     func setUpViewControllers() {
         loginVC = storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
         browseVC = storyboard!.instantiateViewControllerWithIdentifier("BrowseViewController") as! BrowseViewController
-        decisionVC = storyboard!.instantiateViewControllerWithIdentifier("DecisionViewController") as! DecisionViewController
+        decisionVC = DecisionCardViewController()
         attractionVC = storyboard!.instantiateViewControllerWithIdentifier("AttractionViewController") as! AttractionViewController
         itineraryVC = storyboard!.instantiateViewControllerWithIdentifier("ItineraryViewController") as! ItineraryViewController
         cityVC = storyboard!.instantiateViewControllerWithIdentifier("CityViewController") as! CityViewController

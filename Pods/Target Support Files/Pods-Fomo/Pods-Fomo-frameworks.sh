@@ -90,6 +90,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Fomo/FoldingCell.framework"
   install_framework "Pods-Fomo/PureLayout.framework"
   install_framework "Pods-Fomo/SAConfettiView.framework"
+  install_framework "Pods-Fomo/TisprCardStack.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Fomo/AFNetworking.framework"
@@ -98,4 +99,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-Fomo/FoldingCell.framework"
   install_framework "Pods-Fomo/PureLayout.framework"
   install_framework "Pods-Fomo/SAConfettiView.framework"
+  install_framework "Pods-Fomo/TisprCardStack.framework"
 fi

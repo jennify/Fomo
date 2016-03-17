@@ -26,7 +26,11 @@ class Recommendation: NSObject {
         let recommendation = Recommendation(dictionary: NSDictionary())
         recommendation.itineraryId = itinerary.id
         recommendation.city = itinerary.city
-        recommendation.attractions = itinerary.city?.attractions
+        recommendation.attractions = [
+            Attraction.generateTestInstance(City.generateTestInstance()),
+            Attraction.generateTestInstance(City.generateTestInstance()),
+            Attraction.generateTestInstance(City.generateTestInstance()),
+        ]
         return recommendation
     }
 }
