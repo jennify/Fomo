@@ -47,7 +47,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         self.countOfCards = recommendations!.attractions!.count
         
         completeButton.setImage(UIImage(named: "car"), forState: .Normal)
-        completeButton.setTitle("Success!", forState: .Normal)
+        completeButton.setTitle("Go to Itinerary.", forState: .Normal)
         completeButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         completeButton.contentVerticalAlignment = .Bottom
         completeButton.contentHorizontalAlignment = .Left
