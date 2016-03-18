@@ -131,7 +131,9 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         
         let calendarPicker = EPCalendarPicker(startYear: 2016, endYear: 2017, multiSelection: false, selectedDates: dateArray)
         calendarPicker.weekdayTintColor = UIColor.blackColor()
-        calendarPicker.weekendTintColor = UIColor.redColor()
+        calendarPicker.weekendTintColor = UIColor.blackColor()
+        calendarPicker.monthTitleColor = UIColor.fomoBlue()
+        calendarPicker.backgroundColor = UIColor.fomoWhite()
         calendarPicker.hightlightsToday = false
         calendarPicker.calendarDelegate = self
         let navigationController = UINavigationController(rootViewController: calendarPicker)
