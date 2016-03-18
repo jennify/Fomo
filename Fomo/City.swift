@@ -51,4 +51,14 @@ class City: NSObject {
         cities.append(City(cityName: "Sydney", imageName: "Sydney", cityLocation: CLLocation(latitude: 33.8650, longitude: 151.2094)))
         return cities
     }
+    
+    class func getCoverPhoto(cityName: String) -> UIImage? {
+        let cities = availableCities()
+        for city in cities {
+            if (city.name == cityName) {
+                return city.coverPhoto!
+            }
+        }
+        return nil
+    }
 }
