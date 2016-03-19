@@ -40,6 +40,7 @@ class Attraction: NSObject {
         self.name = dictionary["name"] as? String
         self.rating = dictionary["rating"] as? Float
         self.attractionType = dictionary["types"] as? [String]
+        self.types = AttractionType.attractionTypesWithArray(self.attractionType!)
         
         // Temporary holder for images before they work
         self.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]

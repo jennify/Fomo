@@ -151,20 +151,30 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         let numDays = Int((endDate!.timeIntervalSinceDate(startDate!)) / (60 * 60 * 24))
         itinerary.numDays = numDays
         
-        itinerary.createItinerary { (response: Itinerary?, error) -> () in
-            if let itinerary = response {
-                // Repopulate since we lose this when hitting server
-                itinerary.startDate = self.startDate
-                itinerary.endDate = self.endDate
-                itinerary.creator = Cache.currentUser
-                itinerary.numDays = numDays
-                itinerary.city = self.city
-                itinerary.coverPhoto = self.city?.coverPhoto
-                
-                let itineraryViewController = ItineraryViewController()
-                itineraryViewController.itinerary = itinerary
-                itineraryViewController.isNewTrip = true
-                self.navigationController?.pushViewController(itineraryViewController, animated: true)
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        if appDelegate.ITINERARY_USE_CACHE, let itinerary = Cache.itinerary {
+            let itineraryViewController = ItineraryViewController()
+            itineraryViewController.itinerary = itinerary
+            itineraryViewController.isNewTrip = true
+            self.navigationController?.pushViewController(itineraryViewController, animated: true)
+        } else {
+            itinerary.createItinerary { (response: Itinerary?, error) -> () in
+                if let itinerary = response {
+                    // Repopulate since we lose this when hitting server
+                    itinerary.startDate = self.startDate
+                    itinerary.endDate = self.endDate
+                    itinerary.creator = Cache.currentUser
+                    itinerary.numDays = numDays
+                    itinerary.city = self.city
+                    itinerary.coverPhoto = self.city?.coverPhoto
+                    Cache.itinerary = itinerary
+                    
+                    let itineraryViewController = ItineraryViewController()
+                    itineraryViewController.itinerary = itinerary
+                    itineraryViewController.isNewTrip = true
+                    self.navigationController?.pushViewController(itineraryViewController, animated: true)
+                }
             }
         }
     }

@@ -10,22 +10,23 @@ var _currentFriends: [User]?
 var _currentItinerary: Itinerary?
 
 let currentUserKey = "kCurrentUserKey"
+let currentItinerary = "kCurrentItinerary"
 
 class Cache: NSObject {
     class var currentUser: User? {
         get {
-        if _currentUser == nil {
-        let data = NSUserDefaults.standardUserDefaults().objectForKey(currentUserKey)
-        if data != nil {
-        do {
-        let dictionary = try NSJSONSerialization.JSONObjectWithData(data as! NSData, options: [])
-        _currentUser = User(dictionary: dictionary as! NSDictionary)
-    } catch {
-        print("Error deserializing")
-        }
-        }
-        }
-        return _currentUser
+            if _currentUser == nil {
+                let data = NSUserDefaults.standardUserDefaults().objectForKey(currentUserKey)
+                if data != nil {
+                    do {
+                        let dictionary = try NSJSONSerialization.JSONObjectWithData(data as! NSData, options: [])
+                        _currentUser = User(dictionary: dictionary as! NSDictionary)
+                    } catch {
+                        print("Error deserializing")
+                    }
+                }
+            }
+            return _currentUser
         }
         set (user) {
             _currentUser = user
@@ -65,10 +66,33 @@ class Cache: NSObject {
     
     class var itinerary: Itinerary? {
         get {
-        return _currentItinerary
+            if _currentItinerary == nil {
+                let data = NSUserDefaults.standardUserDefaults().objectForKey(currentItinerary)
+                if data != nil {
+                    do {
+                        let dictionary = try NSJSONSerialization.JSONObjectWithData(data as! NSData, options: [])
+                        _currentItinerary = Itinerary(dictionary: dictionary as! NSDictionary)
+                    } catch {
+                        print("Error deserializing")
+                    }
+                }
+            }
+            return _currentItinerary
         }
         set (it) {
             _currentItinerary = it
+            
+            if _currentItinerary != nil {
+                do {
+                    let json = try NSJSONSerialization.dataWithJSONObject(it!.rawData, options: [])
+                    NSUserDefaults.standardUserDefaults().setObject(json, forKey: currentItinerary)
+                } catch {
+                    print("Error serializing")
+                }
+            } else {
+                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: currentItinerary)
+            }
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
 }

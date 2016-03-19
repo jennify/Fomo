@@ -13,6 +13,8 @@ let DEBUG = "none"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    let ITINERARY_USE_CACHE = true
 
     var window: UIWindow?
     var storyboard = UIStoryboard(name: "Main", bundle: nil)
