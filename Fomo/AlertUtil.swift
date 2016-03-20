@@ -144,7 +144,7 @@ extension UIColor {
     }
     
     class func fomoNavBar() -> UIColor {
-        return
+        return UIColor.fomoLight()
     }
     
     class func fomoNavBarText() -> UIColor {
