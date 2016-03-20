@@ -143,6 +143,17 @@ extension UIColor {
         return UIColor.colorsTest(4)
     }
     
+    class func fomoNavBar() -> UIColor {
+        return
+    }
+    
+    class func fomoNavBarText() -> UIColor {
+        return UIColor.colorsTest(4)
+    }
+    
+    
+    // All Old fomo colors.
+    
     class func fomoBlue() -> UIColor {
         return UIColor.fomoColors(0)
     }

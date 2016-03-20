@@ -55,7 +55,8 @@ class Attraction: NSObject {
         var typesArr: [String] = []
         if self.types != nil {
             for type in self.types! {
-                typesArr.append(type.name!)
+                let typeNameArr = type.name!.componentsSeparatedByString("_")
+                typesArr.append(typeNameArr.joinWithSeparator(" "))
             }
         }
         

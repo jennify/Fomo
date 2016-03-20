@@ -19,6 +19,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         layout.scrollDirection = .Horizontal
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
+    let overviewView: UIView = UIView.newAutoLayoutView()
     var didSetupConstraints = false
 
     var cellHeights = [[CGFloat]]()
@@ -28,12 +29,20 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var hideSectionHeaders = false
     
     var itinerary: Itinerary = Itinerary.generateTestInstance()
-    var isNewTrip: Bool?
-
+    var isNewTrip: Bool = false
+    
+    var travellersHeightConstraint: NSLayoutConstraint?
+    var tripDetailsViewHeightConstraint: NSLayoutConstraint?
+    var currentBannerHeight: CGFloat = 50.0
+    var originalBannerHeight: CGFloat = 50.0
+    var destinationBannerHeight: CGFloat = 100.0
+    
+    let cityImageView: UIImageView = UIImageView.newAutoLayoutView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if Cache.itinerary != nil && !isNewTrip! {
+        if Cache.itinerary != nil && !isNewTrip {
             self.itinerary = Cache.itinerary!
         } else {
             Cache.itinerary = itinerary
@@ -42,7 +51,13 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpItineraryTableView()
         setUpCalendarView()
         setUpNavigationBar()
+        
 
+    }
+    
+    func setUpOverview() {
+        initScrollView()
+        
     }
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -60,13 +75,15 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func loadView() {
         view = UIView()
-
+        
         tripDetailsView.backgroundColor = backgroundColor
         calendarView.backgroundColor = backgroundColor
         travellersView.backgroundColor = backgroundColor
-        view.addSubview(travellersView)
-        view.addSubview(tripDetailsView)
-        view.addSubview(calendarView)
+        
+        overviewView.addSubview(travellersView)
+        overviewView.addSubview(tripDetailsView)
+        overviewView.addSubview(calendarView)
+        view.addSubview(overviewView)
         view.addSubview(itineraryTableView)
 
         view.setNeedsUpdateConstraints()
@@ -79,16 +96,19 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-
-            travellersView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
-            travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16 )
-
+            overviewView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            overviewView.autoPinEdgeToSuperviewEdge(.Left)
+            overviewView.autoPinEdgeToSuperviewEdge(.Right)
+            overviewView.autoSetDimension(.Height, toSize: 200)
+            
+            travellersView.autoPinEdgeToSuperviewEdge(.Top)
+            travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16).autoIdentify("travellersViewHeight")
             travellersView.autoPinEdgeToSuperviewEdge(.Left)
             travellersView.autoPinEdgeToSuperviewEdge(.Right)
 
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Left)
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Right)
-            tripDetailsView.autoSetDimension(.Height, toSize: 40)
+            tripDetailsViewHeightConstraint = tripDetailsView.autoSetDimension(.Height, toSize: 40).autoIdentify("tripDetailsViewHeight")
             tripDetailsView.autoPinEdge(.Top, toEdge: .Bottom, ofView: travellersView)
 
             calendarView.autoPinEdgeToSuperviewEdge(.Left)
@@ -148,6 +168,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     func isLastTableViewCell(indexPath: NSIndexPath) -> Bool {
         return indexPath.section == itinerary.numberDays() - 1  && indexPath.row == itinerary.days![indexPath.section - 1].tripEvents!.count - 1
     }
+    
+
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Check if this is the footer cell.
@@ -281,5 +303,34 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
+    }
+}
+
+extension ItineraryViewController: UIScrollViewDelegate {
+    
+    func initScrollView() {
+        currentBannerHeight = 50
+        destinationBannerHeight = 10
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let yOffset = scrollView.contentOffset.y + 44
+        print(yOffset)
+        if yOffset < 0  {
+            currentBannerHeight = originalBannerHeight - yOffset
+            
+        } else if(yOffset < originalBannerHeight - destinationBannerHeight) {
+            currentBannerHeight = originalBannerHeight - yOffset
+            
+        } else {
+            currentBannerHeight = destinationBannerHeight
+            
+        }
+    }
+    
+    func updateBanner() {
+        travellersHeightConstraint?.constant = currentBannerHeight
+//        tripDetailsViewHeightConstraint?.constant =
+        
     }
 }

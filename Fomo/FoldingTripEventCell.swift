@@ -112,13 +112,15 @@ class FoldingTripEventCell: FoldingCell {
             // Set up details view
             detailsAttractionName.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
             detailsAttractionName.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
+            detailsAttractionName.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
             
             addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: detailsAttractionName, withOffset: 8)
             addressLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: detailsAttractionName)
-            addressLabel.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
+            addressLabel.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
             
             typeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 8)
             typeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: detailsAttractionName)
+            typeLabel.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
             
             // Setup ratings
             ratingLabel.autoCenterInSuperview()
@@ -187,19 +189,14 @@ class FoldingTripEventCell: FoldingCell {
         let detSeg = detailSegments[1]
         detailsAttractionName.text = attraction?.name
         detailsAttractionName.font = UIFont.fomoH1()
+        detailsAttractionName.numberOfLines = 0
         
         addressLabel.text = attraction?.address
         addressLabel.font = UIFont.fomoParagraph()
         addressLabel.numberOfLines = 0
+
         
-        var types: [String] = []
-        if attraction != nil && attraction?.types != nil {
-            for type in attraction!.types! {
-                types.append(type.name!)
-            }
-        }
-        
-        typeLabel.text = types.joinWithSeparator(", ")
+        typeLabel.text = attraction?.getTypeString()
         typeLabel.font = UIFont.fomoParagraph()
         typeLabel.textColor = UIColor.lightGrayColor()
         typeLabel.numberOfLines = 0
@@ -325,6 +322,7 @@ class TopView: RotatedView {
             
             typeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: attractionName, withOffset: 0)
             typeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: attractionName, withOffset: 4)
+            typeLabel.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
             
             likeLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 4)
             likeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: attractionName)
@@ -344,17 +342,13 @@ class TopView: RotatedView {
             attractionName.text = attraction?.name
             attractionName.font = UIFont.fomoH2()
             attractionName.numberOfLines = 0
+            attractionName.sizeToFit()
             
             imageView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
             imageView.clipsToBounds = true
             imageView.contentMode = .ScaleAspectFill
-            
-            var types: [String] = []
-            for type in attraction!.types! {
-                types.append(type.name!)
-            }
-            
-            typeLabel.text = types.joinWithSeparator(", ")
+    
+            typeLabel.text = attraction?.getTypeString()
             typeLabel.font = UIFont.fomoParagraph()
             typeLabel.numberOfLines = 0
             typeLabel.sizeToFit()
