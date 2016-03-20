@@ -12,6 +12,7 @@ import TisprCardStack
 class DecisionCardViewController: TisprCardStackViewController, TisprCardStackViewControllerDelegate {
     let completeButton: UIButton = UIButton.newAutoLayoutView()
     var recommendations: Recommendation?
+    var currentAttraction: Attraction?
     
     private let colors = [UIColor(red: 45.0/255.0, green: 62.0/255.0, blue: 79.0/255.0, alpha: 1.0),
         UIColor(red: 48.0/255.0, green: 173.0/255.0, blue: 99.0/255.0, alpha: 1.0),
@@ -28,7 +29,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         initViews()
         updateViewConstraints()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initViews()
@@ -92,7 +93,20 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func onTap(gesture: UITapGestureRecognizer) {
-        displayTodo("Christian does his magic")
+        let carouselViewController = CarouselViewController()
+        carouselViewController.imagePaths = currentAttraction!.imageUrls
+        
+        let blurEffect = UIBlurEffect(style: .Light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.view.bounds
+        
+        carouselViewController.view.frame = self.view.bounds
+        carouselViewController.view.backgroundColor = UIColor.clearColor()
+        carouselViewController.view.insertSubview(blurEffectView, atIndex: 0)
+        carouselViewController.modalPresentationStyle = .OverCurrentContext
+        carouselViewController.modalTransitionStyle = .CrossDissolve
+        
+        presentViewController(carouselViewController, animated: true, completion: nil)
     }
     
     func displayTodo(todo: String) {
@@ -117,24 +131,26 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         cell.initViews()
         cell.hideBlurView()
         
+        // We need to know what the current attraction is displayed, so we can pass it to the photo carousel if there's a tap
+        currentAttraction = cell.attraction
         
         return cell
         
     }
-
-//method to add new card
-//    @IBAction func addNewCards(sender: AnyObject) {
-//        countOfCards++
-//        newCardWasAdded()
-//    }
-//    @IBAction func moveUP(sender: AnyObject) {
-//        moveCardUp()
-//    }
-//    
-//    @IBAction func moveCardDown(sender: AnyObject) {
-//        moveCardDown()
-//    }
-
+    
+    //method to add new card
+    //    @IBAction func addNewCards(sender: AnyObject) {
+    //        countOfCards++
+    //        newCardWasAdded()
+    //    }
+    //    @IBAction func moveUP(sender: AnyObject) {
+    //        moveCardUp()
+    //    }
+    //
+    //    @IBAction func moveCardDown(sender: AnyObject) {
+    //        moveCardDown()
+    //    }
+    
     func cardDidChangeState(cardIndex: Int) {
         // TODO(jlee): Super janky way of hiding and showing the finish state.
         if cardIndex == self.numberOfCards() {
@@ -173,14 +189,14 @@ class DecisionCardCell: TisprCardStackViewCell {
         super.init(frame: frame)
         initViews()
         updateViewConstraints()
-
+        
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initViews()
         updateViewConstraints()
-            }
+    }
     
     override var center: CGPoint {
         didSet {

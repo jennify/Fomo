@@ -77,7 +77,7 @@ class Attraction: NSObject {
         attraction.city = city
         attraction.reviews = [Review.generateTestInstance(attraction)]
         attraction.types = [AttractionType.generateTestInstance()]
-        attraction.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]
+        attraction.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg", "http://cdn.c.photoshelter.com/img-get/I0000keWPlpvpjQU/s/750/san-francisco-golden-gate-park-de-young-museum-california108519.jpg"]
         attraction.location = CLLocation(latitude: CLLocationDegrees(37.7717392), longitude: CLLocationDegrees(-122.4692552))
         attraction.rating = 4.4
         return attraction

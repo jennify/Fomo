@@ -7,14 +7,15 @@ import UIKit
 
 
 protocol FriendCellDelegate {
-    func inviteFriendToApp(cell: FriendCell)
-    func inviteFriendToTrip(cell: FriendCell)
+    func inviteFriend(cell: FriendCell)
 }
 
 class FriendCell: UITableViewCell {
 
     let profilePhoto: UIImageView = UIImageView.newAutoLayoutView()
     let friendName: UILabel = UILabel.newAutoLayoutView()
+    let checkIcon: UIImageView = UIImageView.newAutoLayoutView()
+    var friendSelected: Bool = false
     
     var delegate: FriendCellDelegate?
 
@@ -44,6 +45,11 @@ class FriendCell: UITableViewCell {
             friendName.autoPinEdge(.Left, toEdge: .Right, ofView: profilePhoto, withOffset: 10)
             friendName.autoAlignAxis(.Horizontal, toSameAxisOfView: profilePhoto)
 
+            checkIcon.autoSetDimension(.Height, toSize: 20)
+            checkIcon.autoSetDimension(.Width, toSize: 20)
+            checkIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: profilePhoto)
+            checkIcon.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
+
             didSetupConstraints = true
         }
         
@@ -51,7 +57,31 @@ class FriendCell: UITableViewCell {
     }
     
     func initViews() {
+        checkIcon.image = UIImage(named: "checkempty")
+        checkIcon.image = checkIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        checkIcon.tintColor = UIColor.fomoHamburgerBGColor()
+
+        checkIcon.userInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "toggleInvite:")
+        self.addGestureRecognizer(tapGestureRecognizer)
+        
         addSubview(profilePhoto)
         addSubview(friendName)
+        addSubview(checkIcon)
+    }
+    
+    func toggleInvite(sender: UITapGestureRecognizer) {
+        if self.friendSelected {
+            friendSelected = false
+            checkIcon.image = UIImage(named: "checkempty")
+            checkIcon.image = checkIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+            checkIcon.tintColor = UIColor.fomoHamburgerBGColor()
+
+        } else {
+            friendSelected = true
+            checkIcon.image = UIImage(named: "checkfilled")
+            checkIcon.image = checkIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+            checkIcon.tintColor = UIColor.fomoHighlight()
+        }
     }
 }

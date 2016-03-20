@@ -18,11 +18,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var didSetupConstraints = false
 
-    var friends: [User] = [User.generateTestInstance(), User.generateTestInstance()]
+    var friends: [User] = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpTableView()
         setUpNavigationBar()
 
@@ -99,12 +99,15 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func onInvitePressed(sender: AnyObject) {
+        // TODO: update trip guests array
         self.performSegueWithIdentifier("unwindInviteSegue", sender: self)
     }
     
     // Friends TableView
 
     func setUpTableView() {
+        print(Cache.currentFriends)
+        
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
         friendsTableView.rowHeight = UITableViewAutomaticDimension
