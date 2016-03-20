@@ -18,7 +18,7 @@ class Itinerary: NSObject {
     var city: City?
     var coverPhoto: UIImage?
     var days: [Day]?
-    var rawData: NSDictionary?
+    var rawData: NSDictionary!
     
     override init() {}
     

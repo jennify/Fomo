@@ -20,7 +20,7 @@ public class EPCalendarPicker: UICollectionViewController {
 
     public var calendarDelegate : EPCalendarPickerDelegate?
     public var multiSelectEnabled: Bool
-    public var showsTodaysButton: Bool = true
+    public var showsTodaysButton: Bool = false
     private var arrSelectedDates = [NSDate]()
     public var tintColor: UIColor
     
@@ -81,6 +81,7 @@ public class EPCalendarPicker: UICollectionViewController {
         
 
         let cancelButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "onTouchCancelButton")
+        cancelButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "AppleSDGothicNeo-Light", size: 18)!], forState: UIControlState.Normal)
         self.navigationItem.leftBarButtonItem = cancelButton
 
         var arrayBarButtons  = [UIBarButtonItem]()
@@ -198,7 +199,6 @@ public class EPCalendarPicker: UICollectionViewController {
             
             cell.currentDate = currentDate
             cell.lblDay.text = "\(currentDate.day())"
-            print(currentDate)
             
             if arrSelectedDates.filter({ $0.isDateSameDay(currentDate)
             }).count > 0 && (firstDayOfThisMonth.month() == currentDate.month()) {

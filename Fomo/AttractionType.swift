@@ -11,10 +11,26 @@ class AttractionType: NSObject {
     var id: Int?
     var name: String?
     var icon: UIImage?
+    var rawData: NSDictionary!
     
     init(categoryName: String, categoryIcon: String) {
         name = categoryName
         icon = UIImage(named: categoryIcon)
+    }
+    
+    init(name: String) {
+        super.init()
+        self.name = name as String
+    }
+    
+    class func attractionTypesWithArray(array: [String]) -> [AttractionType] {
+        var attractionTypes = [AttractionType]()
+        
+        for name in array {
+            attractionTypes.append(AttractionType(name: name))
+        }
+        
+        return attractionTypes
     }
     
     class func generateTestInstance() -> AttractionType {
