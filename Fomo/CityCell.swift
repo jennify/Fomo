@@ -35,8 +35,6 @@ class CityCell: UITableViewCell {
         if !didSetupConstraints {
             cityImageView.autoPinEdgesToSuperviewEdges()
             cityName.autoCenterInSuperview()
-//            cityName.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
-//            cityName.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 10)
             
             didSetupConstraints = true
         }
@@ -45,6 +43,8 @@ class CityCell: UITableViewCell {
     }
     
     func initViews() {
+        self.clipsToBounds = true
+        
         cityName.textColor = UIColor.fomoWhite()
         
         gradient.colors = [UIColor.clearColor().CGColor, UIColor.darkGrayColor().CGColor]
@@ -54,5 +54,21 @@ class CityCell: UITableViewCell {
         
         addSubview(cityImageView)
         addSubview(cityName)
+    }
+    
+    func zoomInCityImage() {
+        UIView.animateWithDuration(5) { () -> Void in
+            self.cityImageView.transform = CGAffineTransformMakeScale(1.5, 1.5)
+        }
+    }
+    
+    func zoomOutCityImage() {
+        UIView.animateWithDuration(5) { () -> Void in
+            self.cityImageView.transform = CGAffineTransformIdentity
+        }
+    }
+    
+    func resetCityImage() {
+        self.cityImageView.transform = CGAffineTransformIdentity
     }
 }
