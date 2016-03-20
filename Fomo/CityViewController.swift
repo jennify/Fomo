@@ -92,6 +92,30 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.pushViewController(tripViewController, animated: true)
     }
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        let cityCell = cell as! CityCell
+        cityCell.resetCityImage()
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let indexPath = tableView.indexPathForRowAtPoint(CGPointMake(CGRectGetMidX(self.tableView.bounds), CGRectGetMidY(self.tableView.bounds)))
+        tableView.scrollToRowAtIndexPath(indexPath!, atScrollPosition:UITableViewScrollPosition.Middle, animated: true)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        let indexPath = tableView.indexPathForRowAtPoint(CGPointMake(CGRectGetMidX(self.tableView.bounds), CGRectGetMidY(self.tableView.bounds)))
+        let cell = tableView.cellForRowAtIndexPath(indexPath!) as! CityCell
+        cell.zoomInCityImage()
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        let indexPaths = tableView.indexPathsForVisibleRows
+        for indexPath in indexPaths! {
+            let cityCell = tableView.cellForRowAtIndexPath(indexPath) as! CityCell
+            cityCell.zoomOutCityImage()
+        }
+    }
+    
     func configureCell(cell: CityCell, indexPath: NSIndexPath) {
         let city = filteredCities[indexPath.row]
         cell.cityName.text = city.name
