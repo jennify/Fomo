@@ -9,8 +9,8 @@ import FoldingCell
 
 @objc(ItineraryViewController)
 class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
-    let backgroundColor: UIColor = UIColor.fomoBackground()
     
+    // Main Views
     let travellersView: TravellersView = TravellersView.newAutoLayoutView()
     let tripDetailsView: UIView = UIView.newAutoLayoutView()
     let itineraryTableView: UITableView = UITableView.newAutoLayoutView()
@@ -19,25 +19,31 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         layout.scrollDirection = .Horizontal
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
-    let overviewView: UIView = UIView.newAutoLayoutView()
+
+    // State
+    let backgroundColor: UIColor = UIColor.fomoBackground()
+    var itinerary: Itinerary = Itinerary.generateTestInstance()
+    var isNewTrip: Bool = false
+    var hideSectionHeaders = false
     var didSetupConstraints = false
 
+    // Cell State
     var cellHeights = [[CGFloat]]()
     var kCloseCellHeight: CGFloat = FoldingTripEventCell.topViewHeight + 8 // equal or greater foregroundView height
     let kOpenCellHeight: CGFloat = FoldingTripEventCell.detailsViewHeight + 8 // equal or greater containerView height
 
-    var hideSectionHeaders = false
-    
-    var itinerary: Itinerary = Itinerary.generateTestInstance()
-    var isNewTrip: Bool = false
-    
+    // Travellers view
     var travellersHeightConstraint: NSLayoutConstraint?
     var tripDetailsViewHeightConstraint: NSLayoutConstraint?
+    var overviewViewHeightConstraint: NSLayoutConstraint?
     var currentBannerHeight: CGFloat = 50.0
     var originalBannerHeight: CGFloat = 50.0
     var destinationBannerHeight: CGFloat = 100.0
     
+    // Overview view
+    let overviewView: UIView = UIView.newAutoLayoutView()
     let cityImageView: UIImageView = UIImageView.newAutoLayoutView()
+    var blurView: UIVisualEffectView = UIVisualEffectView.newAutoLayoutView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,13 +57,19 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpItineraryTableView()
         setUpCalendarView()
         setUpNavigationBar()
+        setUpOverview()
         
 
     }
     
     func setUpOverview() {
         initScrollView()
+        let effect = UIBlurEffect(style: .ExtraLight)
+        blurView = UIVisualEffectView(effect: effect)
+        cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
         
+        cityImageView.addSubview(blurView)
+        overviewView.addSubview(cityImageView)
     }
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -99,7 +111,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             overviewView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             overviewView.autoPinEdgeToSuperviewEdge(.Left)
             overviewView.autoPinEdgeToSuperviewEdge(.Right)
-            overviewView.autoSetDimension(.Height, toSize: 200)
+            overviewViewHeightConstraint = overviewView.autoSetDimension(.Height, toSize: 200).autoIdentify("overviewViewHeight")
             
             travellersView.autoPinEdgeToSuperviewEdge(.Top)
             travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16).autoIdentify("travellersViewHeight")
@@ -122,6 +134,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             itineraryTableView.autoPinEdgeToSuperviewEdge(.Bottom)
             itineraryTableView.estimatedRowHeight = 100
             itineraryTableView.rowHeight = UITableViewAutomaticDimension
+            
+            cityImageView.autoPinEdgesToSuperviewEdges()
+            blurView.autoPinEdgesToSuperviewEdges()
 
             didSetupConstraints = true
         }
@@ -130,7 +145,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func setUpNavigationBar() {
-        navigationItem.title = "Itinerary"
+        self.navigationController?.navigationBar.topItem?.title =  "Itinerary"
     }
 
     // Itinerary Methods
@@ -315,7 +330,6 @@ extension ItineraryViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let yOffset = scrollView.contentOffset.y + 44
-        print(yOffset)
         if yOffset < 0  {
             currentBannerHeight = originalBannerHeight - yOffset
             
@@ -329,7 +343,10 @@ extension ItineraryViewController: UIScrollViewDelegate {
     }
     
     func updateBanner() {
-        travellersHeightConstraint?.constant = currentBannerHeight
+        overviewViewHeightConstraint?.constant = currentBannerHeight
+        print(currentBannerHeight)
+        self.updateViewConstraints()
+//        travellersHeightConstraint?.constant = currentBannerHeight
 //        tripDetailsViewHeightConstraint?.constant =
         
     }

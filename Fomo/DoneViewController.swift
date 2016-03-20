@@ -25,7 +25,7 @@ class DoneViewController: UIViewController {
     }
     
     func setUpNavigationBar() {
-        navigationItem.title = "Your Trip"
+        self.navigationController?.navigationBar.topItem?.title =  "Your Trip"
     }
     
     override func loadView() {

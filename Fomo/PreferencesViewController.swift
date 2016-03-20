@@ -49,7 +49,7 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func setUpNavigationBar() {
-        navigationItem.title = "Travel Preferences"
+        self.navigationController?.navigationBar.topItem?.title =  "Travel Preferences"
     }
     
     // Preferences Collection View

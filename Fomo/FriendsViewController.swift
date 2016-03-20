@@ -44,6 +44,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     func setUpNavigationBar() {
         self.navigationController?.navigationBar.topItem?.title = "Invite Friends"
+        
     }
 
     // Friends TableView

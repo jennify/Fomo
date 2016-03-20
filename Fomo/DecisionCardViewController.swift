@@ -53,17 +53,16 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         completeButton.contentHorizontalAlignment = .Left
         completeButton.layer.zPosition = -1
         self.view.addSubview(completeButton)
+        setUpNavigationBar()
     }
     
     override func updateViewConstraints() {
         completeButton.autoCenterInSuperview()
-        
         super.updateViewConstraints()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionView?.backgroundColor = UIColor.fomoBackground()
         
         //set animation speed
@@ -83,8 +82,14 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         layout.topStackMaximumSize = 4
         layout.bottomStackMaximumSize = 30
         layout.bottomStackCardHeight = 45
+        setUpNavigationBar()
+        
     }
     
+    
+    func setUpNavigationBar() {
+        self.navigationController?.navigationBar.topItem?.title = "Browse"
+    }
     
     func onTap(gesture: UITapGestureRecognizer) {
         displayTodo("Christian does his magic")

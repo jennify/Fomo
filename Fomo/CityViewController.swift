@@ -39,7 +39,7 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func setUpNavigationBar() {
-        navigationItem.title = "Destination"
+        self.navigationController?.navigationBar.topItem?.title = "Destination"
     }
     
     override func loadView() {

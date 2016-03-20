@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.fomoHighlight()
         UIBarButtonItem.appearance().tintColor = UIColor.fomoHighlight()
         UINavigationBar.appearance().backgroundColor = UIColor.fomoNavBarText()
+        UINavigationBar.appearance().titleTextAttributes = [ NSFontAttributeName: UIFont.fomoBold(18)]
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         if Cache.currentUser != nil {
