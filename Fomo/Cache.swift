@@ -47,7 +47,7 @@ class Cache: NSObject {
     
     class var currentFriends: [User]? {
         get {
-        return _currentFriends
+            return _currentFriends
         }
         set (friends) {
             _currentFriends = friends

@@ -48,7 +48,7 @@ class AttractionType: NSObject {
         categories.append(AttractionType(categoryName: "Night Life", categoryIcon: "nightlife"))
         categories.append(AttractionType(categoryName: "Shopping", categoryIcon: "shopping"))
         categories.append(AttractionType(categoryName: "Sports", categoryIcon: "sports"))
-        categories.append(AttractionType(categoryName: "Restaurants", categoryIcon: "restaurants"))
+        categories.append(AttractionType(categoryName: "Food", categoryIcon: "restaurants"))
         categories.append(AttractionType(categoryName: "Vices", categoryIcon: "vices"))
         return categories
     }

@@ -88,7 +88,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     
     
     func setUpNavigationBar() {
-        self.navigationController?.navigationBar.topItem?.title = "Browse"
+        self.title = "Explore"
     }
     
     func onTap(gesture: UITapGestureRecognizer) {

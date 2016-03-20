@@ -9,7 +9,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "jlee"
+let DEBUG = "connie"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -50,12 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func connieDebugging() {
         // Debugging Entry Point - logged in
-        if (false) {
+        if (true) {
             let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
             window?.rootViewController = vc
         }
         // Debugging Entry Point - logged out
-        if (true) {
+        if (false) {
             let vc = storyboard.instantiateInitialViewController()
             window?.rootViewController = vc
         }
