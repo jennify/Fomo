@@ -70,7 +70,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func setUpDimView() {
         dimView.alpha = 0
-        dimView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        dimView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     }
     
     func setUpOverview() {
