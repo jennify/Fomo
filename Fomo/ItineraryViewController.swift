@@ -36,14 +36,15 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var travellersHeightConstraint: NSLayoutConstraint?
     var tripDetailsViewHeightConstraint: NSLayoutConstraint?
     var overviewViewHeightConstraint: NSLayoutConstraint?
-    var currentBannerHeight: CGFloat = 50.0
-    var originalBannerHeight: CGFloat = 50.0
-    var destinationBannerHeight: CGFloat = 100.0
+    var currentBannerHeight: CGFloat = 200.0
+    var originalBannerHeight: CGFloat = 200.0
+    var destinationBannerHeight: CGFloat = 70.0
     
     // Overview view
     let overviewView: UIView = UIView.newAutoLayoutView()
     let cityImageView: UIImageView = UIImageView.newAutoLayoutView()
     var blurView: UIVisualEffectView = UIVisualEffectView.newAutoLayoutView()
+    let gradient: CAGradientLayer = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,14 +64,21 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func setUpOverview() {
-        initScrollView()
-        let effect = UIBlurEffect(style: .ExtraLight)
+        let effect = UIBlurEffect(style: .Light)
         blurView = UIVisualEffectView(effect: effect)
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
         
-        cityImageView.addSubview(blurView)
+        
+//        cityImageView.addSubview(blurView)
         overviewView.addSubview(cityImageView)
+        
+        overviewView.addSubview(travellersView)
+        overviewView.addSubview(tripDetailsView)
+        overviewView.addSubview(calendarView)
+        
+        
     }
+    
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 
@@ -88,16 +96,13 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func loadView() {
         view = UIView()
         
-        tripDetailsView.backgroundColor = backgroundColor
-        calendarView.backgroundColor = backgroundColor
-        travellersView.backgroundColor = backgroundColor
+        tripDetailsView.backgroundColor = UIColor.clearColor()
+        calendarView.backgroundColor = UIColor.clearColor()
+        travellersView.backgroundColor = UIColor.clearColor()
         
-        overviewView.addSubview(travellersView)
-        overviewView.addSubview(tripDetailsView)
-        overviewView.addSubview(calendarView)
         view.addSubview(overviewView)
         view.addSubview(itineraryTableView)
-
+        
         view.setNeedsUpdateConstraints()
     }
 
@@ -108,25 +113,25 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            overviewView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            overviewViewHeightConstraint = overviewView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             overviewView.autoPinEdgeToSuperviewEdge(.Left)
             overviewView.autoPinEdgeToSuperviewEdge(.Right)
-            overviewViewHeightConstraint = overviewView.autoSetDimension(.Height, toSize: 200).autoIdentify("overviewViewHeight")
+            overviewView.autoSetDimension(.Height, toSize: currentBannerHeight).autoIdentify("overviewViewHeight")
             
-            travellersView.autoPinEdgeToSuperviewEdge(.Top)
-            travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16).autoIdentify("travellersViewHeight")
-            travellersView.autoPinEdgeToSuperviewEdge(.Left)
-            travellersView.autoPinEdgeToSuperviewEdge(.Right)
-
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Left)
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Right)
             tripDetailsViewHeightConstraint = tripDetailsView.autoSetDimension(.Height, toSize: 40).autoIdentify("tripDetailsViewHeight")
-            tripDetailsView.autoPinEdge(.Top, toEdge: .Bottom, ofView: travellersView)
-
+            tripDetailsView.autoPinEdge(.Bottom, toEdge: .Top, ofView: travellersView)
+            
+            travellersView.autoPinEdge(.Bottom, toEdge: .Top, ofView: calendarView)
+            travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16).autoIdentify("travellersViewHeight")
+            travellersView.autoPinEdgeToSuperviewEdge(.Left)
+            travellersView.autoPinEdgeToSuperviewEdge(.Right)
+            
             calendarView.autoPinEdgeToSuperviewEdge(.Left)
             calendarView.autoPinEdgeToSuperviewEdge(.Right)
-            calendarView.autoSetDimension(.Height, toSize: 70)
-            calendarView.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripDetailsView)
+            calendarView.autoSetDimension(.Height, toSize: destinationBannerHeight)
+            calendarView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: overviewView)
 
             itineraryTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: calendarView)
             itineraryTableView.autoPinEdgeToSuperviewEdge(.Left)
@@ -136,7 +141,14 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             itineraryTableView.rowHeight = UITableViewAutomaticDimension
             
             cityImageView.autoPinEdgesToSuperviewEdges()
-            blurView.autoPinEdgesToSuperviewEdges()
+//            blurView.autoPinEdgesToSuperviewEdges()
+            
+            gradient.colors = [UIColor.clearColor(), UIColor.blackColor()]
+            gradient.opacity = 0.3
+            gradient.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: originalBannerHeight)
+
+            cityImageView.layer.insertSublayer(gradient, atIndex: 0)
+
 
             didSetupConstraints = true
         }
@@ -322,32 +334,25 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 }
 
 extension ItineraryViewController: UIScrollViewDelegate {
-    
-    func initScrollView() {
-        currentBannerHeight = 50
-        destinationBannerHeight = 10
-    }
+
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let yOffset = scrollView.contentOffset.y + 44
+        let yOffset = scrollView.contentOffset.y
+
         if yOffset < 0  {
-            currentBannerHeight = originalBannerHeight - yOffset
-            
+            // Negative and bounces tableview
         } else if(yOffset < originalBannerHeight - destinationBannerHeight) {
             currentBannerHeight = originalBannerHeight - yOffset
             
         } else {
             currentBannerHeight = destinationBannerHeight
-            
         }
+        updateBanner()
     }
     
     func updateBanner() {
-        overviewViewHeightConstraint?.constant = currentBannerHeight
-        print(currentBannerHeight)
+        overviewViewHeightConstraint?.constant =  currentBannerHeight - originalBannerHeight
         self.updateViewConstraints()
-//        travellersHeightConstraint?.constant = currentBannerHeight
-//        tripDetailsViewHeightConstraint?.constant =
         
     }
 }

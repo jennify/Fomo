@@ -53,6 +53,8 @@ class ContainerViewController: UIViewController {
     var menuClosedX: CGFloat!
     var menuOpenX: CGFloat!
 
+    var bgImageView: UIImageView = UIImageView.newAutoLayoutView()
+    var visualEffect: UIVisualEffectView = UIVisualEffectView.newAutoLayoutView()
     var didSetupConstraints = false
     
     override func viewDidLoad() {
@@ -149,6 +151,16 @@ class ContainerViewController: UIViewController {
         
         view.addSubview(containerView)
         view.addSubview(menuView)
+        
+        menuView.addSubview(bgImageView)
+        bgImageView.image = UIImage(named: "cityLights")
+        bgImageView.contentMode = .ScaleAspectFill
+        bgImageView.clipsToBounds = true
+        
+        let blurEffect = UIBlurEffect(style: .Dark)
+        visualEffect = UIVisualEffectView(effect: blurEffect)
+        bgImageView.addSubview(visualEffect)
+
         menuView.addSubview(leftBorder)
         menuView.addSubview(rightBorder)
         menuView.addSubview(profileView)
@@ -167,7 +179,8 @@ class ContainerViewController: UIViewController {
         menuView.addSubview(inviteButton)
         menuView.addSubview(settingsIcon)
         menuView.addSubview(settingsButton)
-
+        
+        
         view.setNeedsUpdateConstraints()
     }
     
@@ -252,6 +265,8 @@ class ContainerViewController: UIViewController {
             settingsIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: settingsButton)
             settingsButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: inviteButton)
 
+            bgImageView.autoPinEdgesToSuperviewEdges()
+            visualEffect.autoPinEdgesToSuperviewEdges()
             didSetupConstraints = true
         }
         

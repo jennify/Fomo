@@ -41,6 +41,10 @@ class User: NSObject {
         return users
     }
     
+//    class func initWithArray(array: NSDictionary) -> [User] {
+//        
+//    }
+    
     func addToItinerary(itinerary: Itinerary, completion: (response: Itinerary?, error: NSError?) -> ()) {
         RecommenderClient.sharedInstance.update_itinerary_with_user(itinerary, user: self, completion: completion)
     }

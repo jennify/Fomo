@@ -19,6 +19,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         setUpTableView()
         setUpNavigationBar()
+
+//        Cache
     }
 
     override func loadView() {

@@ -79,10 +79,9 @@ class PreferenceCell: UICollectionViewCell {
 //        self.layer.shadowRadius = 1.5
 //        self.layer.shadowOpacity = 1.0
 //        self.layer.masksToBounds = false
-        
+
         if self.preferenceSelected {
-//            self.layer.shadowColor = UIColor.whiteColor().CGColor
-//            self.layer.shadowRadius = 0.8
+            self.contentView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.4).CGColor
             
             self.layer.borderWidth = 0
             preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
@@ -90,9 +89,8 @@ class PreferenceCell: UICollectionViewCell {
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array
         } else {
-
+            self.contentView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.0).CGColor
             
-//            preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
             preferenceSelected = true
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array

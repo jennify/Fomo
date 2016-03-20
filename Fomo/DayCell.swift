@@ -54,7 +54,7 @@ class DayCell: UICollectionViewCell {
         dayName.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         dayName.sizeToFit()
         
-        self.backgroundColor = UIColor.fomoCardBG()
+        self.backgroundColor = UIColor.fomoCardBG().colorWithAlphaComponent(0.9)
         self.clipsToBounds = true
         self.layer.cornerRadius = 5
         

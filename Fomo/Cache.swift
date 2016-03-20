@@ -11,6 +11,7 @@ var _currentItinerary: Itinerary?
 
 let currentUserKey = "kCurrentUserKey"
 let currentItinerary = "kCurrentItinerary"
+let currentFriends = "kCurrentFriends"
 
 class Cache: NSObject {
     class var currentUser: User? {
@@ -48,9 +49,34 @@ class Cache: NSObject {
     class var currentFriends: [User]? {
         get {
         return _currentFriends
+//            if _currentFriends == nil {
+//                let data = NSUserDefaults.standardUserDefaults().objectForKey(currentFriends)
+//                if data != nil {
+//                    do {
+//                        let dictionary = try NSJSONSerialization.JSONObjectWithData(data as! NSData, options: [])
+//                        _currentFriends = User.initWithArray(dictionary: dictionary as! [NSDictionary])
+//                    } catch {
+//                        print("Error deserializing")
+//                    }
+//                }
+//            }
+//            return _currentFriends
         }
         set (friends) {
             _currentFriends = friends
+//            _currentFriends = friends
+//            
+//            if _currentFriends != nil {
+//                do {
+//                    let json = try NSJSONSerialization.dataWithJSONObject(User.createArray(friends!), options: [])
+//                    NSUserDefaults.standardUserDefaults().setObject(json, forKey: currentFriends)
+//                } catch {
+//                    print("Error serializing")
+//                }
+//            } else {
+//                NSUserDefaults.standardUserDefaults().setObject(nil, forKey: currentFriends)
+//            }
+//            NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
     
