@@ -62,7 +62,7 @@ class ContainerViewController: UIViewController, Dimmable {
     
     func setUpDimView() {
         dimView.alpha = 0
-        dimView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
+        dimView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     }
     
     func setUpMenu() {
@@ -77,11 +77,13 @@ class ContainerViewController: UIViewController, Dimmable {
         border2.backgroundColor = textColor
         border3.backgroundColor = textColor
         
-        if currentUser!.profileImageURL != nil {
-            profileImage.setImageWithURL(NSURL(string: currentUser!.profileImageURL!)!)
-            profileImage.layer.cornerRadius = 30
+        if currentUser != nil {
+            if currentUser!.profileImageURL != nil {
+                profileImage.setImageWithURL(NSURL(string: currentUser!.profileImageURL!)!)
+                profileImage.layer.cornerRadius = 30
+            }
+            profileNameLabel.text = currentUser!.name
         }
-        profileNameLabel.text = currentUser!.name
         
         let hmbrgerTxtSize : CGFloat = 17
         profileNameLabel.textColor = textColor
