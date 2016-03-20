@@ -7,14 +7,12 @@ import UIKit
 import PureLayout
 
 
-class ContainerViewController: UIViewController {
+class ContainerViewController: UIViewController, Dimmable {
     
     let containerView: UIView = UIView.newAutoLayoutView()
     let menuView: UIView = UIView.newAutoLayoutView()
-
-    let leftBorder: UIView = UIView.newAutoLayoutView()
-    let rightBorder: UIView = UIView.newAutoLayoutView()
-
+    var dimView = UIView()
+    
     let profileView: UIView = UIView.newAutoLayoutView()
     let profileImage: UIImageView = UIImageView.newAutoLayoutView()
     let profileNameLabel: UILabel = UILabel.newAutoLayoutView()
@@ -41,8 +39,6 @@ class ContainerViewController: UIViewController {
     var selectedViewController: UIViewController!
     var loginVC: LoginViewController!
     var decisionVC: DecisionCardViewController!
-    var browseVC: BrowseViewController!
-    var attractionVC: AttractionViewController!
     var itineraryVC: ItineraryViewController!
     var cityVC: CityViewController!
     var tripVC: TripViewController!
@@ -61,6 +57,12 @@ class ContainerViewController: UIViewController {
         setUpMenu()
         setUpViewControllers()
         setUpNavigationBar()
+        setUpDimView()
+    }
+    
+    func setUpDimView() {
+        dimView.alpha = 0
+        dimView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
     }
     
     func setUpMenu() {
@@ -71,15 +73,15 @@ class ContainerViewController: UIViewController {
         let textColor = UIColor.fomoHamburgerTextColor()
 
         menuView.backgroundColor = bgColor
-        leftBorder.backgroundColor = bgColor
-        rightBorder.backgroundColor = bgColor
-        border1.backgroundColor = bgColor
-        border2.backgroundColor = bgColor
-        border3.backgroundColor = bgColor
+        border1.backgroundColor = textColor
+        border2.backgroundColor = textColor
+        border3.backgroundColor = textColor
         
-        // TODO: currentUser.name
-        profileImage.image = UIImage(named: "neutral")
-        profileNameLabel.text = "Name"
+        if currentUser!.profileImageURL != nil {
+            profileImage.setImageWithURL(NSURL(string: currentUser!.profileImageURL!)!)
+            profileImage.layer.cornerRadius = 30
+        }
+        profileNameLabel.text = currentUser!.name
         
         let hmbrgerTxtSize : CGFloat = 17
         profileNameLabel.textColor = textColor
@@ -91,15 +93,15 @@ class ContainerViewController: UIViewController {
         settingsButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
 
         browseIcon.image = UIImage(named: "globe")
-        browseButton.setTitle("Browse", forState: UIControlState.Normal)
+        browseButton.setTitle("Explore", forState: UIControlState.Normal)
         browseButton.addTarget(self, action: "onBrowsePressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
         tripIcon.image = UIImage(named: "plane")
-        tripButton.setTitle("Trip", forState: UIControlState.Normal)
+        tripButton.setTitle("View Itinerary", forState: UIControlState.Normal)
         tripButton.addTarget(self, action: "onTripPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
         createIcon.image = UIImage(named: "plus")
-        createButton.setTitle("New Trip", forState: UIControlState.Normal)
+        createButton.setTitle("Create Trip", forState: UIControlState.Normal)
         createButton.addTarget(self, action: "onNewTripPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
         inviteIcon.image = UIImage(named: "invite")
@@ -107,11 +109,9 @@ class ContainerViewController: UIViewController {
         inviteButton.addTarget(self, action: "onInviteFriendsPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
         settingsIcon.image = UIImage(named: "settings")
-        settingsButton.setTitle("Profile Settings", forState: UIControlState.Normal)
+        settingsButton.setTitle("Set Preferences", forState: UIControlState.Normal)
         settingsButton.addTarget(self, action: "onProfileSettingsPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
-        profileImage.image = profileImage.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        profileImage.tintColor = textColor
         browseIcon.image = browseIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         browseIcon.tintColor = textColor
         tripIcon.image = tripIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
@@ -126,9 +126,7 @@ class ContainerViewController: UIViewController {
     
     func setUpViewControllers() {
         loginVC = storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        browseVC = storyboard!.instantiateViewControllerWithIdentifier("BrowseViewController") as! BrowseViewController
         decisionVC = DecisionCardViewController()
-        attractionVC = storyboard!.instantiateViewControllerWithIdentifier("AttractionViewController") as! AttractionViewController
         itineraryVC = storyboard!.instantiateViewControllerWithIdentifier("ItineraryViewController") as! ItineraryViewController
         cityVC = storyboard!.instantiateViewControllerWithIdentifier("CityViewController") as! CityViewController
         tripVC = storyboard!.instantiateViewControllerWithIdentifier("TripViewController") as! TripViewController
@@ -148,8 +146,6 @@ class ContainerViewController: UIViewController {
         
         view.addSubview(containerView)
         view.addSubview(menuView)
-        menuView.addSubview(leftBorder)
-        menuView.addSubview(rightBorder)
         menuView.addSubview(profileView)
         profileView.addSubview(profileImage)
         profileView.addSubview(profileNameLabel)
@@ -177,26 +173,16 @@ class ContainerViewController: UIViewController {
             menuView.autoPinEdgeToSuperviewEdge(.Bottom)
             menuView.autoPinEdge(.Right, toEdge: .Left, ofView: view)
             menuView.autoConstrainAttribute(.Width, toAttribute: .Width, ofView: view, withMultiplier: 0.6)
-            
-            leftBorder.autoPinEdgeToSuperviewEdge(.Top)
-            leftBorder.autoPinEdgeToSuperviewEdge(.Bottom)
-            leftBorder.autoSetDimension(.Width, toSize: 1)
-            leftBorder.autoPinEdge(.Right, toEdge: .Left, ofView: profileView, withOffset: 1)
-
-            rightBorder.autoPinEdgeToSuperviewEdge(.Top)
-            rightBorder.autoPinEdgeToSuperviewEdge(.Bottom)
-            rightBorder.autoSetDimension(.Width, toSize: 1)
-            rightBorder.autoPinEdge(.Left, toEdge: .Right, ofView: profileView, withOffset: -1)
 
             profileView.autoPinEdgeToSuperviewEdge(.Top)
             profileView.autoPinEdgeToSuperviewEdge(.Left)
             profileView.autoPinEdgeToSuperviewEdge(.Right)
-            profileView.autoSetDimension(.Height, toSize: 100)
+            profileView.autoSetDimension(.Height, toSize: 115)
 
             profileImage.autoAlignAxis(.Vertical, toSameAxisOfView: profileView)
             profileImage.autoPinEdge(.Bottom, toEdge: .Top, ofView: profileNameLabel, withOffset: -10)
-            profileImage.autoSetDimension(.Height, toSize: 40)
-            profileImage.autoSetDimension(.Width, toSize: 40)
+            profileImage.autoSetDimension(.Height, toSize: 60)
+            profileImage.autoSetDimension(.Width, toSize: 60)
             
             profileNameLabel.autoAlignAxis(.Vertical, toSameAxisOfView: profileView)
             profileNameLabel.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: profileView, withOffset: -10)
@@ -213,7 +199,7 @@ class ContainerViewController: UIViewController {
             browseIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: browseButton)
             browseButton.autoPinEdge(.Left, toEdge: .Right, ofView: browseIcon, withOffset: 10)
             
-            border2.autoPinEdge(.Top, toEdge: .Bottom, ofView: browseButton, withOffset: 15)
+            border2.autoPinEdge(.Top, toEdge: .Bottom, ofView: browseIcon, withOffset: 15)
             border2.autoPinEdgeToSuperviewEdge(.Left)
             border2.autoPinEdgeToSuperviewEdge(.Right)
             border2.autoSetDimension(.Height, toSize: 1)
@@ -225,7 +211,7 @@ class ContainerViewController: UIViewController {
             tripIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: tripButton)
             tripButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: browseButton)
             
-            border3.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripButton, withOffset: 15)
+            border3.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripIcon, withOffset: 15)
             border3.autoPinEdgeToSuperviewEdge(.Left)
             border3.autoPinEdgeToSuperviewEdge(.Right)
             border3.autoSetDimension(.Height, toSize: 1)
@@ -237,14 +223,14 @@ class ContainerViewController: UIViewController {
             createIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: createButton)
             createButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: tripButton)
 
-            inviteIcon.autoPinEdge(.Bottom, toEdge: .Top, ofView: settingsIcon, withOffset: -15)
+            inviteIcon.autoPinEdge(.Bottom, toEdge: .Top, ofView: settingsIcon, withOffset: -20)
             inviteIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: createIcon)
             inviteIcon.autoSetDimension(.Height, toSize: 20)
             inviteIcon.autoSetDimension(.Width, toSize: 20)
             inviteIcon.autoAlignAxis(.Horizontal, toSameAxisOfView: inviteButton)
             inviteButton.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: createButton)
             
-            settingsIcon.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 15)
+            settingsIcon.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 25)
             settingsIcon.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: inviteIcon)
             settingsIcon.autoSetDimension(.Height, toSize: 20)
             settingsIcon.autoSetDimension(.Width, toSize: 20)
@@ -280,6 +266,7 @@ class ContainerViewController: UIViewController {
         containerView.addSubview(viewController.view)
         viewController.didMoveToParentViewController(self)
         selectedViewController = viewController
+        self.title = selectedViewController.title
     }
     
     func toggleMenu() {
@@ -323,7 +310,21 @@ class ContainerViewController: UIViewController {
     }
     
     func onInviteFriendsPressed(sender: AnyObject) {
-        selectViewController(friendsVC)
+        self.performSegueWithIdentifier("friendsAppSegue", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "friendsAppSegue" {
+            dim(withView: dimView)
+        }
+    }
+    
+    @IBAction func cancelFromPopup(segue: UIStoryboardSegue) {
+        dim(removeView: dimView)
+    }
+    
+    @IBAction func inviteFromPopup(segue: UIStoryboardSegue) {
+        dim(removeView: dimView)
     }
     
     func onProfileSettingsPressed(sender: AnyObject) {

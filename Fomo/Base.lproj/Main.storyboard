@@ -52,12 +52,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="IDu-a0-8fA"/>
                     <connections>
-                        <segue destination="sXc-T7-HhA" kind="modal" identifier="friendsSegue" id="aHh-Rw-XcX"/>
+                        <segue destination="sXc-T7-HhA" kind="modal" identifier="friendsTripSegue" id="aHh-Rw-XcX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XrD-fo-eHo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1494" y="998"/>
+            <point key="canvasLocation" x="284" y="1012"/>
         </scene>
         <!--Preferences View Controller-->
         <scene sceneID="09S-cs-t41">
@@ -75,25 +75,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ira-ZQ-sna" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-118" y="998"/>
-        </scene>
-        <!--Browse View Controller-->
-        <scene sceneID="CAR-1r-VYO">
-            <objects>
-                <viewController storyboardIdentifier="BrowseViewController" id="FF2-l8-AG2" customClass="BrowseViewController" customModule="Fomo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QKi-PY-5V6"/>
-                        <viewControllerLayoutGuide type="bottom" id="DuW-pt-ZhZ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="erL-bc-ftw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mir-MF-N2S" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="676" y="330"/>
+            <point key="canvasLocation" x="-118" y="1694"/>
         </scene>
         <!--City View Controller-->
         <scene sceneID="NRx-cs-5D2">
@@ -111,7 +93,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UOU-1H-0Xg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="676" y="998"/>
+            <point key="canvasLocation" x="-124" y="1012"/>
         </scene>
         <!--Friends View Controller-->
         <scene sceneID="71g-jd-Lw2">
@@ -128,13 +110,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="bEC-Cd-pBw"/>
                     <connections>
-                        <segue destination="UEv-Ej-EoY" kind="unwind" identifier="unwindSegue" unwindAction="unwindFromPopup:" id="3Ry-s5-dNT"/>
+                        <segue destination="UEv-Ej-EoY" kind="unwind" identifier="unwindCancelSegue" unwindAction="cancelFromPopup:" id="3Ry-s5-dNT"/>
+                        <segue destination="UEv-Ej-EoY" kind="unwind" identifier="unwindInviteSegue" unwindAction="inviteFromPopup:" id="C5M-iN-efq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0p6-fA-lvc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="UEv-Ej-EoY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-516" y="998"/>
+            <point key="canvasLocation" x="706" y="336"/>
         </scene>
         <!--Trip View Controller-->
         <scene sceneID="j4m-SX-jMo">
@@ -152,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52C-4s-awn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1088" y="998"/>
+            <point key="canvasLocation" x="-516" y="1012"/>
         </scene>
         <!--Done View Controller-->
         <scene sceneID="bds-cc-2qc">
@@ -170,26 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsM-iV-DVU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="284" y="998"/>
-        </scene>
-        <!--Attraction View Controller-->
-        <scene sceneID="mlk-aQ-N4I">
-            <objects>
-                <viewController storyboardIdentifier="AttractionViewController" id="qD2-J1-4e2" customClass="AttractionViewController" customModule="Fomo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jkZ-0R-833"/>
-                        <viewControllerLayoutGuide type="bottom" id="6eG-So-owl"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="NF1-1v-RIW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ijf-6z-0Mo"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NVM-5j-3V9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1494" y="330"/>
+            <point key="canvasLocation" x="276" y="1694"/>
         </scene>
         <!--Decision Card View Controller-->
         <scene sceneID="Abk-ct-F7x">
@@ -207,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7yu-AL-qhR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1875" y="330"/>
+            <point key="canvasLocation" x="706" y="1012"/>
         </scene>
         <!--Container View Controller-->
         <scene sceneID="Qjb-5R-1p4">
@@ -223,32 +187,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZRm-qq-uRq"/>
+                    <connections>
+                        <segue destination="sXc-T7-HhA" kind="modal" identifier="friendsAppSegue" id="C4u-c0-67d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4iM-G9-gMb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="284" y="336"/>
-        </scene>
-        <!--Decision View Controller-->
-        <scene sceneID="3oA-h1-qXL">
-            <objects>
-                <viewController storyboardIdentifier="DecisionViewController" id="aVt-mQ-moh" customClass="DecisionViewController" customModule="Fomo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SmB-ue-Xz9"/>
-                        <viewControllerLayoutGuide type="bottom" id="naU-F6-ftc"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="DEC-4L-jV9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Oz1-SI-0x5"/>
-                    <connections>
-                        <segue destination="qD2-J1-4e2" kind="push" identifier="attractionSegue" id="3f3-el-LF8"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="he3-QT-flh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1088" y="330"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Qmg-u4-dvy">
@@ -276,5 +221,8 @@
     <resources>
         <image name="poolside" width="558" height="835"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="C4u-c0-67d"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -41,7 +41,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         popupView.layer.shadowOffset = CGSize(width: 5, height: 5)
         popupView.layer.masksToBounds = true
         
-        buttonContainer.backgroundColor = UIColor.fomoSand()
+        buttonContainer.backgroundColor = UIColor.fomoHighlight()
         cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
         cancelButton.addTarget(self, action: "onCancelPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         inviteButton.setTitle("Invite", forState: UIControlState.Normal)
@@ -59,8 +59,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func updateViewConstraints() {
         if !didSetupConstraints {
             
-            popupView.autoPinToTopLayoutGuideOfViewController(self, withInset: 20)
-            popupView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 20)
+            popupView.autoPinToTopLayoutGuideOfViewController(self, withInset: 50)
+            popupView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 50)
             popupView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
             popupView.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
             
@@ -93,11 +93,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func onCancelPressed(sender: AnyObject) {
-        self.performSegueWithIdentifier("unwindSegue", sender: self)
+        self.performSegueWithIdentifier("unwindCancelSegue", sender: self)
     }
     
     func onInvitePressed(sender: AnyObject) {
-        self.performSegueWithIdentifier("unwindSegue", sender: self)
+        self.performSegueWithIdentifier("unwindInviteSegue", sender: self)
     }
     
     // Friends TableView

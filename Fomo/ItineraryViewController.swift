@@ -31,7 +31,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var hideSectionHeaders = false
     var didSetupConstraints = false
 
-    // Cell State
+    // Cell state
     var cellHeights = [[CGFloat]]()
     var kCloseCellHeight: CGFloat = FoldingTripEventCell.topViewHeight + 8 // equal or greater foregroundView height
     let kOpenCellHeight: CGFloat = FoldingTripEventCell.detailsViewHeight + 8 // equal or greater containerView height
@@ -49,6 +49,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     let cityImageView: UIImageView = UIImageView.newAutoLayoutView()
     var blurView: UIVisualEffectView = UIVisualEffectView.newAutoLayoutView()
     
+    // Dim view
+    var dimView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,6 +65,12 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpCalendarView()
         setUpNavigationBar()
         setUpOverview()
+        setUpDimView()
+    }
+    
+    func setUpDimView() {
+        dimView.alpha = 0
+        dimView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
     }
     
     func setUpOverview() {
@@ -69,9 +78,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         let effect = UIBlurEffect(style: .ExtraLight)
         blurView = UIVisualEffectView(effect: effect)
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
-        
-        cityImageView.addSubview(blurView)
-        overviewView.addSubview(cityImageView)
+//        **TEMP commenting out**
+//        cityImageView.addSubview(blurView)
+//        overviewView.addSubview(cityImageView)
     }
     
     override func loadView() {
@@ -81,7 +90,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         calendarView.backgroundColor = backgroundColor
         travellersView.backgroundColor = backgroundColor
         addTravellerButtonContainer.backgroundColor = backgroundColor
-
+        
         overviewView.addSubview(travellersView)
         overviewView.addSubview(addTravellerButtonContainer)
         overviewView.addSubview(tripDetailsView)
@@ -94,7 +103,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         addTravellerButton.setImage(addTravellerIcon.image, forState: .Normal)
         addTravellerButton.tintColor = UIColor.whiteColor()
         addTravellerButton.addTarget(self, action: "onAddTravellerPressed:", forControlEvents: UIControlEvents.TouchUpInside)
-        
         addTravellerButtonContainer.addSubview(addTravellerButton)
 
         view.setNeedsUpdateConstraints()
@@ -109,16 +117,10 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             
             travellersView.autoPinEdgeToSuperviewEdge(.Top)
             travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16).autoIdentify("travellersViewHeight")
-
-            travellersView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
-            travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16 )
-
-            travellersView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
-            travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16 )
             travellersView.autoPinEdgeToSuperviewEdge(.Left)
             travellersView.autoPinEdge(.Right, toEdge: .Left, ofView: addTravellerButtonContainer)
 
-            addTravellerButtonContainer.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            addTravellerButtonContainer.autoPinEdgeToSuperviewEdge(.Top)
             addTravellerButtonContainer.autoPinEdgeToSuperviewEdge(.Right)
             addTravellerButtonContainer.autoMatchDimension(.Height, toDimension: .Height, ofView: travellersView)
             addTravellerButton.autoSetDimension(.Height, toSize: 30)
@@ -142,9 +144,10 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             itineraryTableView.autoPinEdgeToSuperviewEdge(.Bottom)
             itineraryTableView.estimatedRowHeight = 100
             itineraryTableView.rowHeight = UITableViewAutomaticDimension
-            
-            cityImageView.autoPinEdgesToSuperviewEdges()
-            blurView.autoPinEdgesToSuperviewEdges()
+
+//        **TEMP commenting out**
+//            cityImageView.autoPinEdgesToSuperviewEdges()
+//            blurView.autoPinEdgesToSuperviewEdges()
 
             didSetupConstraints = true
         }
@@ -156,6 +159,28 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         self.title = "Itinerary"
     }
 
+    // Add Traveller
+    
+    func onAddTravellerPressed(sender: AnyObject) {
+        self.performSegueWithIdentifier("friendsTripSegue", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "friendsTripSegue" {
+            dim(withView: dimView)
+        }
+    }
+    
+    @IBAction func cancelFromPopup(segue: UIStoryboardSegue) {
+        dim(removeView: dimView)
+    }
+    
+    @IBAction func inviteFromPopup(segue: UIStoryboardSegue) {
+        dim(removeView: dimView)
+    }
+
+    // Folding cell
+    
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
         if cell is FoldingTripEventCell {
@@ -174,21 +199,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         return cellHeights[indexPath.section][indexPath.row]
     }
     
-    // Add Traveller
-    
-    func onAddTravellerPressed(sender: AnyObject) {
-        self.performSegueWithIdentifier("friendsSegue", sender: self)
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "friendsSegue" {
-            dim(.In, alpha: 0.5, speed: 0.5)
-        }
-    }
-    
-    @IBAction func unwindFromPopup(segue: UIStoryboardSegue) {
-        dim(.Out, speed: 0.5)
-    }
     
     // Itinerary Methods
 
