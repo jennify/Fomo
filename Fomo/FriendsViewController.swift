@@ -55,6 +55,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         friendsTableView.estimatedRowHeight = 100
         friendsTableView.registerClass(FriendCell.self, forCellReuseIdentifier: "CodePath.Fomo.FriendCell")
         friendsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        friendsTableView.backgroundColor = UIColor.fomoBackground()
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,6 +72,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let friend = friends[indexPath.row]
         cell.profilePhoto.setImageWithURL(NSURL(string: friend.profileImageURL!)!)
         cell.friendName.text = friend.name!
+        cell.friendName.textColor = UIColor.fomoTextColor()
+        cell.backgroundColor = UIColor.fomoBackground()
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

@@ -9,7 +9,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "none"
+let DEBUG = "jlee"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         UILabel.appearance().font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
-
+        UINavigationBar.appearance().tintColor = UIColor.fomoHighlight()
+        UIBarButtonItem.appearance().tintColor = UIColor.fomoHighlight()
+        UINavigationBar.appearance().backgroundColor = UIColor.fomoLight()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         if Cache.currentUser != nil {
             // If user has already logged in

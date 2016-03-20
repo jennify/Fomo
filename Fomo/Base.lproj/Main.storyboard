@@ -250,7 +250,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QmQ-nw-6jo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.53725490196078429" green="0.80000000000000004" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.30588235294117649" green="0.32156862745098042" blue="0.35686274509803922" alpha="0.74537480828220859" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

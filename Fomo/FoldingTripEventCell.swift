@@ -103,11 +103,11 @@ class FoldingTripEventCell: FoldingCell {
             locationView.autoPinEdgesToSuperviewEdges()
             
             // Set up decision seg
-            neutralButton.autoCenterInSuperview()
-            dislikeButton.autoAlignAxisToSuperviewMarginAxis(.Horizontal)
-            dislikeButton.autoAlignAxis(.Vertical, toSameAxisOfView: dislikeButton.superview!, withMultiplier: 0.5)
-            likeButton.autoAlignAxisToSuperviewMarginAxis(.Horizontal)
-            likeButton.autoAlignAxis(.Vertical, toSameAxisOfView: dislikeButton.superview!, withMultiplier: 1.5)
+//            neutralButton.autoCenterInSuperview()
+//            dislikeButton.autoAlignAxisToSuperviewMarginAxis(.Horizontal)
+//            dislikeButton.autoAlignAxis(.Vertical, toSameAxisOfView: dislikeButton.superview!, withMultiplier: 0.5)
+//            likeButton.autoAlignAxisToSuperviewMarginAxis(.Horizontal)
+//            likeButton.autoAlignAxis(.Vertical, toSameAxisOfView: dislikeButton.superview!, withMultiplier: 1.5)
             
             // Set up details view
             detailsAttractionName.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
@@ -134,14 +134,13 @@ class FoldingTripEventCell: FoldingCell {
     
     func initViews() {
 
-        self.backgroundColor = UIColor.fomoSand()
         self.itemCount = detailSegments.count
         
         
         initTopView()
         
     
-        detailsView.backgroundColor = UIColor.fomoWhite().colorWithAlphaComponent(0.8)
+        detailsView.backgroundColor = UIColor.fomoCardBG().colorWithAlphaComponent(0.8)
         detailsView.layer.cornerRadius = 10
         detailsView.layer.masksToBounds = true
         self.contentView.addSubview(topView)
@@ -151,7 +150,7 @@ class FoldingTripEventCell: FoldingCell {
         containerView = self.detailsView
         self.topView.initViews()
         
-        self.backViewColor = UIColor.fomoBlue()
+        self.backViewColor = UIColor.fomoHamburgerBGColor()
         self.itemCount = 4
         
         for _ in 0...self.itemCount-1 {
@@ -178,7 +177,7 @@ class FoldingTripEventCell: FoldingCell {
     }
     
     func initTopView() {
-        topView.backgroundColor = UIColor.fomoWhite()
+        topView.backgroundColor = UIColor.fomoCardBG()
         topView.layer.cornerRadius = 10
         topView.layer.masksToBounds = true
         topView.attraction = attraction
@@ -210,7 +209,7 @@ class FoldingTripEventCell: FoldingCell {
         }
         ratingLabel.font = UIFont.fomoH2()
         
-        ratingView.backgroundColor = UIColor.fomoTeal()
+        ratingView.backgroundColor = UIColor.fomoHighlight()
         ratingView.layer.cornerRadius = 5
         ratingView.clipsToBounds = true
         
@@ -244,9 +243,9 @@ class FoldingTripEventCell: FoldingCell {
         dislikeButton.addTarget(self, action: "onDislike", forControlEvents: UIControlEvents.TouchUpInside)
         neutralButton.addTarget(self, action: "onNeutral", forControlEvents: UIControlEvents.TouchUpInside)
         
-        decSeg.addSubview(likeButton)
-        decSeg.addSubview(dislikeButton)
-        decSeg.addSubview(neutralButton)
+//        decSeg.addSubview(likeButton)
+//        decSeg.addSubview(dislikeButton)
+//        decSeg.addSubview(neutralButton)
     }
     
     func didLeftSwipe(panGestureRecognizer: UISwipeGestureRecognizer) {

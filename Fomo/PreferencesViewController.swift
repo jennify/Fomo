@@ -27,8 +27,8 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     
     override func loadView() {
         view = UIView()
-        view.backgroundColor = UIColor.whiteColor()
-        preferencesCollectionView.backgroundColor = UIColor.whiteColor()
+
+        preferencesCollectionView.backgroundColor = UIColor.fomoBackground()
 
         view.addSubview(preferencesCollectionView)
         
@@ -87,9 +87,15 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         cell.delegate = self
         let cellColor = colorForIndexPath(indexPath)
         cell.preferenceIcon.image = cell.preferenceIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        cell.preferenceIcon.tintColor = cellColor
-        cell.preferenceName.textColor = cellColor
+        cell.preferenceIcon.tintColor = UIColor.fomoLight()
+        cell.preferenceName.textColor = UIColor.fomoLight()
         cell.layer.borderColor = cellColor.CGColor
+        cell.contentView.layer.borderColor = cellColor.CGColor
+        cell.contentView.layer.borderWidth = 1
+        cell.contentView.layer.masksToBounds = true
+        cell.contentView.layer.cornerRadius = cell.contentView.frame.height/2
+        cell.contentView.backgroundColor = cellColor
+
 
         return cell
     }

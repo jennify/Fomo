@@ -26,8 +26,7 @@ class DecisionViewController: UIViewController {
     override func loadView() {
         view = UIView()
         
-        view.backgroundColor = UIColor.fomoWhite()
-        
+        view.backgroundColor = UIColor.fomoBackground()
         view.addSubview(profileView)
         view.addSubview(nameLabel)
 

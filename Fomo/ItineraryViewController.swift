@@ -9,7 +9,8 @@ import FoldingCell
 
 @objc(ItineraryViewController)
 class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
-
+    let backgroundColor: UIColor = UIColor.fomoBackground()
+    
     let travellersView: TravellersView = TravellersView.newAutoLayoutView()
     let tripDetailsView: UIView = UIView.newAutoLayoutView()
     let itineraryTableView: UITableView = UITableView.newAutoLayoutView()
@@ -60,9 +61,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func loadView() {
         view = UIView()
 
-        tripDetailsView.backgroundColor = UIColor.fomoSand()
-        calendarView.backgroundColor = UIColor.fomoTeal()
-
+        tripDetailsView.backgroundColor = backgroundColor
+        calendarView.backgroundColor = backgroundColor
+        travellersView.backgroundColor = backgroundColor
         view.addSubview(travellersView)
         view.addSubview(tripDetailsView)
         view.addSubview(calendarView)
@@ -129,7 +130,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         itineraryTableView.registerClass(DayHeaderCell.self, forHeaderFooterViewReuseIdentifier: "CodePath.Fomo.DayHeaderCell")
         itineraryTableView.registerClass(FoldingTripEventCell.self, forCellReuseIdentifier: "CodePath.Fomo.FoldingTripEventCell")
         itineraryTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        itineraryTableView.backgroundColor = UIColor.fomoSand()
+        itineraryTableView.backgroundColor = backgroundColor
 
     }
 
@@ -152,7 +153,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         // Check if this is the footer cell.
         if isLastTableViewCell(indexPath) {
             let footer = ItineraryFooter()
-            footer.backgroundColor = UIColor.fomoSand()
+            footer.backgroundColor = backgroundColor
             footer.parentVC = self
             return footer
         }
@@ -161,7 +162,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         
         cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
         cell.parentView = self.view
-
+        cell.contentView.backgroundColor = backgroundColor
         if !cell.didAwake {
             cell.awakeFromNib()
             cell.didAwake = true
@@ -186,6 +187,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     func configureHeaderCell(cell: DayHeaderCell, section: Int) {
         cell.dayName.text = "DAY \(section + 1)"
         cell.dayName.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 20)
+        cell.contentView.backgroundColor = backgroundColor
     }
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

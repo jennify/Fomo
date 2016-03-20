@@ -64,8 +64,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.whiteColor()
-        collectionView?.backgroundColor = UIColor.whiteColor()
+        collectionView?.backgroundColor = UIColor.fomoBackground()
         
         //set animation speed
         setAnimationSpeed(0.85)
@@ -107,7 +106,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         let numAttractions = self.recommendations?.attractions?.count
         // Fix hack to actually load all the attractions.
         cell.attraction = self.recommendations?.attractions?[indexPath.item % numAttractions!]
-        cell.backgroundColor = UIColor.fomoPeriwinkle()
+        cell.backgroundColor = UIColor.fomoCardBG()
         // No longer using the cute colors from the library :(
         //colors[indexPath.item % colors.count]
         cell.initViews()
@@ -217,7 +216,7 @@ class DecisionCardCell: TisprCardStackViewCell {
             ratingLabel.font = UIFont.fomoH1()
             ratingLabel.textColor = UIColor.whiteColor()
             
-            ratingView.backgroundColor = UIColor.fomoBlue()
+            ratingView.backgroundColor = UIColor.fomoHighlight()
             ratingView.layer.cornerRadius = 5
             ratingView.clipsToBounds = true
             

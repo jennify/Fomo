@@ -42,11 +42,12 @@ class PreferenceCell: UICollectionViewCell {
     
     override func updateConstraints() {
         if !didSetupConstraints {
-            preferenceIcon.autoCenterInSuperview()
+            preferenceIcon.autoAlignAxisToSuperviewAxis(.Vertical)
+            preferenceIcon.autoPinEdgeToSuperviewEdge(.Top, withInset: 17)
             preferenceIcon.autoSetDimension(.Height, toSize: 35)
             preferenceIcon.autoSetDimension(.Width, toSize: 35)
             
-            preferenceName.autoPinEdge(.Top, toEdge: .Bottom, ofView: preferenceIcon, withOffset: 10)
+            preferenceName.autoPinEdge(.Top, toEdge: .Bottom, ofView: preferenceIcon, withOffset: 4)
             preferenceName.autoAlignAxis(.Vertical, toSameAxisOfView: preferenceIcon)
 
             didSetupConstraints = true
@@ -67,16 +68,31 @@ class PreferenceCell: UICollectionViewCell {
     
     // Tap icon to toggle preference
     func togglePreference(sender: UITapGestureRecognizer) {
+//        self.contentView.layer.borderWidth = 1
+//        self.contentView.layer.borderColor = UIColor.clearColor().CGColor
+//        self.contentView.layer.masksToBounds = true
+//        self.contentView.layer.cornerRadius = 20 //self.contentView.frame.height/2
+//        self.contentView.backgroundColor = UIColor.whiteColor()
+        
+//        self.layer.shadowColor = UIColor.lightGrayColor().CGColor
+//        self.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+//        self.layer.shadowRadius = 1.5
+//        self.layer.shadowOpacity = 1.0
+//        self.layer.masksToBounds = false
+        
         if self.preferenceSelected {
+//            self.layer.shadowColor = UIColor.whiteColor().CGColor
+//            self.layer.shadowRadius = 0.8
+            
             self.layer.borderWidth = 0
             preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
             preferenceSelected = false
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array
         } else {
-            self.layer.borderWidth = 1
-            self.layer.cornerRadius = 10
-            preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+
+            
+//            preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
             preferenceSelected = true
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array

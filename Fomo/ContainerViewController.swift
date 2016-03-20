@@ -67,24 +67,29 @@ class ContainerViewController: UIViewController {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "onPan:")
         view.addGestureRecognizer(panGestureRecognizer)
         
-        menuView.backgroundColor = UIColor.fomoBlue()
-        leftBorder.backgroundColor = UIColor.fomoTeal()
-        rightBorder.backgroundColor = UIColor.fomoTeal()
-        border1.backgroundColor = UIColor.fomoTeal()
-        border2.backgroundColor = UIColor.fomoTeal()
-        border3.backgroundColor = UIColor.fomoTeal()
+        let bgColor = UIColor.fomoHamburgerBGColor()
+        let textColor = UIColor.fomoHamburgerTextColor()
+
+        menuView.backgroundColor = bgColor
+        
+        leftBorder.backgroundColor = bgColor
+        rightBorder.backgroundColor = bgColor
+        border1.backgroundColor = bgColor
+        border2.backgroundColor = bgColor
+        border3.backgroundColor = bgColor
         
         // TODO: currentUser.name
         profileImage.image = UIImage(named: "neutral")
         profileNameLabel.text = "Name"
         
-        profileNameLabel.textColor = UIColor.fomoWhite()
-        profileNameLabel.font = profileNameLabel.font.fontWithSize(14)
-        browseButton.titleLabel!.font = browseButton.titleLabel!.font.fontWithSize(14)
-        tripButton.titleLabel!.font = tripButton.titleLabel!.font.fontWithSize(14)
-        createButton.titleLabel!.font = createButton.titleLabel!.font.fontWithSize(14)
-        inviteButton.titleLabel!.font = inviteButton.titleLabel!.font.fontWithSize(14)
-        settingsButton.titleLabel!.font = settingsButton.titleLabel!.font.fontWithSize(14)
+        let hmbrgerTxtSize : CGFloat = 17
+        profileNameLabel.textColor = textColor
+        profileNameLabel.font = UIFont.fomoBold(hmbrgerTxtSize)
+        browseButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
+        tripButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
+        createButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
+        inviteButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
+        settingsButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
 
         browseIcon.image = UIImage(named: "globe")
         browseButton.setTitle("Browse", forState: UIControlState.Normal)
@@ -107,17 +112,17 @@ class ContainerViewController: UIViewController {
         settingsButton.addTarget(self, action: "onProfileSettingsPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
         profileImage.image = profileImage.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        profileImage.tintColor = UIColor.fomoWhite()
+        profileImage.tintColor = textColor
         browseIcon.image = browseIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        browseIcon.tintColor = UIColor.fomoWhite()
+        browseIcon.tintColor = textColor
         tripIcon.image = tripIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        tripIcon.tintColor = UIColor.fomoWhite()
+        tripIcon.tintColor = textColor
         createIcon.image = createIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        createIcon.tintColor = UIColor.fomoWhite()
+        createIcon.tintColor = textColor
         inviteIcon.image = inviteIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        inviteIcon.tintColor = UIColor.fomoWhite()
+        inviteIcon.tintColor = textColor
         settingsIcon.image = settingsIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        settingsIcon.tintColor = UIColor.fomoWhite()
+        settingsIcon.tintColor = textColor
     }
     
     func setUpViewControllers() {

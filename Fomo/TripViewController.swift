@@ -40,7 +40,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     override func loadView() {
         view = UIView()
         
-        view.backgroundColor = UIColor.fomoWhite()
+        view.backgroundColor = UIColor.fomoBackground()
         
         destinationTitleLabel.text = "Destination"
         destinationLabel.text = city!.name ?? "Seoul"
@@ -57,10 +57,10 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         endDateButton.setImage(UIImage(named: "calendar"), forState: .Normal)
         endDateButton.addTarget(self, action: "setEndDate", forControlEvents: .TouchUpInside)
         
-        doneButton.setTitle("Create Trip", forState: .Normal)
+        doneButton.setTitle("  Create Trip  ", forState: .Normal)
         doneButton.addTarget(self, action: "createTrip", forControlEvents: .TouchUpInside)
-        doneButton.backgroundColor = UIColor.fomoBlue()
-        doneButton.layer.cornerRadius = 5
+        doneButton.backgroundColor = UIColor.fomoHighlight()
+        doneButton.layer.cornerRadius = 10
         
         view.addSubview(destinationTitleLabel)
         view.addSubview(destinationLabel)

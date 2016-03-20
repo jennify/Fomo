@@ -45,9 +45,9 @@ class CityCell: UITableViewCell {
     }
     
     func initViews() {
-        cityName.textColor = UIColor.whiteColor()
+        cityName.textColor = UIColor.fomoWhite()
         
-        gradient.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
+        gradient.colors = [UIColor.clearColor().CGColor, UIColor.darkGrayColor().CGColor]
         gradient.opacity = 0.6
         
         cityImageView.layer.insertSublayer(gradient, atIndex: 0)

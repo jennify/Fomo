@@ -94,6 +94,55 @@ extension UIColor {
         ]
         return colors[index]
     }
+    
+    class func colorsTest(index: Int) -> UIColor {
+        let colors1 = [
+            UIColor.initWithHex("1e1111"),
+            UIColor.initWithHex("b5b6b5"),
+            UIColor.initWithHex("ecede8"),
+            UIColor.initWithHex("f8f9fc"),
+            UIColor.initWithHex("dfdeff"),
+        ]
+        // Tree branch
+        let colors = [
+            UIColor.initWithHex("2f2c30"),
+            UIColor.initWithHex("61656e"),
+            UIColor.initWithHex("bac0ce"),
+            UIColor.initWithHex("e9e8e6"),
+            UIColor.initWithHex("fbfbf9"),
+        ]
+        
+        return colors[index]
+    }
+    
+    class func fomoBackground() -> UIColor {
+        return UIColor.initWithHex("f1f0ef") //UIColor.colorsTest(3)
+    }
+    
+    class func fomoCardBG() -> UIColor {
+        return UIColor.colorsTest(4)
+    }
+    
+    class func fomoTextColor() -> UIColor {
+        return UIColor.colorsTest(0)
+    }
+    
+    class func fomoHamburgerBGColor() -> UIColor {
+        return UIColor.colorsTest(1)
+    }
+    
+    class func fomoHamburgerTextColor() -> UIColor {
+        return UIColor.colorsTest(3)
+    }
+    
+    class func fomoHighlight() -> UIColor {
+        return UIColor.initWithHex("90E1CE")
+    }
+    
+    class func fomoLight() -> UIColor {
+        return UIColor.colorsTest(4)
+    }
+    
     class func fomoBlue() -> UIColor {
         return UIColor.fomoColors(0)
     }

@@ -49,7 +49,6 @@ class ItineraryFooter: UITableViewCell {
     }
     
     func initViews() {
-        self.contentView.backgroundColor = UIColor.fomoSand()
         actionLabel = UILabel()
         actionLabel.text = "Keep Exploring!"
         actionLabel.font = UIFont.fomoParagraph()
