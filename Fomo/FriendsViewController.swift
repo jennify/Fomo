@@ -9,7 +9,13 @@ import AFNetworking
 
 class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    let popupView: UIView = UIView.newAutoLayoutView()
     let friendsTableView: UITableView = UITableView.newAutoLayoutView()
+    let buttonContainer: UIView = UIView.newAutoLayoutView()
+    let cancelButton: UIButton = UIButton.newAutoLayoutView()
+    let inviteButton: UIButton = UIButton.newAutoLayoutView()
+    
+    
     var didSetupConstraints = false
 
     var friends: [User] = [User.generateTestInstance(), User.generateTestInstance()]
@@ -23,18 +29,58 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func loadView() {
         view = UIView()
-
-        view.addSubview(friendsTableView)
+        
+        view.backgroundColor = UIColor.clearColor()
+        
+        popupView.layer.cornerRadius = 10
+        popupView.layer.borderColor = UIColor.blackColor().CGColor
+        popupView.layer.borderWidth = 0.25
+        popupView.layer.shadowColor = UIColor.blackColor().CGColor
+        popupView.layer.shadowOpacity = 0.6
+        popupView.layer.shadowRadius = 15
+        popupView.layer.shadowOffset = CGSize(width: 5, height: 5)
+        popupView.layer.masksToBounds = true
+        
+        buttonContainer.backgroundColor = UIColor.fomoSand()
+        cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
+        cancelButton.addTarget(self, action: "onCancelPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        inviteButton.setTitle("Invite", forState: UIControlState.Normal)
+        inviteButton.addTarget(self, action: "onInvitePressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        view.addSubview(popupView)
+        popupView.addSubview(friendsTableView)
+        popupView.addSubview(buttonContainer)
+        buttonContainer.addSubview(cancelButton)
+        buttonContainer.addSubview(inviteButton)
 
         view.setNeedsUpdateConstraints()
     }
 
     override func updateViewConstraints() {
         if !didSetupConstraints {
-            friendsTableView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            
+            popupView.autoPinToTopLayoutGuideOfViewController(self, withInset: 20)
+            popupView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 20)
+            popupView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+            popupView.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
+            
+            friendsTableView.autoPinEdgeToSuperviewEdge(.Top)
             friendsTableView.autoPinEdgeToSuperviewEdge(.Left)
             friendsTableView.autoPinEdgeToSuperviewEdge(.Right)
-            friendsTableView.autoPinEdgeToSuperviewEdge(.Bottom)
+
+            buttonContainer.autoPinEdge(.Top, toEdge: .Bottom, ofView: friendsTableView)
+            buttonContainer.autoPinEdgeToSuperviewEdge(.Left)
+            buttonContainer.autoPinEdgeToSuperviewEdge(.Right)
+            buttonContainer.autoPinEdgeToSuperviewEdge(.Bottom)
+            buttonContainer.autoSetDimension(.Height, toSize: 50)
+            
+            cancelButton.autoAlignAxisToSuperviewAxis(.Horizontal)
+            cancelButton.autoSetDimension(.Width, toSize: 75)
+            cancelButton.autoPinEdgeToSuperviewEdge(.Left, withInset: 5)
+            
+            inviteButton.autoAlignAxisToSuperviewAxis(.Horizontal)
+            inviteButton.autoMatchDimension(.Width, toDimension: .Width, ofView: cancelButton)
+            inviteButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 5)
 
             didSetupConstraints = true
         }
@@ -43,10 +89,17 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func setUpNavigationBar() {
-        self.navigationController?.navigationBar.topItem?.title = "Invite Friends"
-        
+        self.title = "Invite Friends"
     }
 
+    func onCancelPressed(sender: AnyObject) {
+        self.performSegueWithIdentifier("unwindSegue", sender: self)
+    }
+    
+    func onInvitePressed(sender: AnyObject) {
+        self.performSegueWithIdentifier("unwindSegue", sender: self)
+    }
+    
     // Friends TableView
 
     func setUpTableView() {
@@ -87,5 +140,4 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
     }
-
 }

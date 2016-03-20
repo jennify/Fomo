@@ -51,6 +51,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="IDu-a0-8fA"/>
+                    <connections>
+                        <segue destination="sXc-T7-HhA" kind="modal" identifier="friendsSegue" id="aHh-Rw-XcX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XrD-fo-eHo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -113,7 +116,7 @@
         <!--Friends View Controller-->
         <scene sceneID="71g-jd-Lw2">
             <objects>
-                <viewController storyboardIdentifier="FriendsViewController" id="sXc-T7-HhA" customClass="FriendsViewController" customModule="Fomo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FriendsViewController" modalPresentationStyle="overCurrentContext" id="sXc-T7-HhA" customClass="FriendsViewController" customModule="Fomo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qV4-ZK-fEt"/>
                         <viewControllerLayoutGuide type="bottom" id="yLe-i7-8fO"/>
@@ -123,8 +126,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="bEC-Cd-pBw"/>
+                    <connections>
+                        <segue destination="UEv-Ej-EoY" kind="unwind" identifier="unwindSegue" unwindAction="unwindFromPopup:" id="3Ry-s5-dNT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0p6-fA-lvc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="UEv-Ej-EoY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-516" y="998"/>
         </scene>

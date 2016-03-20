@@ -33,7 +33,6 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
         var parameters: [NSObject: AnyObject] = [
             "limit": self.page_size,
             "fields": "name,picture",
-            
         ]
         if afterCursor != nil {
             parameters["after"] = afterCursor

@@ -17,9 +17,9 @@ class Recommendation: NSObject {
         if dictionary.count == 0 {
             return
         }
-        
         rawData = dictionary
     }
+    
     class func generateTestInstance() -> Recommendation {
         let itinerary = Itinerary.generateTestInstance()
         

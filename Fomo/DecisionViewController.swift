@@ -103,6 +103,6 @@ class DecisionViewController: UIViewController {
     }
     
     func setUpNavigationBar() {
-        self.navigationController?.navigationBar.topItem?.title =  tripevent.attraction!.name
+        self.title = tripevent.attraction!.name
     }
 }

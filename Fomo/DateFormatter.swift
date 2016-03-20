@@ -1,18 +1,15 @@
 //
 //  DateFormatter.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 3/15/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// ============================
+
 
 import UIKit
+
 
 class DateFormatter: NSObject {
     class var sharedInstance: NSDateFormatter {
         struct Static {
             static let instance = NSDateFormatter()
-            
         }
         Static.instance.dateFormat = "EEE MMM d HH:mm:ss Z y"
         return Static.instance
@@ -53,6 +50,5 @@ class DateFormatter: NSObject {
         }
         return outputTime
     }
-    
 }
 

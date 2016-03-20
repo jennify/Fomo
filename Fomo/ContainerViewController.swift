@@ -71,7 +71,6 @@ class ContainerViewController: UIViewController {
         let textColor = UIColor.fomoHamburgerTextColor()
 
         menuView.backgroundColor = bgColor
-        
         leftBorder.backgroundColor = bgColor
         rightBorder.backgroundColor = bgColor
         border1.backgroundColor = bgColor

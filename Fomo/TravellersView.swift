@@ -42,8 +42,6 @@ class TravellersView: UIView {
             profilePhoto.setImageWithURL(NSURL(string: traveller.profileImageURL!)!)
             travellerHalos.append(profilePhoto)
         }
-
-        travellerHalos.append(createAddTravellerButton())
         
         for halo in travellerHalos {
             addSubview(halo)
@@ -55,8 +53,8 @@ class TravellersView: UIView {
             let views: NSArray = travellerHalos
             views.autoSetViewsDimension(.Height, toSize: faceHeight)
             views.autoSetViewsDimension(.Width, toSize: faceHeight)
-
-            views.autoDistributeViewsAlongAxis(.Horizontal, alignedTo: .Horizontal, withFixedSize: faceHeight)
+            
+            views.autoDistributeViewsAlongAxis(.Horizontal, alignedTo: .Horizontal,  withFixedSpacing: 15)
             views[0].autoAlignAxisToSuperviewAxis(.Horizontal)
             
             didSetupConstraints = true
@@ -70,22 +68,5 @@ class TravellersView: UIView {
         halo.layer.cornerRadius = faceHeight/2
         halo.clipsToBounds = true
         return halo
-    }
-    
-    func createAddTravellerButton() -> UIImageView {
-        let button = createHalo()
-        button.image = UIImage(named: "plus")
-        button.image = button.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        button.tintColor = UIColor.fomoWhite()
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: "onTapAddTraveller")
-        button.addGestureRecognizer(tapGesture)
-        button.userInteractionEnabled = true
-        
-        return button
-    }
-    
-    func onTapAddTraveller() {
-        delegate?.addNewTraveller()
     }
 }
