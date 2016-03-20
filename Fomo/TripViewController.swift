@@ -34,7 +34,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     }
     
     func setUpNavigationBar() {
-        self.navigationController?.navigationBar.topItem?.title = "Create Trip"
+        self.title = "Create Trip"
     }
     
     override func loadView() {

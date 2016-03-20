@@ -8,10 +8,14 @@ import FoldingCell
 
 
 @objc(ItineraryViewController)
-class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
+
+class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, Dimmable {
     
-    // Main Views
+    // Main views
     let travellersView: TravellersView = TravellersView.newAutoLayoutView()
+    let addTravellerButtonContainer: UIView = UIView.newAutoLayoutView()
+    let addTravellerButton: UIButton = UIButton.newAutoLayoutView()
+    let addTravellerIcon: UIImageView = UIImageView.newAutoLayoutView()
     let tripDetailsView: UIView = UIView.newAutoLayoutView()
     let itineraryTableView: UITableView = UITableView.newAutoLayoutView()
     let calendarView: UICollectionView = {
@@ -19,7 +23,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         layout.scrollDirection = .Horizontal
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
-
+    
     // State
     let backgroundColor: UIColor = UIColor.fomoBackground()
     var itinerary: Itinerary = Itinerary.generateTestInstance()
@@ -27,7 +31,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var hideSectionHeaders = false
     var didSetupConstraints = false
 
-    // Cell State
+    // Cell state
     var cellHeights = [[CGFloat]]()
     var kCloseCellHeight: CGFloat = FoldingTripEventCell.topViewHeight + 8 // equal or greater foregroundView height
     let kOpenCellHeight: CGFloat = FoldingTripEventCell.detailsViewHeight + 8 // equal or greater containerView height
@@ -38,13 +42,15 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var overviewViewHeightConstraint: NSLayoutConstraint?
     var currentBannerHeight: CGFloat = 200.0
     var originalBannerHeight: CGFloat = 200.0
-    var destinationBannerHeight: CGFloat = 70.0
+    var destinationBannerHeight: CGFloat = 70.0 + 44
     
     // Overview view
     let overviewView: UIView = UIView.newAutoLayoutView()
     let cityImageView: UIImageView = UIImageView.newAutoLayoutView()
     var blurView: UIVisualEffectView = UIVisualEffectView.newAutoLayoutView()
-    let gradient: CAGradientLayer = CAGradientLayer()
+    
+    // Dim view
+    var dimView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,79 +65,79 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpCalendarView()
         setUpNavigationBar()
         setUpOverview()
-        
-
+        setUpDimView()
+    }
+    
+    func setUpDimView() {
+        dimView.alpha = 0
+        dimView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
     }
     
     func setUpOverview() {
+        initScrollView()
         let effect = UIBlurEffect(style: .Light)
         blurView = UIVisualEffectView(effect: effect)
+        blurView.alpha = 0.5
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
-        
-        
-//        cityImageView.addSubview(blurView)
-        overviewView.addSubview(cityImageView)
-        
-        overviewView.addSubview(travellersView)
-        overviewView.addSubview(tripDetailsView)
-        overviewView.addSubview(calendarView)
-        
-        
+        cityImageView.addSubview(blurView)
+
     }
     
-
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-
-        if cell is FoldingTripEventCell {
-            let foldingCell = cell as! FoldingTripEventCell
-
-            if cellHeights[indexPath.section][indexPath.row] == kCloseCellHeight {
-                foldingCell.selectedAnimation(false, animated: false, completion:nil)
-            } else {
-                foldingCell.selectedAnimation(true, animated: false, completion: nil)
-            }
-        }
-    }
-
     override func loadView() {
         view = UIView()
         
         tripDetailsView.backgroundColor = UIColor.clearColor()
         calendarView.backgroundColor = UIColor.clearColor()
         travellersView.backgroundColor = UIColor.clearColor()
-        
+        addTravellerButtonContainer.backgroundColor = UIColor.clearColor()
+
+        overviewView.addSubview(cityImageView)
+        overviewView.addSubview(travellersView)
+        overviewView.addSubview(addTravellerButtonContainer)
+        overviewView.addSubview(tripDetailsView)
+        overviewView.addSubview(calendarView)
         view.addSubview(overviewView)
         view.addSubview(itineraryTableView)
-        
+
+        addTravellerIcon.image = UIImage(named: "plus")
+        addTravellerIcon.image = addTravellerIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        addTravellerButton.setImage(addTravellerIcon.image, forState: .Normal)
+        addTravellerButton.tintColor = UIColor.whiteColor()
+        addTravellerButton.addTarget(self, action: "onAddTravellerPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        addTravellerButtonContainer.addSubview(addTravellerButton)
+
         view.setNeedsUpdateConstraints()
     }
-
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return cellHeights[indexPath.section][indexPath.row]
-    }
-
 
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
             overviewViewHeightConstraint = overviewView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
             overviewView.autoPinEdgeToSuperviewEdge(.Left)
             overviewView.autoPinEdgeToSuperviewEdge(.Right)
-            overviewView.autoSetDimension(.Height, toSize: currentBannerHeight).autoIdentify("overviewViewHeight")
+            overviewView.autoSetDimension(.Height, toSize: originalBannerHeight).autoIdentify("overviewViewHeight")
+            
+            travellersView.autoPinEdgeToSuperviewEdge(.Top)
+            travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16).autoIdentify("travellersViewHeight")
+            travellersView.autoPinEdgeToSuperviewEdge(.Left)
+            travellersView.autoPinEdge(.Right, toEdge: .Left, ofView: addTravellerButtonContainer)
+
+            addTravellerButtonContainer.autoPinEdgeToSuperviewEdge(.Top)
+            addTravellerButtonContainer.autoPinEdgeToSuperviewEdge(.Right)
+            addTravellerButtonContainer.autoMatchDimension(.Height, toDimension: .Height, ofView: travellersView)
+            addTravellerButton.autoSetDimension(.Height, toSize: 30)
+            addTravellerButton.autoSetDimension(.Width, toSize: 30)
+            addTravellerButton.autoAlignAxisToSuperviewAxis(.Horizontal)
+            addTravellerButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 15)
             
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Left)
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Right)
             tripDetailsViewHeightConstraint = tripDetailsView.autoSetDimension(.Height, toSize: 40).autoIdentify("tripDetailsViewHeight")
-            tripDetailsView.autoPinEdge(.Bottom, toEdge: .Top, ofView: travellersView)
-            
-            travellersView.autoPinEdge(.Bottom, toEdge: .Top, ofView: calendarView)
-            travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16).autoIdentify("travellersViewHeight")
-            travellersView.autoPinEdgeToSuperviewEdge(.Left)
-            travellersView.autoPinEdgeToSuperviewEdge(.Right)
-            
+            tripDetailsView.autoPinEdge(.Top, toEdge: .Bottom, ofView: travellersView)
+
             calendarView.autoPinEdgeToSuperviewEdge(.Left)
             calendarView.autoPinEdgeToSuperviewEdge(.Right)
-            calendarView.autoSetDimension(.Height, toSize: destinationBannerHeight)
-            calendarView.autoPinEdge(.Bottom, toEdge: .Bottom, ofView: overviewView)
+            calendarView.autoSetDimension(.Height, toSize: destinationBannerHeight - 44)
+            calendarView.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripDetailsView)
 
             itineraryTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: calendarView)
             itineraryTableView.autoPinEdgeToSuperviewEdge(.Left)
@@ -139,16 +145,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             itineraryTableView.autoPinEdgeToSuperviewEdge(.Bottom)
             itineraryTableView.estimatedRowHeight = 100
             itineraryTableView.rowHeight = UITableViewAutomaticDimension
-            
+
             cityImageView.autoPinEdgesToSuperviewEdges()
-//            blurView.autoPinEdgesToSuperviewEdges()
-            
-            gradient.colors = [UIColor.clearColor(), UIColor.blackColor()]
-            gradient.opacity = 0.3
-            gradient.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: originalBannerHeight)
-
-            cityImageView.layer.insertSublayer(gradient, atIndex: 0)
-
+            blurView.autoPinEdgesToSuperviewEdges()
 
             didSetupConstraints = true
         }
@@ -157,9 +156,50 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func setUpNavigationBar() {
-        self.navigationController?.navigationBar.topItem?.title =  "Itinerary"
+        self.title = "Itinerary"
     }
 
+    // Add Traveller
+    
+    func onAddTravellerPressed(sender: AnyObject) {
+        self.performSegueWithIdentifier("friendsTripSegue", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "friendsTripSegue" {
+            dim(withView: dimView)
+        }
+    }
+    
+    @IBAction func cancelFromPopup(segue: UIStoryboardSegue) {
+        dim(removeView: dimView)
+    }
+    
+    @IBAction func inviteFromPopup(segue: UIStoryboardSegue) {
+        dim(removeView: dimView)
+    }
+
+    // Folding cell
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if cell is FoldingTripEventCell {
+            let foldingCell = cell as! FoldingTripEventCell
+            
+            if cellHeights[indexPath.section][indexPath.row] == kCloseCellHeight {
+                foldingCell.selectedAnimation(false, animated: false, completion:nil)
+            } else {
+                foldingCell.selectedAnimation(true, animated: false, completion: nil)
+            }
+        }
+    }
+    
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return cellHeights[indexPath.section][indexPath.row]
+    }
+    
+    
     // Itinerary Methods
 
     func setUpItineraryTableView() {
@@ -278,8 +318,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
                 }, completion: nil)
             }
         }
-        
-        
     }
 
     // Calendar Methods
@@ -334,24 +372,26 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 }
 
 extension ItineraryViewController: UIScrollViewDelegate {
-
+    
+    func initScrollView() {
+    }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let yOffset = scrollView.contentOffset.y
-
         if yOffset < 0  {
-            // Negative and bounces tableview
+            // Negative offset - let tableview bounce
         } else if(yOffset < originalBannerHeight - destinationBannerHeight) {
             currentBannerHeight = originalBannerHeight - yOffset
             
         } else {
             currentBannerHeight = destinationBannerHeight
+            
         }
         updateBanner()
     }
     
     func updateBanner() {
-        overviewViewHeightConstraint?.constant =  currentBannerHeight - originalBannerHeight
+        overviewViewHeightConstraint?.constant = currentBannerHeight - originalBannerHeight
         self.updateViewConstraints()
         
     }

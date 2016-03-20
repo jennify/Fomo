@@ -31,7 +31,7 @@ class Cache: NSObject {
         }
         set (user) {
             _currentUser = user
-            
+
             if _currentUser != nil {
                 do {
                     let json = try NSJSONSerialization.dataWithJSONObject(user!.rawData, options: [])
@@ -45,7 +45,7 @@ class Cache: NSObject {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
-    
+
     class var currentFriends: [User]? {
         get {
         return _currentFriends
@@ -61,11 +61,12 @@ class Cache: NSObject {
 //                }
 //            }
 //            return _currentFriends
+            return _currentFriends
         }
         set (friends) {
             _currentFriends = friends
 //            _currentFriends = friends
-//            
+//
 //            if _currentFriends != nil {
 //                do {
 //                    let json = try NSJSONSerialization.dataWithJSONObject(User.createArray(friends!), options: [])
@@ -79,7 +80,7 @@ class Cache: NSObject {
 //            NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
-    
+
     class func addFriendPage(friends: [User]?) {
         if friends != nil {
             if Cache.currentFriends == nil  {
@@ -89,7 +90,7 @@ class Cache: NSObject {
             }
         }
     }
-    
+
     class var itinerary: Itinerary? {
         get {
             if _currentItinerary == nil {
@@ -107,7 +108,7 @@ class Cache: NSObject {
         }
         set (it) {
             _currentItinerary = it
-            
+
             if _currentItinerary != nil {
                 do {
                     let json = try NSJSONSerialization.dataWithJSONObject(it!.rawData, options: [])

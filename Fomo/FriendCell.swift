@@ -6,11 +6,18 @@
 import UIKit
 
 
+protocol FriendCellDelegate {
+    func inviteFriendToApp(cell: FriendCell)
+    func inviteFriendToTrip(cell: FriendCell)
+}
+
 class FriendCell: UITableViewCell {
 
     let profilePhoto: UIImageView = UIImageView.newAutoLayoutView()
     let friendName: UILabel = UILabel.newAutoLayoutView()
     
+    var delegate: FriendCellDelegate?
+
     var didSetupConstraints = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

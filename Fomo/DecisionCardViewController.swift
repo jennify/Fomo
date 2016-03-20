@@ -88,7 +88,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     
     
     func setUpNavigationBar() {
-        self.navigationController?.navigationBar.topItem?.title = "Browse"
+        self.title = "Explore"
     }
     
     func onTap(gesture: UITapGestureRecognizer) {
@@ -189,11 +189,11 @@ class DecisionCardCell: TisprCardStackViewCell {
     }
     
     func hideBlurView() {
-        blurView.alpha = 0.0
+        blurView.contentView.alpha = 0.0
     }
     
     func showBlurView() {
-        blurView.alpha = 1.0
+        blurView.contentView.alpha = 1.0
     }
     
     func initViews() {
