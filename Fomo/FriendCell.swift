@@ -76,9 +76,9 @@ class FriendCell: UITableViewCell {
             checkIcon.image = UIImage(named: "checkempty")
             checkIcon.image = checkIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             checkIcon.tintColor = UIColor.fomoHamburgerBGColor()
-
         } else {
             friendSelected = true
+            delegate?.inviteFriend(self)
             checkIcon.image = UIImage(named: "checkfilled")
             checkIcon.image = checkIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             checkIcon.tintColor = UIColor.fomoHighlight()
