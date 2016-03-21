@@ -35,7 +35,11 @@ class TravellersView: UIView {
     func initViews() {
         self.backgroundColor = UIColor.fomoSand()
         
-        travellers = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
+        if Cache.itinerary != nil {
+            travellers = Cache.itinerary!.travellers!
+        } else {
+            travellers = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
+        }
         
         for traveller in travellers {
             let profilePhoto = createHalo()

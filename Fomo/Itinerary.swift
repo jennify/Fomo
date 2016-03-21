@@ -27,8 +27,8 @@ class Itinerary: NSObject {
             return
         }
         self.id = dictionary["groupID"] as? String
-        self.travellers = User.usersWithArray(dictionary["travellers"] as! [NSDictionary])
-
+        
+        self.travellers = User.usersWithArrayFromBackend(dictionary["travellers"] as! [NSDictionary])
         self.tripName = dictionary["tripName"] as? String
         let startDateStr = dictionary["startDate"] as? String
         self.startDate = DateFormatter.dateFromString(startDateStr)

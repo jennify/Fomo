@@ -30,6 +30,23 @@ class User: NSObject {
         self.profileImageURL = picData?["url"] as? String
         self.rawData = dictionary
     }
+    
+    class func userFromBackend(dictionary: NSDictionary) -> User {
+        let u = User(dictionary: NSDictionary())
+        u.name = dictionary["name"] as? String
+        u.email = dictionary["email"] as? String
+        u.profileImageURL = dictionary["profileImageUrl"] as? String
+        return u
+    }
+    
+    class func usersWithArrayFromBackend(array: [NSDictionary]) -> [User] {
+        var users = [User]()
+        
+        for dictionary in array {
+            users.append(User.userFromBackend(dictionary))
+        }
+        return users
+    }
 
     class func usersWithArray(array: [NSDictionary]) -> [User] {
         var users = [User]()
