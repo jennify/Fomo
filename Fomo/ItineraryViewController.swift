@@ -58,7 +58,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         if Cache.itinerary != nil && !isNewTrip {
             self.itinerary = Cache.itinerary!
         } else {
-            itinerary = Itinerary.generateTestInstance()
+            Cache.itinerary = itinerary
         }
         
         setUpItineraryTableView()

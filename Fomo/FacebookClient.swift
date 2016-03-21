@@ -15,7 +15,7 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
         return Static.instance
     }
     let page_size = 20
-    func getUserInfo(accessToken: FBSDKAccessToken) {
+    func getUserInfo(accessToken: FBSDKAccessToken, completion: () -> ()) {
         let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"email,name,picture{url}"], tokenString: accessToken.tokenString, version: nil, HTTPMethod: "GET")
         req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
             if(error == nil){
@@ -23,8 +23,9 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
                 Cache.currentUser = User(dictionary: responseDict!)
                 FacebookClient.sharedInstance.getFriends(accessToken, afterCursor: nil)
             } else {
-                print("error \(error)")
+                print("Facebook error \(error)")
             }
+            completion()
         })
     }
 
@@ -53,11 +54,11 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
                     self.getFriends(accessToken, afterCursor: afterCursor)
                 } else {
                     // Finished downloading friend list.
-                    // print("Finished downloading all friends.")
+                     print("Finished downloading all friends.")
                 }
                 
             } else {
-                print(error)
+                print("Facebook error \(error)")
             }
         })
     }

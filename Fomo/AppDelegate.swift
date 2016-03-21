@@ -34,31 +34,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             print("Current user detected: \(Cache.currentUser!.name!)")
             let user = Cache.currentUser!
-//            RecommenderClient.sharedInstance.get_itineraries_for_user(user) {
-//                (response, error) -> () in
-//                
-//                if error != nil || response == nil {
-//                    print("No Itinerary detected")
-//                    let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
-//                    let container = vc.topViewController as? ContainerViewController
-//                    container?.initialVC = container?.cityVC
-//                    self.window?.rootViewController = vc
-//                    
-//                } else {
-//                    print("Itinerary detected")
-//                    print(Cache.itinerary?.tripName)
+            RecommenderClient.sharedInstance.get_itineraries_for_user(user) {
+                (response: [Itinerary]?, error: NSError?) -> () in
+                
+                if error != nil || response == nil {
+                    print("No Itinerary detected")
+                    let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
+                    let container = vc.topViewController as? ContainerViewController
+                    container?.initialVC = self.storyboard.instantiateViewControllerWithIdentifier("CityViewController") as! CityViewController
+                    self.window?.rootViewController = vc
+                    
+                } else {
+                    let it = response?.first
+                    print("Itinerary \(it!.tripName) detected")
                     let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
                     self.window?.rootViewController = vc
-//                }
-//            }
+                }
+            }
             
         } else {
-            print("No User")
+            print("No User Detected.")
             
             self.window?.rootViewController = self.storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as UIViewController
         }
 
-        print(DEBUG)
         if DEBUG == "jlee" {
             self.jleeDebugging()
         } else if DEBUG == "christian" {
@@ -155,41 +154,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navController.viewControllers = [dvc]
             window?.rootViewController = navController
         }
-
-//        RecommenderClient.sharedInstance.add_itinerary(Itinerary.generateTestInstance()) { (response: Itinerary?, error: NSError?) -> () in
-//
-//            if error != nil {
-//                print(error)
-//                displayAlert((self.window?.rootViewController)!, error: error!)
-//            } else {
-//                print("End")
-//            }
-//        }
-
-        // How to use the recommender:
-//                RecommenderClient.sharedInstance.get_recommendations_with_user(User.generateTestInstance(), groupID: Itinerary.generateTestInstance().id!) {
-//                    (response: Recommendation?, error: NSError? ) in
-//        
-//                    if error != nil {
-//                        print(error)
-//                        displayAlert((self.window?.rootViewController)!, error: error!)
-//                    } else {
-//                        print("Initial recommender hooked up")
-//                    }
-//                }
         //        let fakeItinerary = Itinerary.generateTestInstance()
         //        let fakeAttraction = Attraction.generateTestInstance(City.generateTestInstance())
         //        RecommenderClient.sharedInstance.update_itinerary_with_vote(fakeItinerary, attraction: fakeAttraction, user: User.generateTestInstance(), vote: Vote.Like) {
-        //            (response, error) -> () in
-        //
-        //            if error != nil {
-        //                print(error)
-        //                displayAlert((self.window?.rootViewController)!, error: error!)
-        //            } else {
-        //                print("Initial recommender hooked up")
-        //            }
-        //        }
-        //        RecommenderClient.sharedInstance.get_itineraries_for_user(User.generateTestInstance()) {
         //            (response, error) -> () in
         //
         //            if error != nil {
@@ -204,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func userDidLogout() {
         let vc = storyboard.instantiateInitialViewController()
         window?.rootViewController = vc
-        print("user did logout")
+        print("User did logout")
     }
 
     func application(application: UIApplication,

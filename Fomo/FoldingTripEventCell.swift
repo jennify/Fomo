@@ -212,7 +212,12 @@ class FoldingTripEventCell: FoldingCell {
         typeLabel.numberOfLines = 0
         
         if attraction != nil {
-            ratingLabel.text = "\(attraction!.rating!)"
+            if attraction?.rating == nil {
+                ratingLabel.text = "?"
+            } else {
+                ratingLabel.text = "\(attraction!.rating!)"    
+            }
+            
         }
         ratingLabel.font = UIFont.fomoH2()
         

@@ -41,16 +41,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
     }
     
     func sharer(sharer: FBSDKSharing!, didCompleteWithResults results: [NSObject : AnyObject]!) {
-        print("sharer did complete")
+        print("Sharer did complete")
     }
     
     func sharer(sharer: FBSDKSharing!, didFailWithError error: NSError!) {
-        print("sharer fail error")
-        print(error)
+        print("Sharer fail error \(error)")
     }
     
     func sharerDidCancel(sharer: FBSDKSharing!) {
-        print("canceled")
+        print("Canceled")
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -81,9 +80,28 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
             //            print(result.token)
             
             // TODO(jlee)
-            FacebookClient.sharedInstance.getUserInfo(result.token)
-            
-            self.performSegueWithIdentifier("loginSegue", sender: self)
+            FacebookClient.sharedInstance.getUserInfo(result.token) {
+                () in
+                let user = Cache.currentUser!
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                RecommenderClient.sharedInstance.get_itineraries_for_user(user) {
+                    (response, error) -> () in
+                    
+                    if error != nil || response == nil {
+                        print("No Itinerary detected")
+                        let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
+                        let container = vc.topViewController as? ContainerViewController
+                        container?.initialVC = storyboard.instantiateViewControllerWithIdentifier("CityViewController") as! CityViewController
+                        self.presentViewController(vc, animated: true, completion: nil)
+                        
+                    } else {
+                        print("Itinerary \(Cache.itinerary?.tripName) detected")
+                        let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
+                        self.presentViewController(vc, animated: true, completion: nil)
+                    }
+                }
+            }
+//            self.performSegueWithIdentifier("loginSegue", sender: self)
         }
     }
     

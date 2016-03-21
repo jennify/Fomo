@@ -43,9 +43,21 @@ class Itinerary: NSObject {
         var attrStartIndex = 0
         
         for _ in 0...numDays! {
-            // TODO(jlee): Check if we have enough attractions to fill itinerary.
-
-            let tripEventsDict: [NSDictionary] = Array(attractions![attrStartIndex...attrStartIndex+3])
+            var tripEventsDict: [NSDictionary] = [NSDictionary]()
+            if attractions?.count < attrStartIndex+3 {
+                print("Not enough attractions!!!")
+                let a = attractions![0]
+                tripEventsDict = [
+                    a,a,a
+                ]
+            } else {
+                tripEventsDict = [
+                    attractions![attrStartIndex],
+                    attractions![attrStartIndex + 1],
+                    attractions![attrStartIndex + 2],
+                ]
+                
+            }
             let dayDict: NSDictionary = [
                 "tripEvents": tripEventsDict,
             ]
