@@ -47,14 +47,17 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         recommendations = Recommendation.generateTestInstance()
         self.countOfCards = recommendations!.attractions!.count
         
-        completeButton.setImage(UIImage(named: "car"), forState: .Normal)
-        completeButton.setTitle("Go to Itinerary.", forState: .Normal)
-        completeButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        completeButton.contentVerticalAlignment = .Bottom
-        completeButton.contentHorizontalAlignment = .Left
+        completeButton.setImage(UIImage(named: "smiling"), forState: .Normal)
+        completeButton.setTitle(" Check out itinerary.", forState: .Normal)
+        completeButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         completeButton.layer.zPosition = -1
+        completeButton.addTarget(self, action: "goToItinerary", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(completeButton)
         setUpNavigationBar()
+    }
+    
+    func goToItinerary() {
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     override func updateViewConstraints() {

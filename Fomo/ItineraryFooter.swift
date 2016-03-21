@@ -33,7 +33,7 @@ class ItineraryFooter: UITableViewCell {
             continueImageView.autoAlignAxisToSuperviewAxis(.Vertical)
             
             actionLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-            actionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: continueImageView, withOffset: 8)
+            actionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: continueImageView, withOffset: 0)
             didSetupConstraints = true
         }
         
@@ -46,7 +46,7 @@ class ItineraryFooter: UITableViewCell {
         actionLabel.font = UIFont.fomoParagraph()
         actionLabel.textColor = UIColor.darkGrayColor()
         
-        continueImageView.image = UIImage(named: "car")
+        continueImageView.image = UIImage(named: "smiling")
         
         addSubview(actionLabel)
         addSubview(continueImageView)

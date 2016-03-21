@@ -30,6 +30,9 @@ class FoldingTripEventCell: FoldingCell {
     var ratingLabel: UILabel = UILabel.newAutoLayoutView()
     var typeLabel: UILabel = UILabel.newAutoLayoutView()
     
+    var likeLabel: UILabel = UILabel.newAutoLayoutView()
+    var likeVotersView: TravellersView = TravellersView.newAutoLayoutView()
+    
     class var topViewHeight: CGFloat {
         get {
             return 100
@@ -127,6 +130,15 @@ class FoldingTripEventCell: FoldingCell {
             ratingView.autoSetDimension(.Width, toSize: 40)
             ratingView.autoSetDimension(.Height, toSize: 40)
             
+            
+            likeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: typeLabel, withOffset: 8)
+            likeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: typeLabel)
+
+            likeVotersView.autoPinEdge(.Leading, toEdge: .Trailing, ofView: likeLabel, withOffset: 8)
+            likeVotersView.autoPinEdge(.Top, toEdge: .Bottom, ofView: typeLabel, withOffset: 16)
+            likeVotersView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
+            likeVotersView.autoSetDimension(.Height, toSize: likeVotersView.faceHeight)
+            
             didSetupConstraints = true
         }
         super.updateConstraints()
@@ -208,12 +220,23 @@ class FoldingTripEventCell: FoldingCell {
         ratingView.layer.cornerRadius = 5
         ratingView.clipsToBounds = true
         
+        likeLabel.text = "LIKED BY:"
+        likeLabel.font = UIFont.fomoSized(10)
+        likeLabel.textColor = UIColor.lightGrayColor()
+        likeLabel.sizeToFit()
+        likeVotersView.backgroundColor = UIColor.clearColor()
+        
+        
         detSeg.addSubview(detailsAttractionName)
         detSeg.addSubview(addressLabel)
         detSeg.addSubview(typeLabel)
         
         ratingView.addSubview(ratingLabel)
         detSeg.addSubview(ratingView)
+        
+        detSeg.addSubview(likeVotersView)
+        detSeg.addSubview(likeLabel)
+
     }
     
     func initPicSeg() {
@@ -322,13 +345,6 @@ class TopView: RotatedView {
             typeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: attractionName, withOffset: 4)
             typeLabel.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
             
-            likeLabel.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 4)
-            likeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: attractionName)
-            
-            likeVotersView.autoPinEdge(.Leading, toEdge: .Trailing, ofView: likeLabel, withOffset: 8)
-            likeVotersView.autoPinEdge(.Top, toEdge: .Bottom, ofView: typeLabel, withOffset: 16)
-            likeVotersView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
-            likeVotersView.autoSetDimension(.Height, toSize: likeVotersView.faceHeight)
             
             didSetupConstraintsTV = true
         }
@@ -365,8 +381,6 @@ class TopView: RotatedView {
         self.addSubview(attractionName)
         self.addSubview(imageView)
         self.addSubview(typeLabel)
-        self.addSubview(likeVotersView)
-        self.addSubview(likeLabel)
     }
     
     

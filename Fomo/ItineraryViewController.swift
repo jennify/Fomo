@@ -293,7 +293,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         itineraryTableView.deselectRowAtIndexPath(indexPath, animated: true)
         if isLastTableViewCell(indexPath) {
-            displayTodo("Move to explore page!")
+            let decVC = DecisionCardViewController()
+            self.navigationController?.pushViewController(decVC, animated: true)
             return
         }
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingTripEventCell
