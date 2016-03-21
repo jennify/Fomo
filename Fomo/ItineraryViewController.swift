@@ -163,11 +163,18 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func onAddTravellerPressed(sender: AnyObject) {
         self.performSegueWithIdentifier("friendsTripSegue", sender: self)
+        
+//        let friendsViewController = FriendsViewController()
+//        friendsViewController.itinerary = self.itinerary
+//        dim(withView: dimView)
+//        presentViewController(friendsViewController, animated: true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "friendsTripSegue" {
             dim(withView: dimView)
+            let vc = segue.destinationViewController as! FriendsViewController
+            vc.itinerary = self.itinerary
         }
     }
     

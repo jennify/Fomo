@@ -18,6 +18,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var didSetupConstraints = false
 
+    var itinerary: Itinerary?
     var friends: [User] = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
 
     override func viewDidLoad() {
@@ -99,7 +100,22 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func onInvitePressed(sender: AnyObject) {
-        // TODO: update trip guests array
+        let indexPaths = friendsTableView.indexPathsForSelectedRows
+        if let indexPaths = indexPaths {
+            var guestsToAdd: [User] = []
+            for indexPath in indexPaths {
+                guestsToAdd.append(friends[indexPath.row])
+            }
+            
+            for guest in guestsToAdd {
+                RecommenderClient.sharedInstance.update_itinerary_with_user(itinerary!, user: guest, completion: { (itinerary: Itinerary?, error: NSError?) -> () in
+                    if let newItinerary = itinerary {
+                        self.itinerary?.travellers = newItinerary.travellers
+                    }
+                })
+            }
+        }
+        
         self.performSegueWithIdentifier("unwindInviteSegue", sender: self)
     }
     
@@ -136,8 +152,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        displayTodo("Jenn adds friend")
+//        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//        displayTodo("Jenn adds friend")
     }
 
     func displayTodo(todo: String) {
