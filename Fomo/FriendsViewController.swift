@@ -28,8 +28,12 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         setUpTableView()
         setUpNavigationBar()
-
-//        Cache
+        
+        if Cache.currentFriends != nil {
+            friends = Cache.currentFriends!
+        } else {
+            print("No friends :(")
+        }
     }
 
     override func loadView() {
@@ -46,7 +50,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         popupView.layer.shadowOffset = CGSize(width: 5, height: 5)
         popupView.layer.masksToBounds = true
         
-        buttonContainer.backgroundColor = UIColor.fomoHighlight()
+        buttonContainer.backgroundColor = UIColor.fomoHighlight().colorWithAlphaComponent(0.8)
         cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
         cancelButton.addTarget(self, action: "onCancelPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         inviteButton.setTitle("Invite", forState: UIControlState.Normal)
@@ -121,15 +125,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     // Friends TableView
 
     func setUpTableView() {
-        print(Cache.currentFriends)
-        
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
         friendsTableView.rowHeight = UITableViewAutomaticDimension
         friendsTableView.estimatedRowHeight = 100
         friendsTableView.registerClass(FriendCell.self, forCellReuseIdentifier: "CodePath.Fomo.FriendCell")
         friendsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        friendsTableView.backgroundColor = UIColor.fomoBackground()
+        friendsTableView.backgroundColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8)
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -147,7 +149,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.profilePhoto.setImageWithURL(NSURL(string: friend.profileImageURL!)!)
         cell.friendName.text = friend.name!
         cell.friendName.textColor = UIColor.fomoTextColor()
-        cell.backgroundColor = UIColor.fomoBackground()
+        cell.backgroundColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8)
         cell.delegate = self
     }
 

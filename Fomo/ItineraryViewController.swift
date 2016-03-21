@@ -54,11 +54,11 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        self.itinerary = Itinerary.generateTestInstance()
         if Cache.itinerary != nil && !isNewTrip {
             self.itinerary = Cache.itinerary!
         } else {
-            Cache.itinerary = itinerary
+            itinerary = Itinerary.generateTestInstance()
         }
         
         setUpItineraryTableView()

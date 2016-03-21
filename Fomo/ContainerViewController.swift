@@ -34,7 +34,7 @@ class ContainerViewController: UIViewController, Dimmable {
     let settingsIcon: UIImageView = UIImageView.newAutoLayoutView()
     let settingsButton: UIButton = UIButton.newAutoLayoutView()
 
-    let currentUser = Cache.currentUser
+    var currentUser = Cache.currentUser
 
     var selectedViewController: UIViewController!
     var loginVC: LoginViewController!
@@ -45,6 +45,7 @@ class ContainerViewController: UIViewController, Dimmable {
     var friendsVC: FriendsViewController!
     var preferencesVC: PreferencesViewController!
     var doneVC: DoneViewController!
+    var initialVC : UIViewController? = nil
 
     var menuClosedX: CGFloat!
     var menuOpenX: CGFloat!
@@ -79,7 +80,7 @@ class ContainerViewController: UIViewController, Dimmable {
         border2.backgroundColor = textColor
         border3.backgroundColor = textColor
 
-        
+        currentUser = Cache.currentUser
         if currentUser != nil {
             if currentUser!.profileImageURL != nil {
                 profileImage.setImageWithURL(NSURL(string: currentUser!.profileImageURL!)!)
@@ -138,8 +139,11 @@ class ContainerViewController: UIViewController, Dimmable {
         friendsVC = storyboard!.instantiateViewControllerWithIdentifier("FriendsViewController") as! FriendsViewController
         preferencesVC = storyboard!.instantiateViewControllerWithIdentifier("PreferencesViewController") as! PreferencesViewController
         doneVC = storyboard!.instantiateViewControllerWithIdentifier("DoneViewController") as! DoneViewController
-
-        selectViewController(decisionVC)
+        
+        if initialVC == nil {
+            initialVC = decisionVC
+        }
+        selectViewController(initialVC!)
     }
 
     func setUpNavigationBar() {

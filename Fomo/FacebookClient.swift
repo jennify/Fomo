@@ -44,10 +44,7 @@ class FacebookClient: BDBOAuth1RequestOperationManager {
         req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
             if(error == nil){
                 let data = result["data"] as? [NSDictionary]
-                print(data)
                 let friends = User.usersWithArray(data!)
-                print(friends)
-                Cache.currentFriends = friends
                 Cache.addFriendPage(friends)
                 let paging = result["paging"] as? NSDictionary
                 let cursors = paging!["cursors"] as? NSDictionary

@@ -40,9 +40,15 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     
     func requestGETWithItinerariesResponse(url: String, parameters: NSDictionary, completion:(response: [Itinerary]?, error: NSError?) -> () ) {
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            let its = Itinerary.itinerariesWithArray(response as! [NSDictionary])
-            Cache.itinerary = its.first
-            completion(response: its, error: nil)
+            let rsp = response["itineraries"] as? [NSDictionary]
+            let its = Itinerary.itinerariesWithArray(rsp!)
+            if its.count == 0 {
+                completion(response: nil, error: NSError(domain: "No itineraries", code: 1, userInfo: nil))
+            } else {
+                Cache.itinerary = its.first
+                completion(response: its, error: nil)
+            }
+            
         }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
             completion(response: nil, error: error)
         })
@@ -60,7 +66,10 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
 
     func get_recommendations_with_user (user: User, groupID: String, completion: (response: Recommendation?, error: NSError?) -> ()) {
         let url = recommender_domain + "/get_recommendations/"
-        let parameters = ["groupID": groupID, "userEmail": user.email!]
+        let parameters = ["groupID": groupID,
+            "userEmail": user.email!,
+            "name": user.name!,
+            "profileImageUrl": user.profileImageURL!]
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let rec = Recommendation(dictionary: response as! NSDictionary)
             completion(response: rec, error: nil)
@@ -92,7 +101,16 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     
     func get_itinerary (itinerary: Itinerary, completion: (response: Itinerary?, error: NSError?) -> ()) {
         let url = recommender_domain + "/get_itinerary/"
-        let parameters: [String: String] = ["groupID": itinerary.id!]
+        let coord = itinerary.city!.location!.coordinate
+        let location = "\(coord.latitude),\(coord.longitude)"
+        let parameters: [String: String] = ["groupID": itinerary.id!,
+            "userEmail": itinerary.creator!.email!,
+            "name": itinerary.creator!.name!,
+            "tripName": itinerary.tripName!,
+            "startDate": DateFormatter.dateTostring(itinerary.startDate!)!,
+            "numDays" : "\(itinerary.numDays!)",
+            "location": location,
+            "radius": "\((itinerary.city?.radius)!)" ]
         requestGETWithItineraryResponse(url, parameters: parameters, completion: completion)
     }
     

@@ -42,9 +42,21 @@ class Attraction: NSObject {
         self.attractionType = dictionary["types"] as? [String]
         self.types = AttractionType.attractionTypesWithArray(self.attractionType!)
         
-        // Temporary holder for images before they work
         self.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]
         self.rawData = dictionary
+    }
+    
+    class func attractionsWithArray(array: [NSDictionary]) -> [Attraction] {
+        var atts = [Attraction]()
+        
+        for dict in array {
+            let a = Attraction(dictionary: dict["rawData"] as! NSDictionary)
+            a.addPhotos(dict["photos"] as! [String])
+            atts.append(a)
+            
+        }
+        
+        return atts
     }
     
     func addPhotos(photos: [String]) {

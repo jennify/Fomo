@@ -13,6 +13,9 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     let completeButton: UIButton = UIButton.newAutoLayoutView()
     var recommendations: Recommendation?
     var currentAttraction: Attraction?
+    var likeButton: UIButton = UIButton.newAutoLayoutView()
+    var dislikeButton: UIButton = UIButton.newAutoLayoutView()
+    var didSetConstraints = false
     
     private let colors = [UIColor(red: 45.0/255.0, green: 62.0/255.0, blue: 79.0/255.0, alpha: 1.0),
         UIColor(red: 48.0/255.0, green: 173.0/255.0, blue: 99.0/255.0, alpha: 1.0),
@@ -44,15 +47,36 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func initViews() {
-        recommendations = Recommendation.generateTestInstance()
-        self.countOfCards = recommendations!.attractions!.count
+        Recommendation.getRecommendations() {
+            (response: Recommendation?, error: NSError?) in
+            if error == nil && response != nil {
+                self.recommendations = response!
+                self.countOfCards = self.recommendations!.attractions?.count ?? 0
+                self.collectionView?.reloadData()
+            } else {
+                print(error)
+                self.recommendations = Recommendation.generateTestInstance()
+            }
+        }
+        
         
         completeButton.setImage(UIImage(named: "smiling"), forState: .Normal)
         completeButton.setTitle(" Check out itinerary.", forState: .Normal)
         completeButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         completeButton.layer.zPosition = -1
         completeButton.addTarget(self, action: "goToItinerary", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        likeButton.setImage(UIImage(named: "like"), forState: .Normal)
+        likeButton.addTarget(self, action: "onLike", forControlEvents: .TouchUpInside)
+        likeButton.tintColor = UIColor.greenColor()
+        
+        dislikeButton.setImage(UIImage(named: "dislike"), forState: .Normal)
+        dislikeButton.addTarget(self, action: "onDislike", forControlEvents: .TouchUpInside)
+        dislikeButton.tintColor = UIColor.redColor()
+        
         self.view.addSubview(completeButton)
+        self.view.addSubview(likeButton)
+        self.view.addSubview(dislikeButton)
         setUpNavigationBar()
     }
     
@@ -61,9 +85,20 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     override func updateViewConstraints() {
-        completeButton.autoCenterInSuperview()
+        if !didSetConstraints {
+            let buttons: NSArray = [dislikeButton, likeButton]
+            buttons.autoDistributeViewsAlongAxis(.Horizontal, alignedTo: .Horizontal, withFixedSize: 48, insetSpacing: true)
+            buttons[0].autoAlignAxis(.Horizontal, toSameAxisOfView: self.view, withOffset: cardHeight/2 + 50)
+            
+            completeButton.autoCenterInSuperview()
+            
+            didSetConstraints = true
+        }
+        
         super.updateViewConstraints()
     }
+    
+    var cardHeight: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +108,8 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         setAnimationSpeed(0.85)
         
         //set size of cards
-        let size = CGSizeMake(view.bounds.width - 40, 2*view.bounds.height/3)
+        cardHeight = 2*self.view.bounds.height/4
+        let size = CGSizeMake(view.bounds.width - 40, cardHeight)
         setCardSize(size)
         collectionView?.registerClass(DecisionCardCell.self, forCellWithReuseIdentifier: "CardIdentifier")
         
@@ -85,7 +121,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         //configuration of stacks
         layout.topStackMaximumSize = 4
         layout.bottomStackMaximumSize = 30
-        layout.bottomStackCardHeight = 45
+        layout.bottomStackCardHeight = 100
         setUpNavigationBar()
         
     }
@@ -125,14 +161,9 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     override func card(collectionView: UICollectionView, cardForItemAtIndexPath indexPath: NSIndexPath) -> TisprCardStackViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CardIdentifier", forIndexPath: indexPath) as! DecisionCardCell
         
-        let numAttractions = self.recommendations?.attractions?.count
-        // Fix hack to actually load all the attractions.
-        cell.attraction = self.recommendations?.attractions?[indexPath.item % numAttractions!]
+        cell.attraction = self.recommendations?.attractions?[indexPath.row]
         cell.backgroundColor = UIColor.fomoCardBG()
-        // No longer using the cute colors from the library :(
-        //colors[indexPath.item % colors.count]
         cell.initViews()
-        cell.hideBlurView()
         
         // We need to know what the current attraction is displayed, so we can pass it to the photo carousel if there's a tap
         currentAttraction = cell.attraction
@@ -141,6 +172,13 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         
     }
     
+    func onLike() {
+        moveCardDown()
+    }
+    
+    func onDislike() {
+        moveCardDown()
+    }
     //method to add new card
     //    @IBAction func addNewCards(sender: AnyObject) {
     //        countOfCards++
@@ -166,14 +204,19 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
 
 class DecisionCardCell: TisprCardStackViewCell {
     var attraction: Attraction?
+    
     var voteSmileImageView: UIImageView = UIImageView.newAutoLayoutView()
     var locationImage: UIImageView = UIImageView.newAutoLayoutView()
+    
     var blurView: UIVisualEffectView = UIVisualEffectView.newAutoLayoutView()
+    
     var nameLabel: UILabel = UILabel.newAutoLayoutView()
     var typeLabel: UILabel = UILabel.newAutoLayoutView()
     var ratingView: UIView = UIView.newAutoLayoutView()
     var ratingLabel: UILabel = UILabel.newAutoLayoutView()
+    
     var likeImage: UIImageView = UIImageView.newAutoLayoutView()
+    var descView: UIView = UIView.newAutoLayoutView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -222,21 +265,35 @@ class DecisionCardCell: TisprCardStackViewCell {
         self.clipsToBounds = true
         
         voteSmileImageView.image = UIImage(named: "smile_neutral")
-        blurView.effect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        
+        blurView.effect = UIBlurEffect(style: .ExtraLight)
+        blurView.alpha = 0.8
         
         if attraction != nil {
-            locationImage.setImageWithURL(NSURL(string: (attraction!.imageUrls!.first)!)!)
-            
+            if attraction!.imageUrls?.count == 0 {
+                locationImage.image = UIImage(named: "smiling")
+            } else {
+                locationImage.setImageWithURL(NSURL(string: (attraction!.imageUrls!.first)!)!)
+            }
             nameLabel.text = attraction?.name
             nameLabel.font = UIFont.fomoH1()
-            nameLabel.sizeToFit()
             nameLabel.numberOfLines = 0
+            nameLabel.sizeToFit()
             
             typeLabel.text = attraction?.getTypeString()
             typeLabel.font = UIFont.fomoParagraph()
             typeLabel.textColor = UIColor.darkGrayColor()
+            typeLabel.numberOfLines = 0
+            typeLabel.sizeToFit()
             
-            ratingLabel.text = "\(attraction!.rating!)"
+            var ratingText = ""
+            if attraction!.rating == nil {
+                ratingText = "?"
+            } else {
+                ratingText = "\(attraction!.rating!)"
+            }
+
+            ratingLabel.text = ratingText
             ratingLabel.font = UIFont.fomoH1()
             ratingLabel.textColor = UIColor.whiteColor()
             
@@ -244,15 +301,19 @@ class DecisionCardCell: TisprCardStackViewCell {
             ratingView.layer.cornerRadius = 5
             ratingView.clipsToBounds = true
             
+            descView.backgroundColor = UIColor.clearColor()
         }
         
-        self.addSubview(blurView)
-        self.addSubview(voteSmileImageView)
-        self.addSubview(locationImage)
+        descView.addSubview(blurView)
+        descView.addSubview(voteSmileImageView)
         ratingView.addSubview(ratingLabel)
-        self.addSubview(ratingView)
-        self.addSubview(nameLabel)
-        self.addSubview(typeLabel)
+        descView.addSubview(ratingView)
+        descView.addSubview(nameLabel)
+        descView.addSubview(typeLabel)
+        
+        locationImage.addSubview(descView)
+        self.addSubview(locationImage)
+        
         
     }
     
@@ -263,28 +324,29 @@ class DecisionCardCell: TisprCardStackViewCell {
         voteSmileImageView.autoSetDimension(.Width, toSize: 30)
         voteSmileImageView.autoSetDimension(.Height, toSize: 30)
         
-        locationImage.autoPinEdgeToSuperviewEdge(.Top)
-        locationImage.autoPinEdgeToSuperviewEdge(.Leading)
-        locationImage.autoPinEdgeToSuperviewEdge(.Trailing)
-        locationImage.autoSetDimension(.Height, toSize: self.frame.height/4 * 3)
+        locationImage.autoPinEdgesToSuperviewEdges()
         
-        blurView.autoPinEdgeToSuperviewEdge(.Top)
-        blurView.autoPinEdgeToSuperviewEdge(.Leading)
-        blurView.autoPinEdgeToSuperviewEdge(.Trailing)
-        blurView.autoSetDimension(.Height, toSize: self.frame.height/4 * 3)
+        blurView.autoPinEdgesToSuperviewEdges()
         
         ratingView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
-        ratingView.autoPinEdge(.Top, toEdge: .Bottom, ofView: locationImage, withOffset: 8)
+        ratingView.autoPinEdge(.Top, toEdge: .Top, ofView: descView, withOffset: 8)
         ratingView.autoSetDimension(.Width, toSize: 40)
         ratingView.autoSetDimension(.Height, toSize: 40)
         
         ratingLabel.autoCenterInSuperview()
         
         nameLabel.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
-        nameLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: locationImage, withOffset: 8)
+        nameLabel.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
+        nameLabel.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
         
         typeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: nameLabel)
         typeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: nameLabel, withOffset: 8)
+        typeLabel.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
+        
+        descView.autoPinEdgeToSuperviewEdge(.Leading)
+        descView.autoPinEdgeToSuperviewEdge(.Trailing)
+        descView.autoPinEdgeToSuperviewEdge(.Bottom)
+        descView.autoSetDimension(.Height, toSize: 70)
         
     }
     

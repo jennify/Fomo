@@ -7,15 +7,25 @@ import UIKit
 
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKSharingDelegate {
-    
+    var titleLabel: UILabel = UILabel.newAutoLayoutView()
+    var didSetupConstraints = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let loginButton = FBSDKLoginButton(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
+        let loginButton = FBSDKLoginButton(frame: CGRect(x: 0, y: 0, width: 100, height: 35))
         loginButton.center = CGPoint(x: view.center.x, y: view.center.y + 100)
         loginButton.delegate = self
         loginButton.readPermissions = ["public_profile", "email", "user_friends"];
         view.addSubview(loginButton)
+        
+        
+        titleLabel.text = "fomo"
+        titleLabel.font = UIFont(name: "Georgia-Italic", size: 50)
+        titleLabel.textColor = UIColor.fomoLight()
+        
+        titleLabel.textAlignment = .Center
+        titleLabel.sizeToFit()
+        view.addSubview(titleLabel)
         
         //        let send = FBSDKSendButton()
         //        let linkContent = FBSDKShareLinkContent()
@@ -45,10 +55,17 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        // TODO(jlee): Remove
-        //        sendFriendInviteToItinerary(self, shareMessage: nil, itinerary: Itinerary.generateTestInstance())
     }
     
+    override func updateViewConstraints() {
+        if !didSetupConstraints {
+            titleLabel.autoAlignAxisToSuperviewAxis(.Vertical)
+            titleLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: self.view, withOffset: -140)
+            
+            didSetupConstraints = true
+        }
+        super.updateViewConstraints()
+    }
     
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {

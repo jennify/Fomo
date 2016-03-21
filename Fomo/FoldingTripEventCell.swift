@@ -244,7 +244,13 @@ class FoldingTripEventCell: FoldingCell {
         if attraction != nil {
             locationView.contentMode = .ScaleAspectFill
             locationView.clipsToBounds = true
-            locationView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
+            
+            if attraction!.imageUrls?.count == 0 {
+                locationView.image = UIImage(named: "smiling")
+            } else {
+                locationView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
+            }
+            
         }
         picSeg.addSubview(locationView)
         
@@ -358,7 +364,11 @@ class TopView: RotatedView {
             attractionName.numberOfLines = 0
             attractionName.sizeToFit()
             
-            imageView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
+            if attraction?.imageUrls?.count == 0 {
+                imageView.image = UIImage(named: "smiling")
+            } else {
+                imageView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
+            }
             imageView.clipsToBounds = true
             imageView.contentMode = .ScaleAspectFill
     

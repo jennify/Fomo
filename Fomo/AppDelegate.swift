@@ -9,12 +9,12 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "connie"
+let DEBUG = "none"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let ITINERARY_USE_CACHE = true
+    let ITINERARY_USE_CACHE = false
 
     var window: UIWindow?
     var storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -31,12 +31,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         if Cache.currentUser != nil {
             // If user has already logged in
+            
             print("Current user detected: \(Cache.currentUser!.name!)")
-            let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
-            window?.rootViewController = vc
+            let user = Cache.currentUser!
+//            RecommenderClient.sharedInstance.get_itineraries_for_user(user) {
+//                (response, error) -> () in
+//                
+//                if error != nil || response == nil {
+//                    print("No Itinerary detected")
+//                    let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
+//                    let container = vc.topViewController as? ContainerViewController
+//                    container?.initialVC = container?.cityVC
+//                    self.window?.rootViewController = vc
+//                    
+//                } else {
+//                    print("Itinerary detected")
+//                    print(Cache.itinerary?.tripName)
+                    let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
+                    self.window?.rootViewController = vc
+//                }
+//            }
+            
+        } else {
+            print("No User")
+            
+            self.window?.rootViewController = self.storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as UIViewController
         }
 
-
+        print(DEBUG)
         if DEBUG == "jlee" {
             self.jleeDebugging()
         } else if DEBUG == "christian" {
@@ -48,9 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
+    
     func connieDebugging() {
         // Debugging Entry Point - logged in
-        if (true) {
+        if (false) {
             let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
             window?.rootViewController = vc
         }
@@ -144,16 +167,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
 
         // How to use the recommender:
-        //        RecommenderClient.sharedInstance.get_recommendations_with_user(User.generateTestInstance(), groupID: Itinerary.generateTestInstance().id!) {
-        //            (response: Recommendation?, error: NSError? ) in
-        //
-        //            if error != nil {
-        //                print(error)
-        //                displayAlert((self.window?.rootViewController)!, error: error!)
-        //            } else {
-        //                print("Initial recommender hooked up")
-        //            }
-        //        }
+//                RecommenderClient.sharedInstance.get_recommendations_with_user(User.generateTestInstance(), groupID: Itinerary.generateTestInstance().id!) {
+//                    (response: Recommendation?, error: NSError? ) in
+//        
+//                    if error != nil {
+//                        print(error)
+//                        displayAlert((self.window?.rootViewController)!, error: error!)
+//                    } else {
+//                        print("Initial recommender hooked up")
+//                    }
+//                }
         //        let fakeItinerary = Itinerary.generateTestInstance()
         //        let fakeAttraction = Attraction.generateTestInstance(City.generateTestInstance())
         //        RecommenderClient.sharedInstance.update_itinerary_with_vote(fakeItinerary, attraction: fakeAttraction, user: User.generateTestInstance(), vote: Vote.Like) {
@@ -181,6 +204,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func userDidLogout() {
         let vc = storyboard.instantiateInitialViewController()
         window?.rootViewController = vc
+        print("user did logout")
     }
 
     func application(application: UIApplication,
