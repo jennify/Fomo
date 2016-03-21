@@ -7,6 +7,7 @@ import UIKit
 import AFNetworking
 
 
+
 class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let popupView: UIView = UIView.newAutoLayoutView()
@@ -20,6 +21,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     var itinerary: Itinerary?
     var friends: [User] = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
+    var indexPaths: [NSIndexPath] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,20 +102,17 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func onInvitePressed(sender: AnyObject) {
-        let indexPaths = friendsTableView.indexPathsForSelectedRows
-        if let indexPaths = indexPaths {
-            var guestsToAdd: [User] = []
-            for indexPath in indexPaths {
-                guestsToAdd.append(friends[indexPath.row])
-            }
-            
-            for guest in guestsToAdd {
-                RecommenderClient.sharedInstance.update_itinerary_with_user(itinerary!, user: guest, completion: { (itinerary: Itinerary?, error: NSError?) -> () in
-                    if let newItinerary = itinerary {
-                        self.itinerary?.travellers = newItinerary.travellers
-                    }
-                })
-            }
+        var guestsToAdd: [User] = []
+        for indexPath in indexPaths {
+            guestsToAdd.append(friends[indexPath.row])
+        }
+        
+        for guest in guestsToAdd {
+            RecommenderClient.sharedInstance.update_itinerary_with_user(itinerary!, user: guest, completion: { (itinerary: Itinerary?, error: NSError?) -> () in
+                if let newItinerary = itinerary {
+                    self.itinerary?.travellers = newItinerary.travellers
+                }
+            })
         }
         
         self.performSegueWithIdentifier("unwindInviteSegue", sender: self)
@@ -149,16 +148,21 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.friendName.text = friend.name!
         cell.friendName.textColor = UIColor.fomoTextColor()
         cell.backgroundColor = UIColor.fomoBackground()
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-//        displayTodo("Jenn adds friend")
+        cell.delegate = self
     }
 
     func displayTodo(todo: String) {
         let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
         presentViewController(alertController, animated: true, completion: nil)
+    }
+}
+
+extension FriendsViewController: FriendCellDelegate {
+    func inviteFriend(cell: FriendCell) {
+        let indexPath = friendsTableView.indexPathForCell(cell)
+        if let indexPath = indexPath {
+            indexPaths.append(indexPath)
+        }
     }
 }
