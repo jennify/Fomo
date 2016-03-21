@@ -35,11 +35,11 @@ class FriendCell: UITableViewCell {
     
     override func updateConstraints() {
         if !didSetupConstraints {
-            profilePhoto.autoSetDimension(.Height, toSize: 50)
-            profilePhoto.autoSetDimension(.Width, toSize: 50)
+            profilePhoto.autoSetDimension(.Height, toSize: 40)
+            profilePhoto.autoSetDimension(.Width, toSize: 40)
             profilePhoto.autoPinEdgeToSuperviewEdge(.Top, withInset: 10)
             profilePhoto.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
-            profilePhoto.layer.cornerRadius = 25
+            profilePhoto.layer.cornerRadius = 20
             profilePhoto.clipsToBounds = true
             
             friendName.autoPinEdge(.Left, toEdge: .Right, ofView: profilePhoto, withOffset: 10)
