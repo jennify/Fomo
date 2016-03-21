@@ -162,6 +162,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
             print("Starting to create itinerary...")
             itinerary.createItinerary { (response: Itinerary?, error) -> () in
                 if let itinerary = response {
+                    
                     // Repopulate since we lose this when hitting server
                     itinerary.startDate = self.startDate
                     itinerary.endDate = self.endDate
