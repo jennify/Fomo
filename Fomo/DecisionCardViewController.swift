@@ -57,7 +57,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             if error == nil && response != nil {
                 self.recommendations = response!
                 self.countOfCards = self.recommendations!.attractions?.count ?? 0
-                self.collectionView?.reloadData()
+                
             } else {
                 print(error)
                 self.recommendations = Recommendation.generateTestInstance()
@@ -65,6 +65,8 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             for _ in 1...self.countOfCards {
                 self.voteState.append(-1)
             }
+            self.collectionView?.reloadData()
+            
         }
         
         
@@ -169,6 +171,9 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     override func card(collectionView: UICollectionView, cardForItemAtIndexPath indexPath: NSIndexPath) -> TisprCardStackViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CardIdentifier", forIndexPath: indexPath) as! DecisionCardCell
         
+        if self.recommendations == nil {
+            return cell
+        }
         cell.attraction = self.recommendations?.attractions?[indexPath.row]
         cell.backgroundColor = UIColor.fomoCardBG()
         cell.initViews()
