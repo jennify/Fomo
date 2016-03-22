@@ -9,6 +9,8 @@ import EPCalendarPicker
 
 class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
+    let cityImageViewContainer: UIView = UIView.newAutoLayoutView()
+    let cityImageView: UIImageView = UIImageView.newAutoLayoutView()
     let destinationTitleLabel: UILabel = UILabel.newAutoLayoutView()
     let destinationLabel: UILabel = UILabel.newAutoLayoutView()
     let startTitleLabel: UILabel = UILabel.newAutoLayoutView()
@@ -26,6 +28,8 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     var startDate: NSDate?
     var endDate: NSDate?
     
+    let spinner = UIActivityIndicatorView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +39,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
     func setUpNavigationBar() {
         self.title = "Create Trip"
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
     override func loadView() {
@@ -42,26 +47,30 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         
         view.backgroundColor = UIColor.fomoBackground()
         
+        cityImageView.image = City.getCoverPhoto(city!.name!)
+
         destinationTitleLabel.text = "Destination"
-        destinationLabel.text = city!.name ?? "Seoul"
+        destinationLabel.text = city!.name
         startTitleLabel.text = "Start"
         endTitleLabel.text = "End"
         
-        startDateLabel.text = "None"
+        startDateLabel.text = "__ / __ / __"
         
         startDateButton.setImage(UIImage(named: "calendar"), forState: .Normal)
         startDateButton.addTarget(self, action: "setStartDate", forControlEvents: .TouchUpInside)
         
-        endDateLabel.text = "None"
+        endDateLabel.text = "__ / __ / __"
         
         endDateButton.setImage(UIImage(named: "calendar"), forState: .Normal)
         endDateButton.addTarget(self, action: "setEndDate", forControlEvents: .TouchUpInside)
         
-        doneButton.setTitle("  Create Trip  ", forState: .Normal)
+        doneButton.setTitle("Create Trip", forState: .Normal)
         doneButton.addTarget(self, action: "createTrip", forControlEvents: .TouchUpInside)
         doneButton.backgroundColor = UIColor.fomoHighlight()
-        doneButton.layer.cornerRadius = 10
+        doneButton.layer.cornerRadius = 5
         
+        view.addSubview(cityImageViewContainer)
+        cityImageViewContainer.addSubview(cityImageView)
         view.addSubview(destinationTitleLabel)
         view.addSubview(destinationLabel)
         view.addSubview(startTitleLabel)
@@ -77,35 +86,44 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            destinationTitleLabel.autoPinToTopLayoutGuideOfViewController(self, withInset: 20)
-            destinationTitleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
             
-            destinationLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 10)
+            cityImageViewContainer.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            cityImageViewContainer.autoPinEdgeToSuperviewEdge(.Left)
+            cityImageViewContainer.autoPinEdgeToSuperviewEdge(.Right)
+            cityImageViewContainer.autoSetDimension(.Height, toSize: 200)
+            cityImageViewContainer.clipsToBounds = true
+            
+            cityImageView.autoPinEdgesToSuperviewEdges()
+            
+            destinationTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: cityImageView, withOffset: 25)
+            destinationTitleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
+            
+            destinationLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
             destinationLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: destinationTitleLabel)
             
-            startTitleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
+            startTitleLabel.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: destinationTitleLabel)
             startTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: destinationTitleLabel, withOffset: 25)
             
             startDateLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: startTitleLabel)
-            startDateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: startDateButton, withOffset: -10)
+            startDateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: startDateButton, withOffset: -15)
             
             startDateButton.autoSetDimensionsToSize(CGSize(width: 25, height: 25))
             startDateButton.autoAlignAxis(.Horizontal, toSameAxisOfView: startTitleLabel)
-            startDateButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 10)
+            startDateButton.autoConstrainAttribute(.Right, toAttribute: .Right, ofView: destinationLabel)
             
-            endTitleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 10)
+            endTitleLabel.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: destinationTitleLabel)
             endTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: startTitleLabel, withOffset: 25)
             
             endDateLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: endTitleLabel)
-            endDateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: endDateButton, withOffset: -10)
+            endDateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: endDateButton, withOffset: -15)
             
             endDateButton.autoSetDimensionsToSize(CGSize(width: 25, height: 25))
             endDateButton.autoAlignAxis(.Horizontal, toSameAxisOfView: endTitleLabel)
-            endDateButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 10)
-            
-            doneButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 30)
+            endDateButton.autoConstrainAttribute(.Right, toAttribute: .Right, ofView: destinationLabel)
+
+            doneButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 50)
             doneButton.autoAlignAxisToSuperviewAxis(.Vertical)
-            doneButton.contentEdgeInsets = UIEdgeInsetsMake(5, 10, 5, 10)
+            doneButton.contentEdgeInsets = UIEdgeInsetsMake(10, 15, 10, 15)
             
             didSetupConstraints = true
         }
@@ -141,6 +159,8 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     }
     
     func createTrip() {
+        showActivityIndicator()
+        
         let itinerary = Itinerary()
         itinerary.id = String(NSDate().timeIntervalSince1970)
         itinerary.creator = Cache.currentUser
@@ -162,6 +182,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
             print("Starting to create itinerary...")
             itinerary.createItinerary { (response: Itinerary?, error) -> () in
                 if let itinerary = response {
+                    
                     // Repopulate since we lose this when hitting server
                     itinerary.startDate = self.startDate
                     itinerary.endDate = self.endDate
@@ -194,9 +215,28 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     func epCalendarPicker(_: EPCalendarPicker, didCancel error : NSError) {}
     
 
-    func displayTodo(todo: String) {
-        let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
+    func showActivityIndicator() {
+        spinner.activityIndicatorViewStyle = .Gray
+        spinner.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+        spinner.center = view.center
+        spinner.hidesWhenStopped = true
+        doneButton.setTitle("Generating Itinerary", forState: .Normal)
+        view.addSubview(spinner)
+        spinner.startAnimating()
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animateWithDuration(5, delay:0, options: [.Repeat, .Autoreverse], animations: {
+            self.cityImageView.transform = CGAffineTransformMakeScale(1.5, 1.5)
+        }, completion: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        spinner.stopAnimating()
+        UIView.animateWithDuration(5) { () -> Void in
+            self.cityImageView.transform = CGAffineTransformIdentity
+        }
     }
 }
