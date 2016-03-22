@@ -54,9 +54,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
-        // TODO(jlee): Remove
-        //        sendFriendInviteToItinerary(self, shareMessage: nil, itinerary: Itinerary.generateTestInstance())
     }
     
     override func updateViewConstraints() {
