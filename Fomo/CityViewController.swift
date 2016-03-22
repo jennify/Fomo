@@ -34,6 +34,7 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func setUpSearchBar() {
+        searchBar.barTintColor = UIColor.fomoCardBG()
         searchBar.placeholder = "Where to?"
         searchBar.delegate = self
     }

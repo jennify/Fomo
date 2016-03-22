@@ -43,7 +43,7 @@ class PreferenceCell: UICollectionViewCell {
     override func updateConstraints() {
         if !didSetupConstraints {
             preferenceIcon.autoAlignAxisToSuperviewAxis(.Vertical)
-            preferenceIcon.autoPinEdgeToSuperviewEdge(.Top, withInset: 17)
+            preferenceIcon.autoPinEdgeToSuperviewEdge(.Top, withInset: self.layer.frame.height/4)
             preferenceIcon.autoSetDimension(.Height, toSize: 35)
             preferenceIcon.autoSetDimension(.Width, toSize: 35)
             
@@ -68,20 +68,9 @@ class PreferenceCell: UICollectionViewCell {
     
     // Tap icon to toggle preference
     func togglePreference(sender: UITapGestureRecognizer) {
-//        self.contentView.layer.borderWidth = 1
-//        self.contentView.layer.borderColor = UIColor.clearColor().CGColor
-//        self.contentView.layer.masksToBounds = true
-//        self.contentView.layer.cornerRadius = 20 //self.contentView.frame.height/2
-//        self.contentView.backgroundColor = UIColor.whiteColor()
-        
-//        self.layer.shadowColor = UIColor.lightGrayColor().CGColor
-//        self.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-//        self.layer.shadowRadius = 1.5
-//        self.layer.shadowOpacity = 1.0
-//        self.layer.masksToBounds = false
 
         if self.preferenceSelected {
-            self.contentView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.4).CGColor
+            self.contentView.layer.backgroundColor = UIColor.fomoCardBG().colorWithAlphaComponent(0.5).CGColor
             
             self.layer.borderWidth = 0
             preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
@@ -89,8 +78,7 @@ class PreferenceCell: UICollectionViewCell {
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array
         } else {
-            self.contentView.layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.0).CGColor
-            
+            self.contentView.layer.backgroundColor = UIColor.whiteColor().CGColor
             preferenceSelected = true
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array

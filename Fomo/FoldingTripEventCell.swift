@@ -69,7 +69,7 @@ class FoldingTripEventCell: FoldingCell {
     
     override func updateConstraints() {
         if !self.didSetupConstraints {
-            let width = (parentView?.frame.width ?? 310) - 8
+            let width = UIScreen.mainScreen().bounds.width - 16
             topView.autoPinEdgeToSuperviewEdge(.Leading, withInset: 8)
             topView.autoSetDimension(.Height, toSize: FoldingTripEventCell.topViewHeight)
             topView.autoSetDimension(.Width, toSize: width)

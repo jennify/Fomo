@@ -4,12 +4,22 @@
 
 
 import Foundation
+import AMTumblrHud
 
 
 func displayAlert(vc: UIViewController, error: NSError) {
     let alertView = UIAlertController(title: "Error", message: error.description, preferredStyle: UIAlertControllerStyle.Alert)
     alertView.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
     vc.presentViewController(alertView, animated:false, completion:nil)
+}
+
+func displayHUD(view: UIView) -> AMTumblrHud {
+    let hud = AMTumblrHud()
+    hud.hudColor = UIColor.redColor()
+    view.addSubview(hud)
+    hud.autoPinEdgesToSuperviewEdges()
+    hud.showAnimated(true)
+    return hud
 }
 
 func sendFriendInviteToItinerary(vc: UIViewController, shareMessage: String?, itinerary: Itinerary) {

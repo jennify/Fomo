@@ -92,14 +92,9 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         // Style 1
         cell.preferenceIcon.tintColor = cellColor
         cell.preferenceName.textColor = cellColor
-        cell.contentView.backgroundColor = UIColor.fomoLight().colorWithAlphaComponent(0.3)
-        cell.layer.borderColor = UIColor.fomoLight().colorWithAlphaComponent(0.8).CGColor
+        cell.contentView.backgroundColor = UIColor.fomoLight().colorWithAlphaComponent(0.6)
+        cell.layer.borderColor = UIColor.fomoLight().colorWithAlphaComponent(0.9).CGColor
         
-        // Style 2
-//        cell.preferenceIcon.tintColor = UIColor.fomoLight()
-//        cell.preferenceName.textColor = UIColor.fomoLight()
-//        cell.contentView.backgroundColor = cellColor
-//        cell.layer.borderColor = cellColor.CGColor
         
         cell.contentView.layer.borderColor = UIColor.clearColor().CGColor
         cell.contentView.layer.borderWidth = 1

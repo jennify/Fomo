@@ -112,6 +112,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         for guest in guestsToAdd {
+            itinerary = Cache.itinerary
             RecommenderClient.sharedInstance.update_itinerary_with_user(itinerary!, user: guest, completion: { (itinerary: Itinerary?, error: NSError?) -> () in
                 if let newItinerary = itinerary {
                     self.itinerary?.travellers = newItinerary.travellers

@@ -160,7 +160,9 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
             self.navigationController?.pushViewController(itineraryViewController, animated: true)
         } else {
             print("Starting to create itinerary...")
-            itinerary.createItinerary { (response: Itinerary?, error) -> () in
+            let hud = displayHUD(self.view)
+            hud.showAnimated(true)
+            itinerary.createItinerary { (response: Itinerary?, error: NSError?) -> () in
                 if let itinerary = response {
                     // Repopulate since we lose this when hitting server
                     itinerary.startDate = self.startDate
@@ -175,7 +177,10 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
                     itineraryViewController.itinerary = itinerary
                     itineraryViewController.isNewTrip = true
                     self.navigationController?.pushViewController(itineraryViewController, animated: true)
+                } else {
+                    print("Couldn't make itinerary \(error)")
                 }
+                hud.hide()
                 print("Done creating itinerary.")
             }
         }

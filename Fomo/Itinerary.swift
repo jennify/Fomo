@@ -46,9 +46,14 @@ class Itinerary: NSObject {
             var tripEventsDict: [NSDictionary] = [NSDictionary]()
             if attractions?.count < attrStartIndex+3 {
                 print("Not enough attractions!!!")
-                let a = attractions![0]
+                var a = Attraction.generateTestInstance(City.generateTestInstance()).rawData
+                if attractions!.count > 0 {
+                    a = attractions![0]
+                }
                 tripEventsDict = [
-                    a,a,a
+                    a,
+                    a,
+                    a,
                 ]
             } else {
                 tripEventsDict = [
