@@ -20,6 +20,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     let endDateLabel: UILabel = UILabel.newAutoLayoutView()
     let endDateButton: UIButton = UIButton.newAutoLayoutView()
     let doneButton: UIButton = UIButton.newAutoLayoutView()
+    let iconHighlighted: UIImageView = UIImageView.newAutoLayoutView()
     
     var didSetupConstraints = false
     
@@ -56,16 +57,23 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         
         startDateLabel.text = "__ / __ / __"
         
+        iconHighlighted.image = UIImage(named: "calendar")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        iconHighlighted.tintColor = UIColor.fomoHighlight()
+        
         startDateButton.setImage(UIImage(named: "calendar"), forState: .Normal)
+        startDateButton.setImage(iconHighlighted.image, forState: .Highlighted)
         startDateButton.addTarget(self, action: "setStartDate", forControlEvents: .TouchUpInside)
         
         endDateLabel.text = "__ / __ / __"
         
         endDateButton.setImage(UIImage(named: "calendar"), forState: .Normal)
+        endDateButton.setImage(iconHighlighted.image, forState: .Highlighted)
         endDateButton.addTarget(self, action: "setEndDate", forControlEvents: .TouchUpInside)
         
         doneButton.setTitle("Create Trip", forState: .Normal)
         doneButton.addTarget(self, action: "createTrip", forControlEvents: .TouchUpInside)
+        doneButton.addTarget(self, action: "buttonPress", forControlEvents: .TouchDown)
+
         doneButton.backgroundColor = UIColor.fomoHighlight()
         doneButton.layer.cornerRadius = 5
         
@@ -158,9 +166,14 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         self.presentViewController(navigationController, animated: true, completion: nil)
     }
     
+    func buttonPress() {
+        doneButton.transform = CGAffineTransformMakeScale(1.1, 1.1);
+    }
+    
     func createTrip() {
         showActivityIndicator()
-        
+        doneButton.transform = CGAffineTransformIdentity
+
         let itinerary = Itinerary()
         itinerary.id = String(NSDate().timeIntervalSince1970)
         itinerary.creator = Cache.currentUser
@@ -235,6 +248,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         spinner.stopAnimating()
+        doneButton.setTitle("Create Trip", forState: .Normal)
         UIView.animateWithDuration(5) { () -> Void in
             self.cityImageView.transform = CGAffineTransformIdentity
         }
