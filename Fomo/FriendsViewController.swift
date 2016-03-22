@@ -152,12 +152,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.backgroundColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8)
         cell.delegate = self
     }
-
-    func displayTodo(todo: String) {
-        let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
-    }
 }
 
 extension FriendsViewController: FriendCellDelegate {

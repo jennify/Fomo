@@ -54,6 +54,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+
+        // TODO(jlee): Remove
+        //        sendFriendInviteToItinerary(self, shareMessage: nil, itinerary: Itinerary.generateTestInstance())
     }
     
     override func updateViewConstraints() {
@@ -114,11 +117,4 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
         // Fired when user logs out.
         NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: userDidLogoutNotification, object: nil))
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
 }
