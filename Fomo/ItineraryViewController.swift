@@ -157,17 +157,27 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func setUpNavigationBar() {
         self.title = "Itinerary"
+        
+        let button: UIButton = UIButton(type: .Custom)
+        button.setImage(UIImage(named: "car"), forState: UIControlState.Normal)
+        button.addTarget(self, action: "finalizeItinerary", forControlEvents: UIControlEvents.TouchUpInside)
+        button.frame = CGRectMake(0, 0, 30, 30)
+        
+        let barButtonItem = UIBarButtonItem(customView: button)
+        
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem  = barButtonItem
+    }
+    
+    func finalizeItinerary() {
+        let doneViewController = DoneViewController()
+        doneViewController.itinerary = itinerary
+        self.navigationController?.pushViewController(doneViewController, animated: true)
     }
 
     // Add Traveller
     
     func onAddTravellerPressed(sender: AnyObject) {
         self.performSegueWithIdentifier("friendsTripSegue", sender: self)
-        
-//        let friendsViewController = FriendsViewController()
-//        friendsViewController.itinerary = self.itinerary
-//        dim(withView: dimView)
-//        presentViewController(friendsViewController, animated: true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
