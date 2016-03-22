@@ -69,8 +69,8 @@ class ContainerViewController: UIViewController, Dimmable {
     }
 
     func setUpMenu() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "onPan:")
-        view.addGestureRecognizer(panGestureRecognizer)
+//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "onPan:")
+//        view.addGestureRecognizer(panGestureRecognizer)
 
         let bgColor = UIColor.fomoHamburgerBGColor()
         let textColor = UIColor.fomoHamburgerTextColor()
