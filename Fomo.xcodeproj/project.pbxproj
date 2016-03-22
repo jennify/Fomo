@@ -50,6 +50,8 @@
 		AAA132B61C9E7A7F001736CF /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132B51C9E7A7F001736CF /* CarouselViewController.swift */; };
 		AAA132B81C9E7CA0001736CF /* CarouselCellScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132B71C9E7CA0001736CF /* CarouselCellScrollView.swift */; };
 		AAA132BA1C9E7DB1001736CF /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132B91C9E7DB1001736CF /* CarouselCell.swift */; };
+		AAA132BD1CA0F15B001736CF /* ClickerScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */; };
+		AAA132C11CA104CC001736CF /* BigTravellersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132C01CA104CC001736CF /* BigTravellersView.swift */; };
 		AAE588F61C9E7A4A00E44A24 /* CarouselCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE588F21C9E7A4A00E44A24 /* CarouselCollectionView.swift */; };
 		F9A79F1A1C8D979C0014A43A /* DraggableAttractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F191C8D979C0014A43A /* DraggableAttractionView.swift */; };
 		F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */; };
@@ -104,6 +106,8 @@
 		AAA132B51C9E7A7F001736CF /* CarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
 		AAA132B71C9E7CA0001736CF /* CarouselCellScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCellScrollView.swift; sourceTree = "<group>"; };
 		AAA132B91C9E7DB1001736CF /* CarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
+		AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ClickerScript-Regular.ttf"; sourceTree = "<group>"; };
+		AAA132C01CA104CC001736CF /* BigTravellersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigTravellersView.swift; sourceTree = "<group>"; };
 		AAE588F21C9E7A4A00E44A24 /* CarouselCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCollectionView.swift; sourceTree = "<group>"; };
 		DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.release.xcconfig"; sourceTree = "<group>"; };
 		E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 				AA7B21C61C961EE900636007 /* CityCell.swift */,
 				7A9C27671C9930D000872AD5 /* ItineraryFooter.swift */,
 				F9EF56E01C9EC3CD00F020D3 /* Dimmable.swift */,
+				AAA132C01CA104CC001736CF /* BigTravellersView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 				7A1390E61C7C4441001488FF /* Views */,
 				7A1390E51C7C443C001488FF /* Models */,
 				7A1390E41C7C4434001488FF /* View Controllers */,
+				AAA132BB1CA0F147001736CF /* Resources */,
 				7AE6D2D21C7C3E0E009ADC3B /* AppDelegate.swift */,
 				7AE6D2D61C7C3E0E009ADC3B /* Main.storyboard */,
 				7AE6D2DE1C7C3E0E009ADC3B /* LaunchScreen.storyboard */,
@@ -247,6 +253,14 @@
 				7AE6D2D91C7C3E0E009ADC3B /* Fomo.xcdatamodeld */,
 			);
 			path = Fomo;
+			sourceTree = "<group>";
+		};
+		AAA132BB1CA0F147001736CF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		AAE588EE1C9E7A2B00E44A24 /* CarouselCollectionView */ = {
@@ -322,6 +336,7 @@
 			files = (
 				7A1390E81C7C47C3001488FF /* Images.xcassets in Resources */,
 				7AE6D2E01C7C3E0E009ADC3B /* LaunchScreen.storyboard in Resources */,
+				AAA132BD1CA0F15B001736CF /* ClickerScript-Regular.ttf in Resources */,
 				7AE6D2D81C7C3E0E009ADC3B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +435,7 @@
 				7A9C27681C9930D000872AD5 /* ItineraryFooter.swift in Sources */,
 				AA1DCE8E1C843F8C0088DD27 /* City.swift in Sources */,
 				F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */,
+				AAA132C11CA104CC001736CF /* BigTravellersView.swift in Sources */,
 				AA1DCE881C843DD00088DD27 /* Itinerary.swift in Sources */,
 				7A46298B1C82FA2000A27D3B /* User.swift in Sources */,
 			);
