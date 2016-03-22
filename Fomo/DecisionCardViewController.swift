@@ -9,11 +9,14 @@
 import UIKit
 import TisprCardStack
 
+@objc
+protocol UpdateVoteDelegate {
+    optional func updateVote(index: Int, vote: Int)
+}
 
-class DecisionCardViewController: TisprCardStackViewController, TisprCardStackViewControllerDelegate {
+class DecisionCardViewController: TisprCardStackViewController, TisprCardStackViewControllerDelegate, UpdateVoteDelegate {
     let completeButton: UIButton = UIButton.newAutoLayoutView()
     var recommendations: Recommendation?
-    var currentAttraction: Attraction?
     var likeButton: UIButton = UIButton.newAutoLayoutView()
     var dislikeButton: UIButton = UIButton.newAutoLayoutView()
     
@@ -64,7 +67,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             }
             if self.countOfCards != 0 {
                 for _ in 1...self.countOfCards {
-                    self.voteState.append(-1)
+                    self.voteState.append(0)
                 }
             }
             self.collectionView?.reloadData()
@@ -145,7 +148,9 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     
     func onTap(gesture: UITapGestureRecognizer) {
         let carouselViewController = CarouselViewController()
-        carouselViewController.imagePaths = currentAttraction!.imageUrls
+        let currIndex = getCardIndex()
+        let attraction = self.recommendations?.attractions?[currIndex]
+        carouselViewController.imagePaths = attraction!.imageUrls
         
         let blurEffect = UIBlurEffect(style: .Light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -158,6 +163,14 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         carouselViewController.modalTransitionStyle = .CrossDissolve
         
         presentViewController(carouselViewController, animated: true, completion: nil)
+    }
+    
+    func updateVote(index: Int, vote: Int) {
+        print("Updating index \(index)")
+        if vote != 0 {
+            self.voteState[index] = vote
+        }
+        
     }
     
     override func numberOfCards() -> Int {
@@ -173,9 +186,10 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         cell.attraction = self.recommendations?.attractions?[indexPath.row]
         cell.backgroundColor = UIColor.fomoCardBG()
         cell.initViews()
-        cell.vote = 0
+        cell.voteIndex = indexPath.row
+        cell.delegate = self
         // We need to know what the current attraction is displayed, so we can pass it to the photo carousel if there's a tap
-        currentAttraction = cell.attraction
+
         
         return cell
         
@@ -183,22 +197,18 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     
     func onLike() {
         moveCardDown()
+        
+        updateVote(getCardIndex(), vote: 1)
     }
     
     func onDislike() {
         moveCardDown()
+        updateVote(getCardIndex(), vote: -1)
     }
     //method to add new card
     //    @IBAction func addNewCards(sender: AnyObject) {
     //        countOfCards++
     //        newCardWasAdded()
-    //    }
-    //    @IBAction func moveUP(sender: AnyObject) {
-    //        moveCardUp()
-    //    }
-    //
-    //    @IBAction func moveCardDown(sender: AnyObject) {
-    //        moveCardDown()
     //    }
     
     func cardDidChangeState(cardIndex: Int) {
@@ -208,13 +218,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         } else {
             completeButton.layer.zPosition = -1
         }
-        let indexPath = NSIndexPath(forRow: cardIndex, inSection:0)
-        let cell = collectionView?.cellForItemAtIndexPath(indexPath) as! DecisionCardCell
-        var voteNum: Int = 0
-        if cell.vote != nil {
-            voteNum = cell.vote!
-        }
-        self.voteState[cardIndex] = voteNum
+        print(self.voteState)
     }
 }
 
@@ -234,7 +238,8 @@ class DecisionCardCell: TisprCardStackViewCell {
     var likeImage: UIImageView = UIImageView.newAutoLayoutView()
     var descView: UIView = UIView.newAutoLayoutView()
     
-    var vote: Int?
+    var voteIndex: Int = -1
+    var delegate: UpdateVoteDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -395,7 +400,7 @@ class DecisionCardCell: TisprCardStackViewCell {
     
     func updateVote(decision: Int) {
         if decision != 0 {
-            vote = decision
+            self.delegate?.updateVote!(self.voteIndex, vote: decision)
         }
     }
     

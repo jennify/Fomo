@@ -102,5 +102,9 @@ public class TisprCardStackViewController: UICollectionViewController, UIGesture
             layout.index++
         }
     }
+    
+    public func getCardIndex() -> Int {
+        return layout.index - 1
+    }
 
 }
