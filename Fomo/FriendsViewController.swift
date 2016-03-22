@@ -52,8 +52,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         buttonContainer.backgroundColor = UIColor.fomoHighlight().colorWithAlphaComponent(0.8)
         cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
+        cancelButton.setTitleColor(UIColor.fomoHamburgerBGColor(), forState: .Highlighted)
         cancelButton.addTarget(self, action: "onCancelPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         inviteButton.setTitle("Invite", forState: UIControlState.Normal)
+        inviteButton.setTitleColor(UIColor.fomoHamburgerBGColor(), forState: .Highlighted)
         inviteButton.addTarget(self, action: "onInvitePressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
         view.addSubview(popupView)
@@ -152,12 +154,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.friendName.textColor = UIColor.fomoTextColor()
         cell.backgroundColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8)
         cell.delegate = self
-    }
-
-    func displayTodo(todo: String) {
-        let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
     }
 }
 

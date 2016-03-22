@@ -92,12 +92,19 @@ class ContainerViewController: UIViewController, Dimmable {
         let hmbrgerTxtSize : CGFloat = 17
         profileNameLabel.textColor = textColor
         profileNameLabel.font = UIFont.fomoBold(hmbrgerTxtSize)
+        
         browseButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
         tripButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
         createButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
         inviteButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
         settingsButton.titleLabel!.font = UIFont.fomoBold(hmbrgerTxtSize)
-
+        
+        browseButton.setTitleColor(UIColor.fomoHighlight(), forState: .Highlighted)
+        tripButton.setTitleColor(UIColor.fomoHighlight(), forState: .Highlighted)
+        createButton.setTitleColor(UIColor.fomoHighlight(), forState: .Highlighted)
+        inviteButton.setTitleColor(UIColor.fomoHighlight(), forState: .Highlighted)
+        settingsButton.setTitleColor(UIColor.fomoHighlight(), forState: .Highlighted)
+        
         browseIcon.image = UIImage(named: "globe")
         browseButton.setTitle("Explore", forState: UIControlState.Normal)
         browseButton.addTarget(self, action: "onBrowsePressed:", forControlEvents: UIControlEvents.TouchUpInside)

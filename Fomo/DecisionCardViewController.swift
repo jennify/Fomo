@@ -158,12 +158,6 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         presentViewController(carouselViewController, animated: true, completion: nil)
     }
     
-    func displayTodo(todo: String) {
-        let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
-    }
-    
     override func numberOfCards() -> Int {
         return countOfCards
     }
