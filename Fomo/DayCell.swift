@@ -37,7 +37,6 @@ class DayCell: UICollectionViewCell {
             
             additionLabel.autoCenterInSuperview()
             
-            
             didSetupConstraints = true
         }
 

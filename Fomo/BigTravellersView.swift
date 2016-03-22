@@ -1,10 +1,7 @@
 //
 //  BigTravellersView.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/21/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// ============================
+
 
 import UIKit
 

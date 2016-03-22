@@ -70,15 +70,17 @@ class PreferenceCell: UICollectionViewCell {
     func togglePreference(sender: UITapGestureRecognizer) {
 
         if self.preferenceSelected {
-            self.contentView.layer.backgroundColor = UIColor.fomoCardBG().colorWithAlphaComponent(0.5).CGColor
-            
+            self.contentView.layer.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1).CGColor
             self.layer.borderWidth = 0
             preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
             preferenceSelected = false
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array
         } else {
-            self.contentView.layer.backgroundColor = UIColor.whiteColor().CGColor
+            self.contentView.layer.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1).CGColor
+            self.layer.borderWidth = 4
+            self.layer.cornerRadius = 20
+            preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
             preferenceSelected = true
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array

@@ -8,6 +8,8 @@ import UIKit
 
 class PreferencesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    let bannerView: UIView = UIView.newAutoLayoutView()
+    let bannerImage: UIImageView = UIImageView.newAutoLayoutView()
     let preferencesCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .Vertical
@@ -27,17 +29,26 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     
     override func loadView() {
         view = UIView()
-
-        preferencesCollectionView.backgroundColor = UIColor.fomoBackground()
-
-        view.addSubview(preferencesCollectionView)
+        view.backgroundColor = UIColor(red: 186/255, green: 192/255, blue: 206/255, alpha: 1)
+        preferencesCollectionView.backgroundColor = UIColor(red: 186/255, green: 192/255, blue: 206/255, alpha: 1)
+        bannerImage.image = UIImage(named: "pool")
+        bannerImage.contentMode = .ScaleAspectFill
         
+        view.addSubview(bannerView)
+        bannerView.addSubview(bannerImage)
+        view.addSubview(preferencesCollectionView)
         view.setNeedsUpdateConstraints()
     }
     
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
-            preferencesCollectionView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            bannerView.autoPinToTopLayoutGuideOfViewController(self, withInset: 0)
+            bannerView.autoPinEdgeToSuperviewEdge(.Left)
+            bannerView.autoPinEdgeToSuperviewEdge(.Right)
+            bannerView.autoSetDimension(.Height, toSize: 170)
+            bannerImage.autoPinEdgesToSuperviewEdges()
+            
+            preferencesCollectionView.autoPinEdge(.Top, toEdge: .Bottom, ofView: bannerView)
             preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Left)
             preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Right)
             preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Bottom)
@@ -87,21 +98,15 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         cell.delegate = self
         let cellColor = colorForIndexPath(indexPath)
         cell.preferenceIcon.image = cell.preferenceIcon.image!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
-        
-        
-        // Style 1
         cell.preferenceIcon.tintColor = cellColor
         cell.preferenceName.textColor = cellColor
-        cell.contentView.backgroundColor = UIColor.fomoLight().colorWithAlphaComponent(0.6)
-        cell.layer.borderColor = UIColor.fomoLight().colorWithAlphaComponent(0.9).CGColor
-        
-        
-        cell.contentView.layer.borderColor = UIColor.clearColor().CGColor
-        cell.contentView.layer.borderWidth = 1
+        cell.layer.borderColor = cellColor.CGColor
         cell.contentView.layer.masksToBounds = true
-        cell.contentView.layer.cornerRadius = cell.contentView.frame.height/2
-        
-
+        cell.contentView.layer.cornerRadius = 20
+        cell.contentView.layer.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1).CGColor
+        cell.contentView.layer.borderColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1).CGColor
+//        cell.contentView.layer.borderColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 0.5).CGColor
+        cell.contentView.layer.borderWidth = 4
         return cell
     }
 }
