@@ -49,22 +49,28 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         view.backgroundColor = UIColor.fomoBackground()
         
         cityImageView.image = City.getCoverPhoto(city!.name!)
-
+        
+        destinationTitleLabel.font = UIFont.fomoH2()
+        destinationLabel.font = UIFont.fomoH2()
+        startTitleLabel.font = UIFont.fomoH2()
+        startDateLabel.font = UIFont.fomoH2()
+        endTitleLabel.font = UIFont.fomoH2()
+        endDateLabel.font = UIFont.fomoH2()
+        doneButton.titleLabel?.font = UIFont.fomoH2()
+        
         destinationTitleLabel.text = "Destination"
         destinationLabel.text = city!.name
         startTitleLabel.text = "Start"
-        endTitleLabel.text = "End"
-        
         startDateLabel.text = "__ / __ / __"
-        
+        endTitleLabel.text = "End"
+        endDateLabel.text = "__ / __ / __"
+                
         iconHighlighted.image = UIImage(named: "calendar")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         iconHighlighted.tintColor = UIColor.fomoHighlight()
         
         startDateButton.setImage(UIImage(named: "calendar"), forState: .Normal)
         startDateButton.setImage(iconHighlighted.image, forState: .Highlighted)
         startDateButton.addTarget(self, action: "setStartDate", forControlEvents: .TouchUpInside)
-        
-        endDateLabel.text = "__ / __ / __"
         
         endDateButton.setImage(UIImage(named: "calendar"), forState: .Normal)
         endDateButton.setImage(iconHighlighted.image, forState: .Highlighted)
@@ -103,27 +109,27 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
             
             cityImageView.autoPinEdgesToSuperviewEdges()
             
-            destinationTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: cityImageView, withOffset: 25)
+            destinationTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: cityImageViewContainer, withOffset: 40)
             destinationTitleLabel.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
             
             destinationLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
             destinationLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: destinationTitleLabel)
             
             startTitleLabel.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: destinationTitleLabel)
-            startTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: destinationTitleLabel, withOffset: 25)
+            startTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: destinationTitleLabel, withOffset: 30)
             
             startDateLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: startTitleLabel)
-            startDateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: startDateButton, withOffset: -15)
+            startDateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: startDateButton, withOffset: -20)
             
             startDateButton.autoSetDimensionsToSize(CGSize(width: 25, height: 25))
-            startDateButton.autoAlignAxis(.Horizontal, toSameAxisOfView: startTitleLabel)
+            startDateButton.autoAlignAxis(.Horizontal, toSameAxisOfView: startDateLabel)
             startDateButton.autoConstrainAttribute(.Right, toAttribute: .Right, ofView: destinationLabel)
             
             endTitleLabel.autoConstrainAttribute(.Left, toAttribute: .Left, ofView: destinationTitleLabel)
-            endTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: startTitleLabel, withOffset: 25)
+            endTitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: startTitleLabel, withOffset: 30)
             
             endDateLabel.autoAlignAxis(.Horizontal, toSameAxisOfView: endTitleLabel)
-            endDateLabel.autoPinEdge(.Right, toEdge: .Left, ofView: endDateButton, withOffset: -15)
+            endDateLabel.autoConstrainAttribute(.Right, toAttribute: .Right, ofView: startDateLabel)
             
             endDateButton.autoSetDimensionsToSize(CGSize(width: 25, height: 25))
             endDateButton.autoAlignAxis(.Horizontal, toSameAxisOfView: endTitleLabel)
@@ -236,9 +242,9 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
 
     func showActivityIndicator() {
-        spinner.activityIndicatorViewStyle = .Gray
-        spinner.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-        spinner.center = view.center
+        spinner.activityIndicatorViewStyle = .WhiteLarge
+        spinner.color = UIColor.fomoHighlight()
+        spinner.center = CGPointMake(self.view.center.x, self.doneButton.center.y - 100)
         spinner.hidesWhenStopped = true
         doneButton.setTitle("Generating Itinerary", forState: .Normal)
         view.addSubview(spinner)
