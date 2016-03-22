@@ -16,6 +16,7 @@ protocol UpdateVoteDelegate {
 
 class DecisionCardViewController: TisprCardStackViewController, TisprCardStackViewControllerDelegate, UpdateVoteDelegate {
     let completeButton: UIButton = UIButton.newAutoLayoutView()
+    let completeLabel: UILabel = UILabel.newAutoLayoutView()
     var recommendations: Recommendation?
     var likeButton: UIButton = UIButton.newAutoLayoutView()
     var dislikeButton: UIButton = UIButton.newAutoLayoutView()
@@ -75,11 +76,13 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         }
         
         
-        completeButton.setImage(UIImage(named: "smiling"), forState: .Normal)
-        completeButton.setTitle(" Check out itinerary.", forState: .Normal)
-        completeButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        completeButton.setImage(UIImage(named: "noPerson"), forState: .Normal)
         completeButton.layer.zPosition = -1
         completeButton.addTarget(self, action: "goToItinerary", forControlEvents: UIControlEvents.TouchUpInside)
+        completeLabel.text = "Submit votes."
+        completeLabel.layer.zPosition = -1
+        completeLabel.textAlignment = .Center
+        completeLabel.textColor = UIColor.lightGrayColor()
         
         likeButton.setImage(UIImage(named: "like"), forState: .Normal)
         likeButton.addTarget(self, action: "onLike", forControlEvents: .TouchUpInside)
@@ -90,13 +93,18 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         dislikeButton.tintColor = UIColor.redColor()
         
         self.view.addSubview(completeButton)
+        self.view.addSubview(completeLabel)
         self.view.addSubview(likeButton)
         self.view.addSubview(dislikeButton)
+        
         setUpNavigationBar()
     }
     
     func goToItinerary() {
         self.navigationController?.popToRootViewControllerAnimated(true)
+        
+        let containerVC = self.navigationController?.topViewController as! ContainerViewController
+        containerVC.selectViewController(containerVC.itineraryVC)
     }
     
     override func updateViewConstraints() {
@@ -105,7 +113,13 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             buttons.autoDistributeViewsAlongAxis(.Horizontal, alignedTo: .Horizontal, withFixedSize: 48, insetSpacing: true)
             buttons[0].autoAlignAxis(.Horizontal, toSameAxisOfView: self.view, withOffset: cardHeight/2 + 50)
             
-            completeButton.autoCenterInSuperview()
+            completeButton.autoAlignAxisToSuperviewAxis(.Vertical)
+            completeButton.autoAlignAxis(.Horizontal, toSameAxisOfView: self.view, withOffset: -50)
+            completeButton.autoSetDimension(.Height, toSize: 100)
+            completeButton.autoSetDimension(.Width, toSize: 100)
+            
+            completeLabel.autoAlignAxis(.Vertical, toSameAxisOfView: completeButton)
+            completeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: completeButton, withOffset: 16)
             
             didSetConstraints = true
         }
@@ -166,7 +180,6 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func updateVote(index: Int, vote: Int) {
-        print("Updating index \(index)")
         if vote != 0 {
             self.voteState[index] = vote
         }
@@ -188,7 +201,6 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         cell.initViews()
         cell.voteIndex = indexPath.row
         cell.delegate = self
-        // We need to know what the current attraction is displayed, so we can pass it to the photo carousel if there's a tap
 
         
         return cell
@@ -215,10 +227,11 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         // TODO(jlee): Super janky way of hiding and showing the finish state.
         if cardIndex == self.numberOfCards() {
             completeButton.layer.zPosition = 0
+            completeLabel.layer.zPosition = 0
         } else {
             completeButton.layer.zPosition = -1
+            completeLabel.layer.zPosition = -1
         }
-        print(self.voteState)
     }
 }
 
