@@ -14,6 +14,18 @@ let currentItinerary = "kCurrentItinerary"
 let kcurrentFriends = "kCurrentFriends"
 
 class Cache: NSObject {
+    
+    class func clearCache() {
+        // TODO(jlee): Implement clear cache.
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        let rmDefaults = NSUserDefaults.removePersistentDomainForName(defaults)
+    
+        Cache.currentUser = nil
+        Cache.currentFriends = nil
+        Cache.itinerary = nil
+    }
+    
     class var currentUser: User? {
         get {
             if _currentUser == nil {

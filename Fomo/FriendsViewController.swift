@@ -118,6 +118,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             RecommenderClient.sharedInstance.update_itinerary_with_user(itinerary!, user: guest, completion: { (itinerary: Itinerary?, error: NSError?) -> () in
                 if let newItinerary = itinerary {
                     self.itinerary?.travellers = newItinerary.travellers
+                    print("New travellers \(newItinerary.travellers)")
+                } else {
+                    print("Couldn't update itinerary with user \(error)")
                 }
             })
         }

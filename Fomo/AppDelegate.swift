@@ -36,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let user = Cache.currentUser!
             RecommenderClient.sharedInstance.get_itineraries_for_user(user) {
                 (response: [Itinerary]?, error: NSError?) -> () in
-                
                 if error != nil || response == nil {
                     print("No Itinerary detected")
                     let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
@@ -46,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                 } else {
                     let it = response?.first
-                    print("Itinerary \(it!.tripName) detected")
+                    print("Itinerary \(it!.tripName!) detected")
                     let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
                     self.window?.rootViewController = vc
                 }

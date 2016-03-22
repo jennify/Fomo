@@ -6,7 +6,7 @@
 import UIKit
 import BDBOAuth1Manager
 
-let USE_LOCAL_DEV_ENVIROMENT = false
+let USE_LOCAL_DEV_ENVIROMENT = true
 
 class RecommenderClient: BDBOAuth1RequestOperationManager {
     // No Auth attached!
@@ -38,6 +38,17 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         })
     }
     
+    func getItineraryWithMostUsers(its: [Itinerary]) -> Itinerary {
+        var mostUsersItinerary: Itinerary = its.first!
+        for it in its {
+            if it.travellers!.count > mostUsersItinerary.travellers?.count {
+                mostUsersItinerary = it
+            }
+        }
+        return mostUsersItinerary
+
+    }
+    
     func requestGETWithItinerariesResponse(url: String, parameters: NSDictionary, completion:(response: [Itinerary]?, error: NSError?) -> () ) {
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let rsp = response["itineraries"] as? [NSDictionary]
@@ -45,7 +56,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
             if its.count == 0 {
                 completion(response: nil, error: NSError(domain: "No itineraries", code: 1, userInfo: nil))
             } else {
-                Cache.itinerary = its.first
+                Cache.itinerary = self.getItineraryWithMostUsers(its)
                 completion(response: its, error: nil)
             }
             
@@ -94,7 +105,24 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     
     func update_itinerary_with_user (itinerary: Itinerary, user: User, completion: (response: Itinerary?, error: NSError?) -> ()) {
         let url = recommender_domain + "/update_itinerary_with_user/"
-        let parameters: [String: String] = ["groupID": itinerary.id!, "userEmail": user.email!, "name": user.name!, "profileImageURL": user.profileImageURL!]
+        var email: String? = nil
+        if user.name == "Connie Yu" {
+            email = "cisforcons@gmail.com"
+        } else if user.name == "Jenn Lee" {
+            email = "jenniferlee.jenniferlee@gmail.com"
+        } else if user.name == "Christian Deonier" {
+            email = "cdeonier@gmail.com"
+        } else if user.name == "Ben Dong" {
+            email = "bdong281@gmail.com"
+        } else {
+            email = "fakeemail@gmail.com"
+        }
+        user.email = email
+        let parameters: [String: String] = [
+            "groupID": itinerary.id!,
+            "userEmail": user.email!,
+            "name": user.name!,
+            "profileImageUrl": user.profileImageURL!]
         requestPOSTWithItineraryResponse(url, parameters: parameters, completion: completion)
     }
     
@@ -127,6 +155,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         let parameters: [String: String] = ["groupID": itinerary.id!,
             "userEmail": itinerary.creator!.email!,
             "name": itinerary.creator!.name!,
+            "profileImageUrl": itinerary.creator!.profileImageURL!,
             "tripName": itinerary.tripName!,
             "startDate": DateFormatter.dateTostring(itinerary.startDate!)!,
             "numDays" : "\(itinerary.numDays!)",

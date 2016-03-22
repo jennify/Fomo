@@ -22,6 +22,11 @@ func displayHUD(view: UIView) -> AMTumblrHud {
     return hud
 }
 
+func prettyPrintError(error: NSError!) {
+    print("Pretty Print Error: ")
+    print(error.code)
+}
+
 func sendFriendInviteToItinerary(vc: UIViewController, shareMessage: String?, itinerary: Itinerary) {
     var message = "You've been invited! "
     if shareMessage != nil {

@@ -101,7 +101,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
                     }
                 }
             }
-//            self.performSegueWithIdentifier("loginSegue", sender: self)
         }
     }
     

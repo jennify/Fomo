@@ -251,7 +251,7 @@ class FoldingTripEventCell: FoldingCell {
             locationView.clipsToBounds = true
             
             if attraction!.imageUrls?.count == 0 {
-                locationView.image = UIImage(named: "smiling")
+                locationView.image = UIImage(named: "noImage")
             } else {
                 locationView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
             }
@@ -370,7 +370,7 @@ class TopView: RotatedView {
             attractionName.sizeToFit()
             
             if attraction?.imageUrls?.count == 0 {
-                imageView.image = UIImage(named: "smiling")
+                imageView.image = UIImage(named: "noImage")
             } else {
                 imageView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
             }

@@ -38,12 +38,17 @@ class TravellersView: UIView {
         if Cache.itinerary != nil {
             travellers = Cache.itinerary!.travellers!
         } else {
+            print("Itinerary in cache is null")
             travellers = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
         }
         
         for traveller in travellers {
             let profilePhoto = createHalo()
-            profilePhoto.setImageWithURL(NSURL(string: traveller.profileImageURL!)!)
+            if traveller.profileImageURL == nil || traveller.profileImageURL?.characters.count == 0 {
+                profilePhoto.image = UIImage(named: "noPerson")
+            } else {
+                profilePhoto.setImageWithURL(NSURL(string: traveller.profileImageURL!)!)
+            }
             travellerHalos.append(profilePhoto)
         }
         

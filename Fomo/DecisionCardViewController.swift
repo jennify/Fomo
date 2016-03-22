@@ -29,7 +29,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         UIColor(red: 80.0/255.0, green: 170.0/255.0, blue: 241.0/255.0, alpha: 1.0)
     ]
     
-    private var countOfCards: Int = 6
+    private var countOfCards: Int = 0
     
     required override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
@@ -59,11 +59,13 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
                 self.countOfCards = self.recommendations!.attractions?.count ?? 0
                 
             } else {
-                print(error)
+                prettyPrintError(error)
                 self.recommendations = Recommendation.generateTestInstance()
             }
-            for _ in 1...self.countOfCards {
-                self.voteState.append(-1)
+            if self.countOfCards != 0 {
+                for _ in 1...self.countOfCards {
+                    self.voteState.append(-1)
+                }
             }
             self.collectionView?.reloadData()
             
@@ -165,7 +167,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     override func card(collectionView: UICollectionView, cardForItemAtIndexPath indexPath: NSIndexPath) -> TisprCardStackViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CardIdentifier", forIndexPath: indexPath) as! DecisionCardCell
         
-        if self.recommendations == nil {
+        if self.recommendations == nil || self.recommendations?.attractions?.count == 0 {
             return cell
         }
         cell.attraction = self.recommendations?.attractions?[indexPath.row]
@@ -283,11 +285,11 @@ class DecisionCardCell: TisprCardStackViewCell {
         voteSmileImageView.image = UIImage(named: "smile_neutral")
         
         blurView.effect = UIBlurEffect(style: .ExtraLight)
-        blurView.alpha = 0.8
+        blurView.contentView.alpha = 0.8
         
         if attraction != nil {
             if attraction!.imageUrls?.count == 0 {
-                locationImage.image = UIImage(named: "smiling")
+                locationImage.image = UIImage(named: "noImage")
             } else {
                 locationImage.setImageWithURL(NSURL(string: (attraction!.imageUrls!.first)!)!)
             }
