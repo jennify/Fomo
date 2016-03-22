@@ -12,6 +12,8 @@ class ContainerViewController: UIViewController, Dimmable {
     let containerView: UIView = UIView.newAutoLayoutView()
     let menuView: UIView = UIView.newAutoLayoutView()
     var dimView = UIView()
+    
+    var hamburgerButton = HamburgerButton()
 
     let profileView: UIView = UIView.newAutoLayoutView()
     let profileImage: UIImageView = UIImageView.newAutoLayoutView()
@@ -154,7 +156,9 @@ class ContainerViewController: UIViewController, Dimmable {
     }
 
     func setUpNavigationBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hamburger"), style: .Plain, target: self, action: "toggleMenu")
+        hamburgerButton.frame = CGRectMake(0, 0, 15, 15)
+        hamburgerButton.addTarget(self, action: "toggleMenu", forControlEvents: .TouchUpInside)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: hamburgerButton)
     }
 
     override func loadView() {
@@ -300,11 +304,15 @@ class ContainerViewController: UIViewController, Dimmable {
     }
 
     func toggleMenu() {
+        // slide open
         if self.menuView.center.x < 0 {
+            self.hamburgerButton.showsMenu = true
             UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: { () -> Void in
                 self.menuView.center = CGPointMake(self.menuOpenX, self.menuView.center.y)
             }, completion: nil)
+        // slide closed
         } else {
+            self.hamburgerButton.showsMenu = false
             UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: { () -> Void in
                 self.menuView.center = CGPointMake(self.menuClosedX, self.menuView.center.y)
             }, completion: nil)
@@ -328,18 +336,22 @@ class ContainerViewController: UIViewController, Dimmable {
     }
 
     func onBrowsePressed(sender: AnyObject) {
+        self.hamburgerButton.showsMenu = false
         selectViewController(decisionVC)
     }
 
     func onTripPressed(sender: AnyObject) {
+        self.hamburgerButton.showsMenu = false
         selectViewController(itineraryVC)
     }
 
     func onNewTripPressed(sender: AnyObject) {
+        self.hamburgerButton.showsMenu = false
         selectViewController(cityVC)
     }
 
     func onInviteFriendsPressed(sender: AnyObject) {
+        self.hamburgerButton.showsMenu = false
         self.performSegueWithIdentifier("friendsAppSegue", sender: self)
     }
 
@@ -358,6 +370,7 @@ class ContainerViewController: UIViewController, Dimmable {
     }
 
     func onProfileSettingsPressed(sender: AnyObject) {
+        self.hamburgerButton.showsMenu = false
         selectViewController(preferencesVC)
     }
 }
