@@ -21,7 +21,20 @@ class Attraction: NSObject {
     var rawData: NSDictionary!
     var address: String?
     var attractionType: [String]?
-    var photoRefrences: [String] = []
+//    var photoRefrences: [String] {
+//        get {
+//            if self.name == "Eiffel Tower" {
+//                return [
+//                    "http://cdn.history.com/sites/2/2015/04/hith-eiffel-tower-iStock_000016468972Large.jpg",
+//                    "http://hbu.h-cdn.co/assets/15/41/768x514/gallery-1444338501-eiffel-tower-at-night.jpg",
+//                    "https://upload.wikimedia.org/wikipedia/commons/6/62/TourEiffel_BleuBlancRouge_(pixinn.net).jpg"
+//                ]
+//            } else {
+//                return self.photoRefrences
+//            }
+//        }
+//    }
+    var photoRefrences: [String]? = []
 
     
     init(dictionary: NSDictionary) {

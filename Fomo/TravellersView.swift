@@ -64,7 +64,8 @@ class TravellersView: UIView {
             views.autoSetViewsDimension(.Width, toSize: faceHeight)
             
             views.autoDistributeViewsAlongAxis(.Horizontal, alignedTo: .Horizontal,  withFixedSpacing: 15)
-            views[0].autoAlignAxisToSuperviewAxis(.Horizontal)
+            let view = views[0] as! UIView
+            view.autoAlignAxisToSuperviewAxis(.Horizontal)
             
             didSetupConstraints = true
         }

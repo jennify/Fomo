@@ -111,7 +111,8 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         if !didSetConstraints {
             let buttons: NSArray = [dislikeButton, likeButton]
             buttons.autoDistributeViewsAlongAxis(.Horizontal, alignedTo: .Horizontal, withFixedSize: 48, insetSpacing: true)
-            buttons[0].autoAlignAxis(.Horizontal, toSameAxisOfView: self.view, withOffset: cardHeight/2 + 50)
+            let button = buttons[0] as! UIView
+            button.autoAlignAxis(.Horizontal, toSameAxisOfView: self.view, withOffset: cardHeight/2 + 50)
             
             completeButton.autoAlignAxisToSuperviewAxis(.Vertical)
             completeButton.autoAlignAxis(.Horizontal, toSameAxisOfView: self.view, withOffset: -50)
@@ -204,7 +205,6 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
 
         
         return cell
-        
     }
     
     func onLike() {
