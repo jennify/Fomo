@@ -301,6 +301,7 @@ class ContainerViewController: UIViewController, Dimmable {
         viewController.didMoveToParentViewController(self)
         selectedViewController = viewController
         self.title = selectedViewController.title
+//        viewController.viewDidLoad()
     }
 
     func toggleMenu() {

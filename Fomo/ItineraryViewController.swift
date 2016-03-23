@@ -54,8 +54,13 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     var hasItinerary = true
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(animated: Bool) {
+        loadItineraryFromCache()
+        cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
+        
+    }
+    
+    func loadItineraryFromCache() {
         if Cache.itinerary != nil && !isNewTrip {
             self.itinerary = Cache.itinerary!
         } else {
@@ -66,7 +71,11 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             }
             
         }
-        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadItineraryFromCache()
         setUpItineraryTableView()
         setUpCalendarView()
         setUpNavigationBar()
@@ -96,7 +105,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         calendarView.backgroundColor = UIColor.clearColor()
         travellersView.backgroundColor = UIColor.clearColor()
         addTravellerButtonContainer.backgroundColor = UIColor.clearColor()
-
+        
         overviewView.addSubview(cityImageView)
         overviewView.addSubview(travellersView)
         overviewView.addSubview(addTravellerButtonContainer)

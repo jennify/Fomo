@@ -34,8 +34,8 @@ class Itinerary: NSObject {
         let startDateStr = dictionary["startDate"] as? String
         self.startDate = DateFormatter.dateFromString(startDateStr)
         self.rawData = dictionary
-        self.createDate = dictionary["createDate"] as? Double
-        
+        self.createDate = Double(dictionary["createDate"] as! String)
+
         let numDays = dictionary["numDays"] as? Int
         
         let attractions = dictionary["itinerary"] as? [NSDictionary]

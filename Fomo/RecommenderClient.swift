@@ -49,6 +49,23 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         return mostUsersItinerary
     }
     
+    func getItineraryCreateRecently(its: [Itinerary]) -> Itinerary {
+        var currentItinerary: Itinerary = its.first!
+        for it in its {
+            print("Response: Itinerary \(it.tripName!) created on \(it.createDate)")
+            if it.createDate != nil {
+                if it.createDate > currentItinerary.createDate {
+                    currentItinerary = it
+                }
+            } else {
+                print("WARNING: missing create date field. Clear your cache and pull from master.")
+            }
+            
+        }
+        print("Caching: Itinerary \(currentItinerary.tripName!)")
+        return currentItinerary
+    }
+    
     func requestGETWithItinerariesResponse(url: String, parameters: NSDictionary, completion:(response: [Itinerary]?, error: NSError?) -> () ) {
         print("Request: GET \(url)")
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
@@ -57,7 +74,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
             if its.count == 0 {
                 completion(response: nil, error: NSError(domain: "No itineraries", code: 1, userInfo: nil))
             } else {
-                Cache.itinerary = self.getItineraryWithMostUsers(its)
+                Cache.itinerary = self.getItineraryCreateRecently(its)
                 completion(response: its, error: nil)
             }
             

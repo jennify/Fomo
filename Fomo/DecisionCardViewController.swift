@@ -55,8 +55,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func initViews() {
-        self.voteState = []
-        
+        resetCardState()
         completeButton.setImage(UIImage(named: "noPerson"), forState: .Normal)
         completeButton.layer.zPosition = -1
         completeButton.addTarget(self, action: "goToItinerary", forControlEvents: UIControlEvents.TouchUpInside)
@@ -110,11 +109,8 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     var cardHeight: CGFloat = 0
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        collectionView?.backgroundColor = UIColor.fomoBackground()
-        
+
+    override func viewWillAppear(animated: Bool) {
         Recommendation.getRecommendations() {
             (response: Recommendation?, error: NSError?) in
             if error == nil && response != nil {
@@ -125,14 +121,13 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
                 prettyPrintError(error)
                 self.recommendations = Recommendation.generateTestInstance()
             }
-            if self.countOfCards != 0 {
-                for _ in 1...self.countOfCards {
-                    self.voteState.append(0)
-                }
-            }
+            self.resetCardState()
             self.collectionView?.reloadData()
-            
         }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        collectionView?.backgroundColor = UIColor.fomoBackground()
         
         //set animation speed
         setAnimationSpeed(0.85)
@@ -154,6 +149,18 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         layout.bottomStackCardHeight = 100
         setUpNavigationBar()
         
+    }
+    
+    func resetCardState() {
+        self.voteState = []
+        if self.countOfCards != 0 {
+            for _ in 1...self.countOfCards {
+                self.voteState.append(0)
+            }
+        }
+        for _ in 0...self.getCardIndex(){
+            moveCardUp()
+        }
     }
     
     
