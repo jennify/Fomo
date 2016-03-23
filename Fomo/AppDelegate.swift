@@ -33,22 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Onboarding
         // ============================
-        let userHasOnboardedAlready = NSUserDefaults.standardUserDefaults().boolForKey(userHasOnboardedKey);
-        
-        self.window!.rootViewController = self.generateOnboardingViewController()
-        
         // Temp: always show onboarding
-//        if userHasOnboardedAlready {
-//            self.setupNormalRootVC();
-//        } else {
-//            self.window!.rootViewController = self.generateOnboardingViewController()
-//        }
+        // let userHasOnboardedAlready = NSUserDefaults.standardUserDefaults().boolForKey(userHasOnboardedKey);
         
-        return true
-    }
-    
-    func setupNormalRootVC() {
-        // If user has already logged in
+        // Logged in user
         if Cache.currentUser != nil {
             print("Current user detected: \(Cache.currentUser!.name!)")
             let user = Cache.currentUser!
@@ -65,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     UIView.transitionWithView(self.window!, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
                         self.window?.rootViewController = vc
                     }, completion:nil)
-                    
                 } else {
                     let it = response?.first
                     print("Itinerary \(it!.tripName!) detected")
@@ -79,10 +66,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             print("No User Detected.")
             
-            UIView.transitionWithView(self.window!, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
-                self.window?.rootViewController = self.storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as UIViewController
-            }, completion:nil)
+            // Onboarding
+            self.window!.rootViewController = self.generateOnboardingViewController()
         }
+    
+        return true
+    }
+    
+    // Logged out user
+    func setupNormalRootVC() {
+        UIView.transitionWithView(self.window!, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
+            self.window?.rootViewController = self.storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as UIViewController
+        }, completion:nil)
     }
     
 
@@ -93,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    // Onboarding
+    // Onboarding - for logged out users only
     // ============================
     func generateOnboardingViewController() -> OnboardingViewController {
         // Page 1
