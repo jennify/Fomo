@@ -8,19 +8,20 @@ import AFNetworking
 
 
 
-class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     let popupView: UIView = UIView.newAutoLayoutView()
     let friendsTableView: UITableView = UITableView.newAutoLayoutView()
     let buttonContainer: UIView = UIView.newAutoLayoutView()
     let cancelButton: UIButton = UIButton.newAutoLayoutView()
     let inviteButton: UIButton = UIButton.newAutoLayoutView()
-    
+    let searchBar: UISearchBar = UISearchBar.newAutoLayoutView()
     
     var didSetupConstraints = false
 
     var itinerary: Itinerary?
     var friends: [User] = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
+    var filteredFriends: [User] = []
     var indexPaths: [NSIndexPath] = []
 
     override func viewDidLoad() {
@@ -28,12 +29,35 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         setUpTableView()
         setUpNavigationBar()
+        setUpSearchBar()
         
         if Cache.currentFriends != nil {
             friends = Cache.currentFriends!
         } else {
             print("No friends :(")
         }
+        
+        filteredFriends = friends
+    }
+    
+    func setUpSearchBar() {
+        searchBar.placeholder = "Find friend"
+        searchBar.barTintColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8)
+        searchBar.layer.borderWidth = 1
+        searchBar.layer.borderColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8).CGColor
+        searchBar.delegate = self
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredFriends = friends
+        
+        if (!searchText.isEmpty) {
+            filteredFriends = friends.filter({ (friend) -> Bool in
+                return friend.name!.containsString(searchText)
+            });
+        }
+        
+        friendsTableView.reloadData()
     }
 
     override func loadView() {
@@ -59,6 +83,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         inviteButton.addTarget(self, action: "onInvitePressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
         view.addSubview(popupView)
+        popupView.addSubview(searchBar)
         popupView.addSubview(friendsTableView)
         popupView.addSubview(buttonContainer)
         buttonContainer.addSubview(cancelButton)
@@ -75,7 +100,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             popupView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
             popupView.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
             
-            friendsTableView.autoPinEdgeToSuperviewEdge(.Top)
+            searchBar.autoPinEdgeToSuperviewEdge(.Top)
+            searchBar.autoPinEdgeToSuperviewEdge(.Left)
+            searchBar.autoPinEdgeToSuperviewEdge(.Right)
+            
+            friendsTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: searchBar)
             friendsTableView.autoPinEdgeToSuperviewEdge(.Left)
             friendsTableView.autoPinEdgeToSuperviewEdge(.Right)
 
@@ -110,7 +139,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func onInvitePressed(sender: AnyObject) {
         var guestsToAdd: [User] = []
         for indexPath in indexPaths {
-            guestsToAdd.append(friends[indexPath.row])
+            guestsToAdd.append(filteredFriends[indexPath.row])
         }
         
         for guest in guestsToAdd {
@@ -139,9 +168,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         friendsTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         friendsTableView.backgroundColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8)
     }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60
+    }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        return filteredFriends.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -151,7 +184,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func configureCell(cell: FriendCell, indexPath: NSIndexPath) {
-        let friend = friends[indexPath.row]
+        let friend = filteredFriends[indexPath.row]
         cell.profilePhoto.setImageWithURL(NSURL(string: friend.profileImageURL!)!)
         cell.friendName.text = friend.name!
         cell.friendName.textColor = UIColor.fomoTextColor()
