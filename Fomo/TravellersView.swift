@@ -48,6 +48,7 @@ class TravellersView: UIView {
                 travellers = Cache.itinerary!.travellers!
             } else {
                 print("Itinerary in cache does not exist! Oh the horror.")
+                travellers = [User.generateTestInstance()]
             }
         }
         self.backgroundColor = UIColor.fomoSand()

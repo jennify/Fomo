@@ -6,7 +6,7 @@
 import UIKit
 import BDBOAuth1Manager
 
-let USE_LOCAL_DEV_ENVIROMENT = true
+let USE_LOCAL_DEV_ENVIROMENT = false
 
 class RecommenderClient: BDBOAuth1RequestOperationManager {
     // No Auth attached!
