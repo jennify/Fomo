@@ -89,6 +89,8 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             
             let containerVC = self.navigationController?.topViewController as! ContainerViewController
             containerVC.selectViewController(containerVC.itineraryVC)
+        } else {
+            displayCarousel()
         }
     }
     
@@ -175,6 +177,10 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func onTap(gesture: UITapGestureRecognizer) {
+        displayCarousel()
+    }
+    
+    func displayCarousel() {
         let carouselViewController = CarouselViewController()
         let currIndex = getCardIndex()
         let attraction = self.recommendations?.attractions?[currIndex]

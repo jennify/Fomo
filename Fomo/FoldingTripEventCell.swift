@@ -149,7 +149,6 @@ class FoldingTripEventCell: FoldingCell {
     func initViews() {
 
         self.itemCount = detailSegments.count
-        print(self.tripEvent?.likers)
         initTopView()
         
         detailsView.backgroundColor = UIColor.fomoCardBG().colorWithAlphaComponent(0.8)

@@ -20,7 +20,7 @@ class CarouselViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CarouselViewController.onTap)))
+        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "onTap"))
     }
     
     func onTap() {
