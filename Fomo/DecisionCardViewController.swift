@@ -56,25 +56,6 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     
     func initViews() {
         self.voteState = []
-        Recommendation.getRecommendations() {
-            (response: Recommendation?, error: NSError?) in
-            if error == nil && response != nil {
-                self.recommendations = response!
-                self.countOfCards = self.recommendations!.attractions?.count ?? 0
-                
-            } else {
-                prettyPrintError(error)
-                self.recommendations = Recommendation.generateTestInstance()
-            }
-            if self.countOfCards != 0 {
-                for _ in 1...self.countOfCards {
-                    self.voteState.append(0)
-                }
-            }
-            self.collectionView?.reloadData()
-            
-        }
-        
         
         completeButton.setImage(UIImage(named: "noPerson"), forState: .Normal)
         completeButton.layer.zPosition = -1
@@ -133,6 +114,25 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = UIColor.fomoBackground()
+        
+        Recommendation.getRecommendations() {
+            (response: Recommendation?, error: NSError?) in
+            if error == nil && response != nil {
+                self.recommendations = response!
+                self.countOfCards = self.recommendations!.attractions?.count ?? 0
+                
+            } else {
+                prettyPrintError(error)
+                self.recommendations = Recommendation.generateTestInstance()
+            }
+            if self.countOfCards != 0 {
+                for _ in 1...self.countOfCards {
+                    self.voteState.append(0)
+                }
+            }
+            self.collectionView?.reloadData()
+            
+        }
         
         //set animation speed
         setAnimationSpeed(0.85)
@@ -209,13 +209,12 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     
     func onLike() {
         moveCardDown()
-        
-        updateVote(getCardIndex(), vote: 1)
+        updateVote(getCardIndex() - 1, vote: 1)
     }
     
     func onDislike() {
         moveCardDown()
-        updateVote(getCardIndex(), vote: -1)
+        updateVote(getCardIndex() - 1, vote: -1)
     }
     //method to add new card
     //    @IBAction func addNewCards(sender: AnyObject) {

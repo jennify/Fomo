@@ -37,6 +37,7 @@ class Recommendation: NSObject {
     
     class func getRecommendations(completion:(response: Recommendation?, error: NSError?) -> ()) {
         let it = Cache.itinerary
+        print("Getting recommendations for \(Cache.itinerary?.tripName)")
         if it == nil {
             completion(response: nil, error: NSError(domain: "No Itinerary", code: 1, userInfo: nil))
         } else {

@@ -52,13 +52,19 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     // Dim view
     var dimView = UIView()
     
+    var hasItinerary = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         if Cache.itinerary != nil && !isNewTrip {
             self.itinerary = Cache.itinerary!
         } else {
-            Cache.itinerary = itinerary
+            if itinerary == Itinerary.generateTestInstance() {
+                print("Using test instance")
+            } else {
+                Cache.itinerary = itinerary
+            }
+            
         }
         
         setUpItineraryTableView()
@@ -266,7 +272,12 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FoldingTripEventCell", forIndexPath: indexPath) as! FoldingTripEventCell
         
-        cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
+        if itinerary.days![indexPath.section].tripEvents?.count < indexPath.row {
+            cell.attraction = itinerary.days![indexPath.section].tripEvents![0].attraction
+        } else {
+            cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
+        }
+        
         cell.parentView = self.view
         cell.contentView.backgroundColor = backgroundColor
         if !cell.didAwake {

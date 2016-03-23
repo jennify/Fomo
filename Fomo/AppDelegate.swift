@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 (response: [Itinerary]?, error: NSError?) -> () in
                 if error != nil || response == nil {
                     print("No Itinerary detected")
+                    Cache.itinerary = nil
                     let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
                     let container = vc.topViewController as? ContainerViewController
                     container?.initialVC = self.storyboard.instantiateViewControllerWithIdentifier("CityViewController") as! CityViewController

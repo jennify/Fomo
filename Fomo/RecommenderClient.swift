@@ -6,7 +6,7 @@
 import UIKit
 import BDBOAuth1Manager
 
-let USE_LOCAL_DEV_ENVIROMENT = false
+let USE_LOCAL_DEV_ENVIROMENT = true
 
 class RecommenderClient: BDBOAuth1RequestOperationManager {
     // No Auth attached!
@@ -28,6 +28,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     }
     
     func requestGETWithItineraryResponse(url: String, parameters: NSDictionary, completion:(response: Itinerary?, error: NSError?) -> () ) {
+        print("Request: GET \(url)")
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let it = Itinerary(dictionary: response as! NSDictionary)
             Cache.itinerary = it
@@ -46,10 +47,10 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
             }
         }
         return mostUsersItinerary
-
     }
     
     func requestGETWithItinerariesResponse(url: String, parameters: NSDictionary, completion:(response: [Itinerary]?, error: NSError?) -> () ) {
+        print("Request: GET \(url)")
         GET(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let rsp = response["itineraries"] as? [NSDictionary]
             let its = Itinerary.itinerariesWithArray(rsp!)
@@ -66,6 +67,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     }
     
     func requestPOSTWithItineraryResponse(url: String, parameters: NSDictionary, completion:(response: Itinerary?, error: NSError?) -> () ) {
+        print("Request: POST \(url)")
         POST(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let it = Itinerary(dictionary: response as! NSDictionary)
             Cache.itinerary = it
@@ -154,6 +156,7 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         let location = "\(coord.latitude),\(coord.longitude)"
         let parameters: [String: String] = ["groupID": itinerary.id!,
             "userEmail": itinerary.creator!.email!,
+            "createDate": "\(NSDate().timeIntervalSince1970)",
             "name": itinerary.creator!.name!,
             "profileImageUrl": itinerary.creator!.profileImageURL!,
             "tripName": itinerary.tripName!,

@@ -19,6 +19,7 @@ class Itinerary: NSObject {
     var coverPhoto: UIImage?
     var days: [Day]?
     var rawData: NSDictionary!
+    var createDate: Double? // Seconds since epoch.
     
     override init() {}
     
@@ -33,6 +34,7 @@ class Itinerary: NSObject {
         let startDateStr = dictionary["startDate"] as? String
         self.startDate = DateFormatter.dateFromString(startDateStr)
         self.rawData = dictionary
+        self.createDate = dictionary["createDate"] as? Double
         
         let numDays = dictionary["numDays"] as? Int
         
