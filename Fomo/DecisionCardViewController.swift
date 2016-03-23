@@ -306,10 +306,10 @@ class DecisionCardCell: TisprCardStackViewCell {
         blurView.contentView.alpha = 0.8
         
         if attraction != nil {
-            if attraction!.imageUrls?.count == 0 {
+            if attraction!.imageUrls.count == 0 {
                 locationImage.image = UIImage(named: "noImage")
             } else {
-                locationImage.setImageWithURL(NSURL(string: (attraction!.imageUrls!.first)!)!)
+                locationImage.setImageWithURL(NSURL(string: (attraction!.imageUrls.first)!)!)
             }
             nameLabel.text = attraction?.name
             nameLabel.font = UIFont.fomoH1()

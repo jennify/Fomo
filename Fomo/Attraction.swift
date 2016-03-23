@@ -14,27 +14,32 @@ class Attraction: NSObject {
     var city: City?
     var reviews: [Review]?
     var types: [AttractionType]?
-    var imageUrls: [String]?
+    var imageUrls: [String] {
+        get {
+            if self.name == "Eiffel Tower" {
+                _imageUrls = [
+                    "http://cdn.history.com/sites/2/2015/04/hith-eiffel-tower-iStock_000016468972Large.jpg",
+                    "http://hbu.h-cdn.co/assets/15/41/768x514/gallery-1444338501-eiffel-tower-at-night.jpg",
+                    "https://upload.wikimedia.org/wikipedia/commons/6/62/TourEiffel_BleuBlancRouge_(pixinn.net).jpg"
+                ]
+                return _imageUrls
+            } else {
+                return _imageUrls
+            }
+        }
+        set (imageUrls) {
+            _imageUrls = imageUrls
+        }
+    }
     var location: CLLocation?
     var rating: Float?
     var tripEvent: TripEvent?
     var rawData: NSDictionary!
     var address: String?
     var attractionType: [String]?
-//    var photoRefrences: [String] {
-//        get {
-//            if self.name == "Eiffel Tower" {
-//                return [
-//                    "http://cdn.history.com/sites/2/2015/04/hith-eiffel-tower-iStock_000016468972Large.jpg",
-//                    "http://hbu.h-cdn.co/assets/15/41/768x514/gallery-1444338501-eiffel-tower-at-night.jpg",
-//                    "https://upload.wikimedia.org/wikipedia/commons/6/62/TourEiffel_BleuBlancRouge_(pixinn.net).jpg"
-//                ]
-//            } else {
-//                return self.photoRefrences
-//            }
-//        }
-//    }
-    var photoRefrences: [String]? = []
+    var photoRefrences: [String] = []
+    
+    var _imageUrls: [String] = []
 
     
     init(dictionary: NSDictionary) {
@@ -55,7 +60,7 @@ class Attraction: NSObject {
         self.attractionType = dictionary["types"] as? [String]
         self.types = AttractionType.attractionTypesWithArray(self.attractionType!)
         
-        self.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]
+        //self.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]
         self.rawData = dictionary
     }
     
