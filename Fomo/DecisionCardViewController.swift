@@ -169,7 +169,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func onTap(gesture: UITapGestureRecognizer) {
-        let carouselViewController = NewCarouselViewController()
+        let carouselViewController = CarouselViewController()
         let currIndex = getCardIndex()
         let attraction = self.recommendations?.attractions?[currIndex]
         carouselViewController.imageUrls = attraction!.imageUrls

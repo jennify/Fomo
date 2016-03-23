@@ -44,16 +44,12 @@
 		AA1DCED01C8BB0DF0088DD27 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */; };
 		AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCED11C8BB2500088DD27 /* FriendCell.swift */; };
 		AA1DCED61C948EF60088DD27 /* TravellersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCED51C948EF60088DD27 /* TravellersView.swift */; };
-		AA6270181CA247B0005532BC /* NewCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6270171CA247B0005532BC /* NewCarouselViewController.swift */; };
+		AA6270181CA247B0005532BC /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6270171CA247B0005532BC /* CarouselViewController.swift */; };
 		AA7B21C51C961ED400636007 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C41C961ED400636007 /* CityViewController.swift */; };
 		AA7B21C71C961EE900636007 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C61C961EE900636007 /* CityCell.swift */; };
 		AA7B21C91C968FCB00636007 /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C81C968FCB00636007 /* DoneViewController.swift */; };
-		AAA132B61C9E7A7F001736CF /* CarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132B51C9E7A7F001736CF /* CarouselViewController.swift */; };
-		AAA132B81C9E7CA0001736CF /* CarouselCellScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132B71C9E7CA0001736CF /* CarouselCellScrollView.swift */; };
-		AAA132BA1C9E7DB1001736CF /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132B91C9E7DB1001736CF /* CarouselCell.swift */; };
 		AAA132BD1CA0F15B001736CF /* ClickerScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */; };
 		AAA132C11CA104CC001736CF /* BigTravellersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132C01CA104CC001736CF /* BigTravellersView.swift */; };
-		AAE588F61C9E7A4A00E44A24 /* CarouselCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE588F21C9E7A4A00E44A24 /* CarouselCollectionView.swift */; };
 		F9860BE41CA15AE90033F0E9 /* HamburgerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */; };
 		F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */; };
 		F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1F1C8E675E0014A43A /* TripViewController.swift */; };
@@ -101,16 +97,12 @@
 		AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		AA1DCED11C8BB2500088DD27 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		AA1DCED51C948EF60088DD27 /* TravellersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravellersView.swift; sourceTree = "<group>"; };
-		AA6270171CA247B0005532BC /* NewCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCarouselViewController.swift; sourceTree = "<group>"; };
+		AA6270171CA247B0005532BC /* CarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
 		AA7B21C41C961ED400636007 /* CityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		AA7B21C61C961EE900636007 /* CityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		AA7B21C81C968FCB00636007 /* DoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
-		AAA132B51C9E7A7F001736CF /* CarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselViewController.swift; sourceTree = "<group>"; };
-		AAA132B71C9E7CA0001736CF /* CarouselCellScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCellScrollView.swift; sourceTree = "<group>"; };
-		AAA132B91C9E7DB1001736CF /* CarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
 		AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ClickerScript-Regular.ttf"; sourceTree = "<group>"; };
 		AAA132C01CA104CC001736CF /* BigTravellersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigTravellersView.swift; sourceTree = "<group>"; };
-		AAE588F21C9E7A4A00E44A24 /* CarouselCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCollectionView.swift; sourceTree = "<group>"; };
 		DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.release.xcconfig"; sourceTree = "<group>"; };
 		E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.debug.xcconfig"; sourceTree = "<group>"; };
 		F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerButton.swift; sourceTree = "<group>"; };
@@ -166,8 +158,7 @@
 				AA1DCECB1C8BA7F30088DD27 /* PreferencesViewController.swift */,
 				AA7B21C81C968FCB00636007 /* DoneViewController.swift */,
 				7A120A2B1C9A60CA002E7B92 /* DecisionCardViewController.swift */,
-				AAA132B51C9E7A7F001736CF /* CarouselViewController.swift */,
-				AA6270171CA247B0005532BC /* NewCarouselViewController.swift */,
+				AA6270171CA247B0005532BC /* CarouselViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -243,7 +234,6 @@
 			isa = PBXGroup;
 			children = (
 				7A1390E71C7C47C3001488FF /* Images.xcassets */,
-				AAE588EE1C9E7A2B00E44A24 /* CarouselCollectionView */,
 				7A46297E1C82EB0800A27D3B /* API Clients */,
 				7A1390E61C7C4441001488FF /* Views */,
 				7A1390E51C7C443C001488FF /* Models */,
@@ -264,16 +254,6 @@
 				AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		AAE588EE1C9E7A2B00E44A24 /* CarouselCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				AAE588F21C9E7A4A00E44A24 /* CarouselCollectionView.swift */,
-				AAA132B71C9E7CA0001736CF /* CarouselCellScrollView.swift */,
-				AAA132B91C9E7DB1001736CF /* CarouselCell.swift */,
-			);
-			name = CarouselCollectionView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,23 +386,19 @@
 				7A2203941C97D69300C96843 /* FoldingTripEventCell.swift in Sources */,
 				AA1DCE981C8554A70088DD27 /* Day.swift in Sources */,
 				AA1DCECE1C8BAC0C0088DD27 /* PreferenceCell.swift in Sources */,
-				AAA132B61C9E7A7F001736CF /* CarouselViewController.swift in Sources */,
 				7AE6D2D51C7C3E0E009ADC3B /* LoginViewController.swift in Sources */,
 				AA1DCE961C85532F0088DD27 /* Recommendation.swift in Sources */,
 				7AE6D2D31C7C3E0E009ADC3B /* AppDelegate.swift in Sources */,
 				7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */,
 				AA7B21C51C961ED400636007 /* CityViewController.swift in Sources */,
 				AA1DCEC61C8A89E20088DD27 /* TripEventCell.swift in Sources */,
-				AAE588F61C9E7A4A00E44A24 /* CarouselCollectionView.swift in Sources */,
 				AA7B21C71C961EE900636007 /* CityCell.swift in Sources */,
 				AA1DCEC81C8B90DE0088DD27 /* DayHeaderCell.swift in Sources */,
 				7A120A2C1C9A60CA002E7B92 /* DecisionCardViewController.swift in Sources */,
 				AA1DCE941C8444900088DD27 /* TripEvent.swift in Sources */,
 				AA1DCECA1C8B987A0088DD27 /* DayCell.swift in Sources */,
 				AA1DCE921C8441E60088DD27 /* AttractionType.swift in Sources */,
-				AAA132B81C9E7CA0001736CF /* CarouselCellScrollView.swift in Sources */,
-				AA6270181CA247B0005532BC /* NewCarouselViewController.swift in Sources */,
-				AAA132BA1C9E7DB1001736CF /* CarouselCell.swift in Sources */,
+				AA6270181CA247B0005532BC /* CarouselViewController.swift in Sources */,
 				AA1DCECC1C8BA7F30088DD27 /* PreferencesViewController.swift in Sources */,
 				AA7B21C91C968FCB00636007 /* DoneViewController.swift in Sources */,
 				AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */,
