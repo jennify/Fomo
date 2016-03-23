@@ -1,6 +1,8 @@
 //
 //  HamburgerButton.swift
 // ============================
+//  Created by Robert Böhnke on 02/07/14.
+//  Copyright (c) 2014 Robert Böhnke. All rights reserved.
 
 
 import CoreGraphics

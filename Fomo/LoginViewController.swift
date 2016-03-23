@@ -9,6 +9,7 @@ import UIKit
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKSharingDelegate {
     var titleLabel: UILabel = UILabel.newAutoLayoutView()
     var didSetupConstraints = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

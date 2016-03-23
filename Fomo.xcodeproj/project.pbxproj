@@ -51,6 +51,8 @@
 		AAA132BD1CA0F15B001736CF /* ClickerScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */; };
 		AAA132C11CA104CC001736CF /* BigTravellersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132C01CA104CC001736CF /* BigTravellersView.swift */; };
 		F9860BE41CA15AE90033F0E9 /* HamburgerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */; };
+		F9860BE91CA2480C0033F0E9 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BE81CA2480C0033F0E9 /* OnboardingViewController.swift */; };
+		F9860BEB1CA248220033F0E9 /* OnboardingContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BEA1CA248220033F0E9 /* OnboardingContentViewController.swift */; };
 		F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */; };
 		F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1F1C8E675E0014A43A /* TripViewController.swift */; };
 		F9EF56E11C9EC3CD00F020D3 /* Dimmable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EF56E01C9EC3CD00F020D3 /* Dimmable.swift */; };
@@ -106,6 +108,8 @@
 		DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.release.xcconfig"; sourceTree = "<group>"; };
 		E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.debug.xcconfig"; sourceTree = "<group>"; };
 		F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerButton.swift; sourceTree = "<group>"; };
+		F9860BE81CA2480C0033F0E9 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		F9860BEA1CA248220033F0E9 /* OnboardingContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingContentViewController.swift; sourceTree = "<group>"; };
 		F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		F9A79F1F1C8E675E0014A43A /* TripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		F9EF56E01C9EC3CD00F020D3 /* Dimmable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimmable.swift; sourceTree = "<group>"; };
@@ -238,6 +242,7 @@
 				7A1390E61C7C4441001488FF /* Views */,
 				7A1390E51C7C443C001488FF /* Models */,
 				7A1390E41C7C4434001488FF /* View Controllers */,
+				F9860BE71CA247CE0033F0E9 /* Onboarding */,
 				AAA132BB1CA0F147001736CF /* Resources */,
 				7AE6D2D21C7C3E0E009ADC3B /* AppDelegate.swift */,
 				7AE6D2D61C7C3E0E009ADC3B /* Main.storyboard */,
@@ -254,6 +259,15 @@
 				AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		F9860BE71CA247CE0033F0E9 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				F9860BE81CA2480C0033F0E9 /* OnboardingViewController.swift */,
+				F9860BEA1CA248220033F0E9 /* OnboardingContentViewController.swift */,
+			);
+			name = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,10 +418,12 @@
 				AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */,
 				7A4AB3DD1C9622FD00718890 /* FacebookContact.swift in Sources */,
 				7A81588B1C8D886C0024B7C2 /* FacebookClient.swift in Sources */,
+				F9860BE91CA2480C0033F0E9 /* OnboardingViewController.swift in Sources */,
 				F9EF56E11C9EC3CD00F020D3 /* Dimmable.swift in Sources */,
 				AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */,
 				7A588C4F1C97F73400611864 /* DateFormatter.swift in Sources */,
 				7A4629851C82F20200A27D3B /* ItineraryViewController.swift in Sources */,
+				F9860BEB1CA248220033F0E9 /* OnboardingContentViewController.swift in Sources */,
 				F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */,
 				AA1DCE901C8440E70088DD27 /* Review.swift in Sources */,
 				AA1DCED01C8BB0DF0088DD27 /* FriendsViewController.swift in Sources */,
