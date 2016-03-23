@@ -255,7 +255,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animateWithDuration(5, delay:0, options: [.Repeat, .Autoreverse], animations: {
+        UIView.animateWithDuration(15, delay:0, options: [.Repeat, .Autoreverse], animations: {
             self.cityImageView.transform = CGAffineTransformMakeScale(1.5, 1.5)
         }, completion: nil)
     }
