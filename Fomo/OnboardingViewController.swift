@@ -1,9 +1,6 @@
 //
 //  OnboardingViewController.swift
 // ===============================
-//
-//  Created by Mike on 9/12/14.
-//  Copyright (c) 2014 Mike Amaral. All rights reserved.
 
 
 import UIKit
@@ -11,15 +8,11 @@ import UIKit
 class OnboardingViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     let pageViewController: UIPageViewController = UIPageViewController(transitionStyle: UIPageViewControllerTransitionStyle.Scroll, navigationOrientation: UIPageViewControllerNavigationOrientation.Horizontal, options: nil)
     let pageControl: UIPageControl = UIPageControl()
-    let kPageControlHeight: CGFloat = 35
-    let kBackgroundMaskAlpha: CGFloat = 0.6
-    var backgroundImage: UIImage?
+    let kPageControlHeight: CGFloat = 50
+
     var contents: [OnboardingContentViewController] = []
-    var shouldMaskBackground: Bool = false
-//    var shouldFadeTransitions: Bool = true
-    
-    init(backgroundImage: UIImage?, contents: [OnboardingContentViewController]) {
-        self.backgroundImage = backgroundImage
+
+    init(contents: [OnboardingContentViewController]) {
         self.contents = contents
         super.init(nibName: nil, bundle: nil)
     }
@@ -37,33 +30,17 @@ class OnboardingViewController: UIViewController, UIPageViewControllerDataSource
     
     func generateView() {
         pageViewController.delegate = self
-        pageViewController.dataSource = self;
-        pageViewController.view.frame = self.view.frame;
-        
-        // create the background image view and set it to aspect fill so it isn't skewed
-        let backgroundImageView: UIImageView = UIImageView(image: backgroundImage)
-        backgroundImageView.frame = self.view.frame
-        backgroundImageView.contentMode = .ScaleAspectFit
-        self.view.addSubview(backgroundImageView)
-        
-        var backgroundMaskView = UIView()
-        if shouldMaskBackground {
-            backgroundMaskView = UIView(frame: self.view.frame)
-            backgroundMaskView.backgroundColor = UIColor(white: 0.0, alpha: kBackgroundMaskAlpha)
-            self.view.addSubview(backgroundMaskView)
-        }
-        
+        pageViewController.dataSource = self
+        pageViewController.view.frame = self.view.frame
         
         pageViewController.setViewControllers([contents[0]], direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
         pageViewController.view.backgroundColor = UIColor.clearColor()
         self.addChildViewController(pageViewController)
         self.view.addSubview(pageViewController.view)
         pageViewController.didMoveToParentViewController(self)
-        pageViewController.view.sendSubviewToBack(backgroundMaskView)
-        pageViewController.view.sendSubviewToBack(backgroundImageView)
-        
+
         pageControl.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - kPageControlHeight, self.view.bounds.size.width, kPageControlHeight)
-        pageControl.numberOfPages = contents.count;
+        pageControl.numberOfPages = contents.count
         pageControl.autoresizingMask = [.FlexibleWidth, .FlexibleTopMargin]
         self.view.addSubview(pageControl)
     }
@@ -149,7 +126,7 @@ class OnboardingViewController: UIViewController, UIPageViewControllerDataSource
         return indexOfVC
     }
     
-    // PRAGMA: page view controller data source
+    // page view controller data source
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         let indexOfCurrentVC = indexOfViewController(viewController)
@@ -162,7 +139,7 @@ class OnboardingViewController: UIViewController, UIPageViewControllerDataSource
     }
     
     
-    // PRAGMA: page view controller delegate
+    // page view controller delegate
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if !completed {

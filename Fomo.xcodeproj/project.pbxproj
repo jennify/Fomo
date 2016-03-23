@@ -53,6 +53,9 @@
 		F9860BE41CA15AE90033F0E9 /* HamburgerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */; };
 		F9860BE91CA2480C0033F0E9 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BE81CA2480C0033F0E9 /* OnboardingViewController.swift */; };
 		F9860BEB1CA248220033F0E9 /* OnboardingContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BEA1CA248220033F0E9 /* OnboardingContentViewController.swift */; };
+		F9860BF31CA2920E0033F0E9 /* camera.gif in Resources */ = {isa = PBXBuildFile; fileRef = F9860BF21CA2920E0033F0E9 /* camera.gif */; };
+		F9860BF51CA292240033F0E9 /* heartglasses.gif in Resources */ = {isa = PBXBuildFile; fileRef = F9860BF41CA292240033F0E9 /* heartglasses.gif */; };
+		F9860BF71CA292340033F0E9 /* roadtrip.gif in Resources */ = {isa = PBXBuildFile; fileRef = F9860BF61CA292340033F0E9 /* roadtrip.gif */; };
 		F9A79F1E1C8E55F20014A43A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */; };
 		F9A79F201C8E675E0014A43A /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A79F1F1C8E675E0014A43A /* TripViewController.swift */; };
 		F9EF56E11C9EC3CD00F020D3 /* Dimmable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EF56E01C9EC3CD00F020D3 /* Dimmable.swift */; };
@@ -110,6 +113,9 @@
 		F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerButton.swift; sourceTree = "<group>"; };
 		F9860BE81CA2480C0033F0E9 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F9860BEA1CA248220033F0E9 /* OnboardingContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingContentViewController.swift; sourceTree = "<group>"; };
+		F9860BF21CA2920E0033F0E9 /* camera.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = camera.gif; sourceTree = "<group>"; };
+		F9860BF41CA292240033F0E9 /* heartglasses.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = heartglasses.gif; sourceTree = "<group>"; };
+		F9860BF61CA292340033F0E9 /* roadtrip.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = roadtrip.gif; sourceTree = "<group>"; };
 		F9A79F1D1C8E55F20014A43A /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		F9A79F1F1C8E675E0014A43A /* TripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		F9EF56E01C9EC3CD00F020D3 /* Dimmable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimmable.swift; sourceTree = "<group>"; };
@@ -256,6 +262,9 @@
 		AAA132BB1CA0F147001736CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F9860BF61CA292340033F0E9 /* roadtrip.gif */,
+				F9860BF41CA292240033F0E9 /* heartglasses.gif */,
+				F9860BF21CA2920E0033F0E9 /* camera.gif */,
 				AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */,
 			);
 			name = Resources;
@@ -335,6 +344,9 @@
 				7AE6D2E01C7C3E0E009ADC3B /* LaunchScreen.storyboard in Resources */,
 				AAA132BD1CA0F15B001736CF /* ClickerScript-Regular.ttf in Resources */,
 				7AE6D2D81C7C3E0E009ADC3B /* Main.storyboard in Resources */,
+				F9860BF51CA292240033F0E9 /* heartglasses.gif in Resources */,
+				F9860BF71CA292340033F0E9 /* roadtrip.gif in Resources */,
+				F9860BF31CA2920E0033F0E9 /* camera.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

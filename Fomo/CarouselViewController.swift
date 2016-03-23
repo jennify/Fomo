@@ -1,10 +1,7 @@
 //
 //  NewCarouselViewController.swift
-//  Fomo
-//
-//  Created by Christian Deonier on 3/22/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// =================================
+
 
 import UIKit
 

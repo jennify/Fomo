@@ -35,7 +35,7 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         bannerImage.image = UIImage(named: "pool")
         bannerImage.contentMode = .ScaleAspectFill
 
-        doneButton.titleLabel?.font = UIFont.fomoH2()
+        doneButton.titleLabel?.font = UIFont.fomoBold(20)
         doneButton.setTitle("Save Preferences", forState: .Normal)
         doneButton.addTarget(self, action: "savePreferences", forControlEvents: .TouchUpInside)
         doneButton.addTarget(self, action: "buttonPress", forControlEvents: .TouchDown)

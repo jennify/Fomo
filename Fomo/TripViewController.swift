@@ -56,7 +56,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         startDateLabel.font = UIFont.fomoH2()
         endTitleLabel.font = UIFont.fomoH2()
         endDateLabel.font = UIFont.fomoH2()
-        doneButton.titleLabel?.font = UIFont.fomoH2()
+        doneButton.titleLabel?.font = UIFont.fomoBold(20)
         
         destinationTitleLabel.text = "Destination"
         destinationLabel.text = city!.name

@@ -1,10 +1,7 @@
 //
 //  DecisionCardViewController.swift
-//  Fomo
-//
-//  Created by Jennifer Lee on 3/16/16.
-//  Copyright © 2016 TeamAwesome. All rights reserved.
-//
+// =================================
+
 
 import UIKit
 import TisprCardStack
@@ -68,12 +65,12 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         completeLabel.textColor = UIColor.lightGrayColor()
         
         likeButton.setImage(UIImage(named: "like"), forState: .Normal)
+        likeButton.setImage(UIImage(named: "likefilled"), forState: .Highlighted)
         likeButton.addTarget(self, action: "onLike", forControlEvents: .TouchUpInside)
-        likeButton.tintColor = UIColor.greenColor()
         
         dislikeButton.setImage(UIImage(named: "dislike"), forState: .Normal)
+        dislikeButton.setImage(UIImage(named: "dislikefilled"), forState: .Highlighted)
         dislikeButton.addTarget(self, action: "onDislike", forControlEvents: .TouchUpInside)
-        dislikeButton.tintColor = UIColor.redColor()
         
         self.view.addSubview(completeButton)
         self.view.addSubview(completeLabel)
@@ -233,11 +230,27 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     func onLike() {
         moveCardDown()
         updateVote(getCardIndex() - 1, vote: 1)
+        
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: [], animations: {
+            self.likeButton.transform = CGAffineTransformMakeScale(0.9, 0.9)
+        }, completion: { finish in
+            UIView.animateWithDuration(0.2) {
+                self.likeButton.transform = CGAffineTransformIdentity
+            }
+        })
     }
     
     func onDislike() {
         moveCardDown()
         updateVote(getCardIndex() - 1, vote: -1)
+        
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: [], animations: {
+            self.dislikeButton.transform = CGAffineTransformMakeScale(0.9, 0.9)
+        }, completion: { finish in
+            UIView.animateWithDuration(0.2) {
+                self.dislikeButton.transform = CGAffineTransformIdentity
+            }
+        })
     }
     
     func cardDidChangeState(cardIndex: Int) {

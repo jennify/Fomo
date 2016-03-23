@@ -81,9 +81,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         buttonContainer.backgroundColor = UIColor.fomoHighlight().colorWithAlphaComponent(0.8)
         cancelButton.setTitle("Cancel", forState: UIControlState.Normal)
+        cancelButton.titleLabel?.font = UIFont.fomoBold(18)
         cancelButton.setTitleColor(UIColor.fomoHamburgerBGColor(), forState: .Highlighted)
         cancelButton.addTarget(self, action: "onCancelPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         inviteButton.setTitle("Invite", forState: UIControlState.Normal)
+        inviteButton.titleLabel?.font = UIFont.fomoBold(18)
         inviteButton.setTitleColor(UIColor.fomoHamburgerBGColor(), forState: .Highlighted)
         inviteButton.addTarget(self, action: "onInvitePressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -192,6 +194,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let friend = filteredFriends[indexPath.row]
         cell.profilePhoto.setImageWithURL(NSURL(string: friend.profileImageURL!)!)
         cell.friendName.text = friend.name!
+        cell.friendName.font = UIFont.fomoBold(18)
         cell.friendName.textColor = UIColor.fomoTextColor()
         cell.backgroundColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8)
         cell.delegate = self
