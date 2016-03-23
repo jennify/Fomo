@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Onboarding
         // ============================
         // Temp: always show onboarding
-        // let userHasOnboardedAlready = NSUserDefaults.standardUserDefaults().boolForKey(userHasOnboardedKey);
+        // let userHasOnboardedAlready = NSUserDefaults.standardUserDefaults().boolForKey(userHasOnboardedKey)
         
         // Logged in user
         if Cache.currentUser != nil {
@@ -93,31 +93,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func generateOnboardingViewController() -> OnboardingViewController {
         // Page 1
         let firstPage: OnboardingContentViewController = OnboardingContentViewController(
+            page: 1,
             title: "Explore Destinations",
-            body: "Browse a customized set of attraction recommendations",
-            image: UIImage(named: ""),
+            body: "Browse personalized activity recommendations",
+            backgroundImage: UIImage(named: "heartbkgd"),
+            gifName: "heartglasses",
+            image: nil,
             buttonText: nil) {
             }
         
         // Page 2
         let secondPage: OnboardingContentViewController = OnboardingContentViewController(
-            title: "Plan Trips with Friends",
-            body: "Invite friends and aggregate traveller preferences",
-            image: UIImage(named: ""),
+            page: 2,
+            title: "Invite Friends",
+            body: "Automatically aggregate traveller preferences",
+            backgroundImage: UIImage(named: "camerabkgd"),
+            gifName: "camera",
+            image: nil,
             buttonText: nil) {
             }
         
         // Page 3
         let thirdPage: OnboardingContentViewController = OnboardingContentViewController(
+            page: 3,
             title: "Generate Itinerary",
-            body: "FOMO automatically creates the perfect group trip itinerary",
-            image: UIImage(named: ""),
-            buttonText: "Let's Get Started") {
+            body: "FOMO intelligently generates the optimal group trip itinerary",
+            backgroundImage: UIImage(named: "roadtripbkgd"),
+            gifName: "roadtrip",
+            image: nil,
+            buttonText: "Get Started") {
                 self.handleOnboardingCompletion()
             }
         
         // Create the onboarding controller with the pages and return it
-        let onboardingVC: OnboardingViewController = OnboardingViewController(backgroundImage: UIImage(named: "amalfi"), contents: [firstPage, secondPage, thirdPage])
+        let onboardingVC: OnboardingViewController = OnboardingViewController(contents: [firstPage, secondPage, thirdPage])
         
         return onboardingVC
     }

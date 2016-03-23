@@ -177,13 +177,19 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         self.title = "Itinerary"
         
         let button: UIButton = UIButton(type: .Custom)
-        button.setImage(UIImage(named: "car"), forState: UIControlState.Normal)
+        let iconTinted = UIImageView()
+        iconTinted.image = UIImage(named: "car")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        iconTinted.tintColor = UIColor.fomoHighlight()
+        
+        button.setImage(iconTinted.image, forState: .Normal)
+        button.setImage(UIImage(named: "car"), forState: .Highlighted)
+        
         button.addTarget(self, action: "finalizeItinerary", forControlEvents: UIControlEvents.TouchUpInside)
         button.frame = CGRectMake(0, 0, 30, 30)
         
         let barButtonItem = UIBarButtonItem(customView: button)
         
-        self.navigationController?.navigationBar.topItem?.rightBarButtonItem  = barButtonItem
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = barButtonItem
     }
     
     func finalizeItinerary() {

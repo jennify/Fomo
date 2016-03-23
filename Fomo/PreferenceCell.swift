@@ -60,7 +60,7 @@ class PreferenceCell: UICollectionViewCell {
         self.userInteractionEnabled = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "togglePreference:")
         self.addGestureRecognizer(tapGestureRecognizer)
-        preferenceName.font = UIFont.systemFontOfSize(14)
+        preferenceName.font = UIFont.fomoBold(20)
 
         addSubview(preferenceIcon)
         addSubview(preferenceName)
@@ -72,7 +72,7 @@ class PreferenceCell: UICollectionViewCell {
         if self.preferenceSelected {
             self.contentView.layer.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1).CGColor
             self.layer.borderWidth = 0
-            preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
+            preferenceName.font = UIFont.fomoBold(20)
             preferenceSelected = false
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array
@@ -80,7 +80,7 @@ class PreferenceCell: UICollectionViewCell {
             self.contentView.layer.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1).CGColor
             self.layer.borderWidth = 4
             self.layer.cornerRadius = 20
-            preferenceName.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+            preferenceName.font = UIFont.fomoBoldest(20)
             preferenceSelected = true
             self.delegate?.updateUserPreference(self.attractionType, cell: self)
             // TODO: update user preferences array
