@@ -176,10 +176,10 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     func onTap(gesture: UITapGestureRecognizer) {
 
         let currIndex = getCardIndex()
-        if currIndex > self.recommendations?.attractions?.count || currIndex < 0 {
-            displayCarousel()
-        } else {
+        if currIndex >= self.recommendations?.attractions?.count || currIndex < 0 {
             goToItinerary()
+        } else {
+            displayCarousel()
         }
         
     }
