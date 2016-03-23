@@ -108,10 +108,7 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
 //        cell.contentView.layer.borderColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 0.5).CGColor
         cell.contentView.layer.borderWidth = 4
         return cell
-    }
-    
-    
-    
+    }    
 }
 
 extension PreferencesViewController: PreferenceCellDelegate {
