@@ -8,6 +8,7 @@ import FoldingCell
 
 
 class FoldingTripEventCell: FoldingCell {
+    var tripEvent: TripEvent?
     var attraction: Attraction?
     var parentView: UIView?
     var didSetupConstraints = false
@@ -44,6 +45,7 @@ class FoldingTripEventCell: FoldingCell {
             return 380
         }
     }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -147,11 +149,9 @@ class FoldingTripEventCell: FoldingCell {
     func initViews() {
 
         self.itemCount = detailSegments.count
-        
-        
+        print(self.tripEvent?.likers)
         initTopView()
         
-    
         detailsView.backgroundColor = UIColor.fomoCardBG().colorWithAlphaComponent(0.8)
         detailsView.layer.cornerRadius = 10
         detailsView.layer.masksToBounds = true
@@ -193,6 +193,7 @@ class FoldingTripEventCell: FoldingCell {
         topView.layer.cornerRadius = 10
         topView.layer.masksToBounds = true
         topView.attraction = attraction
+        topView.tripEvent = tripEvent
     }
     
     func initDetailsView() {
@@ -217,6 +218,7 @@ class FoldingTripEventCell: FoldingCell {
             } else {
                 ratingLabel.text = "\(attraction!.rating!)"    
             }
+            likeVotersView.setTravellerFaces(self.tripEvent!.likers!)
             
         }
         ratingLabel.font = UIFont.fomoH2()
@@ -230,7 +232,6 @@ class FoldingTripEventCell: FoldingCell {
         likeLabel.textColor = UIColor.lightGrayColor()
         likeLabel.sizeToFit()
         likeVotersView.backgroundColor = UIColor.clearColor()
-        
         
         detSeg.addSubview(detailsAttractionName)
         detSeg.addSubview(addressLabel)
@@ -262,7 +263,7 @@ class FoldingTripEventCell: FoldingCell {
     }
     
     func initDecisionSeg() {
-        let decSeg = detailSegments[3]
+//        let decSeg = detailSegments[3]
     
         likeButton.setImage(UIImage(named: "check"), forState: .Normal)
         dislikeButton.setImage(UIImage(named: "cross"), forState: .Normal)
@@ -317,8 +318,8 @@ class TopView: RotatedView {
     var imageView: UIImageView = UIImageView.newAutoLayoutView()
     var typeLabel: UILabel = UILabel.newAutoLayoutView()
     var attraction: Attraction?
+    var tripEvent: TripEvent?
     var didSetupConstraintsTV = false
-    var likeVotersView: TravellersView = TravellersView.newAutoLayoutView()
     
     var likeLabel: UILabel = UILabel.newAutoLayoutView()
     
@@ -383,7 +384,6 @@ class TopView: RotatedView {
             typeLabel.sizeToFit()
             typeLabel.textColor = UIColor.darkGrayColor()
             
-            likeVotersView.backgroundColor = UIColor.clearColor()
             
             likeLabel.text = "LIKED BY"
             likeLabel.sizeToFit()

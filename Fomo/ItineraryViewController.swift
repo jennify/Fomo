@@ -283,8 +283,10 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         
         if itinerary.days![indexPath.section].tripEvents?.count < indexPath.row {
             cell.attraction = itinerary.days![indexPath.section].tripEvents![0].attraction
+            cell.tripEvent = itinerary.days![indexPath.section].tripEvents![0]
         } else {
             cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
+            cell.tripEvent = itinerary.days![indexPath.section].tripEvents![indexPath.row]
         }
         
         cell.parentView = self.view

@@ -19,6 +19,7 @@ class TravellersView: UIView {
     var didSetupConstraints = false
     
     var faceHeight: CGFloat = 30
+    var loadCache = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,16 +32,25 @@ class TravellersView: UIView {
         initViews()
         updateConstraints()
     }
+    
+    func setTravellerFaces(users: [User]?) {
+        if users != nil {
+            travellers = users!
+            loadCache = false
+            initViews()
+            updateConstraints()
+        }
+    }
 
     func initViews() {
-        self.backgroundColor = UIColor.fomoSand()
-        
-        if Cache.itinerary != nil {
-            travellers = Cache.itinerary!.travellers!
-        } else {
-            print("Itinerary in cache is null")
-            travellers = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
+        if travellers.count == 0 && loadCache {
+            if Cache.itinerary != nil {
+                travellers = Cache.itinerary!.travellers!
+            } else {
+                print("Itinerary in cache does not exist! Oh the horror.")
+            }
         }
+        self.backgroundColor = UIColor.fomoSand()
         
         for traveller in travellers {
             let profilePhoto = createHalo()

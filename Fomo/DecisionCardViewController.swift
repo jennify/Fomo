@@ -34,6 +34,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     ]
     
     private var countOfCards: Int = 0
+    var completeButtonUserInteraction = false
     
     required override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
@@ -58,6 +59,8 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         resetCardState()
         completeButton.setImage(UIImage(named: "noPerson"), forState: .Normal)
         completeButton.layer.zPosition = -1
+        completeButton.userInteractionEnabled = false
+        completeButtonUserInteraction = false
         completeButton.addTarget(self, action: "goToItinerary", forControlEvents: UIControlEvents.TouchUpInside)
         completeLabel.text = "Submit votes."
         completeLabel.layer.zPosition = -1
@@ -81,10 +84,12 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func goToItinerary() {
-        self.navigationController?.popToRootViewControllerAnimated(true)
-        
-        let containerVC = self.navigationController?.topViewController as! ContainerViewController
-        containerVC.selectViewController(containerVC.itineraryVC)
+        if completeButtonUserInteraction {
+            self.navigationController?.popToRootViewControllerAnimated(true)
+            
+            let containerVC = self.navigationController?.topViewController as! ContainerViewController
+            containerVC.selectViewController(containerVC.itineraryVC)
+        }
     }
     
     override func updateViewConstraints() {
@@ -125,6 +130,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             self.collectionView?.reloadData()
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = UIColor.fomoBackground()
@@ -223,20 +229,19 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         moveCardDown()
         updateVote(getCardIndex() - 1, vote: -1)
     }
-    //method to add new card
-    //    @IBAction func addNewCards(sender: AnyObject) {
-    //        countOfCards++
-    //        newCardWasAdded()
-    //    }
     
     func cardDidChangeState(cardIndex: Int) {
         // TODO(jlee): Super janky way of hiding and showing the finish state.
         if cardIndex == self.numberOfCards() {
             completeButton.layer.zPosition = 0
             completeLabel.layer.zPosition = 0
+            completeButton.userInteractionEnabled = false
+            completeButtonUserInteraction = false
         } else {
             completeButton.layer.zPosition = -1
             completeLabel.layer.zPosition = -1
+            completeButton.userInteractionEnabled = true
+            completeButtonUserInteraction = true
         }
     }
 }
