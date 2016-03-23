@@ -11,7 +11,6 @@ pod 'FoldingCell', '~> 0.7.3'
 pod 'SAConfettiView'
 pod 'TisprCardStack', '~> 0.3.0'
 pod 'AMTumblrHud'
-pod 'Onboard'
 
 end
 

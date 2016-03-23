@@ -8,20 +8,21 @@ import CoreData
 
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
+let userHasOnboardedKey = "user_has_onboarded"
 
-let DEBUG = "connie"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let ITINERARY_USE_CACHE = false
+    let ITINERARY_USE_CACHE = true
 
     var window: UIWindow?
     var storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-
+        
         UILabel.appearance().font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         UINavigationBar.appearance().tintColor = UIColor.fomoHighlight()
         UIBarButtonItem.appearance().tintColor = UIColor.fomoHighlight()
@@ -29,11 +30,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [ NSFontAttributeName: UIFont.fomoBold(18)]
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
+        
+        // Onboarding
+        // ============================
+        let userHasOnboardedAlready = NSUserDefaults.standardUserDefaults().boolForKey(userHasOnboardedKey);
+        
+        self.window!.rootViewController = self.generateOnboardingViewController()
+        
+        // Temp: always show onboarding
+//        if userHasOnboardedAlready {
+//            self.setupNormalRootVC();
+//        } else {
+//            self.window!.rootViewController = self.generateOnboardingViewController()
+//        }
+        
+        return true
+    }
+    
+    func setupNormalRootVC() {
+        // If user has already logged in
         if Cache.currentUser != nil {
-            // If user has already logged in
-            
             print("Current user detected: \(Cache.currentUser!.name!)")
             let user = Cache.currentUser!
+            
             RecommenderClient.sharedInstance.get_itineraries_for_user(user) {
                 (response: [Itinerary]?, error: NSError?) -> () in
                 if error != nil || response == nil {
@@ -42,142 +61,81 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
                     let container = vc.topViewController as? ContainerViewController
                     container?.initialVC = self.storyboard.instantiateViewControllerWithIdentifier("CityViewController") as! CityViewController
-                    self.window?.rootViewController = vc
+                    
+                    UIView.transitionWithView(self.window!, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
+                        self.window?.rootViewController = vc
+                    }, completion:nil)
                     
                 } else {
                     let it = response?.first
                     print("Itinerary \(it!.tripName!) detected")
                     let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
-                    self.window?.rootViewController = vc
+                    
+                    UIView.transitionWithView(self.window!, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
+                        self.window?.rootViewController = vc
+                    }, completion:nil)
                 }
             }
-            
         } else {
             print("No User Detected.")
             
-            self.window?.rootViewController = self.storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as UIViewController
+            UIView.transitionWithView(self.window!, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
+                self.window?.rootViewController = self.storyboard.instantiateViewControllerWithIdentifier("LoginViewController") as UIViewController
+            }, completion:nil)
         }
-
-        if DEBUG == "jlee" {
-            self.jleeDebugging()
-        } else if DEBUG == "christian" {
-            self.christianDebugging()
-        } else if DEBUG == "connie" {
-            self.connieDebugging()
-        }
-
-
-        return true
     }
     
-    func connieDebugging() {
-        // Debugging Entry Point - logged in
-        if (false) {
-            let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
-            window?.rootViewController = vc
-        }
-        // Debugging Entry Point - logged out
-        if (false) {
-            let vc = storyboard.instantiateInitialViewController()
-            window?.rootViewController = vc
-        }
-        // Debugging Entry Point - onboarding
-        if (true) {
-            let vc = storyboard.instantiateInitialViewController()
-            window?.rootViewController = vc
-        }
-    }
-    func christianDebugging() {
-        // Debugging Entry Point for Itinerary View Controller
-        if (false) {
-            let itineraryViewController = ItineraryViewController()
-            let navController = UINavigationController()
-            navController.navigationBar.translucent = false
-            navController.viewControllers = [itineraryViewController]
-            window?.rootViewController = navController
-        }
-
-        // Debugging Entry Point for City View Controller
-        if (false) {
-            let cityViewController = CityViewController()
-            let navController = UINavigationController()
-            navController.navigationBar.translucent = false
-            navController.viewControllers = [cityViewController]
-            window?.rootViewController = navController
-        }
-
-        // Debugging Entry Point for Done View Controller
-        if (true) {
-            let doneViewController = DoneViewController()
-            let navController = UINavigationController()
-            navController.navigationBar.translucent = false
-            navController.viewControllers = [doneViewController]
-            window?.rootViewController = navController
-        }
-
-        // Debugging Entry Point for Itinerary View Controller
-        if (false) {
-            let tripViewController = TripViewController()
-            let navController = UINavigationController()
-            navController.navigationBar.translucent = false
-            navController.viewControllers = [tripViewController]
-            window?.rootViewController = navController
-        }
-
-        // Debugging Entry Point for Preferences View Controller
-        if (false) {
-            let preferencesViewController = PreferencesViewController()
-            let navController = UINavigationController()
-            navController.navigationBar.translucent = false
-            navController.viewControllers = [preferencesViewController]
-            window?.rootViewController = navController
-        }
-
-        // Debugging Entry Point for Friends View Controller
-        if (false) {
-            let friendsViewController = FriendsViewController()
-            let navController = UINavigationController()
-            navController.navigationBar.translucent = false
-            navController.viewControllers = [friendsViewController]
-            window?.rootViewController = navController
-        }
-    }
-    func jleeDebugging() {
-        // Debugging Entry Point for Itinerary View Controller
-        if (false) {
-            let itineraryViewController = ItineraryViewController()
-            let navController = UINavigationController()
-            navController.navigationBar.translucent = false
-            navController.viewControllers = [itineraryViewController]
-            window?.rootViewController = navController
-        }
-        
-        if (false) {
-            let dvc = DecisionCardViewController()
-            let navController = UINavigationController()
-            navController.navigationBar.translucent = false
-            navController.viewControllers = [dvc]
-            window?.rootViewController = navController
-        }
-        //        let fakeItinerary = Itinerary.generateTestInstance()
-        //        let fakeAttraction = Attraction.generateTestInstance(City.generateTestInstance())
-        //        RecommenderClient.sharedInstance.update_itinerary_with_vote(fakeItinerary, attraction: fakeAttraction, user: User.generateTestInstance(), vote: Vote.Like) {
-        //            (response, error) -> () in
-        //
-        //            if error != nil {
-        //                print(error)
-        //                displayAlert((self.window?.rootViewController)!, error: error!)
-        //            } else {
-        //                print("Initial recommender hooked up")
-        //            }
-        //        }
-    }
 
     func userDidLogout() {
         let vc = storyboard.instantiateInitialViewController()
         window?.rootViewController = vc
         print("User did logout")
     }
+    
+    
+    // Onboarding
+    // ============================
+    func generateOnboardingViewController() -> OnboardingViewController {
+        // Page 1
+        let firstPage: OnboardingContentViewController = OnboardingContentViewController(
+            title: "Explore Destinations",
+            body: "Browse a customized set of attraction recommendations",
+            image: UIImage(named: ""),
+            buttonText: nil) {
+            }
+        
+        // Page 2
+        let secondPage: OnboardingContentViewController = OnboardingContentViewController(
+            title: "Plan Trips with Friends",
+            body: "Invite friends and aggregate traveller preferences",
+            image: UIImage(named: ""),
+            buttonText: nil) {
+            }
+        
+        // Page 3
+        let thirdPage: OnboardingContentViewController = OnboardingContentViewController(
+            title: "Generate Itinerary",
+            body: "FOMO automatically creates the perfect group trip itinerary",
+            image: UIImage(named: ""),
+            buttonText: "Let's Get Started") {
+                self.handleOnboardingCompletion()
+            }
+        
+        // Create the onboarding controller with the pages and return it
+        let onboardingVC: OnboardingViewController = OnboardingViewController(backgroundImage: UIImage(named: "amalfi"), contents: [firstPage, secondPage, thirdPage])
+        
+        return onboardingVC
+    }
+    
+    func handleOnboardingCompletion() {
+        // Set in NSUserDefaults that we've onboarded so in the future 
+        // when we launch the application we won't see the onboarding again.
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: userHasOnboardedKey)
+        
+        setupNormalRootVC()
+    }
+    // ============================
+    
 
     func application(application: UIApplication,
         openURL url: NSURL,
@@ -279,7 +237,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
-
 }
 
