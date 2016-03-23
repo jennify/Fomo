@@ -15,6 +15,7 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         layout.scrollDirection = .Vertical
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
+    let doneButton: UIButton = UIButton.newAutoLayoutView()
     
     var preferences: [AttractionType] = AttractionType.availableCategories()
 
@@ -33,10 +34,19 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         preferencesCollectionView.backgroundColor = UIColor(red: 186/255, green: 192/255, blue: 206/255, alpha: 1)
         bannerImage.image = UIImage(named: "pool")
         bannerImage.contentMode = .ScaleAspectFill
+
+        doneButton.titleLabel?.font = UIFont.fomoH2()
+        doneButton.setTitle("Save Preferences", forState: .Normal)
+        doneButton.addTarget(self, action: "savePreferences", forControlEvents: .TouchUpInside)
+        doneButton.addTarget(self, action: "buttonPress", forControlEvents: .TouchDown)
+        doneButton.backgroundColor = UIColor.fomoHighlight()
+        doneButton.layer.cornerRadius = 5
         
         view.addSubview(bannerView)
         bannerView.addSubview(bannerImage)
         view.addSubview(preferencesCollectionView)
+        view.addSubview(doneButton)
+
         view.setNeedsUpdateConstraints()
     }
     
@@ -51,7 +61,11 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
             preferencesCollectionView.autoPinEdge(.Top, toEdge: .Bottom, ofView: bannerView)
             preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Left)
             preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Right)
-            preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Bottom)
+            
+            doneButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: preferencesCollectionView, withOffset: 20)
+            doneButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 30)
+            doneButton.autoAlignAxisToSuperviewAxis(.Vertical)
+            doneButton.contentEdgeInsets = UIEdgeInsetsMake(10, 15, 10, 15)
             
             didSetupConstraints = true
         }
@@ -105,10 +119,23 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         cell.contentView.layer.cornerRadius = 20
         cell.contentView.layer.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1).CGColor
         cell.contentView.layer.borderColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1).CGColor
-//        cell.contentView.layer.borderColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 0.5).CGColor
         cell.contentView.layer.borderWidth = 4
         return cell
-    }    
+    }
+
+    func buttonPress() {
+        doneButton.transform = CGAffineTransformMakeScale(1.1, 1.1);
+    }
+    
+    func savePreferences() {
+        doneButton.transform = CGAffineTransformIdentity
+        
+        // Navigate to browse view
+        let fomoNavVC = self.navigationController! as UINavigationController
+        fomoNavVC.popToRootViewControllerAnimated(false)
+        let container = fomoNavVC.topViewController as! ContainerViewController
+        container.onBrowsePressed(self)
+    }
 }
 
 extension PreferencesViewController: PreferenceCellDelegate {
