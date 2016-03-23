@@ -58,6 +58,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         loadItineraryFromCache()
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
         travellersView.initViews()
+        travellersView.updateConstraints()
         
     }
     
@@ -402,10 +403,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             let itineraryIndexPath = NSIndexPath(forRow: 0, inSection: indexPath.row)
             itineraryTableView.scrollToRowAtIndexPath(itineraryIndexPath, atScrollPosition: .Top, animated: true)
         } else {
-//            loadItineraryFromCache()
-//            cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
-            travellersView.initViews()
-            self.viewWillAppear(false)
+            
         }
     }
 

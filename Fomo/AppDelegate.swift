@@ -14,7 +14,7 @@ let userHasOnboardedKey = "user_has_onboarded"
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let ITINERARY_USE_CACHE = true
+    let ITINERARY_USE_CACHE = false
 
     var window: UIWindow?
     var storyboard = UIStoryboard(name: "Main", bundle: nil)
