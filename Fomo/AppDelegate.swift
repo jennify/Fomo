@@ -9,7 +9,7 @@ import CoreData
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
 
-let DEBUG = "none"
+let DEBUG = "connie"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -78,6 +78,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         // Debugging Entry Point - logged out
         if (false) {
+            let vc = storyboard.instantiateInitialViewController()
+            window?.rootViewController = vc
+        }
+        // Debugging Entry Point - onboarding
+        if (true) {
             let vc = storyboard.instantiateInitialViewController()
             window?.rootViewController = vc
         }

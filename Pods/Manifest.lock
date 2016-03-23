@@ -26,6 +26,7 @@ PODS:
     - AFNetworking/NSURLSession (~> 2.6.0)
   - EPCalendarPicker (1.0.8)
   - FoldingCell (0.7.3)
+  - Onboard (2.1.7)
   - PureLayout (3.0.1)
   - SAConfettiView (0.1.8)
   - TisprCardStack (0.3.0)
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - BDBOAuth1Manager
   - EPCalendarPicker (~> 1.0.8)
   - FoldingCell (~> 0.7.3)
+  - Onboard
   - PureLayout
   - SAConfettiView
   - TisprCardStack (~> 0.3.0)
@@ -46,6 +48,7 @@ SPEC CHECKSUMS:
   BDBOAuth1Manager: cd5a5872f355ca38180d52ca2dd844f0b0c84797
   EPCalendarPicker: 0348fe754a7650582665ecc5ac98f4c0a0db0e91
   FoldingCell: 8d7674d9ff51ae40408b99a17798bc0ec20a3654
+  Onboard: 87648089e1b76d13b4f5bf8f7a1cdb144092f0af
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   SAConfettiView: c87031a2280659261b730fce3669fb10e73636ee
   TisprCardStack: d79a03e1568b46d3c8351e761383be2a5e5832ad
