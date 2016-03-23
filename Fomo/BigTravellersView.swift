@@ -28,7 +28,14 @@ class BigTravellersView: UIView {
     }
     
     func initViews() {
-        travellers = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
+        if travellers.count == 0 {
+            if Cache.itinerary != nil {
+                travellers = Cache.itinerary!.travellers!
+            } else {
+                print("Itinerary in cache does not exist! Oh the horror.")
+                travellers = [User.generateTestInstance()]
+            }
+        }
         
         addHalos()
     }
