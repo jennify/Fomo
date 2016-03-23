@@ -57,6 +57,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(animated: Bool) {
         loadItineraryFromCache()
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
+        travellersView.initViews()
         
     }
     
@@ -72,6 +73,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             
         }
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -400,7 +402,10 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             let itineraryIndexPath = NSIndexPath(forRow: 0, inSection: indexPath.row)
             itineraryTableView.scrollToRowAtIndexPath(itineraryIndexPath, atScrollPosition: .Top, animated: true)
         } else {
-            displayTodo("Add a day")
+//            loadItineraryFromCache()
+//            cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
+            travellersView.initViews()
+            self.viewWillAppear(false)
         }
     }
 

@@ -84,14 +84,11 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func goToItinerary() {
-        if completeButtonUserInteraction {
-            self.navigationController?.popToRootViewControllerAnimated(true)
-            
-            let containerVC = self.navigationController?.topViewController as! ContainerViewController
-            containerVC.selectViewController(containerVC.itineraryVC)
-        } else {
-            displayCarousel()
-        }
+        self.navigationController?.popToRootViewControllerAnimated(true)
+        
+        let containerVC = self.navigationController?.topViewController as! ContainerViewController
+        containerVC.selectViewController(containerVC.itineraryVC)
+        
     }
     
     override func updateViewConstraints() {
@@ -177,7 +174,14 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func onTap(gesture: UITapGestureRecognizer) {
-        displayCarousel()
+
+        let currIndex = getCardIndex()
+        if currIndex > self.recommendations?.attractions?.count || currIndex < 0 {
+            displayCarousel()
+        } else {
+            goToItinerary()
+        }
+        
     }
     
     func displayCarousel() {

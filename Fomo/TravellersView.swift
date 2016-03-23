@@ -51,7 +51,7 @@ class TravellersView: UIView {
                 travellers = [User.generateTestInstance()]
             }
         }
-        self.backgroundColor = UIColor.fomoSand()
+        self.backgroundColor = UIColor.clearColor()
         
         for traveller in travellers {
             let profilePhoto = createHalo()
