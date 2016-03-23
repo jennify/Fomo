@@ -97,7 +97,10 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
                         
                     } else {
                         print("Itinerary \(Cache.itinerary?.tripName) detected")
-                        let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as UIViewController
+                        let vc = storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
+                        let container = vc.topViewController as? ContainerViewController
+                        container?.initialVC = self.storyboard!.instantiateViewControllerWithIdentifier("PreferencesViewController") as!
+                        PreferencesViewController
                         self.presentViewController(vc, animated: true, completion: nil)
                     }
                 }
