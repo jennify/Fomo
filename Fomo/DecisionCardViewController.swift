@@ -178,7 +178,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         let carouselViewController = CarouselViewController()
         let currIndex = getCardIndex()
         let attraction = self.recommendations?.attractions?[currIndex]
-        carouselViewController.imagePaths = attraction!.imageUrls
+        carouselViewController.imageUrls = attraction!.imageUrls
         
         let blurEffect = UIBlurEffect(style: .Light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
