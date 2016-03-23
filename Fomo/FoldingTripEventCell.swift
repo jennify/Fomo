@@ -250,10 +250,10 @@ class FoldingTripEventCell: FoldingCell {
             locationView.contentMode = .ScaleAspectFill
             locationView.clipsToBounds = true
             
-            if attraction!.imageUrls?.count == 0 {
+            if attraction!.imageUrls.count == 0 {
                 locationView.image = UIImage(named: "noImage")
             } else {
-                locationView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
+                locationView.setImageWithURL(NSURL(string: attraction!.imageUrls.first!)!)
             }
             
         }
@@ -369,10 +369,10 @@ class TopView: RotatedView {
             attractionName.numberOfLines = 0
             attractionName.sizeToFit()
             
-            if attraction?.imageUrls?.count == 0 {
+            if attraction?.imageUrls.count == 0 {
                 imageView.image = UIImage(named: "noImage")
             } else {
-                imageView.setImageWithURL(NSURL(string: attraction!.imageUrls!.first!)!)
+                imageView.setImageWithURL(NSURL(string: attraction!.imageUrls.first!)!)
             }
             imageView.clipsToBounds = true
             imageView.contentMode = .ScaleAspectFill

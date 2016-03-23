@@ -193,10 +193,12 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         if appDelegate.ITINERARY_USE_CACHE, let itinerary = Cache.itinerary {
-            let itineraryViewController = ItineraryViewController()
-            itineraryViewController.itinerary = itinerary
-            itineraryViewController.isNewTrip = true
-            self.navigationController?.pushViewController(itineraryViewController, animated: true)
+            let fomoNavVC = self.navigationController! as UINavigationController
+            fomoNavVC.popToRootViewControllerAnimated(false)
+            let container = fomoNavVC.topViewController as! ContainerViewController
+            container.itineraryVC.isNewTrip = true
+            container.itineraryVC.itinerary = itinerary
+            container.onTripPressed(self)
         } else {
             print("Starting to create itinerary...")
             let hud = displayHUD(self.view)
