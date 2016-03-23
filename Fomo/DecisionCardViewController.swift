@@ -169,10 +169,10 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func onTap(gesture: UITapGestureRecognizer) {
-        let carouselViewController = CarouselViewController()
+        let carouselViewController = NewCarouselViewController()
         let currIndex = getCardIndex()
         let attraction = self.recommendations?.attractions?[currIndex]
-        carouselViewController.imagePaths = attraction!.imageUrls
+        carouselViewController.imageUrls = attraction!.imageUrls
         
         let blurEffect = UIBlurEffect(style: .Light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)

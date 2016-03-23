@@ -44,6 +44,7 @@
 		AA1DCED01C8BB0DF0088DD27 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */; };
 		AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCED11C8BB2500088DD27 /* FriendCell.swift */; };
 		AA1DCED61C948EF60088DD27 /* TravellersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCED51C948EF60088DD27 /* TravellersView.swift */; };
+		AA6270181CA247B0005532BC /* NewCarouselViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6270171CA247B0005532BC /* NewCarouselViewController.swift */; };
 		AA7B21C51C961ED400636007 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C41C961ED400636007 /* CityViewController.swift */; };
 		AA7B21C71C961EE900636007 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C61C961EE900636007 /* CityCell.swift */; };
 		AA7B21C91C968FCB00636007 /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C81C968FCB00636007 /* DoneViewController.swift */; };
@@ -100,6 +101,7 @@
 		AA1DCECF1C8BB0DF0088DD27 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		AA1DCED11C8BB2500088DD27 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		AA1DCED51C948EF60088DD27 /* TravellersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravellersView.swift; sourceTree = "<group>"; };
+		AA6270171CA247B0005532BC /* NewCarouselViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCarouselViewController.swift; sourceTree = "<group>"; };
 		AA7B21C41C961ED400636007 /* CityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		AA7B21C61C961EE900636007 /* CityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		AA7B21C81C968FCB00636007 /* DoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				AA7B21C81C968FCB00636007 /* DoneViewController.swift */,
 				7A120A2B1C9A60CA002E7B92 /* DecisionCardViewController.swift */,
 				AAA132B51C9E7A7F001736CF /* CarouselViewController.swift */,
+				AA6270171CA247B0005532BC /* NewCarouselViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				AA1DCECA1C8B987A0088DD27 /* DayCell.swift in Sources */,
 				AA1DCE921C8441E60088DD27 /* AttractionType.swift in Sources */,
 				AAA132B81C9E7CA0001736CF /* CarouselCellScrollView.swift in Sources */,
+				AA6270181CA247B0005532BC /* NewCarouselViewController.swift in Sources */,
 				AAA132BA1C9E7DB1001736CF /* CarouselCell.swift in Sources */,
 				AA1DCECC1C8BA7F30088DD27 /* PreferencesViewController.swift in Sources */,
 				AA7B21C91C968FCB00636007 /* DoneViewController.swift in Sources */,
