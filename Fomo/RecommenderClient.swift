@@ -6,7 +6,7 @@
 import UIKit
 import BDBOAuth1Manager
 
-let USE_LOCAL_DEV_ENVIROMENT = false
+let USE_LOCAL_DEV_ENVIROMENT = true
 
 class RecommenderClient: BDBOAuth1RequestOperationManager {
     // No Auth attached!
@@ -110,7 +110,11 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
     
     func update_itinerary_with_vote (itinerary: Itinerary, attraction: Attraction, user: User, vote: Vote, completion: (response: Itinerary?, error: NSError?) -> ()) {
         let url = recommender_domain + "/update_itinerary_with_vote/"
-        var parameters: [String: String] = ["groupID": itinerary.id!, "placeID": attraction.id!, "userEmail": user.email! ]
+        var parameters: [String: String] = [
+//            "votes": [{}, {}]
+            "groupID": itinerary.id!,
+            "placeID": attraction.id!,
+            "userEmail": user.email! ]
         if vote == Vote.Like {
             parameters["like"] = "true"
         } else if vote == Vote.Dislike {
