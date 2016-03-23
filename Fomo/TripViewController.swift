@@ -176,9 +176,6 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
     func buttonPress() {
         doneButton.transform = CGAffineTransformMakeScale(1.1, 1.1);
-//        UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: [], animations: {
-//            self.doneButton.transform = CGAffineTransformMakeScale(1.1, 1.1);
-//        }, completion: nil)
     }
     
     func createTrip() {
