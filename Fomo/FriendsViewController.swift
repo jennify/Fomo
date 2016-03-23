@@ -24,6 +24,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var filteredFriends: [User] = []
     var indexPaths: [NSIndexPath] = []
 
+    
+    override func viewWillAppear(animated: Bool) {
+        animateTable()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,7 +64,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         friendsTableView.reloadData()
     }
-
+    
     override func loadView() {
         view = UIView()
         
@@ -190,6 +195,33 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.friendName.textColor = UIColor.fomoTextColor()
         cell.backgroundColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8)
         cell.delegate = self
+    }
+    
+    // Animate cells
+    func animateTable() {
+        friendsTableView.reloadData()
+        
+        let cells = friendsTableView.visibleCells
+        print(cells.count)
+        let tableHeight: CGFloat = friendsTableView.frame.size.height
+        print(tableHeight)
+        
+        for i in cells {
+            print(i)
+            let cell: UITableViewCell = i as UITableViewCell
+            cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
+        }
+        
+        var index = 0
+        
+        for a in cells {
+            let cell: UITableViewCell = a as UITableViewCell
+            UIView.animateWithDuration(1.5, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                cell.transform = CGAffineTransformMakeTranslation(0, 0);
+                }, completion: nil)
+            
+            index += 1
+        }
     }
 }
 

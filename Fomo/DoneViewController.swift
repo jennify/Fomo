@@ -36,7 +36,7 @@ class DoneViewController: UIViewController {
         travellersView.hidden = false
         
         confettiView.startConfetti()
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "stopConfetti", userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "stopConfetti", userInfo: nil, repeats: true)
     }
     
     func stopConfetti() {

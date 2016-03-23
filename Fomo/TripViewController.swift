@@ -164,8 +164,10 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         let calendarPicker = EPCalendarPicker(startYear: 2016, endYear: 2017, multiSelection: false, selectedDates: dateArray)
         calendarPicker.weekdayTintColor = UIColor.blackColor()
         calendarPicker.weekendTintColor = UIColor.blackColor()
-        calendarPicker.monthTitleColor = UIColor.fomoBlue()
-        calendarPicker.backgroundColor = UIColor.fomoWhite()
+        calendarPicker.monthTitleColor = UIColor.fomoTextColor()
+        calendarPicker.dateSelectionColor = UIColor.fomoHighlight()
+        calendarPicker.backgroundColor = UIColor.fomoBackground()
+        calendarPicker.barTintColor = UIColor.fomoBackground()
         calendarPicker.hightlightsToday = false
         calendarPicker.calendarDelegate = self
         let navigationController = UINavigationController(rootViewController: calendarPicker)
@@ -174,6 +176,9 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     
     func buttonPress() {
         doneButton.transform = CGAffineTransformMakeScale(1.1, 1.1);
+//        UIView.animateWithDuration(1.0, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 10, options: [], animations: {
+//            self.doneButton.transform = CGAffineTransformMakeScale(1.1, 1.1);
+//        }, completion: nil)
     }
     
     func createTrip() {
@@ -255,7 +260,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        UIView.animateWithDuration(5, delay:0, options: [.Repeat, .Autoreverse], animations: {
+        UIView.animateWithDuration(15, delay:0, options: [.Repeat, .Autoreverse], animations: {
             self.cityImageView.transform = CGAffineTransformMakeScale(1.5, 1.5)
         }, completion: nil)
     }
