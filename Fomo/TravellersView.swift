@@ -51,6 +51,11 @@ class TravellersView: UIView {
                 travellers = [User.generateTestInstance()]
             }
         }
+        if loadCache {
+            if Cache.itinerary != nil {
+                travellers = Cache.itinerary!.travellers!
+            }
+        }
         self.backgroundColor = UIColor.clearColor()
         
         for traveller in travellers {

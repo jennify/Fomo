@@ -56,10 +56,18 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(animated: Bool) {
         loadItineraryFromCache()
+        reloadPage()
+
+
+        print("view will appear")
+        
+    }
+    
+    func reloadPage() {
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
+        itineraryTableView.reloadData()
         travellersView.initViews()
         travellersView.updateConstraints()
-        
     }
     
     func loadItineraryFromCache() {
@@ -72,6 +80,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
                 Cache.itinerary = itinerary
             }
             
+        }
+        if isNewTrip && Cache.itinerary != nil {
+            self.itinerary = Cache.itinerary!
         }
     }
     
@@ -409,7 +420,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             let itineraryIndexPath = NSIndexPath(forRow: 0, inSection: indexPath.row)
             itineraryTableView.scrollToRowAtIndexPath(itineraryIndexPath, atScrollPosition: .Top, animated: true)
         } else {
-            
+            print("reload page")
+        
+            reloadPage()
         }
     }
 
