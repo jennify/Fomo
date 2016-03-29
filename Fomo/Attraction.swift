@@ -59,8 +59,8 @@ class Attraction: NSObject {
         self.rating = dictionary["rating"] as? Float
         self.attractionType = dictionary["types"] as? [String]
         self.types = AttractionType.attractionTypesWithArray(self.attractionType!)
-        
-        //self.imageUrls = ["http://cdn.funcheap.com/wp-content/uploads/2010/11/deYoung-Museum.-Photo-courtesy-cisl.edu_2.jpg"]
+        self.id = dictionary["place_id"] as? String
+
         self.rawData = dictionary
     }
     
@@ -93,8 +93,8 @@ class Attraction: NSObject {
         return typesArr.joinWithSeparator(", ")
     }
     
-    func vote(vote: Vote, completion: (response: Itinerary?, error: NSError?) -> ()) {
-        let itinerary = tripEvent?.itinerary
+    func vote(vote: Vote, completion: ((response: Itinerary?, error: NSError?) -> ())?) {
+        let itinerary = Cache.itinerary
         let currentUser = Cache.currentUser
         
         RecommenderClient.sharedInstance.update_itinerary_with_vote(itinerary!, attraction: self, user: currentUser!, vote: vote, completion: completion)

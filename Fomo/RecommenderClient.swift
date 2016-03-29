@@ -74,8 +74,9 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
             if its.count == 0 {
                 completion(response: nil, error: NSError(domain: "No itineraries", code: 1, userInfo: nil))
             } else {
-                Cache.itinerary = self.getItineraryCreateRecently(its)
-                completion(response: its, error: nil)
+                let it = self.getItineraryCreateRecently(its)
+                Cache.itinerary = it
+                completion(response: [it], error: nil)
             }
             
         }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
@@ -108,10 +109,9 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         })
     }
     
-    func update_itinerary_with_vote (itinerary: Itinerary, attraction: Attraction, user: User, vote: Vote, completion: (response: Itinerary?, error: NSError?) -> ()) {
+    func update_itinerary_with_vote (itinerary: Itinerary, attraction: Attraction, user: User, vote: Vote, completion: ((response: Itinerary?, error: NSError?) -> ())?) {
         let url = recommender_domain + "/update_itinerary_with_vote/"
         var parameters: [String: String] = [
-//            "votes": [{}, {}]
             "groupID": itinerary.id!,
             "placeID": attraction.id!,
             "userEmail": user.email! ]
@@ -122,7 +122,12 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         } else if vote == Vote.Neutral {
             parameters["neutral"] = "true"
         }
-        requestPOSTWithItineraryResponse(url, parameters: parameters, completion: completion)
+        if completion == nil {
+            requestPOSTWithItineraryResponse(url, parameters: parameters, completion: {_,_ in })
+        } else {
+            requestPOSTWithItineraryResponse(url, parameters: parameters, completion: completion!)
+        }
+        
 
     }
     

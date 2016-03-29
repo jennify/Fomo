@@ -17,9 +17,8 @@ class Cache: NSObject {
     
     class func clearCache() {
         // TODO(jlee): Implement clear cache.
-        let defaults = NSUserDefaults.standardUserDefaults()
-        
-        let rmDefaults = NSUserDefaults.removePersistentDomainForName(defaults)
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        NSUserDefaults.removePersistentDomainForName(defaults)
     
         Cache.currentUser = nil
         Cache.currentFriends = nil
@@ -129,6 +128,15 @@ class Cache: NSObject {
                 NSUserDefaults.standardUserDefaults().setObject(nil, forKey: currentItinerary)
             }
             NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
+    
+    class func refreshItinerary(completion: (response: Itinerary?, error: NSError?) -> ()) {
+        if let user = Cache.currentUser {
+            RecommenderClient.sharedInstance.get_itineraries_for_user(user) {
+                (response: [Itinerary]?, error: NSError?) -> () in
+                completion(response: response?.first!, error: error)
+            }
         }
     }
 }

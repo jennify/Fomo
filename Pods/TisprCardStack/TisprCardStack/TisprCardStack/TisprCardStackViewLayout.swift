@@ -115,7 +115,7 @@ public class TisprCardStackViewLayout: UICollectionViewLayout, UIGestureRecogniz
     private let angleOfRotationForNewCardAnimation: CGFloat = 0.25
     
     private let verticalOffsetBetweenCardsInTopStack = 10
-    private let centralCardYPosition = 70
+    public let centralCardYPosition = 70
     
     private var panGestureRecognizer: UIPanGestureRecognizer?
     private var swipeRecognizerDown: UISwipeGestureRecognizer?

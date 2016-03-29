@@ -30,7 +30,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var isNewTrip: Bool = false
     var hideSectionHeaders = false
     var didSetupConstraints = false
-
+    var hasItinerary = true
+    
     // Cell state
     var cellHeights = [[CGFloat]]()
     var kCloseCellHeight: CGFloat = FoldingTripEventCell.topViewHeight + 8 // equal or greater foregroundView height
@@ -52,14 +53,13 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     // Dim view
     var dimView = UIView()
     
-    var hasItinerary = true
+    // Refresh
+    var refreshControl: UIRefreshControl!
+    
     
     override func viewWillAppear(animated: Bool) {
         loadItineraryFromCache()
         reloadPage()
-
-
-        print("view will appear")
         
     }
     
@@ -71,21 +71,13 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func loadItineraryFromCache() {
-        if Cache.itinerary != nil && !isNewTrip {
-            self.itinerary = Cache.itinerary!
+        if Cache.itinerary != nil {
+            itinerary = Cache.itinerary!
         } else {
-            if itinerary == Itinerary.generateTestInstance() {
-                print("Using test instance")
-            } else {
-                Cache.itinerary = itinerary
-            }
-            
-        }
-        if isNewTrip && Cache.itinerary != nil {
-            self.itinerary = Cache.itinerary!
+            itinerary = Itinerary.generateTestInstance()
+            print("Using test instance")
         }
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +87,36 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpNavigationBar()
         setUpOverview()
         setUpDimView()
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        itineraryTableView.insertSubview(refreshControl, atIndex: 0)
+    }
+    
+    func refreshItinerary(delay:Double, closure:()->()) {
+        Cache.refreshItinerary () {
+            (response:Itinerary? ,error:NSError?) in
+            if response != nil {
+                self.itinerary = response!
+                self.reloadPage()
+            } else {
+                print(error)
+                print("Could not refresh page")
+            }
+        }
+        
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    func onRefresh() {
+        refreshItinerary(2, closure: {
+            self.refreshControl.endRefreshing()
+        })
     }
     
     func setUpDimView() {

@@ -9,16 +9,18 @@ import UIKit
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKSharingDelegate {
     var titleLabel: UILabel = UILabel.newAutoLayoutView()
     var didSetupConstraints = false
+    var loginButton : FBSDKLoginButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loginButton = FBSDKLoginButton(frame: CGRect(x: 0, y: 0, width: 100, height: 35))
+        view.addSubview(loginButton)
         
-        let loginButton = FBSDKLoginButton(frame: CGRect(x: 0, y: 0, width: 100, height: 35))
+        
         loginButton.center = CGPoint(x: view.center.x, y: view.center.y + 100)
         loginButton.delegate = self
         loginButton.readPermissions = ["public_profile", "email", "user_friends"];
-        view.addSubview(loginButton)
-        
         
         titleLabel.text = "fomo"
         titleLabel.font = UIFont(name: "Georgia-Italic", size: 50)
@@ -26,18 +28,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
         
         titleLabel.textAlignment = .Center
         titleLabel.sizeToFit()
+        
         view.addSubview(titleLabel)
-        
-        //        let send = FBSDKSendButton()
-        //        let linkContent = FBSDKShareLinkContent()
-        //        linkContent.contentTitle = "Hello"
-        //        linkContent.contentDescription = "Googs"
-        //        linkContent.contentURL = NSURL(string: "https://developers.facebook.com")
-        //        send.shareContent = linkContent
-        //        send.center = view.center
-        //        view.addSubview(send)
-        //        FBSDKShareDialog.showFromViewController(self, withContent: linkContent, delegate: self)
-        
         
     }
     
@@ -53,9 +45,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
         print("Canceled")
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
     
     override func updateViewConstraints() {
         if !didSetupConstraints {
@@ -67,20 +56,13 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, FBSDKShar
         super.updateViewConstraints()
     }
     
-    
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         // Fired when open url has happened and exited on success or failure.
         
         if result.isCancelled {
-            // Login is canceled
             NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: userDidLogoutNotification, object: nil))
         } else {
-            // Login is successful, proceed
-            //            print(result.grantedPermissions)
-            //            print(result.declinedPermissions)
-            //            print(result.token)
             
-            // TODO(jlee)
             FacebookClient.sharedInstance.getUserInfo(result.token) {
                 () in
                 let user = Cache.currentUser!

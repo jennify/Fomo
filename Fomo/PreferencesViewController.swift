@@ -30,12 +30,14 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
     
     override func loadView() {
         view = UIView()
-        view.backgroundColor = UIColor(red: 186/255, green: 192/255, blue: 206/255, alpha: 1)
-        preferencesCollectionView.backgroundColor = UIColor(red: 186/255, green: 192/255, blue: 206/255, alpha: 1)
+        view.backgroundColor = UIColor.fomoBackground()
+        preferencesCollectionView.backgroundColor = UIColor.fomoBackground()
+//        view.backgroundColor = UIColor(red: 186/255, green: 192/255, blue: 206/255, alpha: 1)
+//        preferencesCollectionView.backgroundColor = UIColor(red: 186/255, green: 192/255, blue: 206/255, alpha: 1)
         bannerImage.image = UIImage(named: "pool")
         bannerImage.contentMode = .ScaleAspectFill
 
-        doneButton.titleLabel?.font = UIFont.fomoBold(20)
+        doneButton.titleLabel?.font = UIFont.fomoH3()
         doneButton.setTitle("Save Preferences", forState: .Normal)
         doneButton.addTarget(self, action: "savePreferences", forControlEvents: .TouchUpInside)
         doneButton.addTarget(self, action: "buttonPress", forControlEvents: .TouchDown)
@@ -116,10 +118,10 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         cell.preferenceName.textColor = cellColor
         cell.layer.borderColor = cellColor.CGColor
         cell.contentView.layer.masksToBounds = true
-        cell.contentView.layer.cornerRadius = 20
+        cell.contentView.layer.cornerRadius = 20// cell.contentView.frame.height/2
         cell.contentView.layer.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1).CGColor
         cell.contentView.layer.borderColor = UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1).CGColor
-        cell.contentView.layer.borderWidth = 4
+        cell.contentView.layer.borderWidth = 2
         return cell
     }
 

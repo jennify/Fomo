@@ -17,10 +17,12 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     var recommendations: Recommendation?
     var likeButton: UIButton = UIButton.newAutoLayoutView()
     var dislikeButton: UIButton = UIButton.newAutoLayoutView()
+    var isEmbedded = false
+    var topConstraint: NSLayoutConstraint!
     
     // State
     var didSetConstraints = false
-    var voteState: [Int]!
+    var voteState: [Vote]!
     
     private let colors = [UIColor(red: 45.0/255.0, green: 62.0/255.0, blue: 79.0/255.0, alpha: 1.0),
         UIColor(red: 48.0/255.0, green: 173.0/255.0, blue: 99.0/255.0, alpha: 1.0),
@@ -37,12 +39,16 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         super.init(collectionViewLayout: layout)
         initViews()
         updateViewConstraints()
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        let layout = TisprCardStackViewLayout()
+        super.init(collectionViewLayout: layout)
         initViews()
         updateViewConstraints()
+        
     }
     
     required init() {
@@ -50,6 +56,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         super.init(collectionViewLayout: layout)
         initViews()
         updateViewConstraints()
+        
     }
     
     func initViews() {
@@ -76,6 +83,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         self.view.addSubview(completeLabel)
         self.view.addSubview(likeButton)
         self.view.addSubview(dislikeButton)
+        self.view.sendSubviewToBack(completeButton)
         
         setUpNavigationBar()
     }
@@ -103,6 +111,10 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             completeLabel.autoAlignAxis(.Vertical, toSameAxisOfView: completeButton)
             completeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: completeButton, withOffset: 16)
             
+            topConstraint = collectionView?.autoPinEdgeToSuperviewEdge(.Top, withInset: 0).autoIdentify("CollectionTop")
+            collectionView?.autoPinEdgeToSuperviewEdge(.Bottom)
+            collectionView?.autoPinEdgeToSuperviewEdge(.Left)
+            collectionView?.autoPinEdgeToSuperviewEdge(.Right)
             didSetConstraints = true
         }
         
@@ -125,10 +137,18 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             self.resetCardState()
             self.collectionView?.reloadData()
         }
+        
+        if isEmbedded {
+            topConstraint.constant = 60
+            layout.bottomStackCardHeight = 100 - 60
+            self.updateViewConstraints()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         collectionView?.backgroundColor = UIColor.fomoBackground()
         
         //set animation speed
@@ -151,13 +171,14 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
         layout.bottomStackCardHeight = 100
         setUpNavigationBar()
         
+    
     }
     
     func resetCardState() {
         self.voteState = []
         if self.countOfCards != 0 {
             for _ in 1...self.countOfCards {
-                self.voteState.append(0)
+                self.voteState.append(Vote.Neutral)
             }
         }
         for _ in 0...self.getCardIndex(){
@@ -201,8 +222,9 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     }
     
     func updateVote(index: Int, vote: Int) {
-        if vote != 0 {
-            self.voteState[index] = vote
+        let vote_obj = Vote(rawValue: vote)!
+        if vote_obj != Vote.Neutral {
+            self.voteState[index] = vote_obj
         }
         
     }
@@ -229,7 +251,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     
     func onLike() {
         moveCardDown()
-        updateVote(getCardIndex() - 1, vote: 1)
+        updateVote(getCardIndex() - 1, vote: Vote.Like.rawValue)
         
         UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: [], animations: {
             self.likeButton.transform = CGAffineTransformMakeScale(0.9, 0.9)
@@ -242,7 +264,7 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
     
     func onDislike() {
         moveCardDown()
-        updateVote(getCardIndex() - 1, vote: -1)
+        updateVote(getCardIndex() - 1, vote: Vote.Dislike.rawValue)
         
         UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: [], animations: {
             self.dislikeButton.transform = CGAffineTransformMakeScale(0.9, 0.9)
@@ -265,6 +287,10 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             completeLabel.layer.zPosition = -1
             completeButton.userInteractionEnabled = true
             completeButtonUserInteraction = true
+        }
+        if cardIndex > 0 && cardIndex < self.recommendations?.attractions?.count {
+            let attraction = self.recommendations?.attractions?[cardIndex]
+            attraction?.vote(self.voteState[cardIndex], completion: nil)
         }
     }
 }
@@ -431,23 +457,23 @@ class DecisionCardCell: TisprCardStackViewCell {
         var smileImageName = "smile_neutral"
         if rotation > 15 {
             smileImageName = "smile_face_2"
-            updateVote(1)
+            updateVote(Vote.Like)
         } else if rotation > 0 {
             smileImageName = "smile_face_1"
-            updateVote(1)
+            updateVote(Vote.Like)
         } else if rotation < -15 {
             smileImageName = "smile_rotten_2"
-            updateVote(-1)
+            updateVote(Vote.Dislike)
         } else if rotation < 0 {
             smileImageName = "smile_rotten_1"
-            updateVote(-1)
+            updateVote(Vote.Dislike)
         }
         voteSmileImageView.image = UIImage(named: smileImageName)
     }
     
-    func updateVote(decision: Int) {
-        if decision != 0 {
-            self.delegate?.updateVote!(self.voteIndex, vote: decision)
+    func updateVote(decision: Vote) {
+        if decision != Vote.Neutral {
+            self.delegate?.updateVote!(self.voteIndex, vote: decision.rawValue)
         }
     }
     

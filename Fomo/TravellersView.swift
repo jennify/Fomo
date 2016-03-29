@@ -32,6 +32,11 @@ class TravellersView: UIView {
         initViews()
         updateConstraints()
     }
+    class func createTravellersViewWithUsers(users: [User]?) -> TravellersView {
+        let t = TravellersView()
+        t.setTravellerFaces(users)
+        return t
+    }
     
     func setTravellerFaces(users: [User]?) {
         if users != nil {
@@ -39,23 +44,28 @@ class TravellersView: UIView {
             loadCache = false
             initViews()
             updateConstraints()
+            self.setNeedsDisplay()
         }
     }
 
     func initViews() {
-        if travellers.count == 0 && loadCache {
-            if Cache.itinerary != nil {
-                travellers = Cache.itinerary!.travellers!
-            } else {
-                print("Itinerary in cache does not exist! Oh the horror.")
-                travellers = [User.generateTestInstance()]
-            }
-        }
+        travellerHalos = []
         if loadCache {
             if Cache.itinerary != nil {
                 travellers = Cache.itinerary!.travellers!
+                
+            } else {
+                print("Itinerary in cache does not exist! Oh noes.")
+                travellers = [User.generateTestInstance()]
+                
             }
+        } else {
+            // Not loading from cache
+            
         }
+        
+        
+        
         self.backgroundColor = UIColor.clearColor()
         
         for traveller in travellers {

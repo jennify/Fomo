@@ -47,9 +47,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func setUpSearchBar() {
         searchBar.placeholder = "Find friend"
-        searchBar.barTintColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8)
+        searchBar.barTintColor = UIColor.fomoNavBar().colorWithAlphaComponent(0.8)
         searchBar.layer.borderWidth = 1
-        searchBar.layer.borderColor = UIColor.fomoBackground().colorWithAlphaComponent(0.8).CGColor
+        searchBar.layer.borderColor = UIColor.fomoNavBar().colorWithAlphaComponent(0.8).CGColor
         searchBar.delegate = self
     }
     

@@ -141,7 +141,8 @@ class ContainerViewController: UIViewController, Dimmable {
 
     func setUpViewControllers() {
         loginVC = storyboard!.instantiateViewControllerWithIdentifier("LoginViewController") as! LoginViewController
-        decisionVC = DecisionCardViewController()
+        decisionVC = storyboard!.instantiateViewControllerWithIdentifier("DecisionCardViewController") as! DecisionCardViewController
+        decisionVC.isEmbedded = true
         itineraryVC = storyboard!.instantiateViewControllerWithIdentifier("ItineraryViewController") as! ItineraryViewController
         cityVC = storyboard!.instantiateViewControllerWithIdentifier("CityViewController") as! CityViewController
         tripVC = storyboard!.instantiateViewControllerWithIdentifier("TripViewController") as! TripViewController
