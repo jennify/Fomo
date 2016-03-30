@@ -5,10 +5,18 @@ Authors: Christian Deonier, Connie Yu, Jennifer Lee
 Fomo is a travel app for planning group trips. Simply enter dates and a destination, and you'll be presented with suggested itinerary options to upvote/downvote. You can invite friends to join your trip, and everyone can enter their preferences and vote on activities to auto-generate the perfect customized travel itinerary for your group.
 
 ## Walkthrough
+
+### Decision:
+
+![Decision](fomo-decisionblur.gif)
+![Login](fomo-tender-swiping.gif)
+
+### Itinerary and Login:
 ![Login](fomo-login.gif)
 ![Login](fomo-final.gif)
 ![Login](fomo-final-state.gif)
-![Login](fomo-tender-swiping.gif)
+
+### Hamburger Menu:
 ![Corner](fomo-hamburger.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).

@@ -300,6 +300,8 @@ class DecisionCardCell: TisprCardStackViewCell {
     
     var voteSmileImageView: UIImageView = UIImageView.newAutoLayoutView()
     var locationImage: UIImageView = UIImageView.newAutoLayoutView()
+    var dislikeImageView: UIImageView = UIImageView.newAutoLayoutView()
+    var likeImageView: UIImageView = UIImageView.newAutoLayoutView()
     
     var blurView: UIVisualEffectView = UIVisualEffectView.newAutoLayoutView()
     
@@ -310,7 +312,8 @@ class DecisionCardCell: TisprCardStackViewCell {
     
     var likeImage: UIImageView = UIImageView.newAutoLayoutView()
     var descView: UIView = UIView.newAutoLayoutView()
-    
+    var swipeBlurView: UIVisualEffectView = UIVisualEffectView.newAutoLayoutView()
+
     var voteIndex: Int = -1
     var delegate: UpdateVoteDelegate?
     
@@ -361,9 +364,14 @@ class DecisionCardCell: TisprCardStackViewCell {
         self.clipsToBounds = true
         
         voteSmileImageView.image = UIImage(named: "smile_neutral")
+        likeImageView.image = UIImage(named: "smile_face_1")
+        dislikeImageView.image = UIImage(named: "smile_rotton_1")
         
         blurView.effect = UIBlurEffect(style: .ExtraLight)
         blurView.contentView.alpha = 0.8
+        
+        swipeBlurView.effect = UIBlurEffect(style: .Light)
+        swipeBlurView.contentView.alpha = 0.0
         
         if attraction != nil {
             if attraction!.imageUrls.count == 0 {
@@ -407,7 +415,14 @@ class DecisionCardCell: TisprCardStackViewCell {
         descView.addSubview(nameLabel)
         descView.addSubview(typeLabel)
         
+        // Like Dislike stamps
+        
+        locationImage.addSubview(swipeBlurView)
         locationImage.addSubview(descView)
+        
+        locationImage.addSubview(likeImageView)
+        locationImage.addSubview(dislikeImageView)
+        
         self.addSubview(locationImage)
         
         
@@ -415,6 +430,19 @@ class DecisionCardCell: TisprCardStackViewCell {
     
     
     func updateViewConstraints() {
+        let stampSize: CGFloat = 120.0
+        let distToEdge: CGFloat = 100
+        likeImageView.autoPinEdgeToSuperviewEdge(.Top, withInset: distToEdge)
+        likeImageView.autoPinEdgeToSuperviewEdge(.Left, withInset: distToEdge)
+        likeImageView.autoSetDimension(.Width, toSize: stampSize)
+        likeImageView.autoSetDimension(.Height, toSize: stampSize)
+        
+        
+        dislikeImageView.autoPinEdgeToSuperviewEdge(.Top, withInset: distToEdge)
+        dislikeImageView.autoPinEdgeToSuperviewEdge(.Right, withInset: distToEdge)
+        dislikeImageView.autoSetDimension(.Width, toSize: stampSize)
+        dislikeImageView.autoSetDimension(.Height, toSize: stampSize)
+
 //        voteSmileImageView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 8)
 //        voteSmileImageView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
 //        voteSmileImageView.autoSetDimension(.Width, toSize: 30)
@@ -423,6 +451,7 @@ class DecisionCardCell: TisprCardStackViewCell {
         locationImage.autoPinEdgesToSuperviewEdges()
         
         blurView.autoPinEdgesToSuperviewEdges()
+        swipeBlurView.autoPinEdgesToSuperviewEdges()
         
         ratingView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
         ratingView.autoPinEdge(.Top, toEdge: .Top, ofView: descView, withOffset: 8)
@@ -468,7 +497,25 @@ class DecisionCardCell: TisprCardStackViewCell {
             smileImageName = "smile_rotten_1"
             updateVote(Vote.Dislike)
         }
+        
         voteSmileImageView.image = UIImage(named: smileImageName)
+        likeImageView.image = UIImage(named: smileImageName)
+        dislikeImageView.image = UIImage(named: smileImageName)
+        if rotation > 5 {
+            likeImageView.alpha = abs(rotation) / 20.0
+            dislikeImageView.alpha = 0
+            swipeBlurView.alpha = abs(rotation) / 20.0
+        } else if rotation < -5 {
+            likeImageView.alpha = 0
+            dislikeImageView.alpha = abs(rotation) / 20.0
+            swipeBlurView.alpha = abs(rotation) / 20.0
+        } else {
+            likeImageView.alpha = 0
+            dislikeImageView.alpha = 0
+            swipeBlurView.alpha = 0
+        }
+        
+        
     }
     
     func updateVote(decision: Vote) {
