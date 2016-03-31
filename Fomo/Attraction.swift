@@ -12,7 +12,6 @@ class Attraction: NSObject {
     var id: String?
     var name: String?
     var city: City?
-    var reviews: [Review]?
     var types: [AttractionType]?
     var imageUrls: [String] {
         get {
@@ -40,6 +39,16 @@ class Attraction: NSObject {
     var photoRefrences: [String] = []
     
     var _imageUrls: [String] = []
+    
+    var googleMapsUrl: String?
+    var icon: String?
+    var reviews: [Review]?
+    var vicinity: String?
+    var phoneNumber: String?
+    var hours: [NSDictionary]?
+    var hoursText: [String]?
+    var numReviews: Int?
+    var website: String?
 
     
     init(dictionary: NSDictionary) {
@@ -60,7 +69,27 @@ class Attraction: NSObject {
         self.attractionType = dictionary["types"] as? [String]
         self.types = AttractionType.attractionTypesWithArray(self.attractionType!)
         self.id = dictionary["place_id"] as? String
-
+        
+        googleMapsUrl = dictionary["url"] as? String
+        icon = dictionary["icon"] as? String
+        vicinity = dictionary["vicinity"] as? String
+        phoneNumber = dictionary["formatted_phone_number"] as? String
+        let hours_raw = dictionary["opening_hours"] as? NSDictionary
+        if hours_raw != nil {
+            let periodsList = hours_raw!["periods"] as? [NSDictionary]
+            let periodsText = hours_raw!["weekday_text"] as? [String]
+            hours = periodsList
+            hoursText = periodsText
+        }
+        
+        numReviews = dictionary["user_ratings_total"] as? Int
+        website = dictionary["website"] as? String
+        
+        if dictionary["reviews"] != nil {
+            reviews = Review.reviewsWithArray(dictionary["reviews"] as! [NSDictionary])
+        } else {
+            reviews = []
+        }
         self.rawData = dictionary
     }
     

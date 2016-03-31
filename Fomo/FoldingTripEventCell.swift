@@ -31,6 +31,11 @@ class FoldingTripEventCell: FoldingCell {
     var ratingLabel: UILabel = UILabel.newAutoLayoutView()
     var typeLabel: UILabel = UILabel.newAutoLayoutView()
     
+    var numRatingsLabel: UILabel = UILabel.newAutoLayoutView()
+    var websiteLabel: UILabel = UILabel.newAutoLayoutView()
+    var phoneNumber: UILabel = UILabel.newAutoLayoutView()
+    var hoursLabel: UILabel = UILabel.newAutoLayoutView()
+    
     var likeLabel: UILabel = UILabel.newAutoLayoutView()
     var likeVotersView: TravellersView = TravellersView.newAutoLayoutView()
     
@@ -42,7 +47,7 @@ class FoldingTripEventCell: FoldingCell {
     
     class var detailsViewHeight: CGFloat {
         get {
-            return 380
+            return 420
         }
     }
     
@@ -117,13 +122,34 @@ class FoldingTripEventCell: FoldingCell {
             detailsAttractionName.autoPinEdgeToSuperviewEdge(.Top, withInset: 8)
             detailsAttractionName.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
             
-            addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: detailsAttractionName, withOffset: 8)
+            addressLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: detailsAttractionName, withOffset: 4)
             addressLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: detailsAttractionName)
             addressLabel.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
             
-            typeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 8)
+            typeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: addressLabel, withOffset: 4)
             typeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: detailsAttractionName)
             typeLabel.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
+            
+            likeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: typeLabel, withOffset: 4)
+            likeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: typeLabel)
+            
+            likeVotersView.autoPinEdge(.Leading, toEdge: .Trailing, ofView: likeLabel, withOffset: 8)
+            likeVotersView.autoPinEdge(.Top, toEdge: .Top, ofView: typeLabel, withOffset: 16)
+            likeVotersView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
+            likeVotersView.autoSetDimension(.Height, toSize: likeVotersView.faceHeight)
+            
+            websiteLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: likeVotersView, withOffset: 4)
+            websiteLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: detailsAttractionName)
+            websiteLabel.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
+            
+            phoneNumber.autoPinEdge(.Top, toEdge: .Bottom, ofView: websiteLabel, withOffset: 4)
+            phoneNumber.autoPinEdge(.Leading, toEdge: .Leading, ofView: detailsAttractionName)
+            phoneNumber.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
+//            phoneNumber.autoSetDimension(.Height, toSize: 20)
+            
+            hoursLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: phoneNumber, withOffset: 4)
+            hoursLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: detailsAttractionName)
+            hoursLabel.autoPinEdge(.Trailing, toEdge: .Leading, ofView: ratingView, withOffset: 8)
             
             // Setup ratings
             ratingLabel.autoCenterInSuperview()
@@ -131,15 +157,12 @@ class FoldingTripEventCell: FoldingCell {
             ratingView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
             ratingView.autoSetDimension(.Width, toSize: 40)
             ratingView.autoSetDimension(.Height, toSize: 40)
+            numRatingsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: ratingView, withOffset: 8)
+            numRatingsLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
             
             
-            likeLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: typeLabel, withOffset: 8)
-            likeLabel.autoPinEdge(.Leading, toEdge: .Leading, ofView: typeLabel)
+            
 
-            likeVotersView.autoPinEdge(.Leading, toEdge: .Trailing, ofView: likeLabel, withOffset: 8)
-            likeVotersView.autoPinEdge(.Top, toEdge: .Bottom, ofView: typeLabel, withOffset: 16)
-            likeVotersView.autoPinEdgeToSuperviewEdge(.Trailing, withInset: 8)
-            likeVotersView.autoSetDimension(.Height, toSize: likeVotersView.faceHeight)
             
             didSetupConstraints = true
         }
@@ -219,6 +242,32 @@ class FoldingTripEventCell: FoldingCell {
             }
             likeVotersView.setTravellerFaces(self.tripEvent!.likers!)
             
+            if attraction?.numReviews != nil {
+                numRatingsLabel.text = "\(attraction!.numReviews!) reviews"
+            } else {
+                numRatingsLabel.text = "No reviews"
+            }
+            
+            if attraction?.website != nil {
+                websiteLabel.text = "Website: \(attraction!.website!)"
+            } else {
+                websiteLabel.text = ""
+            }
+            
+//            phoneNumber.addTarget(self, action: "callPhone", forControlEvents: .TouchUpInside)
+            if attraction?.phoneNumber != nil {
+                phoneNumber.text = "Call: \(attraction!.phoneNumber!)"
+            } else {
+                phoneNumber.text = ""
+            }
+            
+            if attraction!.hoursText?.first != nil {
+                hoursLabel.text = "Hours Today: \(attraction!.hoursText!.first!)"
+            } else {
+                hoursLabel.text = ""
+            }
+            
+            
         }
         ratingLabel.font = UIFont.fomoH2()
         
@@ -232,16 +281,52 @@ class FoldingTripEventCell: FoldingCell {
         likeLabel.sizeToFit()
         likeVotersView.backgroundColor = UIColor.clearColor()
         
+        numRatingsLabel.font = UIFont.fomoSized(12)
+        numRatingsLabel.textColor = UIColor.darkGrayColor()
+        numRatingsLabel.sizeToFit()
+        numRatingsLabel.numberOfLines = 0
+        
+        websiteLabel.font = UIFont.fomoSized(12)
+        websiteLabel.textColor = UIColor.darkGrayColor()
+        websiteLabel.sizeToFit()
+        websiteLabel.numberOfLines = 0
+
+        phoneNumber.textColor = UIColor.darkGrayColor()
+        phoneNumber.font = UIFont.fomoSized(12)
+        phoneNumber.numberOfLines = 0
+//        phoneNumber.font = UIFont.fomoSized(12)
+//        phoneNumber.textColor = UIColor.darkGrayColor()
+//        phoneNumber.editable = false
+//        phoneNumber.dataDetectorTypes = .All
+        phoneNumber.sizeToFit()
+        
+        hoursLabel.font = UIFont.fomoSized(12)
+        hoursLabel.textColor = UIColor.darkGrayColor()
+        hoursLabel.sizeToFit()
+        hoursLabel.numberOfLines = 0
+        
         detSeg.addSubview(detailsAttractionName)
         detSeg.addSubview(addressLabel)
         detSeg.addSubview(typeLabel)
+        detSeg.addSubview(phoneNumber)
+        detSeg.addSubview(websiteLabel)
+        detSeg.addSubview(hoursLabel)
         
         ratingView.addSubview(ratingLabel)
         detSeg.addSubview(ratingView)
+        detSeg.addSubview(numRatingsLabel)
         
         detSeg.addSubview(likeVotersView)
         detSeg.addSubview(likeLabel)
 
+    }
+    
+    func callPhone() {
+        print("Call Phone")
+        let busPhone = self.phoneNumber
+        if let url = NSURL(string: "tel://\(busPhone)") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     
     func initPicSeg() {
@@ -262,7 +347,6 @@ class FoldingTripEventCell: FoldingCell {
     }
     
     func initDecisionSeg() {
-//        let decSeg = detailSegments[3]
     
         likeButton.setImage(UIImage(named: "check"), forState: .Normal)
         dislikeButton.setImage(UIImage(named: "cross"), forState: .Normal)
