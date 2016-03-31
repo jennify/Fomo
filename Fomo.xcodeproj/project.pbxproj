@@ -48,8 +48,10 @@
 		AA7B21C51C961ED400636007 /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C41C961ED400636007 /* CityViewController.swift */; };
 		AA7B21C71C961EE900636007 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C61C961EE900636007 /* CityCell.swift */; };
 		AA7B21C91C968FCB00636007 /* DoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7B21C81C968FCB00636007 /* DoneViewController.swift */; };
+		AA9FA5EB1CACDBF000F62599 /* MapInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9FA5EA1CACDBF000F62599 /* MapInfoView.swift */; };
 		AAA132BD1CA0F15B001736CF /* ClickerScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */; };
 		AAA132C11CA104CC001736CF /* BigTravellersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA132C01CA104CC001736CF /* BigTravellersView.swift */; };
+		AAF558241CAA49E100D557DD /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF558231CAA49E100D557DD /* MapViewController.swift */; };
 		F9860BE41CA15AE90033F0E9 /* HamburgerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */; };
 		F9860BE91CA2480C0033F0E9 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BE81CA2480C0033F0E9 /* OnboardingViewController.swift */; };
 		F9860BEB1CA248220033F0E9 /* OnboardingContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9860BEA1CA248220033F0E9 /* OnboardingContentViewController.swift */; };
@@ -106,8 +108,10 @@
 		AA7B21C41C961ED400636007 /* CityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		AA7B21C61C961EE900636007 /* CityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		AA7B21C81C968FCB00636007 /* DoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneViewController.swift; sourceTree = "<group>"; };
+		AA9FA5EA1CACDBF000F62599 /* MapInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapInfoView.swift; sourceTree = "<group>"; };
 		AAA132BC1CA0F15B001736CF /* ClickerScript-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ClickerScript-Regular.ttf"; sourceTree = "<group>"; };
 		AAA132C01CA104CC001736CF /* BigTravellersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigTravellersView.swift; sourceTree = "<group>"; };
+		AAF558231CAA49E100D557DD /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		DE2524FFA3B74294146D861E /* Pods-Fomo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.release.xcconfig"; sourceTree = "<group>"; };
 		E0D2A97826753126B893B96F /* Pods-Fomo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fomo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fomo/Pods-Fomo.debug.xcconfig"; sourceTree = "<group>"; };
 		F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerButton.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 				AA7B21C81C968FCB00636007 /* DoneViewController.swift */,
 				7A120A2B1C9A60CA002E7B92 /* DecisionCardViewController.swift */,
 				AA6270171CA247B0005532BC /* CarouselViewController.swift */,
+				AAF558231CAA49E100D557DD /* MapViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				F9EF56E01C9EC3CD00F020D3 /* Dimmable.swift */,
 				AAA132C01CA104CC001736CF /* BigTravellersView.swift */,
 				F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */,
+				AA9FA5EA1CACDBF000F62599 /* MapInfoView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -419,8 +425,10 @@
 				7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */,
 				AA7B21C51C961ED400636007 /* CityViewController.swift in Sources */,
 				AA1DCEC61C8A89E20088DD27 /* TripEventCell.swift in Sources */,
+				AAF558241CAA49E100D557DD /* MapViewController.swift in Sources */,
 				AA7B21C71C961EE900636007 /* CityCell.swift in Sources */,
 				AA1DCEC81C8B90DE0088DD27 /* DayHeaderCell.swift in Sources */,
+				AA9FA5EB1CACDBF000F62599 /* MapInfoView.swift in Sources */,
 				7A120A2C1C9A60CA002E7B92 /* DecisionCardViewController.swift in Sources */,
 				AA1DCE941C8444900088DD27 /* TripEvent.swift in Sources */,
 				AA1DCECA1C8B987A0088DD27 /* DayCell.swift in Sources */,
@@ -567,6 +575,7 @@
 					./FacebookSDK,
 					"$(PROJECT_DIR)/FacebookSDK",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
 				);
 				INFOPLIST_FILE = Fomo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -590,6 +599,12 @@
 					./FacebookSDK,
 					"$(PROJECT_DIR)/FacebookSDK",
 					"$(PROJECT_DIR)",
+				);
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					./FacebookSDK,
+					"$(PROJECT_DIR)/FacebookSDK",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/GoogleMaps/Frameworks",
 				);
 				INFOPLIST_FILE = Fomo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

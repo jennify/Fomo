@@ -5,6 +5,7 @@
 
 import UIKit
 import CoreData
+import GoogleMaps
 
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
@@ -20,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        GMSServices.provideAPIKey("AIzaSyC7XVmzjgjsTD6uKRX8Cc7W8W6ewUvXX9w")
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -38,6 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Logged in user
         if Cache.currentUser != nil {
+//            let mapViewController = MapViewController()
+//            let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
+//            let container = vc.topViewController as? ContainerViewController
+//            container?.initialVC = mapViewController
+//            self.window?.rootViewController = vc
+            
             print("Current user detected: \(Cache.currentUser!.name!)")
             let user = Cache.currentUser!
             
