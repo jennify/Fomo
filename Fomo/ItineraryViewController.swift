@@ -226,9 +226,12 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func finalizeItinerary() {
-        let doneViewController = DoneViewController()
-        doneViewController.itinerary = itinerary
-        self.navigationController?.pushViewController(doneViewController, animated: true)
+//        let doneViewController = DoneViewController()
+//        doneViewController.itinerary = itinerary
+//        self.navigationController?.pushViewController(doneViewController, animated: true)
+        
+        let mapViewController = MapViewController()
+        self.navigationController?.pushViewController(mapViewController, animated: true)
     }
 
     // Add Traveller

@@ -41,12 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Logged in user
         if Cache.currentUser != nil {
-//            let mapViewController = MapViewController()
-//            let vc = self.storyboard.instantiateViewControllerWithIdentifier("FomoNavigationController") as! UINavigationController
-//            let container = vc.topViewController as? ContainerViewController
-//            container?.initialVC = mapViewController
-//            self.window?.rootViewController = vc
-            
             print("Current user detected: \(Cache.currentUser!.name!)")
             let user = Cache.currentUser!
             

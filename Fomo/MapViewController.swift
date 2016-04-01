@@ -15,6 +15,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     var panoView: GMSPanoramaView!
     var buttonSwitcher: UIButton!
     
+    var attractions: [Attraction] = []
+    
     var didSetupConstraints = false
 
     override func viewDidLoad() {
@@ -31,6 +33,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         let camera = GMSCameraPosition.cameraWithLatitude(-33.868, longitude:151.2086, zoom:6)
         mapView = GMSMapView.mapWithFrame(.zero, camera: camera)
         mapView.delegate = self
+        mapView.hidden = true
         view.addSubview(mapView)
     }
     
@@ -52,7 +55,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         buttonSwitcher = UIButton(type: .System)
         buttonSwitcher.backgroundColor = UIColor.greenColor()
         buttonSwitcher.setTitle("Switch", forState: .Normal)
-        buttonSwitcher.addTarget(self, action: Selector(swapMapAndPanoView()), forControlEvents: .TouchUpInside)
+        buttonSwitcher.addTarget(self, action: #selector(MapViewController.swapMapAndPanoView), forControlEvents: .TouchUpInside)
         
         view.addSubview(buttonSwitcher)
     }
@@ -80,6 +83,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
             mapView.autoPinEdgesToSuperviewEdges()
             panoView.autoPinEdgesToSuperviewEdges()
             buttonSwitcher.autoSetDimensionsToSize(CGSize(width: 50, height: 50))
+            buttonSwitcher.autoPinEdgeToSuperviewEdge(.Right, withInset: 10)
+            buttonSwitcher.autoPinEdgeToSuperviewEdge(.Top, withInset: 75)
             
             didSetupConstraints = true
         }
