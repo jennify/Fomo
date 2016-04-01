@@ -141,4 +141,32 @@ class Attraction: NSObject {
         attraction.rating = 4.4
         return attraction
     }
+    
+    class func generateTestInstances() -> [Attraction] {
+        var attractions: [Attraction] = []
+        
+        var attraction = Attraction(dictionary: NSDictionary())
+        attraction.name = "Louvre"
+        attraction.id = "louvre"
+        attraction.city = City.paris()
+        attraction.reviews = [Review.generateTestInstance(attraction)]
+        attraction.types = [AttractionType(categoryName: "Culture", categoryIcon: "culture", categoryColor: UIColor.culture())]
+        attraction.imageUrls = ["https://images5.alphacoders.com/594/594362.jpg"]
+        attraction.location = CLLocation(latitude: CLLocationDegrees(48.86114), longitude: CLLocationDegrees(2.3331693))
+        attraction.rating = 4.4
+        attractions.append(attraction)
+        
+        attraction = Attraction(dictionary: NSDictionary())
+        attraction.name = "Eiffel Tower"
+        attraction.id = "eiffel"
+        attraction.city = City.paris()
+        attraction.reviews = [Review.generateTestInstance(attraction)]
+        attraction.types = [AttractionType(categoryName: "Landmarks", categoryIcon: "landmarks", categoryColor: UIColor.landmarks())]
+        attraction.imageUrls = ["http://hbu.h-cdn.co/assets/15/41/768x514/gallery-1444338501-eiffel-tower-at-night.jpg"]
+        attraction.location = CLLocation(latitude: CLLocationDegrees(48.858056), longitude: CLLocationDegrees(2.2927153))
+        attraction.rating = 4.9
+        attractions.append(attraction)
+        
+        return attractions
+    }
 }

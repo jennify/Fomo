@@ -15,7 +15,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     var panoView: GMSPanoramaView!
     var buttonSwitcher: UIButton!
     
-    var attractions: [Attraction] = []
+    var city: City = City.paris()
+    var attractions: [Attraction] = Attraction.generateTestInstances()
     
     var didSetupConstraints = false
 
@@ -30,25 +31,39 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     }
     
     func setUpMapView() {
-        let camera = GMSCameraPosition.cameraWithLatitude(-33.868, longitude:151.2086, zoom:6)
+        let lat = city.location!.coordinate.latitude
+        let lng = city.location!.coordinate.longitude
+        let camera = GMSCameraPosition.cameraWithLatitude(lat, longitude:lng, zoom:12)
         mapView = GMSMapView.mapWithFrame(.zero, camera: camera)
         mapView.delegate = self
-        mapView.hidden = true
+        mapView.hidden = false
         view.addSubview(mapView)
     }
     
     func setUpPanoView() {
-        let panoramaNear = CLLocationCoordinate2DMake(50.059139, -122.958391)
+        let firstAttraction = attractions.first!
+        let panoramaNear = getAttractionPosition(firstAttraction)
         panoView = GMSPanoramaView.panoramaWithFrame(.zero, nearCoordinate:panoramaNear)
+        panoView.hidden = true
         view.addSubview(panoView)
     }
     
     func setUpMarkers() {
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
-        marker.snippet = "Hello World";
-        marker.appearAnimation = kGMSMarkerAnimationPop;
-        marker.map = mapView;
+        for attraction in attractions {
+            let attractionType = attraction.types!.first!
+            
+            let icon = attractionType.icon
+            let scaledIcon = scaleImage(icon!)
+            let finalIcon = imageWithColor(scaledIcon, color: attractionType.color!)
+            
+            let marker = GMSMarker()
+            marker.userData = attraction
+            marker.icon = finalIcon
+            marker.position = getAttractionPosition(attraction)
+            marker.snippet = attraction.name!
+            marker.appearAnimation = kGMSMarkerAnimationPop;
+            marker.map = mapView;
+        }
     }
     
     func setUpButtonSwitcher() {
@@ -62,6 +77,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     
     func setUpTransitions() {
         
+    }
+    
+    func getAttractionPosition(attraction: Attraction) -> CLLocationCoordinate2D {
+        let lat = attraction.location!.coordinate.latitude
+        let lng = attraction.location!.coordinate.longitude
+        return CLLocationCoordinate2DMake(lat, lng)
     }
     
     func swapMapAndPanoView() {
@@ -93,9 +114,57 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     }
     
     func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
-        print("Did tap marker")
-        //mapView.selectedMarker = marker
+        let attraction = marker.userData as! Attraction
+        panoView.moveNearCoordinate(getAttractionPosition(attraction))
         return false
+    }
+    
+//    func scaleImage(image: UIImage, color: UIColor) -> UIImage {
+//        let size = CGSizeApplyAffineTransform(image.size, CGAffineTransformMakeScale(0.3, 0.3))
+//        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+//        
+//        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+//        
+//        image.drawInRect(CGRect(origin: CGPointZero, size: size))
+//        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        
+//        return scaledImage
+//    }
+    
+    func scaleImage(image: UIImage) -> UIImage {
+        let size = CGSizeApplyAffineTransform(image.size, CGAffineTransformMakeScale(0.3, 0.3))
+        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        
+        image.drawInRect(CGRect(origin: CGPointZero, size: size))
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage
+    }
+    
+    
+    //Merge with above if time
+    func imageWithColor(image: UIImage, color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+        color.setFill()
+        
+        let context = UIGraphicsGetCurrentContext()! as CGContextRef
+        CGContextTranslateCTM(context, 0, image.size.height)
+        CGContextScaleCTM(context, 1.0, -1.0);
+        CGContextSetBlendMode(context, CGBlendMode.Normal)
+        
+        let rect = CGRectMake(0, 0, image.size.width, image.size.height) as CGRect
+        CGContextClipToMask(context, rect, image.CGImage)
+        CGContextFillRect(context, rect)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext() as UIImage
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
 
     /*

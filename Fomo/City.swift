@@ -61,4 +61,8 @@ class City: NSObject {
         }
         return nil
     }
+    
+    class func paris() -> City {
+        return City(cityName: "Paris", imageName: "Paris", cityLocation: CLLocation(latitude: 48.8567, longitude: 2.3508))
+    }
 }

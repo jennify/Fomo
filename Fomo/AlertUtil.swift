@@ -192,4 +192,40 @@ extension UIColor {
     class func fomoGrey() -> UIColor {
         return UIColor.fomoColors(5)
     }
+    
+    class func culture() -> UIColor {
+        return UIColor.initWithHex("CE7270")
+    }
+    
+    class func landmarks() -> UIColor {
+        return UIColor.initWithHex("DCBE72")
+    }
+    
+    class func outdoors() -> UIColor {
+        return UIColor.initWithHex("DCBE72")
+    }
+    
+    class func shows() -> UIColor {
+        return UIColor.initWithHex("9DE775")
+    }
+    
+    class func nightlife() -> UIColor {
+        return UIColor.initWithHex("9DE775")
+    }
+    
+    class func shopping() -> UIColor {
+        return UIColor.initWithHex("8BBDE6")
+    }
+    
+    class func sports() -> UIColor {
+        return UIColor.initWithHex("8BBDE6")
+    }
+    
+    class func restaurants() -> UIColor {
+        return UIColor.initWithHex("AC6EE5")
+    }
+    
+    class func vices() -> UIColor {
+        return UIColor.initWithHex("AC6EE5")
+    }
 }
