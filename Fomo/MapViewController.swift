@@ -119,19 +119,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         return false
     }
     
-//    func scaleImage(image: UIImage, color: UIColor) -> UIImage {
-//        let size = CGSizeApplyAffineTransform(image.size, CGAffineTransformMakeScale(0.3, 0.3))
-//        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
-//        
-//        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-//        
-//        image.drawInRect(CGRect(origin: CGPointZero, size: size))
-//        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//        
-//        return scaledImage
-//    }
-    
     func scaleImage(image: UIImage) -> UIImage {
         let size = CGSizeApplyAffineTransform(image.size, CGAffineTransformMakeScale(0.3, 0.3))
         let scale: CGFloat = 0.0 // Automatically use scale factor of main screen

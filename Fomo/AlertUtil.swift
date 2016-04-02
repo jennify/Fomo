@@ -228,4 +228,8 @@ extension UIColor {
     class func vices() -> UIColor {
         return UIColor.initWithHex("AC6EE5")
     }
+    
+    class func hotels() -> UIColor {
+        return UIColor.initWithHex("C0C0C0")
+    }
 }

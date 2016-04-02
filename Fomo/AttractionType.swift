@@ -45,6 +45,7 @@ class AttractionType: NSObject {
     
     class func availableCategories() -> [AttractionType] {
         var categories: [AttractionType] = []
+        categories.append(AttractionType(categoryName: "Hotel", categoryIcon: "hotel", categoryColor: UIColor.hotels()))
         categories.append(AttractionType(categoryName: "Culture", categoryIcon: "culture", categoryColor: UIColor.culture()))
         categories.append(AttractionType(categoryName: "Landmarks", categoryIcon: "landmarks", categoryColor: UIColor.landmarks()))
         categories.append(AttractionType(categoryName: "Outdoors", categoryIcon: "outdoors", categoryColor: UIColor.outdoors()))
@@ -55,5 +56,9 @@ class AttractionType: NSObject {
         categories.append(AttractionType(categoryName: "Food", categoryIcon: "restaurants", categoryColor: UIColor.restaurants()))
         categories.append(AttractionType(categoryName: "Vices", categoryIcon: "vices", categoryColor: UIColor.vices()))
         return categories
+    }
+    
+    class func hotel() -> AttractionType {
+        return AttractionType(categoryName: "Hotel", categoryIcon: "hotel", categoryColor: UIColor.hotels())
     }
 }
