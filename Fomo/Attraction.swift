@@ -170,7 +170,7 @@ class Attraction: NSObject {
         return attractions
     }
     
-    func parisHotels() -> [Attraction] {
+    class func parisHotels() -> [Attraction] {
         var hotels: [Attraction] = []
         
         var hotel = Attraction(dictionary: NSDictionary())

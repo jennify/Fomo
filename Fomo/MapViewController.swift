@@ -13,21 +13,34 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     
     var mapView: GMSMapView!
     var panoView: GMSPanoramaView!
+    var containerView: UIView!
     var buttonSwitcher: UIButton!
     
     var city: City = City.paris()
     var attractions: [Attraction] = Attraction.generateTestInstances()
+    
+    var mapInFront: Bool = true
     
     var didSetupConstraints = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpMapView()
+        for hotel in Attraction.parisHotels() {
+            attractions.append(hotel)
+        }
+        
+        setUpContainerView()
         setUpPanoView()
+        setUpMapView()
         setUpMarkers()
         setUpButtonSwitcher()
         setUpTransitions()
+    }
+    
+    func setUpContainerView() {
+        containerView = UIView()
+        view.addSubview(containerView)
     }
     
     func setUpMapView() {
@@ -36,16 +49,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         let camera = GMSCameraPosition.cameraWithLatitude(lat, longitude:lng, zoom:12)
         mapView = GMSMapView.mapWithFrame(.zero, camera: camera)
         mapView.delegate = self
-        mapView.hidden = false
-        view.addSubview(mapView)
+        containerView.addSubview(mapView)
     }
     
     func setUpPanoView() {
         let firstAttraction = attractions.first!
         let panoramaNear = getAttractionPosition(firstAttraction)
         panoView = GMSPanoramaView.panoramaWithFrame(.zero, nearCoordinate:panoramaNear)
-        panoView.hidden = true
-        view.addSubview(panoView)
+        containerView.addSubview(panoView)
     }
     
     func setUpMarkers() {
@@ -86,12 +97,22 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     }
     
     func swapMapAndPanoView() {
-        if (mapView.hidden) {
-            mapView.hidden = false
-            panoView.hidden = true
+        if (mapInFront) {
+            mapInFront = false
+            UIView.transitionFromView(mapView, toView: panoView, duration: 1, options: .TransitionCrossDissolve, completion: { (Bool) in
+                self.containerView.addSubview(self.mapView)
+                self.containerView.sendSubviewToBack(self.mapView)
+                self.didSetupConstraints = false
+                self.updateViewConstraints()
+            });
         } else {
-            mapView.hidden = true
-            panoView.hidden = false
+            mapInFront = true
+            UIView.transitionFromView(panoView, toView: mapView, duration: 1, options: .TransitionCrossDissolve, completion: { (Bool) in
+                self.containerView.addSubview(self.panoView)
+                self.containerView.sendSubviewToBack(self.panoView)
+                self.didSetupConstraints = false
+                self.updateViewConstraints()
+            });
         }
     }
     
@@ -99,10 +120,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         if (!didSetupConstraints) {
             mapView.configureForAutoLayout()
             panoView.configureForAutoLayout()
+            containerView.configureForAutoLayout()
             buttonSwitcher.configureForAutoLayout()
             
             mapView.autoPinEdgesToSuperviewEdges()
             panoView.autoPinEdgesToSuperviewEdges()
+            containerView.autoPinEdgesToSuperviewEdges()
             buttonSwitcher.autoSetDimensionsToSize(CGSize(width: 50, height: 50))
             buttonSwitcher.autoPinEdgeToSuperviewEdge(.Right, withInset: 10)
             buttonSwitcher.autoPinEdgeToSuperviewEdge(.Top, withInset: 75)
