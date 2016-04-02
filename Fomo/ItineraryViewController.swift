@@ -56,6 +56,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     // Refresh
     var refreshControl: UIRefreshControl!
     
+    var mapViewController: MapViewController!
+    
     
     override func viewWillAppear(animated: Bool) {
         loadItineraryFromCache()
@@ -91,6 +93,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         itineraryTableView.insertSubview(refreshControl, atIndex: 0)
+        
+        mapViewController = MapViewController()
     }
     
     func refreshItinerary(delay:Double, closure:()->()) {
@@ -232,7 +236,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     func displayMap() {
         let navController = UINavigationController()
         navController.modalTransitionStyle = .FlipHorizontal
-        let mapViewController = MapViewController()
         navController.viewControllers = [mapViewController]
         presentViewController(navController, animated: true, completion: nil)
     }
