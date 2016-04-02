@@ -9,12 +9,12 @@
 import UIKit
 import GoogleMaps
 
-class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDelegate {
+class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDelegate, MapInfoViewDelegate {
     
     var mapView: GMSMapView!
     var panoView: GMSPanoramaView!
     var containerView: UIView!
-    var buttonSwitcher: UIButton!
+    var mapInfoView: MapInfoView!
     
     var city: City = City.paris()
     var attractions: [Attraction] = Attraction.generateTestInstances()
@@ -34,8 +34,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         setUpPanoView()
         setUpMapView()
         setUpMarkers()
-        setUpButtonSwitcher()
-        setUpTransitions()
+        setUpMapInfoView()
     }
     
     func setUpContainerView() {
@@ -56,6 +55,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         let firstAttraction = attractions.first!
         let panoramaNear = getAttractionPosition(firstAttraction)
         panoView = GMSPanoramaView.panoramaWithFrame(.zero, nearCoordinate:panoramaNear)
+        panoView.navigationLinksHidden = true
+        panoView.navigationGestures = false
+        panoView.streetNamesHidden = true
         containerView.addSubview(panoView)
     }
     
@@ -71,23 +73,16 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
             marker.userData = attraction
             marker.icon = finalIcon
             marker.position = getAttractionPosition(attraction)
-            marker.snippet = attraction.name!
             marker.appearAnimation = kGMSMarkerAnimationPop;
             marker.map = mapView;
         }
     }
     
-    func setUpButtonSwitcher() {
-        buttonSwitcher = UIButton(type: .System)
-        buttonSwitcher.backgroundColor = UIColor.greenColor()
-        buttonSwitcher.setTitle("Switch", forState: .Normal)
-        buttonSwitcher.addTarget(self, action: #selector(MapViewController.swapMapAndPanoView), forControlEvents: .TouchUpInside)
-        
-        view.addSubview(buttonSwitcher)
-    }
-    
-    func setUpTransitions() {
-        
+    func setUpMapInfoView() {
+        let firstAttraction = attractions.first
+        mapInfoView = MapInfoView(attraction: firstAttraction!)
+        mapInfoView.delegate = self
+        view.addSubview(mapInfoView)
     }
     
     func getAttractionPosition(attraction: Attraction) -> CLLocationCoordinate2D {
@@ -121,14 +116,12 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
             mapView.configureForAutoLayout()
             panoView.configureForAutoLayout()
             containerView.configureForAutoLayout()
-            buttonSwitcher.configureForAutoLayout()
             
             mapView.autoPinEdgesToSuperviewEdges()
             panoView.autoPinEdgesToSuperviewEdges()
             containerView.autoPinEdgesToSuperviewEdges()
-            buttonSwitcher.autoSetDimensionsToSize(CGSize(width: 50, height: 50))
-            buttonSwitcher.autoPinEdgeToSuperviewEdge(.Right, withInset: 10)
-            buttonSwitcher.autoPinEdgeToSuperviewEdge(.Top, withInset: 75)
+            
+            updateConstraintsMapInfoView()
             
             didSetupConstraints = true
         }
@@ -136,9 +129,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         super.updateViewConstraints()
     }
     
+    func updateConstraintsMapInfoView() {
+        mapInfoView.configureForAutoLayout()
+        mapInfoView.autoPinEdgeToSuperviewEdge(.Left)
+        mapInfoView.autoPinEdgeToSuperviewEdge(.Right)
+        mapInfoView.autoPinEdgeToSuperviewEdge(.Bottom)
+        mapInfoView.autoSetDimension(.Height, toSize: 100)
+    }
+    
     func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
         let attraction = marker.userData as! Attraction
         panoView.moveNearCoordinate(getAttractionPosition(attraction))
+        mapInfoView.refreshView(attraction)
         return false
     }
     
@@ -175,6 +177,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         UIGraphicsEndImageContext()
         
         return newImage
+    }
+    
+    func enhance() {
+        swapMapAndPanoView()
     }
 
     /*
