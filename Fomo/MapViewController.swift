@@ -30,6 +30,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
             attractions.append(hotel)
         }
         
+        setUpNavigationBar()
         setUpContainerView()
         setUpPanoView()
         setUpMapView()
@@ -192,5 +193,32 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func setUpNavigationBar() {
+        self.title = "Paris"
+        
+        putMapButtonInNavBar()
+    }
+    
+    func putMapButtonInNavBar() {
+        let button: UIButton = UIButton(type: .Custom)
+        let iconTinted = UIImageView()
+        iconTinted.image = UIImage(named: "itinerary")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        iconTinted.tintColor = UIColor.fomoHighlight()
+        
+        button.setImage(iconTinted.image, forState: .Normal)
+        button.setImage(UIImage(named: "itinerary"), forState: .Highlighted)
+        
+        button.addTarget(self, action: #selector(MapViewController.dismiss), forControlEvents: UIControlEvents.TouchUpInside)
+        button.frame = CGRectMake(0, 0, 20, 20)
+        
+        let barButtonItem = UIBarButtonItem(customView: button)
+        
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = barButtonItem
+    }
+    
+    func dismiss() {
+        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
 
 }

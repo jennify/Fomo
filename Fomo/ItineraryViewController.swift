@@ -209,29 +209,38 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     func setUpNavigationBar() {
         self.title = "Itinerary"
         
+        putMapButtonInNavBar()
+    }
+    
+    func putMapButtonInNavBar() {
         let button: UIButton = UIButton(type: .Custom)
         let iconTinted = UIImageView()
-        iconTinted.image = UIImage(named: "car")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        iconTinted.image = UIImage(named: "map")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         iconTinted.tintColor = UIColor.fomoHighlight()
         
         button.setImage(iconTinted.image, forState: .Normal)
-        button.setImage(UIImage(named: "car"), forState: .Highlighted)
+        button.setImage(UIImage(named: "map"), forState: .Highlighted)
         
-        button.addTarget(self, action: "finalizeItinerary", forControlEvents: UIControlEvents.TouchUpInside)
-        button.frame = CGRectMake(0, 0, 30, 30)
+        button.addTarget(self, action: #selector(ItineraryViewController.displayMap), forControlEvents: UIControlEvents.TouchUpInside)
+        button.frame = CGRectMake(0, 0, 20, 20)
         
         let barButtonItem = UIBarButtonItem(customView: button)
         
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = barButtonItem
     }
     
-    func finalizeItinerary() {
-//        let doneViewController = DoneViewController()
-//        doneViewController.itinerary = itinerary
-//        self.navigationController?.pushViewController(doneViewController, animated: true)
-        
+    func displayMap() {
+        let navController = UINavigationController()
+        navController.modalTransitionStyle = .FlipHorizontal
         let mapViewController = MapViewController()
-        self.navigationController?.pushViewController(mapViewController, animated: true)
+        navController.viewControllers = [mapViewController]
+        presentViewController(navController, animated: true, completion: nil)
+    }
+    
+    func finalizeItinerary() {
+        let doneViewController = DoneViewController()
+        doneViewController.itinerary = itinerary
+        self.navigationController?.pushViewController(doneViewController, animated: true)
     }
 
     // Add Traveller
