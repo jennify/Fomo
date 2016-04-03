@@ -172,8 +172,52 @@ class Attraction: NSObject {
     
     class func parisHotels() -> [Attraction] {
         var hotels: [Attraction] = []
-        
         var hotel = Attraction(dictionary: NSDictionary())
+        
+        hotel = Attraction(dictionary: NSDictionary())
+        hotel.name = "Hotel Eiffel Seine"
+        hotel.id = "hotel6"
+        hotel.city = City.paris()
+        hotel.reviews = []
+        hotel.types = [AttractionType.hotel()]
+        hotel.imageUrls = ["https://media-cdn.tripadvisor.com/media/oyster/1070/08/f5/3a/4e/lobby-bar--v8810640.jpg"]
+        hotel.location = CLLocation(latitude: CLLocationDegrees(48.854326), longitude: CLLocationDegrees(2.289179))
+        hotel.rating = 4.9
+        hotels.append(hotel)
+        
+        hotel = Attraction(dictionary: NSDictionary())
+        hotel.name = "Hotel Da Vinci"
+        hotel.id = "hotel4"
+        hotel.city = City.paris()
+        hotel.reviews = []
+        hotel.types = [AttractionType.hotel()]
+        hotel.imageUrls = ["https://media-cdn.tripadvisor.com/media/photo-w/07/3e/f6/85/hotel-da-vinci.jpg"]
+        hotel.location = CLLocation(latitude: CLLocationDegrees(48.856617), longitude: CLLocationDegrees(2.331923))
+        hotel.rating = 4.7
+        hotels.append(hotel)
+        
+        hotel = Attraction(dictionary: NSDictionary())
+        hotel.name = "Le 123 Sebastopol - Astotel"
+        hotel.id = "hotel3"
+        hotel.city = City.paris()
+        hotel.reviews = []
+        hotel.types = [AttractionType.hotel()]
+        hotel.imageUrls = ["https://media-cdn.tripadvisor.com/media/oyster/1070/07/12/df/ef/deluxe-room-daniele-thompson--v42.jpg"]
+        hotel.location = CLLocation(latitude: CLLocationDegrees(48.867585), longitude: CLLocationDegrees(2.353178))
+        hotel.rating = 4.8
+        hotels.append(hotel)
+        
+        hotel = Attraction(dictionary: NSDictionary())
+        hotel.name = "Four Seasons Hotel George V Paris"
+        hotel.id = "hotel5"
+        hotel.city = City.paris()
+        hotel.reviews = []
+        hotel.types = [AttractionType.hotel()]
+        hotel.imageUrls = ["https://media-cdn.tripadvisor.com/media/photo-w/07/33/a0/fd/four-seasons-hotel-george.jpg"]
+        hotel.location = CLLocation(latitude: CLLocationDegrees(48.852225), longitude: CLLocationDegrees(2.326026))
+        hotel.rating = 4.5
+        hotels.append(hotel)
+        
         hotel.name = "Saint James Paris - Relais et Chateaux"
         hotel.id = "hotel1"
         hotel.city = City.paris()
@@ -192,50 +236,6 @@ class Attraction: NSObject {
         hotel.types = [AttractionType.hotel()]
         hotel.imageUrls = ["https://media-cdn.tripadvisor.com/media/oyster/1070/07/12/f6/ef/front-desk--v3782106.jpg"]
         hotel.location = CLLocation(latitude: CLLocationDegrees(48.852225), longitude: CLLocationDegrees(2.326026))
-        hotel.rating = 4.9
-        hotels.append(hotel)
-        
-        hotel = Attraction(dictionary: NSDictionary())
-        hotel.name = "Le 123 Sebastopol - Astotel"
-        hotel.id = "hotel3"
-        hotel.city = City.paris()
-        hotel.reviews = []
-        hotel.types = [AttractionType.hotel()]
-        hotel.imageUrls = ["https://media-cdn.tripadvisor.com/media/oyster/1070/07/12/df/ef/deluxe-room-daniele-thompson--v42.jpg"]
-        hotel.location = CLLocation(latitude: CLLocationDegrees(48.867585), longitude: CLLocationDegrees(2.353178))
-        hotel.rating = 4.9
-        hotels.append(hotel)
-        
-        hotel = Attraction(dictionary: NSDictionary())
-        hotel.name = "Hotel Da Vinci"
-        hotel.id = "hotel4"
-        hotel.city = City.paris()
-        hotel.reviews = []
-        hotel.types = [AttractionType.hotel()]
-        hotel.imageUrls = ["https://media-cdn.tripadvisor.com/media/photo-w/07/3e/f6/85/hotel-da-vinci.jpg"]
-        hotel.location = CLLocation(latitude: CLLocationDegrees(48.856617), longitude: CLLocationDegrees(2.331923))
-        hotel.rating = 4.9
-        hotels.append(hotel)
-        
-        hotel = Attraction(dictionary: NSDictionary())
-        hotel.name = "Four Seasons Hotel George V Paris"
-        hotel.id = "hotel5"
-        hotel.city = City.paris()
-        hotel.reviews = []
-        hotel.types = [AttractionType.hotel()]
-        hotel.imageUrls = ["https://media-cdn.tripadvisor.com/media/photo-w/07/33/a0/fd/four-seasons-hotel-george.jpg"]
-        hotel.location = CLLocation(latitude: CLLocationDegrees(48.852225), longitude: CLLocationDegrees(2.326026))
-        hotel.rating = 4.9
-        hotels.append(hotel)
-        
-        hotel = Attraction(dictionary: NSDictionary())
-        hotel.name = "Hotel Eiffel Seine"
-        hotel.id = "hotel6"
-        hotel.city = City.paris()
-        hotel.reviews = []
-        hotel.types = [AttractionType.hotel()]
-        hotel.imageUrls = ["https://media-cdn.tripadvisor.com/media/oyster/1070/08/f5/3a/4e/lobby-bar--v8810640.jpg"]
-        hotel.location = CLLocation(latitude: CLLocationDegrees(48.854326), longitude: CLLocationDegrees(2.289179))
         hotel.rating = 4.9
         hotels.append(hotel)
         

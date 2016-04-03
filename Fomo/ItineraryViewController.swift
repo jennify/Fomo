@@ -364,12 +364,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func setUpItineraryTableView() {
 
-        for dayNum in 0...itinerary.days!.count-1 {
-            cellHeights.append([CGFloat]())
-            for _ in 0...itinerary.days![dayNum].tripEvents!.count-1 {
-                cellHeights[dayNum].append(kCloseCellHeight)
-            }
-        }
+        setUpCellHeights()
 
         itineraryTableView.delegate = self
         itineraryTableView.dataSource = self
@@ -379,6 +374,15 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         itineraryTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         itineraryTableView.backgroundColor = backgroundColor
 
+    }
+    
+    func setUpCellHeights() {
+        for dayNum in 0...itinerary.days!.count-1 {
+            cellHeights.append([CGFloat]())
+            for _ in 0...itinerary.days![dayNum].tripEvents!.count-1 {
+                cellHeights[dayNum].append(kCloseCellHeight)
+            }
+        }
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -394,7 +398,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         if realSection == itinerary.numberDays() - 1 {
             return itinerary.days![realSection].tripEvents!.count - 1 + 1
         }
-        return itinerary.days![realSection].tripEvents!.count - 1
+        return itinerary.days![realSection].tripEvents!.count
     }
 
     func isLastTableViewCell(indexPath: NSIndexPath) -> Bool {

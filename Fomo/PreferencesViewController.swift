@@ -64,8 +64,8 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
             preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Left)
             preferencesCollectionView.autoPinEdgeToSuperviewEdge(.Right)
             
-            doneButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: preferencesCollectionView, withOffset: 20)
-            doneButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 30)
+            doneButton.autoPinEdge(.Top, toEdge: .Bottom, ofView: preferencesCollectionView, withOffset: 10)
+            doneButton.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 15)
             doneButton.autoAlignAxisToSuperviewAxis(.Vertical)
             doneButton.contentEdgeInsets = UIEdgeInsetsMake(10, 15, 10, 15)
             

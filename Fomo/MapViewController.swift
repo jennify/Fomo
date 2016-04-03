@@ -38,10 +38,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for hotel in Attraction.parisHotels() {
-            attractions.append(hotel)
-        }
-        
         setUpNavigationBar()
         setUpContainerView()
         setUpPanoView()
@@ -105,7 +101,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     
     func setUpSelectedCircle() {
         selectedCircle = UIView()
-        selectedCircle.alpha = 0.3
+        selectedCircle.alpha = 0.2
         selectedCircle.backgroundColor = UIColor.blackColor()
         selectedCircle.layer.cornerRadius = iconCircleDiameter / 2
         selectedCircle.clipsToBounds = true
