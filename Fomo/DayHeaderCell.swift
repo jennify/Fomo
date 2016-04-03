@@ -26,7 +26,8 @@ class DayHeaderCell: UITableViewHeaderFooterView {
 
     override func updateConstraints() {
         if !didSetupConstraints {
-            dayName.autoCenterInSuperview()
+            dayName.autoPinEdgeToSuperviewEdge(.Bottom)
+            dayName.autoAlignAxisToSuperviewAxis(.Vertical)
 
             didSetupConstraints = true
         }

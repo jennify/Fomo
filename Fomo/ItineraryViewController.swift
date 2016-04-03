@@ -55,6 +55,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     // Refresh
     var refreshControl: UIRefreshControl!
+    
+    let monthFormatter: NSDateFormatter = NSDateFormatter()
+    let dayFormatter: NSDateFormatter = NSDateFormatter()
 
     var notification: AFDropdownNotification!
     var mapViewController: MapViewController!
@@ -107,8 +110,15 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         notification.image = UIImage(named: "jlee")
         notification.dismissOnTap = true
         notification.notificationDelegate = self
+        
+        setUpDayCellFormatter()
 
         mapViewController = MapViewController(attractions: itinerary.getAttractions())
+    }
+    
+    func setUpDayCellFormatter() {
+        monthFormatter.dateFormat = "MMMM"
+        dayFormatter.dateFormat = "d"
     }
 
     func refreshItinerary(delay:Double, closure:()->()) {
@@ -409,8 +419,13 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
 
     func configureHeaderCell(cell: DayHeaderCell, section: Int) {
-        cell.dayName.text = "DAY \(section + 1)"
-        cell.dayName.font = UIFont(name: "AppleSDGothicNeo-Thin", size: 20)
+        let startDate = itinerary.startDate
+        let cellDate = startDate?.dateByAddingTimeInterval(60*60*24*Double(section))
+        let cellTextMonth = monthFormatter.stringFromDate(cellDate!)
+        let cellTextDay = dayFormatter.stringFromDate(cellDate!)
+        
+        cell.dayName.text = cellTextMonth + " " + cellTextDay //"DAY \(section + 1)"
+        cell.dayName.font = UIFont(name: "AppleSDGothicNeo-Light", size: 20)
         cell.contentView.backgroundColor = backgroundColor
     }
 
@@ -418,7 +433,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         if section == 0 {
             return 0
         }
-        return 30.0
+        return 35.0
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -524,11 +539,16 @@ extension ItineraryViewController:  UICollectionViewDataSource, UICollectionView
     }
     
     func configureDayCell(cell: DayCell, indexPath: NSIndexPath) {
+        let startDate = itinerary.startDate
+        let cellDate = startDate?.dateByAddingTimeInterval(60*60*24*Double(indexPath.row))
+        let cellTextMonth = monthFormatter.stringFromDate(cellDate!)
+        let cellTextDay = dayFormatter.stringFromDate(cellDate!)
+        
         let numberDays = itinerary.numberDays()
         if indexPath.row < numberDays {
             cell.dayNum = indexPath.row + 1
-            cell.dayName.text = "\(indexPath.row + 1)"
-            cell.dayLabel.text = "DAY"
+            cell.dayName.text = cellTextDay //"\(indexPath.row + 1)"
+            cell.dayLabel.text = cellTextMonth
             cell.additionLabel.text = ""
         } else {
             cell.dayNum = nil
