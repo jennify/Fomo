@@ -112,6 +112,7 @@ class Cache: NSObject {
                     }
                 }
             }
+            injectHotelsIntoItinerary(_currentItinerary!)
             return _currentItinerary
         }
         set (it) {
@@ -128,6 +129,17 @@ class Cache: NSObject {
                 NSUserDefaults.standardUserDefaults().setObject(nil, forKey: currentItinerary)
             }
             NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
+    
+    class func injectHotelsIntoItinerary(itinerary: Itinerary) {
+        for (index, day) in itinerary.days!.enumerate() {
+            let hotel = Attraction.parisHotels()[index]
+            let lastAttraction = day.tripEvents?.last?.attraction
+            if lastAttraction?.name != hotel.name {
+                let hotelTripEvent = TripEvent(attraction: hotel)
+                day.tripEvents?.append(hotelTripEvent)
+            }
         }
     }
     

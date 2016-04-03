@@ -215,6 +215,9 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
                     itinerary.numDays = numDays
                     itinerary.city = self.city
                     itinerary.coverPhoto = self.city?.coverPhoto
+                    
+                    self.injectHotelsIntoItinerary(itinerary)
+                    
                     Cache.itinerary = itinerary
                     
                     let fomoNavVC = self.navigationController! as UINavigationController
@@ -229,6 +232,14 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
                 hud.hide()
                 print("Done creating itinerary.")
             }
+        }
+    }
+    
+    func injectHotelsIntoItinerary(itinerary: Itinerary) {
+        for (index, day) in itinerary.days!.enumerate() {
+            let hotel = Attraction.parisHotels()[index]
+            let hotelTripEvent = TripEvent(attraction: hotel)
+            day.tripEvents?.append(hotelTripEvent)
         }
     }
     

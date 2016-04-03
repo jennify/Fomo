@@ -33,6 +33,10 @@ class TripEvent: NSObject {
     var neutrals: [User]? = []
     var rawData: NSDictionary!
     
+    init(attraction: Attraction) {
+        self.attraction = attraction
+    }
+    
     init(dictionary: NSDictionary) {
         if dictionary.count == 0 {
             return
