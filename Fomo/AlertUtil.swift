@@ -163,7 +163,7 @@ extension UIColor {
     }
     
     class func fomoNavBarText() -> UIColor {
-        return UIColor.colorsTest(4)
+        return UIColor.colorsTest(1)
     }
     
     

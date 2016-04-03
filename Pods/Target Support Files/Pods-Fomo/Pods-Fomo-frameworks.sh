@@ -84,6 +84,7 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-Fomo/AFDropdownNotification.framework"
   install_framework "Pods-Fomo/AFNetworking.framework"
   install_framework "Pods-Fomo/AMTumblrHud.framework"
   install_framework "Pods-Fomo/BDBOAuth1Manager.framework"
@@ -94,6 +95,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-Fomo/TisprCardStack.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-Fomo/AFDropdownNotification.framework"
   install_framework "Pods-Fomo/AFNetworking.framework"
   install_framework "Pods-Fomo/AMTumblrHud.framework"
   install_framework "Pods-Fomo/BDBOAuth1Manager.framework"

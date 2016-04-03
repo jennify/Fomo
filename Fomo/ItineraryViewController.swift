@@ -5,7 +5,7 @@
 
 import UIKit
 import FoldingCell
-
+import AFDropdownNotification
 
 @objc(ItineraryViewController)
 
@@ -56,6 +56,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     // Refresh
     var refreshControl: UIRefreshControl!
     
+    var notification: AFDropdownNotification!
     
     override func viewWillAppear(animated: Bool) {
         loadItineraryFromCache()
@@ -91,6 +92,15 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         itineraryTableView.insertSubview(refreshControl, atIndex: 0)
+        
+        notification = AFDropdownNotification()
+        notification.titleText = "Jennifer has voted!"
+        notification.topButtonText = "Let's fly!"
+        notification.bottomButtonText = "Cancel"
+        notification.subtitleText = "New itinerary is available."
+        notification.image = UIImage(named: "jlee")
+        notification.dismissOnTap = true
+        notification.notificationDelegate = self
     }
     
     func refreshItinerary(delay:Double, closure:()->()) {
@@ -445,9 +455,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             let itineraryIndexPath = NSIndexPath(forRow: 0, inSection: indexPath.row)
             itineraryTableView.scrollToRowAtIndexPath(itineraryIndexPath, atScrollPosition: .Top, animated: true)
         } else {
-            print("reload page")
-        
-            reloadPage()
+            notification.presentInView(self.view, withGravityAnimation: true)
         }
     }
 
@@ -482,4 +490,17 @@ extension ItineraryViewController: UIScrollViewDelegate {
         self.updateViewConstraints()
         
     }
+}
+
+extension ItineraryViewController: AFDropdownNotificationDelegate {
+    
+    func dropdownNotificationBottomButtonTapped() {
+        notification.dismissWithGravityAnimation(true)
+    }
+    
+    func dropdownNotificationTopButtonTapped() {
+        notification.dismissWithGravityAnimation(true)
+        reloadPage()
+    }
+    
 }
