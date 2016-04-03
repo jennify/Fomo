@@ -6,7 +6,9 @@
 import UIKit
 import AFNetworking
 
-
+ protocol InviteFriendDelegate {
+    func didAddFriend()
+ }
 
 class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
@@ -23,6 +25,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var friends: [User] = [User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance(), User.generateTestInstance()]
     var filteredFriends: [User] = []
     var indexPaths: [NSIndexPath] = []
+    
+    var delegate: InviteFriendDelegate?
 
     
     override func viewWillAppear(animated: Bool) {
@@ -58,7 +62,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if (!searchText.isEmpty) {
             filteredFriends = friends.filter({ (friend) -> Bool in
-                return friend.name!.containsString(searchText)
+                return friend.name!.lowercaseString.containsString(searchText.lowercaseString)
             });
         }
         
@@ -154,6 +158,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             RecommenderClient.sharedInstance.update_itinerary_with_user(itinerary!, user: guest, completion: { (itinerary: Itinerary?, error: NSError?) -> () in
                 if let newItinerary = itinerary {
                     self.itinerary?.travellers = newItinerary.travellers
+                    self.delegate?.didAddFriend()
                     print("New travellers \(newItinerary.travellers)")
                 } else {
                     print("Couldn't update itinerary with user \(error)")

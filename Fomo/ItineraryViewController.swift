@@ -9,7 +9,7 @@ import AFDropdownNotification
 
 @objc(ItineraryViewController)
 
-class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Dimmable {
+class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, InviteFriendDelegate, Dimmable {
 
     // Main views
     var travellersView: TravellersView = TravellersView.newAutoLayoutView()
@@ -270,6 +270,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             dim(withView: dimView)
             let vc = segue.destinationViewController as! FriendsViewController
             vc.itinerary = self.itinerary
+            vc.delegate = self
         }
     }
 
@@ -279,6 +280,10 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     @IBAction func inviteFromPopup(segue: UIStoryboardSegue) {
         dim(removeView: dimView)
+    }
+    
+    func didAddFriend() {
+        reloadPage()
     }
 
     // Folding cell

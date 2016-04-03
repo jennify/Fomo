@@ -58,7 +58,7 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func setUpNavigationBar() {
-        self.title = "Destination"
+        self.title = "Create Trip"
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
     }
     
