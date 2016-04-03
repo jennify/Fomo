@@ -172,20 +172,28 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     
     //Merge with above if time
     func imageWithColor(image: UIImage, color: UIColor) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
-        color.setFill()
+        let offset: CGFloat = 4.0
+        let newSize = CGSize(width: image.size.width + (offset * 2), height: image.size.height +  (offset * 2))
+        UIGraphicsBeginImageContextWithOptions(newSize, false, image.scale)
+        
         
         let context = UIGraphicsGetCurrentContext()! as CGContextRef
-        CGContextTranslateCTM(context, 0, image.size.height)
+        CGContextTranslateCTM(context, 0, newSize.height)
         CGContextScaleCTM(context, 1.0, -1.0);
         CGContextSetBlendMode(context, CGBlendMode.Normal)
-        
-        let rect = CGRectMake(0, 0, image.size.width, image.size.height) as CGRect
+
+        UIColor.fomoLight().setFill()
+        var rect = CGRectMake(0, 0, newSize.width, newSize.height) as CGRect
+        CGContextFillEllipseInRect(context, rect)
+
+        color.setFill()
+        rect = CGRectMake(offset, offset, image.size.width, image.size.height) as CGRect
         CGContextClipToMask(context, rect, image.CGImage)
         CGContextFillRect(context, rect)
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext() as UIImage
         UIGraphicsEndImageContext()
+        
         
         return newImage
     }

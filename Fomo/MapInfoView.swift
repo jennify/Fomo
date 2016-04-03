@@ -22,6 +22,7 @@ class MapInfoView: UIView {
     var enhanceButton: UIButton!
     var ratingView: UIView!
     var ratingLabel: UILabel!
+    var ratingTextLabel: UILabel!
     var delegate: MapInfoViewDelegate?
     var enhanced: Bool = false
     
@@ -52,6 +53,7 @@ class MapInfoView: UIView {
         setUpName()
         setUpEnhanceButton()
         setUpRatingView()
+        setUpRatingTextView()
     }
     
     func setUpBackgroundOverlay() {
@@ -105,6 +107,18 @@ class MapInfoView: UIView {
         addSubview(ratingView)
     }
     
+    func setUpRatingTextView() {
+        ratingTextLabel = UILabel()
+        ratingTextLabel.numberOfLines = 0
+        ratingTextLabel.sizeToFit()
+        if let firstRating = attraction.reviews?.first {
+            ratingTextLabel.text = "\"\(firstRating.text!)\""
+            ratingTextLabel.font = UIFont.fomoParagraph()
+            ratingTextLabel.textColor = UIColor.fomoWhite()
+        }
+        addSubview(ratingTextLabel)
+    }
+    
     override func updateConstraints() {
         if !didSetupConstraints {
             updateConstraintsBackgroundOverlay()
@@ -112,7 +126,7 @@ class MapInfoView: UIView {
             updateConstraintsName()
             updateConstraintsEnhanceButton()
             updateConstraintsRatingView()
-            
+            updateCOnstraintRatingTextLabel()
             didSetupConstraints = true
         }
         
@@ -139,6 +153,7 @@ class MapInfoView: UIView {
         name.configureForAutoLayout()
         name.autoPinEdgeToSuperviewEdge(.Top, withInset: 10)
         name.autoPinEdge(.Left, toEdge: .Right, ofView: image, withOffset: 10)
+        name.autoPinEdge(.Right, toEdge: .Left, ofView: enhanceButton)
     }
     
     func updateConstraintsEnhanceButton() {
@@ -161,6 +176,13 @@ class MapInfoView: UIView {
         ratingLabel.autoCenterInSuperview()
     }
     
+    func updateCOnstraintRatingTextLabel() {
+        ratingTextLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: name, withOffset: 8)
+        ratingTextLabel.autoPinEdge(.Left, toEdge: .Right, ofView: ratingView, withOffset: 8)
+        ratingTextLabel.autoPinEdgeToSuperviewEdge(.Bottom)
+        ratingTextLabel.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
+    }
+    
     func enhance() {
         delegate?.enhance()
     
@@ -180,6 +202,10 @@ class MapInfoView: UIView {
         image.setImageWithURL(NSURL(string: attraction.imageUrls.first!)!)
         name.text = attraction.name
         ratingLabel.text = "\(attraction.rating!)"
+        if let ratingText = attraction.reviews?.first?.text {
+            ratingTextLabel.text = "\"\(ratingText)\""
+        }
+        
     }
 
 }

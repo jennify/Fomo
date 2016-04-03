@@ -355,7 +355,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         // Header call to action.
         if indexPath.section == 0 {
             let footer = ItineraryFooter()
-            footer.actionLabel.text = "Don't know where to go? Explore!"
+            footer.actionLabel.text = "Where do you want to go? Vote!"
             footer.backgroundColor = backgroundColor
             footer.parentVC = self
             return footer

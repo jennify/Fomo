@@ -45,7 +45,7 @@ class ItineraryFooter: UITableViewCell {
     func initViews() {
         actionLabel.text = "Finished Planning? Finalize Trip."
         actionLabel.font = UIFont.fomoBold(18)
-        actionLabel.textColor = UIColor.darkGrayColor()
+        actionLabel.textColor = UIColor.whiteColor()
         actionLabel.sizeToFit()
         
         bgButtonView.backgroundColor = UIColor.fomoHighlight()
