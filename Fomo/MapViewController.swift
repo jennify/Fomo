@@ -169,9 +169,16 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     }
     
     func updateConstraintsSelectedCircle() {
+        var inset: CGFloat
+        if (UIScreen.mainScreen().bounds.size.height == 736) {
+            inset = 340
+        } else {
+            inset = 306
+        }
+        
         selectedCircle.configureForAutoLayout()
         selectedCircle.autoAlignAxisToSuperviewAxis(.Vertical)
-        selectedCircle.autoPinEdgeToSuperviewEdge(.Top, withInset: 306)
+        selectedCircle.autoPinEdgeToSuperviewEdge(.Top, withInset: inset)
         selectedCircle.autoSetDimension(.Height, toSize: iconCircleDiameter)
         selectedCircle.autoSetDimension(.Width, toSize: iconCircleDiameter)
     }

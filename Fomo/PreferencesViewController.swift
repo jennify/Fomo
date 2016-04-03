@@ -136,7 +136,7 @@ class PreferencesViewController: UIViewController, UICollectionViewDataSource, U
         let fomoNavVC = self.navigationController! as UINavigationController
         fomoNavVC.popToRootViewControllerAnimated(false)
         let container = fomoNavVC.topViewController as! ContainerViewController
-        container.onBrowsePressed(self)
+        container.onNewTripPressed(self)
     }
 }
 
