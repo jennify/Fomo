@@ -9,7 +9,7 @@ import AFDropdownNotification
 
 @objc(ItineraryViewController)
 
-class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, Dimmable {
+class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Dimmable {
 
     // Main views
     let travellersView: TravellersView = TravellersView.newAutoLayoutView()
@@ -62,7 +62,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(animated: Bool) {
         loadItineraryFromCache()
         reloadPage()
-
     }
 
     func reloadPage() {
@@ -221,7 +220,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func setUpNavigationBar() {
         self.title = "Itinerary"
-
         putMapButtonInNavBar()
     }
 
@@ -335,9 +333,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
 
-
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Check if this is the footer cell.
+        
         if isLastTableViewCell(indexPath) {
             let footer = ItineraryFooter()
             footer.backgroundColor = backgroundColor
@@ -346,13 +344,16 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         }
 
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FoldingTripEventCell", forIndexPath: indexPath) as! FoldingTripEventCell
-
-        if itinerary.days![indexPath.section].tripEvents?.count < indexPath.row {
-            cell.attraction = itinerary.days![indexPath.section].tripEvents![0].attraction
-            cell.tripEvent = itinerary.days![indexPath.section].tripEvents![0]
+        
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        if itinerary.days![section].tripEvents?.count < row {
+            cell.attraction = itinerary.days![section].tripEvents![0].attraction
+            cell.tripEvent = itinerary.days![section].tripEvents![0]
         } else {
-            cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
-            cell.tripEvent = itinerary.days![indexPath.section].tripEvents![indexPath.row]
+            cell.attraction = itinerary.days![section].tripEvents![row].attraction
+            cell.tripEvent = itinerary.days![section].tripEvents![row]
         }
 
         cell.parentView = self.view
@@ -396,14 +397,15 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             return
         }
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingTripEventCell
-
+        let section = indexPath.section
+        let row = indexPath.row
         var duration = 0.0
-        if cellHeights[indexPath.section][indexPath.row] == kCloseCellHeight { // open cell
-            cellHeights[indexPath.section][indexPath.row] = kOpenCellHeight
+        if cellHeights[section][row] == kCloseCellHeight { // open cell
+            cellHeights[section][row] = kOpenCellHeight
             cell.selectedAnimation(true, animated: true, completion: nil)
             duration = 0.4
         } else {// close cell
-            cellHeights[indexPath.section][indexPath.row] = kCloseCellHeight
+            cellHeights[section][row] = kCloseCellHeight
             cell.selectedAnimation(false, animated: true, completion: nil)
             self.hideSectionHeaders = true
             duration = 0.8
@@ -434,42 +436,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         calendarView.registerClass(DayCell.self, forCellWithReuseIdentifier: "CodePath.Fomo.DayCell")
         calendarView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
-
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return itinerary.numberDays() + 1
-    }
-
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CodePath.Fomo.DayCell", forIndexPath: indexPath) as! DayCell
-        configureDayCell(cell, indexPath: indexPath)
-        return cell
-    }
-
-    func configureDayCell(cell: DayCell, indexPath: NSIndexPath) {
-        let numberDays = itinerary.numberDays()
-        if indexPath.row < numberDays {
-            cell.dayNum = indexPath.row + 1
-            cell.dayName.text = "\(indexPath.row + 1)"
-            cell.dayLabel.text = "DAY"
-            cell.additionLabel.text = ""
-        } else {
-            cell.dayNum = nil
-            cell.dayLabel.text = ""
-            cell.dayName.text = ""
-            cell.additionLabel.text = "+"
-        }
-
-    }
-
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row < itinerary.numberDays() {
-            let itineraryIndexPath = NSIndexPath(forRow: 0, inSection: indexPath.row)
-            itineraryTableView.scrollToRowAtIndexPath(itineraryIndexPath, atScrollPosition: .Top, animated: true)
-        } else {
-            notification.presentInView(self.view, withGravityAnimation: true)
-        }
-    }
-
+    
     func displayTodo(todo: String) {
         let alertController = UIAlertController(title: "Fomo", message:"TODO: \(todo)", preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
@@ -501,6 +468,45 @@ extension ItineraryViewController: UIScrollViewDelegate {
         self.updateViewConstraints()
 
     }
+}
+
+extension ItineraryViewController:  UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return itinerary.numberDays() + 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CodePath.Fomo.DayCell", forIndexPath: indexPath) as! DayCell
+        configureDayCell(cell, indexPath: indexPath)
+        return cell
+    }
+    
+    func configureDayCell(cell: DayCell, indexPath: NSIndexPath) {
+        let numberDays = itinerary.numberDays()
+        if indexPath.row < numberDays {
+            cell.dayNum = indexPath.row + 1
+            cell.dayName.text = "\(indexPath.row + 1)"
+            cell.dayLabel.text = "DAY"
+            cell.additionLabel.text = ""
+        } else {
+            cell.dayNum = nil
+            cell.dayLabel.text = ""
+            cell.dayName.text = ""
+            cell.additionLabel.text = "+"
+        }
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row < itinerary.numberDays() {
+            let itineraryIndexPath = NSIndexPath(forRow: 0, inSection: indexPath.row)
+            itineraryTableView.scrollToRowAtIndexPath(itineraryIndexPath, atScrollPosition: .Top, animated: true)
+        } else {
+            notification.presentInView(self.view, withGravityAnimation: true)
+        }
+    }
+    
+    
 }
 
 extension ItineraryViewController: AFDropdownNotificationDelegate {
