@@ -111,13 +111,6 @@ extension UIColor {
     }
     
     class func colorsTest(index: Int) -> UIColor {
-        let colors1 = [
-            UIColor.initWithHex("1e1111"),
-            UIColor.initWithHex("b5b6b5"),
-            UIColor.initWithHex("ecede8"),
-            UIColor.initWithHex("f8f9fc"),
-            UIColor.initWithHex("dfdeff"),
-        ]
         // Tree branch
         let colors = [
             UIColor.initWithHex("2f2c30"),

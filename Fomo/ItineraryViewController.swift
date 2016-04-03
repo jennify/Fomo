@@ -16,13 +16,17 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     let addTravellerButtonContainer: UIView = UIView.newAutoLayoutView()
     let addTravellerButton: UIButton = UIButton.newAutoLayoutView()
     let addTravellerIcon: UIImageView = UIImageView.newAutoLayoutView()
-    let tripDetailsView: UIView = UIView.newAutoLayoutView()
     let itineraryTableView: UITableView = UITableView.newAutoLayoutView()
     let calendarView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .Horizontal
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
+    
+    // Trip details view
+    let tripDetailsView: UIView = UIView.newAutoLayoutView()
+    let tripDetailsLabel: UILabel = UILabel.newAutoLayoutView()
+    let tripDetailsImageView: UIImageView = UIImageView.newAutoLayoutView()
 
     // State
     let backgroundColor: UIColor = UIColor.fomoBackground()
@@ -41,8 +45,8 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var travellersHeightConstraint: NSLayoutConstraint?
     var tripDetailsViewHeightConstraint: NSLayoutConstraint?
     var overviewViewHeightConstraint: NSLayoutConstraint?
-    var currentBannerHeight: CGFloat = 200.0
-    var originalBannerHeight: CGFloat = 200.0
+    var currentBannerHeight: CGFloat = 280.0
+    var originalBannerHeight: CGFloat = 280.0
     var destinationBannerHeight: CGFloat = 70.0 + 44
 
     // Overview view
@@ -75,8 +79,11 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         
         travellersView.removeFromSuperview()
         travellersView = TravellersView(travellers: travellers)
-        overviewView.addSubview(travellersView)
+        addTravellerButtonContainer.addSubview(travellersView)
         didSetupConstraints = false
+        
+        setUpTripDetailsView()
+        
         updateViewConstraints()
     }
 
@@ -97,11 +104,20 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpNavigationBar()
         setUpOverview()
         setUpDimView()
-
+        setUpRefreshTableView()
+        setUpDayCellFormatter()
+        setUpNotifications()
+        setUpTripDetailsView()
+        mapViewController = MapViewController(attractions: itinerary.getAttractions())
+    }
+    
+    func setUpRefreshTableView() {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         itineraryTableView.insertSubview(refreshControl, atIndex: 0)
-
+    }
+    
+    func setUpNotifications() {
         notification = AFDropdownNotification()
         notification.titleText = "Jennifer has voted!"
         notification.topButtonText = "Let's fly!"
@@ -110,10 +126,6 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         notification.image = UIImage(named: "jlee")
         notification.dismissOnTap = true
         notification.notificationDelegate = self
-        
-        setUpDayCellFormatter()
-
-        mapViewController = MapViewController(attractions: itinerary.getAttractions())
     }
     
     func setUpDayCellFormatter() {
@@ -151,12 +163,30 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         dimView.alpha = 0
         dimView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     }
+    
+    func setUpTripDetailsView() {
+        
+        tripDetailsLabel.font = UIFont.fomoBold(20)
+        tripDetailsLabel.textColor = UIColor.fomoWhite()
+        if self.itinerary.tripName != nil {
+            tripDetailsLabel.text = "\(itinerary.tripName!) Trip"
+            tripDetailsImageView.image = City.getCoverPhoto(itinerary.tripName!)
+        }
+        
+        tripDetailsImageView.layer.cornerRadius = 30
+        tripDetailsImageView.layer.borderWidth = 2
+        tripDetailsImageView.layer.borderColor = UIColor.fomoWhite().CGColor
+        tripDetailsImageView.clipsToBounds = true
+        
+        tripDetailsView.addSubview(tripDetailsImageView)
+        tripDetailsView.addSubview(tripDetailsLabel)
+    }
 
     func setUpOverview() {
         initScrollView()
-        let effect = UIBlurEffect(style: .Light)
+        let effect = UIBlurEffect(style: .Dark)
         blurView = UIVisualEffectView(effect: effect)
-        blurView.alpha = 0.5
+        blurView.alpha = 0.2
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
         cityImageView.addSubview(blurView)
 
@@ -171,7 +201,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         addTravellerButtonContainer.backgroundColor = UIColor.clearColor()
 
         overviewView.addSubview(cityImageView)
-        overviewView.addSubview(travellersView)
+        addTravellerButtonContainer.addSubview(travellersView)
         overviewView.addSubview(addTravellerButtonContainer)
         overviewView.addSubview(tripDetailsView)
         overviewView.addSubview(calendarView)
@@ -194,29 +224,37 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             overviewView.autoPinEdgeToSuperviewEdge(.Left)
             overviewView.autoPinEdgeToSuperviewEdge(.Right)
             overviewView.autoSetDimension(.Height, toSize: originalBannerHeight).autoIdentify("overviewViewHeight")
-
-            travellersView.autoPinEdgeToSuperviewEdge(.Top)
-            travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16).autoIdentify("travellersViewHeight")
-            travellersView.autoPinEdgeToSuperviewEdge(.Left)
-            travellersView.autoPinEdge(.Right, toEdge: .Left, ofView: addTravellerButtonContainer)
-
-            addTravellerButtonContainer.autoPinEdgeToSuperviewEdge(.Top)
-            addTravellerButtonContainer.autoPinEdgeToSuperviewEdge(.Right)
+            
+            tripDetailsView.autoPinEdgeToSuperviewEdge(.Left)
+            tripDetailsView.autoPinEdgeToSuperviewEdge(.Right)
+            tripDetailsViewHeightConstraint = tripDetailsView.autoSetDimension(.Height, toSize: 120).autoIdentify("tripDetailsViewHeight")
+            tripDetailsView.autoPinEdgeToSuperviewEdge(.Top)
+            
+            // Set up constraints inside trip details view
+            tripDetailsImageView.autoCenterInSuperview()
+            tripDetailsImageView.autoSetDimension(.Height, toSize: 60)
+            tripDetailsImageView.autoSetDimension(.Width, toSize: 60)
+            tripDetailsLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripDetailsImageView, withOffset: 8)
+            tripDetailsLabel.autoAlignAxisToSuperviewMarginAxis(.Vertical)
+        
+            addTravellerButtonContainer.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripDetailsView)
+            addTravellerButtonContainer.autoAlignAxisToSuperviewMarginAxis(.Vertical)
             addTravellerButtonContainer.autoMatchDimension(.Height, toDimension: .Height, ofView: travellersView)
+            
+            travellersView.autoPinEdgeToSuperviewEdge(.Top)
+            travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16)
+            travellersView.autoPinEdgeToSuperviewEdge(.Left)
+            travellersView.autoPinEdge(.Right, toEdge: .Left, ofView: addTravellerButton)
+            
             addTravellerButton.autoSetDimension(.Height, toSize: 30)
             addTravellerButton.autoSetDimension(.Width, toSize: 30)
             addTravellerButton.autoAlignAxisToSuperviewAxis(.Horizontal)
             addTravellerButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 15)
 
-            tripDetailsView.autoPinEdgeToSuperviewEdge(.Left)
-            tripDetailsView.autoPinEdgeToSuperviewEdge(.Right)
-            tripDetailsViewHeightConstraint = tripDetailsView.autoSetDimension(.Height, toSize: 40).autoIdentify("tripDetailsViewHeight")
-            tripDetailsView.autoPinEdge(.Top, toEdge: .Bottom, ofView: travellersView)
-
             calendarView.autoPinEdgeToSuperviewEdge(.Left)
             calendarView.autoPinEdgeToSuperviewEdge(.Right)
             calendarView.autoSetDimension(.Height, toSize: destinationBannerHeight - 44)
-            calendarView.autoPinEdge(.Top, toEdge: .Bottom, ofView: tripDetailsView)
+            calendarView.autoPinEdge(.Top, toEdge: .Bottom, ofView: addTravellerButtonContainer, withOffset: 8)
 
             itineraryTableView.autoPinEdge(.Top, toEdge: .Bottom, ofView: calendarView)
             itineraryTableView.autoPinEdgeToSuperviewEdge(.Left)
