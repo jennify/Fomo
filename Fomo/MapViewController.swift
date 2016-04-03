@@ -15,6 +15,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     var panoView: GMSPanoramaView!
     var containerView: UIView!
     var mapInfoView: MapInfoView!
+    var selectedCircle: UIView!
     
     var city: City = City.paris()
     var attractions: [Attraction] = [] //Attraction.generateTestInstances()
@@ -22,6 +23,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     var mapInFront: Bool = true
     
     var didSetupConstraints = false
+    
+    let iconCircleDiameter: CGFloat = 27.5
     
     init(attractions: [Attraction]) {
         self.attractions = attractions
@@ -45,6 +48,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         setUpMapView()
         setUpMarkers()
         setUpMapInfoView()
+        setUpSelectedCircle()
+        displaySelectedCircleAfterDelay()
     }
     
     func setUpContainerView() {
@@ -53,9 +58,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     }
     
     func setUpMapView() {
-        let lat = city.location!.coordinate.latitude
-        let lng = city.location!.coordinate.longitude
-        let camera = GMSCameraPosition.cameraWithLatitude(lat, longitude:lng, zoom:12)
+        let firstAttraction = attractions.first!
+        let lat = firstAttraction.location?.coordinate.latitude
+        let lng = firstAttraction.location?.coordinate.longitude
+        
+        let camera = GMSCameraPosition.cameraWithLatitude(lat!, longitude:lng!, zoom:13)
         mapView = GMSMapView.mapWithFrame(.zero, camera: camera)
         mapView.delegate = self
         containerView.addSubview(mapView)
@@ -96,6 +103,16 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         view.addSubview(mapInfoView)
     }
     
+    func setUpSelectedCircle() {
+        selectedCircle = UIView()
+        selectedCircle.alpha = 0.3
+        selectedCircle.backgroundColor = UIColor.blackColor()
+        selectedCircle.layer.cornerRadius = iconCircleDiameter / 2
+        selectedCircle.clipsToBounds = true
+        selectedCircle.hidden = true
+        view.addSubview(selectedCircle)
+    }
+    
     func getAttractionPosition(attraction: Attraction) -> CLLocationCoordinate2D {
         let lat = attraction.location!.coordinate.latitude
         let lng = attraction.location!.coordinate.longitude
@@ -104,6 +121,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     
     func swapMapAndPanoView() {
         if (mapInFront) {
+            selectedCircle.hidden = true
             mapInFront = false
             UIView.transitionFromView(mapView, toView: panoView, duration: 0.5, options: .TransitionCrossDissolve, completion: { (Bool) in
                 self.containerView.addSubview(self.mapView)
@@ -112,6 +130,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
                 self.updateViewConstraints()
             });
         } else {
+            selectedCircle.hidden = false
             mapInFront = true
             UIView.transitionFromView(panoView, toView: mapView, duration: 0.5, options: .TransitionCrossDissolve, completion: { (Bool) in
                 self.containerView.addSubview(self.panoView)
@@ -133,6 +152,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
             containerView.autoPinEdgesToSuperviewEdges()
             
             updateConstraintsMapInfoView()
+            updateConstraintsSelectedCircle()
             
             didSetupConstraints = true
         }
@@ -148,11 +168,33 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
         mapInfoView.autoSetDimension(.Height, toSize: 100)
     }
     
+    func updateConstraintsSelectedCircle() {
+        selectedCircle.configureForAutoLayout()
+        selectedCircle.autoAlignAxisToSuperviewAxis(.Vertical)
+        selectedCircle.autoPinEdgeToSuperviewEdge(.Top, withInset: 306)
+        selectedCircle.autoSetDimension(.Height, toSize: iconCircleDiameter)
+        selectedCircle.autoSetDimension(.Width, toSize: iconCircleDiameter)
+    }
+    
     func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
         let attraction = marker.userData as! Attraction
         panoView.moveNearCoordinate(getAttractionPosition(attraction))
         mapInfoView.refreshView(attraction)
+        displaySelectedCircleAfterDelay()
         return false
+    }
+    
+    func mapView(mapView: GMSMapView, willMove gesture: Bool) {
+        selectedCircle.hidden = true
+    }
+    
+    func displaySelectedCircleAfterDelay() {
+        selectedCircle.hidden = true
+        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(MapViewController.displaySelectedCircle), userInfo: nil, repeats: false)
+    }
+    
+    func displaySelectedCircle() {
+        selectedCircle.hidden = false
     }
     
     func scaleImage(image: UIImage) -> UIImage {

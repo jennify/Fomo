@@ -66,6 +66,8 @@ class MapInfoView: UIView {
     func setUpImage() {
         image = UIImageView()
         image.setImageWithURL(NSURL(string: attraction.imageUrls.first!)!)
+        image.contentMode = .ScaleAspectFill
+        image.clipsToBounds = true
         addSubview(image)
     }
     

@@ -230,6 +230,7 @@ extension UIColor {
     }
     
     class func hotels() -> UIColor {
-        return UIColor.initWithHex("C0C0C0")
+        //return UIColor.initWithHex("C0C0C0")
+        return UIColor.initWithHex("67BCFF")
     }
 }
