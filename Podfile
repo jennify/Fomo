@@ -13,6 +13,7 @@ pod 'TisprCardStack', '~> 0.3.0'
 pod 'AMTumblrHud'
 pod 'GoogleMaps'
 pod 'AFDropdownNotification', '~> 1.0'
+pod 'SCLAlertView'
 
 end
 

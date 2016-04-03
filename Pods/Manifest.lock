@@ -30,6 +30,7 @@ PODS:
   - GoogleMaps (1.12.3)
   - PureLayout (3.0.1)
   - SAConfettiView (0.1.8)
+  - SCLAlertView (0.5.1)
   - TisprCardStack (0.3.0)
 
 DEPENDENCIES:
@@ -42,6 +43,7 @@ DEPENDENCIES:
   - GoogleMaps
   - PureLayout
   - SAConfettiView
+  - SCLAlertView
   - TisprCardStack (~> 0.3.0)
 
 SPEC CHECKSUMS:
@@ -54,6 +56,7 @@ SPEC CHECKSUMS:
   GoogleMaps: a4ac67918d0b5ba5f6b9893ac80487e357779e6c
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   SAConfettiView: c87031a2280659261b730fce3669fb10e73636ee
+  SCLAlertView: 3ac39a863d3e10fc165662b1228b03402297aea9
   TisprCardStack: d79a03e1568b46d3c8351e761383be2a5e5832ad
 
 COCOAPODS: 0.39.0
