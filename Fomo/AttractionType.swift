@@ -45,7 +45,6 @@ class AttractionType: NSObject {
     
     class func availableCategories() -> [AttractionType] {
         var categories: [AttractionType] = []
-        categories.append(AttractionType(categoryName: "Hotel", categoryIcon: "hotel", categoryColor: UIColor.hotels()))
         categories.append(AttractionType(categoryName: "Culture", categoryIcon: "culture", categoryColor: UIColor.culture()))
         categories.append(AttractionType(categoryName: "Landmarks", categoryIcon: "landmarks", categoryColor: UIColor.landmarks()))
         categories.append(AttractionType(categoryName: "Outdoors", categoryIcon: "outdoors", categoryColor: UIColor.outdoors()))
@@ -60,5 +59,29 @@ class AttractionType: NSObject {
     
     class func hotel() -> AttractionType {
         return AttractionType(categoryName: "Hotel", categoryIcon: "hotel", categoryColor: UIColor.hotels())
+    }
+    
+    class func attractionTypeFromKey(key: String) -> AttractionType {
+        switch (key) {
+        case "premise":
+            return availableCategories()[1]
+        case "park":
+            return availableCategories()[2]
+        case "church":
+            return availableCategories()[0]
+        case "Hotel":
+            return AttractionType(categoryName: "Hotel", categoryIcon: "hotel", categoryColor: UIColor.hotels())
+        case "point_of_interest":
+            return availableCategories()[1]
+        case "museum":
+            return availableCategories()[0]
+        case "food":
+            return availableCategories()[7]
+        case "cemetery":
+            return availableCategories()[2]
+        default:
+                print("unknown category: \(key)")
+                return availableCategories()[0]
+        }
     }
 }

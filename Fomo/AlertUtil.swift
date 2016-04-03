@@ -202,7 +202,7 @@ extension UIColor {
     }
     
     class func outdoors() -> UIColor {
-        return UIColor.initWithHex("DCBE72")
+        return UIColor.initWithHex("CAE774")
     }
     
     class func shows() -> UIColor {
@@ -210,7 +210,7 @@ extension UIColor {
     }
     
     class func nightlife() -> UIColor {
-        return UIColor.initWithHex("9DE775")
+        return UIColor.initWithHex("9CE6BF")
     }
     
     class func shopping() -> UIColor {
@@ -218,7 +218,7 @@ extension UIColor {
     }
     
     class func sports() -> UIColor {
-        return UIColor.initWithHex("8BBDE6")
+        return UIColor.initWithHex("716FE5")
     }
     
     class func restaurants() -> UIColor {
@@ -226,7 +226,7 @@ extension UIColor {
     }
     
     class func vices() -> UIColor {
-        return UIColor.initWithHex("AC6EE5")
+        return UIColor.initWithHex("CE70BC")
     }
     
     class func hotels() -> UIColor {

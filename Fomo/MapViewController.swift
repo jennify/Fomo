@@ -17,11 +17,20 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     var mapInfoView: MapInfoView!
     
     var city: City = City.paris()
-    var attractions: [Attraction] = Attraction.generateTestInstances()
+    var attractions: [Attraction] = [] //Attraction.generateTestInstances()
     
     var mapInFront: Bool = true
     
     var didSetupConstraints = false
+    
+    init(attractions: [Attraction]) {
+        self.attractions = attractions
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +73,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     
     func setUpMarkers() {
         for attraction in attractions {
-            let attractionType = attraction.types!.first!
+            let type = attraction.types!.first!
+            let attractionType = AttractionType.attractionTypeFromKey(type.name!)
             
             let icon = attractionType.icon
             let scaledIcon = scaleImage(icon!)
@@ -95,7 +105,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
     func swapMapAndPanoView() {
         if (mapInFront) {
             mapInFront = false
-            UIView.transitionFromView(mapView, toView: panoView, duration: 1, options: .TransitionCrossDissolve, completion: { (Bool) in
+            UIView.transitionFromView(mapView, toView: panoView, duration: 0.5, options: .TransitionCrossDissolve, completion: { (Bool) in
                 self.containerView.addSubview(self.mapView)
                 self.containerView.sendSubviewToBack(self.mapView)
                 self.didSetupConstraints = false
@@ -103,7 +113,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate, GMSPanoramaViewDe
             });
         } else {
             mapInFront = true
-            UIView.transitionFromView(panoView, toView: mapView, duration: 1, options: .TransitionCrossDissolve, completion: { (Bool) in
+            UIView.transitionFromView(panoView, toView: mapView, duration: 0.5, options: .TransitionCrossDissolve, completion: { (Bool) in
                 self.containerView.addSubview(self.panoView)
                 self.containerView.sendSubviewToBack(self.panoView)
                 self.didSetupConstraints = false
