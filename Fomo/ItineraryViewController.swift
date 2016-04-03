@@ -10,7 +10,7 @@ import AFDropdownNotification
 @objc(ItineraryViewController)
 
 class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, Dimmable {
-    
+
     // Main views
     let travellersView: TravellersView = TravellersView.newAutoLayoutView()
     let addTravellerButtonContainer: UIView = UIView.newAutoLayoutView()
@@ -23,7 +23,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         layout.scrollDirection = .Horizontal
         return UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
     }()
-    
+
     // State
     let backgroundColor: UIColor = UIColor.fomoBackground()
     var itinerary: Itinerary = Itinerary.generateTestInstance()
@@ -31,7 +31,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var hideSectionHeaders = false
     var didSetupConstraints = false
     var hasItinerary = true
-    
+
     // Cell state
     var cellHeights = [[CGFloat]]()
     var kCloseCellHeight: CGFloat = FoldingTripEventCell.topViewHeight + 8 // equal or greater foregroundView height
@@ -44,33 +44,34 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     var currentBannerHeight: CGFloat = 200.0
     var originalBannerHeight: CGFloat = 200.0
     var destinationBannerHeight: CGFloat = 70.0 + 44
-    
+
     // Overview view
     let overviewView: UIView = UIView.newAutoLayoutView()
     let cityImageView: UIImageView = UIImageView.newAutoLayoutView()
     var blurView: UIVisualEffectView = UIVisualEffectView.newAutoLayoutView()
-    
+
     // Dim view
     var dimView = UIView()
-    
+
     // Refresh
     var refreshControl: UIRefreshControl!
-    
+
     var notification: AFDropdownNotification!
-    
+    var mapViewController: MapViewController!
+
     override func viewWillAppear(animated: Bool) {
         loadItineraryFromCache()
         reloadPage()
-        
+
     }
-    
+
     func reloadPage() {
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
         itineraryTableView.reloadData()
         travellersView.initViews()
         travellersView.updateConstraints()
     }
-    
+
     func loadItineraryFromCache() {
         if Cache.itinerary != nil {
             itinerary = Cache.itinerary!
@@ -79,7 +80,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             print("Using test instance")
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadItineraryFromCache()
@@ -88,11 +89,11 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         setUpNavigationBar()
         setUpOverview()
         setUpDimView()
-        
+
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         itineraryTableView.insertSubview(refreshControl, atIndex: 0)
-        
+
         notification = AFDropdownNotification()
         notification.titleText = "Jennifer has voted!"
         notification.topButtonText = "Let's fly!"
@@ -101,8 +102,10 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         notification.image = UIImage(named: "jlee")
         notification.dismissOnTap = true
         notification.notificationDelegate = self
+
+        mapViewController = MapViewController()
     }
-    
+
     func refreshItinerary(delay:Double, closure:()->()) {
         Cache.refreshItinerary () {
             (response:Itinerary? ,error:NSError?) in
@@ -114,7 +117,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
                 print("Could not refresh page")
             }
         }
-        
+
         dispatch_after(
             dispatch_time(
                 DISPATCH_TIME_NOW,
@@ -122,18 +125,18 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             ),
             dispatch_get_main_queue(), closure)
     }
-    
+
     func onRefresh() {
         refreshItinerary(2, closure: {
             self.refreshControl.endRefreshing()
         })
     }
-    
+
     func setUpDimView() {
         dimView.alpha = 0
         dimView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     }
-    
+
     func setUpOverview() {
         initScrollView()
         let effect = UIBlurEffect(style: .Light)
@@ -143,15 +146,15 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         cityImageView.addSubview(blurView)
 
     }
-    
+
     override func loadView() {
         view = UIView()
-        
+
         tripDetailsView.backgroundColor = UIColor.clearColor()
         calendarView.backgroundColor = UIColor.clearColor()
         travellersView.backgroundColor = UIColor.clearColor()
         addTravellerButtonContainer.backgroundColor = UIColor.clearColor()
-        
+
         overviewView.addSubview(cityImageView)
         overviewView.addSubview(travellersView)
         overviewView.addSubview(addTravellerButtonContainer)
@@ -176,7 +179,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             overviewView.autoPinEdgeToSuperviewEdge(.Left)
             overviewView.autoPinEdgeToSuperviewEdge(.Right)
             overviewView.autoSetDimension(.Height, toSize: originalBannerHeight).autoIdentify("overviewViewHeight")
-            
+
             travellersView.autoPinEdgeToSuperviewEdge(.Top)
             travellersHeightConstraint = travellersView.autoSetDimension(.Height, toSize: travellersView.faceHeight + 16).autoIdentify("travellersViewHeight")
             travellersView.autoPinEdgeToSuperviewEdge(.Left)
@@ -189,7 +192,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             addTravellerButton.autoSetDimension(.Width, toSize: 30)
             addTravellerButton.autoAlignAxisToSuperviewAxis(.Horizontal)
             addTravellerButton.autoPinEdgeToSuperviewEdge(.Right, withInset: 15)
-            
+
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Left)
             tripDetailsView.autoPinEdgeToSuperviewEdge(.Right)
             tripDetailsViewHeightConstraint = tripDetailsView.autoSetDimension(.Height, toSize: 40).autoIdentify("tripDetailsViewHeight")
@@ -218,38 +221,46 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func setUpNavigationBar() {
         self.title = "Itinerary"
-        
+
+        putMapButtonInNavBar()
+    }
+
+    func putMapButtonInNavBar() {
         let button: UIButton = UIButton(type: .Custom)
         let iconTinted = UIImageView()
-        iconTinted.image = UIImage(named: "car")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+        iconTinted.image = UIImage(named: "map")!.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
         iconTinted.tintColor = UIColor.fomoHighlight()
-        
+
         button.setImage(iconTinted.image, forState: .Normal)
-        button.setImage(UIImage(named: "car"), forState: .Highlighted)
-        
-        button.addTarget(self, action: "finalizeItinerary", forControlEvents: UIControlEvents.TouchUpInside)
-        button.frame = CGRectMake(0, 0, 30, 30)
-        
+        button.setImage(UIImage(named: "map"), forState: .Highlighted)
+
+        button.addTarget(self, action: #selector(ItineraryViewController.displayMap), forControlEvents: UIControlEvents.TouchUpInside)
+        button.frame = CGRectMake(0, 0, 20, 20)
+
         let barButtonItem = UIBarButtonItem(customView: button)
-        
+
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = barButtonItem
     }
-    
+
+    func displayMap() {
+        let navController = UINavigationController()
+        navController.modalTransitionStyle = .FlipHorizontal
+        navController.viewControllers = [mapViewController]
+        presentViewController(navController, animated: true, completion: nil)
+    }
+
     func finalizeItinerary() {
-//        let doneViewController = DoneViewController()
-//        doneViewController.itinerary = itinerary
-//        self.navigationController?.pushViewController(doneViewController, animated: true)
-        
-        let mapViewController = MapViewController()
-        self.navigationController?.pushViewController(mapViewController, animated: true)
+        let doneViewController = DoneViewController()
+        doneViewController.itinerary = itinerary
+        self.navigationController?.pushViewController(doneViewController, animated: true)
     }
 
     // Add Traveller
-    
+
     func onAddTravellerPressed(sender: AnyObject) {
         self.performSegueWithIdentifier("friendsTripSegue", sender: self)
     }
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "friendsTripSegue" {
             dim(withView: dimView)
@@ -257,22 +268,22 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             vc.itinerary = self.itinerary
         }
     }
-    
+
     @IBAction func cancelFromPopup(segue: UIStoryboardSegue) {
         dim(removeView: dimView)
     }
-    
+
     @IBAction func inviteFromPopup(segue: UIStoryboardSegue) {
         dim(removeView: dimView)
     }
 
     // Folding cell
-    
+
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        
+
         if cell is FoldingTripEventCell {
             let foldingCell = cell as! FoldingTripEventCell
-            
+
             if cellHeights[indexPath.section][indexPath.row] == kCloseCellHeight {
                 foldingCell.selectedAnimation(false, animated: false, completion:nil)
             } else {
@@ -280,24 +291,24 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-    
-    
+
+
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return cellHeights[indexPath.section][indexPath.row]
     }
-    
-    
+
+
     // Itinerary Methods
 
     func setUpItineraryTableView() {
-        
+
         for dayNum in 0...itinerary.days!.count-1 {
             cellHeights.append([CGFloat]())
             for _ in 0...itinerary.days![dayNum].tripEvents!.count-1 {
                 cellHeights[dayNum].append(kCloseCellHeight)
             }
         }
-        
+
         itineraryTableView.delegate = self
         itineraryTableView.dataSource = self
         itineraryTableView.registerClass(TripEventCell.self, forCellReuseIdentifier: "CodePath.Fomo.TripEventCell")
@@ -318,11 +329,11 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         return itinerary.days![section].tripEvents!.count - 1
     }
-    
+
     func isLastTableViewCell(indexPath: NSIndexPath) -> Bool {
         return indexPath.section == itinerary.numberDays() - 1  && indexPath.row == itinerary.days![indexPath.section - 1].tripEvents!.count - 1
     }
-    
+
 
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -333,9 +344,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             footer.parentVC = self
             return footer
         }
-        
+
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FoldingTripEventCell", forIndexPath: indexPath) as! FoldingTripEventCell
-        
+
         if itinerary.days![indexPath.section].tripEvents?.count < indexPath.row {
             cell.attraction = itinerary.days![indexPath.section].tripEvents![0].attraction
             cell.tripEvent = itinerary.days![indexPath.section].tripEvents![0]
@@ -343,7 +354,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.attraction = itinerary.days![indexPath.section].tripEvents![indexPath.row].attraction
             cell.tripEvent = itinerary.days![indexPath.section].tripEvents![indexPath.row]
         }
-        
+
         cell.parentView = self.view
         cell.contentView.backgroundColor = backgroundColor
         if !cell.didAwake {
@@ -365,7 +376,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         configureHeaderCell(cell, section: section)
         return cell
     }
-    
+
 
     func configureHeaderCell(cell: DayHeaderCell, section: Int) {
         cell.dayName.text = "DAY \(section + 1)"
@@ -399,7 +410,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
         }
 //        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
-        
+
         UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseOut, animations: { () -> Void in
             tableView.beginUpdates()
             tableView.endUpdates()
@@ -409,7 +420,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
                 self.hideSectionHeaders = false
                 UIView.animateWithDuration(0.3, delay: duration + 5, options: .TransitionCrossDissolve, animations: { () -> Void in
                     self.itineraryTableView.reloadData()
-                    
+
                 }, completion: nil)
             }
         }
@@ -447,7 +458,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.dayName.text = ""
             cell.additionLabel.text = "+"
         }
-        
+
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -467,40 +478,40 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 }
 
 extension ItineraryViewController: UIScrollViewDelegate {
-    
+
     func initScrollView() {
     }
-    
+
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let yOffset = scrollView.contentOffset.y
         if yOffset < 0  {
             // Negative offset - let tableview bounce
         } else if(yOffset < originalBannerHeight - destinationBannerHeight) {
             currentBannerHeight = originalBannerHeight - yOffset
-            
+
         } else {
             currentBannerHeight = destinationBannerHeight
-            
+
         }
         updateBanner()
     }
-    
+
     func updateBanner() {
         overviewViewHeightConstraint?.constant = currentBannerHeight - originalBannerHeight
         self.updateViewConstraints()
-        
+
     }
 }
 
 extension ItineraryViewController: AFDropdownNotificationDelegate {
-    
+
     func dropdownNotificationBottomButtonTapped() {
         notification.dismissWithGravityAnimation(true)
     }
-    
+
     func dropdownNotificationTopButtonTapped() {
         notification.dismissWithGravityAnimation(true)
         reloadPage()
     }
-    
+
 }
