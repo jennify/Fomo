@@ -103,7 +103,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         notification.dismissOnTap = true
         notification.notificationDelegate = self
 
-        mapViewController = MapViewController()
+        mapViewController = MapViewController(attractions: itinerary.getAttractions())
     }
 
     func refreshItinerary(delay:Double, closure:()->()) {

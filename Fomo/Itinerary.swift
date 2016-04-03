@@ -135,4 +135,16 @@ class Itinerary: NSObject {
         
         return itinerary
     }
+    
+    func getAttractions() -> [Attraction] {
+        var attractions: [Attraction] = []
+
+        for day in days! {
+            for tripEvent in day.tripEvents! {
+                attractions.append(tripEvent.attraction!)
+            }
+        }
+        
+        return attractions
+    }
 }
