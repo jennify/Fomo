@@ -28,17 +28,14 @@ class ItineraryFooter: UITableViewCell {
     
     override func updateConstraints() {
         if !didSetupConstraints {
-//            continueImageView.autoSetDimension(.Width, toSize: 40)
-//            continueImageView.autoSetDimension(.Height, toSize: 40)
-//            continueImageView.autoPinEdgeToSuperviewEdge(.Top, withInset: 15, relation: .Equal)
-//            continueImageView.autoAlignAxisToSuperviewAxis(.Vertical)
-
             actionLabel.autoCenterInSuperview()
-//            actionLabel.autoAlignAxisToSuperviewAxis(.Vertical)
-//            actionLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: continueImageView, withOffset: 4)
             
-            bgButtonView.autoPinEdgesToSuperviewEdgesWithInsets(UIEdgeInsets(top: 32, left: 8, bottom: 32, right: 8))
-            
+            bgButtonView.autoCenterInSuperview()
+            bgButtonView.autoSetDimension(.Height, toSize: 30)
+            bgButtonView.autoPinEdgeToSuperviewEdge(.Right, withInset: 8)
+            bgButtonView.autoPinEdgeToSuperviewEdge(.Left, withInset: 8)
+            bgButtonView.autoPinEdgeToSuperviewEdge(.Top, withInset: 10)
+            bgButtonView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 10)
             didSetupConstraints = true
         }
         
@@ -46,19 +43,17 @@ class ItineraryFooter: UITableViewCell {
     }
     
     func initViews() {
-        
         actionLabel.text = "Finished Planning? Finalize Trip."
-        actionLabel.font = UIFont.fomoH2()
+        actionLabel.font = UIFont.fomoBold(18)
         actionLabel.textColor = UIColor.darkGrayColor()
+        actionLabel.sizeToFit()
         
-//        continueImageView.image = UIImage(named: "smiling")
         bgButtonView.backgroundColor = UIColor.fomoHighlight()
-        bgButtonView.layer.cornerRadius = 10
+        bgButtonView.layer.cornerRadius = 5
         bgButtonView.clipsToBounds = true
         
         addSubview(bgButtonView)
         bgButtonView.addSubview(actionLabel)
-//        addSubview(continueImageView)
         
     }
 }

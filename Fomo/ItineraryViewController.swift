@@ -278,11 +278,12 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     // Folding cell
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-
+        let section = indexPath.section - 1
+        let row = indexPath.row
         if cell is FoldingTripEventCell {
             let foldingCell = cell as! FoldingTripEventCell
 
-            if cellHeights[indexPath.section][indexPath.row] == kCloseCellHeight {
+            if cellHeights[section][row] == kCloseCellHeight {
                 foldingCell.selectedAnimation(false, animated: false, completion:nil)
             } else {
                 foldingCell.selectedAnimation(true, animated: false, completion: nil)
@@ -292,7 +293,11 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return cellHeights[indexPath.section][indexPath.row]
+        if indexPath.section == 0 || isLastTableViewCell(indexPath){
+            // First view
+            return 55
+        }
+        return cellHeights[indexPath.section - 1][indexPath.row]
     }
 
 
@@ -318,26 +323,39 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return itinerary.numberDays()
+        // Extra section for top section for call to action.
+        return itinerary.numberDays() + 1
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == itinerary.numberDays() - 1 {
-            return itinerary.days![section].tripEvents!.count - 1 + 1
+        if section == 0 {
+            return 1
         }
-        return itinerary.days![section].tripEvents!.count - 1
+        let realSection = section - 1
+        if realSection == itinerary.numberDays() - 1 {
+            return itinerary.days![realSection].tripEvents!.count - 1 + 1
+        }
+        return itinerary.days![realSection].tripEvents!.count - 1
     }
 
     func isLastTableViewCell(indexPath: NSIndexPath) -> Bool {
-        return indexPath.section == itinerary.numberDays() - 1  && indexPath.row == itinerary.days![indexPath.section - 1].tripEvents!.count - 1
+        let section = indexPath.section - 1
+        return section == itinerary.numberDays() - 1  && indexPath.row == itinerary.days![section - 1].tripEvents!.count - 1
     }
 
-
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // Check if this is the footer cell.
-        
+        // Footer call to action.
         if isLastTableViewCell(indexPath) {
             let footer = ItineraryFooter()
+            footer.backgroundColor = backgroundColor
+            footer.parentVC = self
+            return footer
+        }
+        
+        // Header call to action.
+        if indexPath.section == 0 {
+            let footer = ItineraryFooter()
+            footer.actionLabel.text = "Don't know where to go? Explore!"
             footer.backgroundColor = backgroundColor
             footer.parentVC = self
             return footer
@@ -345,7 +363,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
         let cell = tableView.dequeueReusableCellWithIdentifier("CodePath.Fomo.FoldingTripEventCell", forIndexPath: indexPath) as! FoldingTripEventCell
         
-        let section = indexPath.section
+        let section = indexPath.section - 1
         let row = indexPath.row
         
         if itinerary.days![section].tripEvents?.count < row {
@@ -374,7 +392,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             return hiddenSectionHeader
         }
         let cell = tableView.dequeueReusableHeaderFooterViewWithIdentifier("CodePath.Fomo.DayHeaderCell") as! DayHeaderCell
-        configureHeaderCell(cell, section: section)
+        configureHeaderCell(cell, section: section - 1)
         return cell
     }
 
@@ -386,18 +404,31 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
         return 30.0
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        itineraryTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        itineraryTableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
+        // Go to Done View.
         if isLastTableViewCell(indexPath) {
+            self.finalizeItinerary()
+            return
+        }
+        
+        // Go to Browse and Explore view.
+        if indexPath.section == 0 {
             let decVC = DecisionCardViewController()
             self.navigationController?.pushViewController(decVC, animated: true)
             return
         }
+        
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FoldingTripEventCell
-        let section = indexPath.section
+        let section = indexPath.section - 1
         let row = indexPath.row
         var duration = 0.0
         if cellHeights[section][row] == kCloseCellHeight { // open cell
