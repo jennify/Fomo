@@ -6,6 +6,7 @@
 import UIKit
 import CoreData
 import GoogleMaps
+import SCLAlertView
 
 // All Notification Types Here
 let userDidLogoutNotification = "kUserDidLogoutNotification"
@@ -63,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     UIView.transitionWithView(self.window!, duration: 0.5, options: .TransitionCrossDissolve, animations: { () -> Void in
                         self.window?.rootViewController = vc
+                        
                     }, completion:nil)
                 }
             }

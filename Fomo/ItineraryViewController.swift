@@ -12,7 +12,7 @@ import AFDropdownNotification
 class ItineraryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Dimmable {
 
     // Main views
-    let travellersView: TravellersView = TravellersView.newAutoLayoutView()
+    var travellersView: TravellersView = TravellersView.newAutoLayoutView()
     let addTravellerButtonContainer: UIView = UIView.newAutoLayoutView()
     let addTravellerButton: UIButton = UIButton.newAutoLayoutView()
     let addTravellerIcon: UIImageView = UIImageView.newAutoLayoutView()
@@ -67,8 +67,14 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
     func reloadPage() {
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
         itineraryTableView.reloadData()
-        travellersView.initViews()
-        travellersView.updateConstraints()
+        
+        let travellers = itinerary.travellers!
+        
+        travellersView.removeFromSuperview()
+        travellersView = TravellersView(travellers: travellers)
+        overviewView.addSubview(travellersView)
+        didSetupConstraints = false
+        updateViewConstraints()
     }
 
     func loadItineraryFromCache() {

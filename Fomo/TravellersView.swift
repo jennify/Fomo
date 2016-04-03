@@ -21,6 +21,13 @@ class TravellersView: UIView {
     var faceHeight: CGFloat = 30
     var loadCache = true
     
+    init(travellers: [User]) {
+        self.travellers = travellers
+        super.init(frame: .zero)
+        initViews()
+        updateConstraints()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initViews()
@@ -32,6 +39,7 @@ class TravellersView: UIView {
         initViews()
         updateConstraints()
     }
+    
     class func createTravellersViewWithUsers(users: [User]?) -> TravellersView {
         let t = TravellersView()
         t.setTravellerFaces(users)

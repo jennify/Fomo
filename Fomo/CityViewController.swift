@@ -4,7 +4,7 @@
 
 
 import UIKit
-
+import SCLAlertView
 
 class CityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
@@ -23,6 +23,24 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
         setUpTableView()
         setUpSearchBar()
         setUpNavigationBar()
+    }
+    
+    func showInviteAlert() {
+        let alertView = SCLAlertView()
+        alertView.addButton("Join the Trip", target:self, selector:#selector(CityViewController.joinItinerary))
+        alertView.showCloseButton = false
+        alertView.showTitle("You're invited!", subTitle: "Christian invited you on a trip!", style: .Success, closeButtonTitle: "Join the Trip", duration: 100.0, colorStyle: 0xA9E1CE, colorTextButton: 0xFFFFFF, circleIconImage: UIImage(named: "christian"))
+    }
+    
+    func joinItinerary() {
+        let itinerary = Cache.itinerary!
+        
+        let fomoNavVC = self.navigationController! as UINavigationController
+//        fomoNavVC.popToRootViewControllerAnimated(false)
+        let container = fomoNavVC.topViewController as! ContainerViewController
+        container.itineraryVC.isNewTrip = true
+        container.itineraryVC.itinerary = itinerary
+        container.onTripPressed(self)
     }
 
     func setUpTableView() {
@@ -87,11 +105,15 @@ class CityViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let city = filteredCities[indexPath.row]
-        let tripViewController = TripViewController()
-        tripViewController.city = city
-        
-        self.navigationController?.pushViewController(tripViewController, animated: true)
+        if (indexPath.row == 0) {
+            showInviteAlert()
+        } else {
+            let city = filteredCities[indexPath.row]
+            let tripViewController = TripViewController()
+            tripViewController.city = city
+            
+            self.navigationController?.pushViewController(tripViewController, animated: true)
+        }
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
