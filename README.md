@@ -1,24 +1,25 @@
 # Fomo
 
-![Fomo Banner](fomo-banner.gif)
-
 Authors: Christian Deonier, Connie Yu, Jennifer Lee
 
-![Fomo Definition](fomo-definition.gif)
+![Fomo Banner](fomo-banner.gif)
 
 Fomo is a travel app for planning group trips. Simply enter dates and a destination, and you'll be presented with suggested itinerary options to upvote/downvote. You can invite friends to join your trip, and everyone can enter their preferences and vote on activities to auto-generate the perfect customized travel itinerary for your group.
 
+![Fomo Definition](fomo-definition.gif)
+
 ## Walkthrough
 
-### Decision:
+Video: Coming soon!
 
-![Decision](fomo-decisionblur.gif)
-![Login](fomo-tender-swiping.gif)
+### Create and Invite friends.
+![Itinerary](fomo-itinerary.gif)
+![Map](fomo-map.gif)
+![Create Trip](fomo-createtrip.gif)
 
-### Itinerary and Login:
+### Browse and Explore locations.
+![Browse](fomo-browse.gif)
 ![Login](fomo-login.gif)
-![Login](fomo-final.gif)
-![Login](fomo-final-state.gif)
 
 ### Hamburger Menu:
 ![Corner](fomo-hamburger.gif)
@@ -39,7 +40,6 @@ Both trip collaborators and organizers can:
 - Sign in
 - Set profile preferences
 
-
 Features:
 - Specify RSVP/commitment status for a trip
 - Add multiple destinations to a single trip
@@ -57,13 +57,6 @@ Features:
 
 ![image]
 (https://raw.githubusercontent.com/jennify/Fomo/master/wireframe.png)
-
-## Old mocks
-![Demo](sprint2.gif)
-
-## Work Board
-https://trello.com/b/0To8XATu/codepath
-
 
 ## License
 
