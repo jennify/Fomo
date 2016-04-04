@@ -111,7 +111,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func updateViewConstraints() {
         if !didSetupConstraints {
             
-            popupView.autoPinToTopLayoutGuideOfViewController(self, withInset: 50)
+            popupView.autoPinToTopLayoutGuideOfViewController(self, withInset: 90)
             popupView.autoPinEdgeToSuperviewEdge(.Bottom, withInset: 50)
             popupView.autoPinEdgeToSuperviewEdge(.Left, withInset: 20)
             popupView.autoPinEdgeToSuperviewEdge(.Right, withInset: 20)
