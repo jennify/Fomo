@@ -439,6 +439,9 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
 
         cell.parentView = self.view
         cell.contentView.backgroundColor = backgroundColor
+        print(cell.attraction?.name)
+        print(cell.tripEvent?.likers?.count)
+//        cell.refresh()
         if !cell.didAwake {
             cell.awakeFromNib()
             cell.didAwake = true

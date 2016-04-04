@@ -74,6 +74,16 @@ class FoldingTripEventCell: FoldingCell {
         updateConstraints()
     }
     
+    func refresh() {
+        let detSeg = detailSegments[1]
+        likeVotersView.removeFromSuperview()
+        likeVotersView = TravellersView(travellers: (tripEvent?.likers)!)
+        detSeg.addSubview(likeVotersView)
+        didSetupConstraints = false
+        
+        self.updateConstraints()
+    }
+    
     override func updateConstraints() {
         if !self.didSetupConstraints {
             let width = UIScreen.mainScreen().bounds.width - 16
