@@ -19,7 +19,7 @@ Video: Coming soon!
 
 ### Browse and Explore locations.
 ![Browse](fomo-browse.gif)
-![Login](fomo-login.gif)
+![Login](fomo-loggingin.gif)
 
 ### Hamburger Menu:
 ![Corner](fomo-hamburger.gif)
