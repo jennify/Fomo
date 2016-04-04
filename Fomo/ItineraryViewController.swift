@@ -138,6 +138,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
             (response:Itinerary? ,error:NSError?) in
             if response != nil {
                 self.itinerary = response!
+                Cache.injectHotelsIntoItinerary(self.itinerary)
                 self.reloadPage()
             } else {
                 print(error)

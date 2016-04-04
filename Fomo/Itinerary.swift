@@ -46,7 +46,7 @@ class Itinerary: NSObject {
         
         for _ in 0...numDays! {
             var tripEventsDict: [NSDictionary] = [NSDictionary]()
-            if attractions?.count < attrStartIndex+3 {
+            if attractions?.count < attrStartIndex+2 {
                 print("Not enough attractions!!!")
                 var a = Attraction.generateTestInstance(City.generateTestInstance()).rawData
                 if attractions!.count > 0 {
@@ -54,25 +54,21 @@ class Itinerary: NSObject {
                 }
                 tripEventsDict = [
                     a,
-                    a,
-                    a,
+                    a
                 ]
             } else {
                 tripEventsDict = [
                     attractions![attrStartIndex],
-                    attractions![attrStartIndex + 1],
-                    attractions![attrStartIndex + 2],
+                    attractions![attrStartIndex + 1]
                 ]
                 
             }
             let dayDict: NSDictionary = [
                 "tripEvents": tripEventsDict,
             ]
-            attrStartIndex = attrStartIndex + 3
+            attrStartIndex = attrStartIndex + 2
             self.days?.append(Day(dictionary: dayDict))
         }
-        
-        
     }
     
     class func itinerariesWithArray(array: [NSDictionary]) -> [Itinerary] {
