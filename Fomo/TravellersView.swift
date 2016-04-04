@@ -81,9 +81,10 @@ class TravellersView: UIView {
             if traveller.profileImageURL == nil || traveller.profileImageURL?.characters.count == 0 {
                 profilePhoto.image = UIImage(named: "noPerson")
             } else {
+                travellerHalos.append(profilePhoto)
                 profilePhoto.setImageWithURL(NSURL(string: traveller.profileImageURL!)!)
             }
-            travellerHalos.append(profilePhoto)
+            
         }
         
         for halo in travellerHalos {
