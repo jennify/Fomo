@@ -186,7 +186,7 @@ class ItineraryViewController: UIViewController, UITableViewDelegate, UITableVie
         initScrollView()
         let effect = UIBlurEffect(style: .Dark)
         blurView = UIVisualEffectView(effect: effect)
-        blurView.alpha = 0.2
+        blurView.alpha = 0.5
         cityImageView.image = City.getCoverPhoto(itinerary.tripName!)
         cityImageView.addSubview(blurView)
 
