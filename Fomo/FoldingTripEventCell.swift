@@ -254,7 +254,6 @@ class FoldingTripEventCell: FoldingCell {
                 websiteLabel.text = ""
             }
             
-//            phoneNumber.addTarget(self, action: "callPhone", forControlEvents: .TouchUpInside)
             if attraction?.phoneNumber != nil {
                 phoneNumber.text = "Call: \(attraction!.phoneNumber!)"
             } else {
@@ -270,6 +269,7 @@ class FoldingTripEventCell: FoldingCell {
             
         }
         ratingLabel.font = UIFont.fomoH2()
+        ratingLabel.textColor = UIColor.fomoWhite()
         
         ratingView.backgroundColor = UIColor.fomoHighlight()
         ratingView.layer.cornerRadius = 5
@@ -294,10 +294,6 @@ class FoldingTripEventCell: FoldingCell {
         phoneNumber.textColor = UIColor.darkGrayColor()
         phoneNumber.font = UIFont.fomoSized(12)
         phoneNumber.numberOfLines = 0
-//        phoneNumber.font = UIFont.fomoSized(12)
-//        phoneNumber.textColor = UIColor.darkGrayColor()
-//        phoneNumber.editable = false
-//        phoneNumber.dataDetectorTypes = .All
         phoneNumber.sizeToFit()
         
         hoursLabel.font = UIFont.fomoSized(12)

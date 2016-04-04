@@ -430,16 +430,12 @@ class DecisionCardCell: TisprCardStackViewCell {
     
     
     func updateViewConstraints() {
-        let stampSize: CGFloat = 120.0
-        let distToEdge: CGFloat = 100
-        likeImageView.autoPinEdgeToSuperviewEdge(.Top, withInset: distToEdge)
-        likeImageView.autoPinEdgeToSuperviewEdge(.Left, withInset: distToEdge)
+        let stampSize: CGFloat = 150.0
+        likeImageView.autoCenterInSuperview()
         likeImageView.autoSetDimension(.Width, toSize: stampSize)
         likeImageView.autoSetDimension(.Height, toSize: stampSize)
         
-        
-        dislikeImageView.autoPinEdgeToSuperviewEdge(.Top, withInset: distToEdge)
-        dislikeImageView.autoPinEdgeToSuperviewEdge(.Right, withInset: distToEdge)
+        dislikeImageView.autoCenterInSuperview()
         dislikeImageView.autoSetDimension(.Width, toSize: stampSize)
         dislikeImageView.autoSetDimension(.Height, toSize: stampSize)
 
