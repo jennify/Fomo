@@ -54,8 +54,7 @@ Features:
 
 ## Wireframe
 [Click to comment](https://redpen.io/no4347182a45a983de):
-
-![image]
+[Intial Wireframes]
 (https://raw.githubusercontent.com/jennify/Fomo/master/wireframe.png)
 
 ## License
