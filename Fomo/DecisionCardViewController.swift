@@ -289,8 +289,8 @@ class DecisionCardViewController: TisprCardStackViewController, TisprCardStackVi
             completeButtonUserInteraction = true
         }
         if cardIndex > 0 && cardIndex < self.recommendations?.attractions?.count {
-            let attraction = self.recommendations?.attractions?[cardIndex]
-            attraction?.vote(self.voteState[cardIndex], completion: nil)
+            let attraction = self.recommendations?.attractions?[cardIndex-1]
+            attraction?.vote(self.voteState[cardIndex - 1], completion: nil)
         }
     }
 }

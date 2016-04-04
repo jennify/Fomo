@@ -6,7 +6,7 @@
 import UIKit
 import BDBOAuth1Manager
 
-let USE_LOCAL_DEV_ENVIROMENT = false
+let USE_LOCAL_DEV_ENVIROMENT = true
 
 class RecommenderClient: BDBOAuth1RequestOperationManager {
     // No Auth attached!
@@ -89,9 +89,17 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         POST(url, parameters: parameters, success:  { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let it = Itinerary(dictionary: response as! NSDictionary)
             Cache.itinerary = it
+            print("New itinerary")
+            for day in it.days! {
+                for a in day.tripEvents! {
+                    print("\(a.attraction!.name) : \(a.aggregatedVote)")
+                }
+            }
             completion(response: it, error: nil)
         }, failure: { (operation: AFHTTPRequestOperation?, error: NSError) -> Void in
+            print(error)
             completion(response: nil, error: error)
+            
         })
     }
 

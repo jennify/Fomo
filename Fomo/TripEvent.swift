@@ -28,6 +28,7 @@ class TripEvent: NSObject {
     var attraction: Attraction?
     var eventType: EventType?
     var vote: Vote? // Current user's vote
+    var aggregatedVote: CGFloat?
     var dislikers: [User]? = []
     var likers: [User]? = []
     var neutrals: [User]? = []
@@ -43,6 +44,7 @@ class TripEvent: NSObject {
         }
         
         self.id = dictionary["placeID"] as? String
+        self.aggregatedVote = dictionary["aggregatedVote"] as? CGFloat
         
         // Parsing likes and dislikes
         let keys: [String] = ["likes", "dislikes", "neutral"]
@@ -55,7 +57,7 @@ class TripEvent: NSObject {
                     "email": u["email"] as! String,
                     "picture": [
                         "data" : [
-                            "url": u["profileImageURL"] as! String,
+                            "url": u["profileImageURL"] as? String ?? "",
                         ]
                     ]
                 ]
