@@ -29,8 +29,13 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     var startDate: NSDate?
     var endDate: NSDate?
     
+    // HUD
     let spinner = UIActivityIndicatorView()
-
+    var webViewBG: UIWebView!
+    var hudBG: UIView!
+    var hudDimBG: UIView!
+    var elephantHud: ElephantHud!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,6 +88,10 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         doneButton.backgroundColor = UIColor.fomoHighlight()
         doneButton.layer.cornerRadius = 5
         
+        elephantHud = ElephantHud()
+        elephantHud.userInteractionEnabled = false
+        elephantHud.stopAnimating()
+        
         view.addSubview(cityImageViewContainer)
         cityImageViewContainer.addSubview(cityImageView)
         view.addSubview(destinationTitleLabel)
@@ -94,10 +103,40 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
         view.addSubview(endDateLabel)
         view.addSubview(endDateButton)
         view.addSubview(doneButton)
+        view.addSubview(elephantHud)
         
         view.setNeedsUpdateConstraints()
     }
     
+//    func setUpHUD() {
+//        let gifName = "elephant"
+//        let filePath = NSBundle.mainBundle().pathForResource(gifName, ofType: "gif")
+//        
+//        // Dimmed view
+//        hudDimBG = UIView()
+//        hudDimBG.backgroundColor = UIColor.blackColor()
+//        hudDimBG.alpha = 0.7
+//
+//        // Circle background
+//        hudBG = UIView()
+//        hudBG.backgroundColor = UIColor.whiteColor()
+//        hudBG.layer.cornerRadius = 100
+//        hudBG.clipsToBounds = true
+//        
+//        // Elephant View
+//        let gif = NSData(contentsOfFile: filePath!)
+//        self.webViewBG = UIWebView()
+//        webViewBG.backgroundColor = UIColor.clearColor()
+//        webViewBG.loadData(gif!, MIMEType: "image/gif", textEncodingName: String(), baseURL: NSURL())
+//        webViewBG.scalesPageToFit = true
+//        webViewBG.contentMode = .ScaleAspectFill
+//        webViewBG.userInteractionEnabled = false
+//        
+//        self.view.addSubview(hudDimBG)
+//        hudBG.addSubview(webViewBG)
+//        self.view.addSubview(hudBG)
+//    }
+//    
     override func updateViewConstraints() {
         if (!didSetupConstraints) {
             
@@ -139,6 +178,11 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
             doneButton.autoAlignAxisToSuperviewAxis(.Vertical)
             doneButton.contentEdgeInsets = UIEdgeInsetsMake(10, 15, 10, 15)
             
+            elephantHud.configureForAutoLayout()
+            elephantHud.autoPinEdgesToSuperviewEdges()
+            elephantHud.updateConstraints()
+        
+            
             didSetupConstraints = true
         }
         
@@ -179,7 +223,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
     }
     
     func createTrip() {
-        showActivityIndicator()
+//        showActivityIndicator()
         doneButton.transform = CGAffineTransformIdentity
 
         let itinerary = Itinerary()
@@ -202,9 +246,10 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
             container.itineraryVC.itinerary = itinerary
             container.onTripPressed(self)
         } else {
-            print("Starting to create itinerary...")
-            let hud = displayHUD(self.view)
-            hud.showAnimated(true)
+            elephantHud.startAnimating()
+            didSetupConstraints = false
+            self.updateViewConstraints()
+            
             
             itinerary.createItinerary { (response: Itinerary?, error: NSError?) -> () in
                 if let itinerary = response {     
@@ -229,7 +274,7 @@ class TripViewController: UIViewController, EPCalendarPickerDelegate {
                 } else {
                     print("Couldn't make itinerary \(error)")
                 }
-                hud.hide()
+                self.elephantHud.stopAnimating()
                 print("Done creating itinerary.")
             }
         }

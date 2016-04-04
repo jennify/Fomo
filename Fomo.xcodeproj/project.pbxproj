@@ -27,6 +27,8 @@
 		7AE6D2D81C7C3E0E009ADC3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D61C7C3E0E009ADC3B /* Main.storyboard */; };
 		7AE6D2DB1C7C3E0E009ADC3B /* Fomo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7AE6D2D91C7C3E0E009ADC3B /* Fomo.xcdatamodeld */; };
 		7AE6D2E01C7C3E0E009ADC3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE6D2DE1C7C3E0E009ADC3B /* LaunchScreen.storyboard */; };
+		7AFE62391CB227AF00C30925 /* elephant.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7AFE62381CB227AF00C30925 /* elephant.gif */; };
+		7AFE623B1CB22C8500C30925 /* ElephantHud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE623A1CB22C8500C30925 /* ElephantHud.swift */; };
 		7D4BD2C03A494A806588BD5F /* Pods_Fomo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 210733FAC28A8926561A77A2 /* Pods_Fomo.framework */; };
 		AA1DCE881C843DD00088DD27 /* Itinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE871C843DD00088DD27 /* Itinerary.swift */; };
 		AA1DCE8A1C843E3C0088DD27 /* Attraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1DCE891C843E3C0088DD27 /* Attraction.swift */; };
@@ -88,6 +90,8 @@
 		7AE6D2DA1C7C3E0E009ADC3B /* Fomo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Fomo.xcdatamodel; sourceTree = "<group>"; };
 		7AE6D2DF1C7C3E0E009ADC3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7AE6D2E11C7C3E0E009ADC3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7AFE62381CB227AF00C30925 /* elephant.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = elephant.gif; sourceTree = "<group>"; };
+		7AFE623A1CB22C8500C30925 /* ElephantHud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElephantHud.swift; sourceTree = "<group>"; };
 		AA1DCE871C843DD00088DD27 /* Itinerary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Itinerary.swift; sourceTree = "<group>"; };
 		AA1DCE891C843E3C0088DD27 /* Attraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attraction.swift; sourceTree = "<group>"; };
 		AA1DCE8D1C843F8C0088DD27 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
@@ -211,6 +215,7 @@
 				AAA132C01CA104CC001736CF /* BigTravellersView.swift */,
 				F9860BE31CA15AE90033F0E9 /* HamburgerButton.swift */,
 				AA9FA5EA1CACDBF000F62599 /* MapInfoView.swift */,
+				7AFE623A1CB22C8500C30925 /* ElephantHud.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 		AAA132BB1CA0F147001736CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7AFE62381CB227AF00C30925 /* elephant.gif */,
 				F9860BF61CA292340033F0E9 /* roadtrip.gif */,
 				F9860BF41CA292240033F0E9 /* heartglasses.gif */,
 				F9860BF21CA2920E0033F0E9 /* camera.gif */,
@@ -348,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A1390E81C7C47C3001488FF /* Images.xcassets in Resources */,
+				7AFE62391CB227AF00C30925 /* elephant.gif in Resources */,
 				7AE6D2E01C7C3E0E009ADC3B /* LaunchScreen.storyboard in Resources */,
 				AAA132BD1CA0F15B001736CF /* ClickerScript-Regular.ttf in Resources */,
 				7AE6D2D81C7C3E0E009ADC3B /* Main.storyboard in Resources */,
@@ -434,6 +441,7 @@
 				AA1DCECA1C8B987A0088DD27 /* DayCell.swift in Sources */,
 				AA1DCE921C8441E60088DD27 /* AttractionType.swift in Sources */,
 				AA6270181CA247B0005532BC /* CarouselViewController.swift in Sources */,
+				7AFE623B1CB22C8500C30925 /* ElephantHud.swift in Sources */,
 				AA1DCECC1C8BA7F30088DD27 /* PreferencesViewController.swift in Sources */,
 				AA7B21C91C968FCB00636007 /* DoneViewController.swift in Sources */,
 				AA1DCED21C8BB2500088DD27 /* FriendCell.swift in Sources */,
