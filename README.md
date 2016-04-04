@@ -1,6 +1,10 @@
 # Fomo
 
+![Fomo Banner](fomo-banner.gif)
+
 Authors: Christian Deonier, Connie Yu, Jennifer Lee
+
+![Fomo Definition](fomo-definition.gif)
 
 Fomo is a travel app for planning group trips. Simply enter dates and a destination, and you'll be presented with suggested itinerary options to upvote/downvote. You can invite friends to join your trip, and everyone can enter their preferences and vote on activities to auto-generate the perfect customized travel itinerary for your group.
 
