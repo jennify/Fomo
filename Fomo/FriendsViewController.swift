@@ -52,6 +52,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func setUpSearchBar() {
         searchBar.placeholder = "Find friend"
         searchBar.barTintColor = UIColor.fomoNavBar().colorWithAlphaComponent(0.8)
+        searchBar.returnKeyType = .Done
         searchBar.layer.borderWidth = 1
         searchBar.layer.borderColor = UIColor.fomoNavBar().colorWithAlphaComponent(0.8).CGColor
         searchBar.delegate = self
@@ -67,6 +68,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         friendsTableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
     
     override func loadView() {
