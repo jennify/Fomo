@@ -196,15 +196,4 @@ class RecommenderClient: BDBOAuth1RequestOperationManager {
         
     }
     
-    func update_itinerary_with_preference (completion: (response: Itinerary?, error: NSError?) -> ()) {
-        let url = recommender_domain + "/restaurants"
-        print(url)
-        // TODO(jlee);
-    }
-    
-    func remove_itinerary (completion: (response: Itinerary?, error: NSError?) -> ()) {
-        let url = recommender_domain + "/restaurants"
-        print(url)
-        // TODO(jlee);
-    }
 }

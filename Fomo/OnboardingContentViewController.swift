@@ -110,7 +110,6 @@ class OnboardingContentViewController: UIViewController {
         
         // set up gif
         let filePath = NSBundle.mainBundle().pathForResource(self.gifName, ofType: "gif")
-        print(self.gifName)
         let gif = NSData(contentsOfFile: filePath!)
         let webViewBG = UIWebView()
         webViewBG.loadData(gif!, MIMEType: "image/gif", textEncodingName: String(), baseURL: NSURL())

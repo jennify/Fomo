@@ -328,7 +328,6 @@ class FoldingTripEventCell: FoldingCell {
     }
     
     func callPhone() {
-        print("Call Phone")
         let busPhone = self.phoneNumber
         if let url = NSURL(string: "tel://\(busPhone)") {
             UIApplication.sharedApplication().openURL(url)

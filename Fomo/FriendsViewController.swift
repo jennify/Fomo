@@ -215,12 +215,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         friendsTableView.reloadData()
         
         let cells = friendsTableView.visibleCells
-        print(cells.count)
         let tableHeight: CGFloat = friendsTableView.frame.size.height
-        print(tableHeight)
         
         for i in cells {
-            print(i)
             let cell: UITableViewCell = i as UITableViewCell
             cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
         }

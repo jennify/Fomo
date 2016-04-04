@@ -89,7 +89,6 @@ class ElephantHud: UIView {
     }
     
     func onTimer() {
-        print("Changing text")
         waitingLabel.text = wittyText[wittyTextIndex]
         wittyTextIndex = (wittyTextIndex + 1) % wittyText.count
     }
