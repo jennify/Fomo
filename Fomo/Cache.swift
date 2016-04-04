@@ -112,8 +112,9 @@ class Cache: NSObject {
                     }
                 }
             }
-            if _currentItinerary != nil {
-                injectHotelsIntoItinerary(_currentItinerary!)
+            
+            if let currentItinerary = _currentItinerary {
+                injectHotelsIntoItinerary(currentItinerary)
             }
             
             return _currentItinerary
